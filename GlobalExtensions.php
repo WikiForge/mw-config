@@ -26,7 +26,6 @@ wfLoadExtensions( [
 	'IPInfo',
 	'LoginNotify',
 	'ManageWiki',
-	'MatomoAnalytics',
 	'MirahezeMagic',
 	'MobileDetect',
 	'NativeSvgHandler',
