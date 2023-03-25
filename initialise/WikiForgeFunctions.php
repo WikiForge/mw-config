@@ -3,7 +3,7 @@
 use MediaWiki\MediaWikiServices;
 use Wikimedia\Rdbms\DBConnRef;
 
-class MirahezeFunctions {
+class WikiForgeFunctions {
 
 	/** @var string */
 	public $dbname;
@@ -29,28 +29,28 @@ class MirahezeFunctions {
 	private const CACHE_DIRECTORY = '/srv/mediawiki/cache';
 
 	private const DEFAULT_SERVER = [
-		'default' => 'miraheze.org',
-		'betaheze' => 'betaheze.org',
+		'default' => 'wikiforge.net',
+		'beta' => 'beta.wikiforge.net',
 	];
 
 	private const GLOBAL_DATABASE = [
-		'default' => 'mhglobal',
+		'default' => 'prodglobal',
 		'beta' => 'testglobal',
 	];
 
 	private const TAGS = [
 		'default' => 'default',
-		'beta' => 'betaheze',
+		'beta' => 'beta',
 	];
 
 	public const LISTS = [
 		'default' => 'production',
-		'betaheze' => 'beta',
+		'beta' => 'beta',
 	];
 
 	public const SUFFIXES = [
-		'wiki' => 'miraheze.org',
-		'wikibeta' => 'betaheze.org',
+		'wiki' => 'wikiforge.net',
+		'wikibeta' => 'beta.wikiforge.net',
 	];
 
 	public function __construct() {
@@ -178,8 +178,8 @@ class MirahezeFunctions {
 	public static function setupHooks() {
 		global $wgHooks;
 
-		$wgHooks['CreateWikiJsonGenerateDatabaseList'][] = 'MirahezeFunctions::onGenerateDatabaseLists';
-		$wgHooks['MediaWikiServices'][] = 'MirahezeFunctions::onMediaWikiServices';
+		$wgHooks['CreateWikiJsonGenerateDatabaseList'][] = 'WikiForgeFunctions::onGenerateDatabaseLists';
+		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 	}
 
 	public static function setupSiteConfiguration() {

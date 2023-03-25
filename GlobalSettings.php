@@ -1,18 +1,8 @@
 <?php
 
-// https://phabricator.miraheze.org/T8703
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 
 // Extensions
-if ( $wi->dbname !== 'ldapwikiwiki' ) {
-	wfLoadExtensions( [
-		'CentralAuth',
-		'GlobalPreferences',
-		'GlobalBlocking',
-		'RemovePII',
-	] );
-}
-
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
 }
@@ -44,8 +34,6 @@ if ( $wi->isExtensionActive( 'SemanticMediaWiki' ) ) {
 
 if ( $wi->isExtensionActive( 'SocialProfile' ) ) {
 	require_once "$IP/extensions/SocialProfile/SocialProfile.php";
-
-	$wgSocialProfileFileBackend = 'miraheze-swift';
 }
 
 if ( $wi->isExtensionActive( 'VisualEditor' ) ) {
@@ -74,7 +62,7 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 		'paths' => [],
 		'modules' => [
 			'parsoid' => [
-				'url' => 'https://mw-lb.miraheze.org/w/rest.php',
+				'url' => 'https://mw1.wikiforge.net/w/rest.php',
 				'domain' => $wi->server,
 				'prefix' => $wi->dbname,
 				'forwardCookies' => (bool)$cwPrivate,
@@ -90,14 +78,14 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 	];
 
 	if ( $wi->isExtensionActive( 'Flow' ) ) {
-		$wgFlowParsoidURL = 'https://mw-lb.miraheze.org/w/rest.php';
+		$wgFlowParsoidURL = 'https://mw1.wikiforge.net/w/rest.php';
 		$wgFlowParsoidPrefix = $wi->dbname;
 		$wgFlowParsoidTimeout = 30;
 		$wgFlowParsoidForwardCookies = (bool)$cwPrivate;
 	}
 }
 
-$wgAllowedCorsHeaders[] = 'X-Miraheze-Debug';
+$wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
 // Closed Wikis
 if ( $cwClosed ) {
@@ -123,7 +111,7 @@ if ( $cwClosed ) {
 if ( !$cwPrivate ) {
 	$wgRCFeeds['irc'] = [
 		'formatter' => MirahezeIRCRCFeedFormatter::class,
-		'uri' => 'udp://[2a10:6740::6:505]:5070',
+		'uri' => 'udp://bots1.wikiforge.net:5070',
 		'add_interwiki_prefix' => false,
 		'omit_bots' => true,
 	];
@@ -143,18 +131,14 @@ if ( $cwExperimental ) {
 
 // Dynamic cookie settings dependant on $wgServer
 if ( preg_match( '/miraheze\.org$/', $wi->server ) ) {
-	$wgCentralAuthCookieDomain = '.miraheze.org';
-	$wgMFStopRedirectCookieHost = '.miraheze.org';
-} elseif ( preg_match( '/betaheze\.org$/', $wi->server ) ) {
-	$wgCentralAuthCookieDomain = '.betaheze.org';
-	$wgMFStopRedirectCookieHost = '.betaheze.org';
+	$wgCentralAuthCookieDomain = '.wikiforge.net';
+	$wgMFStopRedirectCookieHost = '.wikiforge.net';
 } else {
 	$wgCentralAuthCookieDomain = $wi->hostname;
 	$wgMFStopRedirectCookieHost = $wi->hostname;
 }
 
 // DataDump
-$wgDataDumpFileBackend = 'miraheze-swift';
 $wgDataDumpDirectory = '';
 
 $wgDataDump = [
@@ -245,7 +229,7 @@ if ( $wi->isExtensionActive( 'ContactPage' ) ) {
 		'default' => [
 			'RecipientUser' => $wmgContactPageRecipientUser ?? null,
 			'SenderEmail' => $wgPasswordSender,
-			'SenderName' => 'Miraheze No Reply',
+			'SenderName' => 'WikiForge No Reply',
 			'RequireDetails' => true,
 			// Should never be set to true
 			'IncludeIP' => false,
@@ -273,18 +257,10 @@ if ( $wi->isExtensionActive( 'UploadWizard' ) ) {
 	];
 }
 
-if ( $wi->isExtensionActive( 'Score' ) ) {
-	$wgScoreFileBackend = 'miraheze-swift';
-}
-
-if ( $wi->isExtensionActive( 'EasyTimeline' ) ) {
-	$wgTimelineFileBackend = 'miraheze-swift';
-}
-
 // $wgFooterIcons
 if ( (bool)$wmgWikiapiaryFooterPageName ) {
 	$wgFooterIcons['poweredby']['wikiapiary'] = [
-		'src' => 'https://static.miraheze.org/commonswiki/b/b4/Monitored_by_WikiApiary.png',
+		'src' => 'https://static.wikiforge.net/commonswiki/b/b4/Monitored_by_WikiApiary.png',
 		'url' => 'https://wikiapiary.com/wiki/' . str_replace( ' ', '_', $wmgWikiapiaryFooterPageName ),
 		'alt' => 'Monitored by WikiApiary'
 	];
@@ -332,18 +308,18 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 }
 
 // Miraheze Commons
-if ( $wgDBname !== 'commonswiki' && $wgMirahezeCommons ) {
+if ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
-		'name' => 'mirahezecommons',
+		'name' => 'wikiforgecommons',
 		'backend' => 'miraheze-swift',
-		'url' => 'https://static.miraheze.org/commonswiki',
+		'url' => 'https://static.wikiforge.net/commonswiki',
 		'hashLevels' => 2,
 		'thumbScriptUrl' => false,
 		'transformVia404' => true,
 		'hasSharedCache' => true,
-		'descBaseUrl' => 'https://commons.miraheze.org/wiki/File:',
-		'scriptDirUrl' => 'https://commons.miraheze.org/w',
+		'descBaseUrl' => 'https://commons.wikiforge.net/wiki/File:',
+		'scriptDirUrl' => 'https://commons.wikiforge.net/w',
 		'fetchDescription' => true,
 		'descriptionCacheExpiry' => 86400 * 7,
 		'wiki' => 'commonswiki',
@@ -390,16 +366,10 @@ if ( $wgWordmark ) {
 
 // $wgUrlShortenerAllowedDomains
 $wgUrlShortenerAllowedDomains = [
-	'(.*\.)?miraheze\.org',
+	'(.*\.)?wikiforge\.net',
 ];
 
-if ( preg_match( '/^(.*).betaheze.org$/', $wi->hostname ) ) {
-	$wgUrlShortenerAllowedDomains = [
-		'(.*\.)?betaheze\.org',
-	];
-}
-
-if ( !preg_match( '/^(.*).(miraheze|betaheze).org$/', $wi->hostname ) ) {
+if ( !preg_match( '/^(.*).wikiforge.net$/', $wi->hostname ) ) {
 	$wgUrlShortenerAllowedDomains = array_merge(
 		$wgUrlShortenerAllowedDomains,
 		[ preg_quote( str_replace( 'https://', '', $wgServer ) ) ]
@@ -429,11 +399,11 @@ if ( $wi->isExtensionActive( 'JsonConfig' ) ) {
 
 	if ( $wgDBname !== 'commonswiki' ) {
 		$wgJsonConfigs['Map.JsonConfig']['remote'] = [
-			'url' => 'https://commons.miraheze.org/w/api.php'
+			'url' => 'https://commons.wikiforge.net/w/api.php'
 		];
 
 		$wgJsonConfigs['Tabular.JsonConfig']['remote'] = [
-			'url' => 'https://commons.miraheze.org/w/api.php'
+			'url' => 'https://commons.wikiforge.net/w/api.php'
 		];
 	}
 }
@@ -452,7 +422,7 @@ unset( $vectorVersion );
  * We can not set these in LocalSettings.php, to prevent them
  * from causing absolute overrides.
  */
-$wgRightsIcon = 'https://meta.miraheze.org/w/resources/assets/licenses/cc-by-sa.png';
+$wgRightsIcon = 'https://meta.wikiforge.net/w/resources/assets/licenses/cc-by-sa.png';
 $wgRightsText = 'Creative Commons Attribution Share Alike';
 $wgRightsUrl = 'https://creativecommons.org/licenses/by-sa/4.0/';
 
@@ -470,7 +440,7 @@ switch ( $wmgWikiLicense ) {
 		$wgRightsUrl = false;
 		break;
 	case 'cc-by':
-		$wgRightsIcon = 'https://meta.miraheze.org/w/resources/assets/licenses/cc-by.png';
+		$wgRightsIcon = 'https://meta.wikiforge.net/w/resources/assets/licenses/cc-by.png';
 		$wgRightsText = 'Creative Commons Attribution 4.0 International (CC BY 4.0)';
 		$wgRightsUrl = 'https://creativecommons.org/licenses/by/4.0';
 		break;
@@ -485,17 +455,17 @@ switch ( $wmgWikiLicense ) {
 		$wgRightsUrl = 'https://creativecommons.org/licenses/by-nd/4.0/';
 		break;
 	case 'cc-by-sa':
-		$wgRightsIcon = 'https://meta.miraheze.org/w/resources/assets/licenses/cc-by-sa.png';
+		$wgRightsIcon = 'https://meta.wikiforge.net/w/resources/assets/licenses/cc-by-sa.png';
 		$wgRightsText = 'Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)';
 		$wgRightsUrl = 'https://creativecommons.org/licenses/by-sa/4.0/';
 		break;
 	case 'cc-by-sa-2-0-kr':
-		$wgRightsIcon = 'https://meta.miraheze.org/w/resources/assets/licenses/cc-by-sa.png';
+		$wgRightsIcon = 'https://meta.wikiforge.net/w/resources/assets/licenses/cc-by-sa.png';
 		$wgRightsText = 'Creative Commons BY-SA 2.0 Korea';
 		$wgRightsUrl = 'https://creativecommons.org/licenses/by-sa/2.0/kr';
 		break;
 	case 'cc-by-sa-nc':
-		$wgRightsIcon = 'https://meta.miraheze.org/w/resources/assets/licenses/cc-by-nc-sa.png';
+		$wgRightsIcon = 'https://meta.wikiforge.net/w/resources/assets/licenses/cc-by-nc-sa.png';
 		$wgRightsText = 'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)';
 		$wgRightsUrl = 'https://creativecommons.org/licenses/by-nc-sa/4.0/';
 		break;
@@ -505,7 +475,7 @@ switch ( $wmgWikiLicense ) {
 		$wgRightsUrl = 'https://creativecommons.org/licenses/by-nc-nd/4.0/';
 		break;
 	case 'cc-pd':
-		$wgRightsIcon = 'https://meta.miraheze.org/w/resources/assets/licenses/cc-0.png';
+		$wgRightsIcon = 'https://meta.wikiforge.net/w/resources/assets/licenses/cc-0.png';
 		$wgRightsText = 'CC0 Public Domain';
 		$wgRightsUrl = 'https://creativecommons.org/publicdomain/zero/1.0/';
 		break;

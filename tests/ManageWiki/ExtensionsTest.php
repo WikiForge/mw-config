@@ -1,6 +1,6 @@
 <?php
 
-namespace Miraheze\Config\Tests\ManageWiki;
+namespace WikiForge\Config\Tests\ManageWiki;
 
 class ExtensionsTest extends ManageWikiTestCase {
 	public function getSchema(): array {
@@ -168,7 +168,7 @@ class ExtensionsTest extends ManageWikiTestCase {
 		define( 'MW_VERSION', null );
 
 		$IP = '';
-		$wi = $this->mockMirahezeFunctions();
+		$wi = $this->mockWikiForgeFunctions();
 
 		require_once __DIR__ . '/../../ManageWikiExtensions.php';
 		$this->assertSchema( $wgManageWikiExtensions );

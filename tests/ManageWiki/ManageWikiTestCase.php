@@ -1,6 +1,6 @@
 <?php
 
-namespace Miraheze\Config\Tests\ManageWiki;
+namespace WikiForge\Config\Tests\ManageWiki;
 
 use JsonSchema\Validator;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +13,7 @@ abstract class ManageWikiTestCase extends TestCase {
 
 	abstract public function getSchema(): array;
 
-	public function mockMirahezeFunctions(): stdClass {
+	public function mockWikiForgeFunctions(): stdClass {
 		$methods = [
 			'getSettingValue' => [],
 			'isAllOfExtensionsActive' => true,
