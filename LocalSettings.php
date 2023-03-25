@@ -2583,6 +2583,11 @@ $wgConf->settings += [
 				'requestwiki' => true,
 			],
 		],
+		'+ext-MediaWikiChat' => [
+			'blockedfromchat' => [
+				'chat' => true,
+			],
+		],
 	],
 	'wgImplicitGroups' => [
 		'default' => [
