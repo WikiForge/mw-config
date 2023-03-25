@@ -34,7 +34,7 @@ class WikiForgeFunctions {
 	];
 
 	private const GLOBAL_DATABASE = [
-		'default' 'prodglobal',
+		'default' => 'prodglobal',
 		'beta' => 'testglobal',
 	];
 
