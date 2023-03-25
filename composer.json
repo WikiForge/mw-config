@@ -1,5 +1,5 @@
 {
-	"name": "miraheze/mw-config",
+	"name": "WikiForge/mw-config",
 	"description": "",
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "41.0.0",
@@ -11,7 +11,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Miraheze\\Config\\Tests\\": "tests/"
+			"WikiForge\\Config\\Tests\\": "tests/"
 		}
 	},
 	"scripts": {
