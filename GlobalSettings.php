@@ -308,18 +308,18 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 }
 
 // Miraheze Commons
-if ( $wgDBname !== 'commonswiki' && $wgMirahezeCommons ) {
+if ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
-		'name' => 'mirahezecommons',
+		'name' => 'wikiforgecommons',
 		'backend' => 'miraheze-swift',
-		'url' => 'https://static.miraheze.org/commonswiki',
+		'url' => 'https://static.wikiforge.net/commonswiki',
 		'hashLevels' => 2,
 		'thumbScriptUrl' => false,
 		'transformVia404' => true,
 		'hasSharedCache' => true,
-		'descBaseUrl' => 'https://commons.miraheze.org/wiki/File:',
-		'scriptDirUrl' => 'https://commons.miraheze.org/w',
+		'descBaseUrl' => 'https://commons.wikiforge.net/wiki/File:',
+		'scriptDirUrl' => 'https://commons.wikiforge.net/w',
 		'fetchDescription' => true,
 		'descriptionCacheExpiry' => 86400 * 7,
 		'wiki' => 'commonswiki',
