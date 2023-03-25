@@ -1,4 +1,4 @@
-# Contributing to the Miraheze MediaWiki configuration
+# Contributing to the WikiForge MediaWiki configuration
 
 So, you want to contribute to our MediaWiki configuration? That's nice, welcome! In this small documentation thing we'll cover the most important stuff to prevent the site from breaking, and general guidelines.
 
@@ -20,7 +20,7 @@ If you would like to add configuration options or extensions/skins to ManageWiki
 * Follow the other examples from either ManageWikiSettings.php or ManageWikiNamespaces.php to add configuration variables to the appropriate module of ManageWiki. For ManageWikiSettings.php, make sure they are in the appropriate section.
 * Make sure that the `'overridedefault'` set in ManageWikiSettings.php or ManageWikiNamespaces.php match that of the default set via LocalSettings.php.
 * To add extensions to ManageWikiExtensions.php:
-  * First make sure the extension submodule is installed on Miraheze in the miraheze/mediawiki repository. See https://meta.miraheze.org/wiki/Tech:Adding_a_new_extension for more information on this and the below documentation.
+  * First make sure the extension submodule is installed on WikiForge in the miraheze/mediawiki repository. See https://meta.miraheze.org/wiki/Tech:Adding_a_new_extension for more information on this and the below documentation.
   * Follow the current examples on ManageWikiExtensions.php to add new extensions to that file.
   * Update extension-list. Only needed if the extension or skin has an i18n directory. Add the path to the entry point file (extension/skin.json or the PHP entry point). Order alphabetically.
   * Add any necessary configuration variables to LocalSettings.php, LocalWiki.php, ManageWikiSettings.php, or ManageWikiNamespaces.php. Add to whichever is most appropriate.
@@ -30,7 +30,7 @@ If you would like to add configuration options or extensions/skins to ManageWiki
 
 We use tabs with indent size 8 - if you use the GitHub editor this styling will be automatically applied.
 
-Please note that wiki identifiers are formed by the name of the wiki followed by `wiki` string, for instance, `'examplewiki'` is the identifier for `example.miraheze.org`. `examplewikiwiki` would be the identifier for `examplewiki.miraheze.org`.
+Please note that wiki identifiers are formed by the name of the wiki followed by `wiki` string, for instance, `'examplewiki'` is the identifier for `example.wikiforge.net`. `examplewikiwiki` would be the identifier for `examplewiki.wikiforge.net`.
 
 # Alphabetical order
 
