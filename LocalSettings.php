@@ -44,7 +44,7 @@ if ( ( $forceprofile == 1 || PHP_SAPI === 'cli' ) && extension_loaded( 'tideways
 $wgDatabaseClustersMaintenance = [];
 
 require_once '/srv/mediawiki/config/initialise/WikiForgeFunctions.php';
-$wi = new MirahezeFunctions();
+$wi = new WikiForgeFunctions();
 
 // Load PrivateSettings (e.g. $wgDBpassword)
 require_once '/srv/mediawiki/config/PrivateSettings.php';
@@ -1347,7 +1347,7 @@ $wgConf->settings += [
 	'wgMaxAnimatedGifArea' => [
 		'default' => '1.25e7',
 	],
-	'wgMirahezeCommons' => [
+	'wgWikiForgeCommons' => [
 		'default' => true,
 	],
 	'wgMirahezeSurveyEnabled' => [
@@ -3120,7 +3120,7 @@ $wgConf->settings += [
 		'default' => '/favicon.ico',
 	],
 	'wgLogo' => [
-		'default' => "https://$wmgUploadHostname/metawiki/3/35/Miraheze_Logo.svg",
+		'default' => "https://$wmgUploadHostname/metawiki/3/35/WikiForge_Logo.svg",
 	],
 	'wgIcon' => [
 		'default' => false,
@@ -4091,7 +4091,7 @@ $wi::$disabledExtensions = [
 	'wikiforum',
 ];
 
-$globals = MirahezeFunctions::getConfigGlobals();
+$globals = WikiForgeFunctions::getConfigGlobals();
 
 // phpcs:ignore MediaWiki.Usage.ForbiddenFunctions.extract
 extract( $globals );
