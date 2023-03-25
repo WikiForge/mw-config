@@ -563,7 +563,7 @@ $wgManageWikiSettings = [
 		],
 		'overridedefault' => 'cc-by-sa',
 		'section' => 'editing',
-		'help' => 'Each wiki on Miraheze is by default licensed under CC-BY-SA 4.0 although this can be changed to another supported license. If you would like to release the contributions on your wiki under another license, please let us know so that we can make it available to you. Be aware that changing the license on your wiki can have an impact on your community and should not be done lightly.',
+		'help' => 'Each wiki on WikiForge is by default licensed under CC-BY-SA 4.0 although this can be changed to another supported license. If you would like to release the contributions on your wiki under another license, please let us know so that we can make it available to you. Be aware that changing the license on your wiki can have an impact on your community and should not be done lightly.',
 		'requires' => [],
 	],
 	'wgActiveUserDays' => [
@@ -1232,14 +1232,14 @@ $wgManageWikiSettings = [
 		'help' => 'This option allows you to use the Wikimedia Commons file database on your wiki. This is a performance optimised version of the core <code>$wgUseInstantCommons</code>.',
 		'requires' => [],
 	],
-	'wgMirahezeCommons' => [
-		'name' => 'Enable Miraheze Commons (linking to commons.miraheze.org)',
+	'wgWikiForgeCommons' => [
+		'name' => 'Enable WikiForge Commons (linking to commons.wikiforge.net)',
 		'from' => 'mediawiki',
 		'global' => true,
 		'type' => 'check',
 		'overridedefault' => true,
 		'section' => 'media',
-		'help' => 'This option allows you to use the Miraheze Commons file database on your wiki.',
+		'help' => 'This option allows you to use the WikiForge Commons file database on your wiki.',
 		'requires' => [],
 	],
 	'wgShowArchiveThumbnails' => [
