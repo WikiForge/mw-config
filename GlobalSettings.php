@@ -7,7 +7,7 @@ if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
 }
 
-if ( $wgMirahezeCommons && !$cwPrivate ) {
+if ( $wgWikiForgeCommons && !$cwPrivate ) {
 	wfLoadExtension( 'GlobalUsage' );
 }
 
