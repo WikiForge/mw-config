@@ -1,6 +1,6 @@
 <?php
 
-namespace Miraheze\Config\Tests\ManageWiki;
+namespace WikiForge\Config\Tests\ManageWiki;
 
 class SettingsTest extends ManageWikiTestCase {
 	public function getSchema(): array {
@@ -255,7 +255,7 @@ class SettingsTest extends ManageWikiTestCase {
 		$wgPasswordSender = '';
 		$wmgSharedUploadDBname = '';
 		$wmgUploadHostname = '';
-		$wi = $this->mockMirahezeFunctions();
+		$wi = $this->mockWikiForgeFunctions();
 
 		require_once __DIR__ . '/../../ManageWikiSettings.php';
 		$this->assertSchema( $wgManageWikiSettings );
