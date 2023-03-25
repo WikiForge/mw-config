@@ -1,5 +1,7 @@
 <?php
 
+use Psr\Log\LogLevel;
+
 $wmgLogDir = '/var/log/mediawiki';
 
 $wgDBerrorLog = "$wmgLogDir/debuglogs/database.log";
