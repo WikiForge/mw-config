@@ -3,15 +3,6 @@
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 
 // Extensions
-if ( $wi->dbname !== 'ldapwikiwiki' ) {
-	wfLoadExtensions( [
-		'CentralAuth',
-		'GlobalPreferences',
-		'GlobalBlocking',
-		'RemovePII',
-	] );
-}
-
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
 }
