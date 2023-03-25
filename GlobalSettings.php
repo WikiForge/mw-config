@@ -111,7 +111,7 @@ if ( $cwClosed ) {
 if ( !$cwPrivate ) {
 	$wgRCFeeds['irc'] = [
 		'formatter' => MirahezeIRCRCFeedFormatter::class,
-		'uri' => 'udp://[2a10:6740::6:505]:5070',
+		'uri' => 'udp://bots1.wikiforge.net:5070',
 		'add_interwiki_prefix' => false,
 		'omit_bots' => true,
 	];
@@ -131,18 +131,14 @@ if ( $cwExperimental ) {
 
 // Dynamic cookie settings dependant on $wgServer
 if ( preg_match( '/miraheze\.org$/', $wi->server ) ) {
-	$wgCentralAuthCookieDomain = '.miraheze.org';
-	$wgMFStopRedirectCookieHost = '.miraheze.org';
-} elseif ( preg_match( '/betaheze\.org$/', $wi->server ) ) {
-	$wgCentralAuthCookieDomain = '.betaheze.org';
-	$wgMFStopRedirectCookieHost = '.betaheze.org';
+	$wgCentralAuthCookieDomain = '.wikiforge.net';
+	$wgMFStopRedirectCookieHost = '.wikiforge.net';
 } else {
 	$wgCentralAuthCookieDomain = $wi->hostname;
 	$wgMFStopRedirectCookieHost = $wi->hostname;
 }
 
 // DataDump
-$wgDataDumpFileBackend = 'miraheze-swift';
 $wgDataDumpDirectory = '';
 
 $wgDataDump = [
