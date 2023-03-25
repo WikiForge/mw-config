@@ -1,5 +1,5 @@
 {
-	"name": "WikiForge/mw-config",
+	"name": "wikiforge/mw-config",
 	"description": "",
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "41.0.0",
