@@ -1740,11 +1740,11 @@ $wgConf->settings += [
 	],
 	'wgSMTP' => [
 		'default' => [
-			'host' => 'mail.wikiforge.net',
-			'port' => 25,
+			'host' => 'email-smtp.us-east-1.amazonaws.com',
+			'port' => 587,
 			'IDHost' => 'wikiforge.net',
 			'auth' => true,
-			'username' => 'noreply',
+			'username' => 'AKIAZEMY5IR4RPZVGLVT',
 			'password' => $wmgSMTPPassword,
 		],
 	],
