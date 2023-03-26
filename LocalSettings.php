@@ -4075,7 +4075,7 @@ $wgConf->settings += [
 	],
 	// Control MediaWiki Deprecation Warnings
 	'wgDeprecationReleaseLimit' => [
-		'default' => '1.38',
+		'default' => '1.36',
 	],
 ];
 
