@@ -52,7 +52,7 @@ $wgSessionCacheType = 'memcached';
 // Same as $wgMainStash
 $wgMWOAuthSessionCacheType = 'db-replicated';
 
-$redisServerIP = '[2a10:6740::6:306]:6379';
+$redisServerIP = '18.217.191.48:6379';
 
 $wgMainCacheType = 'memcached';
 $wgMessageCacheType = 'memcached';
