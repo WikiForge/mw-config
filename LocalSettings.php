@@ -589,8 +589,6 @@ $wgConf->settings += [
 	],
 	'wgCosmosEnableWantedPages' => [
 		'default' => false,
-		'batmanwiki' => true,
-		'snapwikiwiki' => true,
 	],
 	'wgCosmosFooterBackgroundColor' => [
 		'default' => '#c0c0c0',
@@ -3028,9 +3026,6 @@ $wgConf->settings += [
 	'wgUserProfileThresholds' => [
 		'default' => [
 			'edits' => 0,
-		],
-		'allthetropeswiki' => [
-			'edits' => 10,
 		],
 	],
 	'wgUserProfileDisplay' => [
