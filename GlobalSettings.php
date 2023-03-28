@@ -130,7 +130,7 @@ if ( $cwExperimental ) {
 }
 
 // Dynamic cookie settings dependant on $wgServer
-if ( preg_match( '/miraheze\.org$/', $wi->server ) ) {
+if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 	$wgCentralAuthCookieDomain = '.wikiforge.net';
 	$wgMFStopRedirectCookieHost = '.wikiforge.net';
 } else {
@@ -271,14 +271,14 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 	if ( !$wmgSharedUploadBaseUrl || $wmgSharedUploadBaseUrl === $wmgSharedUploadDBname ) {
 		$wmgSharedUploadSubdomain = substr( $wmgSharedUploadDBname, 0, -4 );
 
-		$wmgSharedUploadBaseUrl = "{$wmgSharedUploadSubdomain}.miraheze.org";
+		$wmgSharedUploadBaseUrl = "{$wmgSharedUploadSubdomain}.wikiforge.net";
 	}
 
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => "shared-{$wmgSharedUploadDBname}",
 		'backend' => 'miraheze-swift',
-		'url' => "https://static.miraheze.org/{$wmgSharedUploadDBname}",
+		'url' => "https://static.wikiforge.net/{$wmgSharedUploadDBname}",
 		'hashLevels' => 2,
 		'thumbScriptUrl' => false,
 		'transformVia404' => true,
@@ -307,7 +307,7 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 	];
 }
 
-// Miraheze Commons
+// WikiForge Commons
 if ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
