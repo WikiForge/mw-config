@@ -2914,9 +2914,6 @@ $wgConf->settings += [
 	'wgRSSCacheAge' => [
 		'default' => 3600,
 	],
-	'wgRSSProxy' => [
-		'default' => 'http://bast.miraheze.org:8080',
-	],
 	'wgRSSDateDefaultFormat' => [
 		'default' => 'Y-m-d H:i:s'
 	],
