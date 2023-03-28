@@ -976,6 +976,9 @@ class WikiForgeFunctions {
 			}
 		}
 
+		// Temporary spam prevention
+		$GLOBALS['wgGroupPermissions']['*'] = [];
+
 		// Don't need a global here
 		unset( $GLOBALS['globals'] );
 	}
