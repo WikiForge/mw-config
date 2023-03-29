@@ -805,6 +805,9 @@ $wgConf->settings += [
 	'wgCreateWikiNotificationEmail' => [
 		'default' => 'admin@wikiforge.net',
 	],
+	'wgCreateWikiPersistentModelFile' => [
+		'default' => '/mnt/mediawiki-static/requestmodel.phpml',
+	],
 	'wgCreateWikiPurposes' => [
 		'default' => [
 			'Alternate history wiki' => 'Alternate history wiki',
@@ -1586,7 +1589,7 @@ $wgConf->settings += [
 		],
 	],
 	'wgImportDumpScriptCommand' => [
-		'default' => 'screen -d -m bash -c ". /etc/swift-env.sh; swift download miraheze-metawiki-local-public {file} -o /home/$USER/{file}; mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /home/$USER/{file}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y; rm /home/$USER/{file}"',
+		'default' => 'screen -d -m bash -c "mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /mnt/mediawiki-static/metawiki/{file}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y"',
 	],
 	'wgImportDumpUsersNotifiedOnAllRequests' => [
 		'default' => [],
@@ -4094,7 +4097,7 @@ require_once __DIR__ . '/ManageWikiNamespaces.php';
 require_once __DIR__ . '/ManageWikiSettings.php';
 
 $wgUploadPath = "//$wmgUploadHostname/$wgDBname";
-$wgUploadDirectory = false;
+$wgUploadDirectory = "/mnt/mediawiki-static/$wgDBname";
 
 $wgLocalisationCacheConf['storeClass'] = LCStoreCDB::class;
 $wgLocalisationCacheConf['storeDirectory'] = '/srv/mediawiki/cache/l10n';
