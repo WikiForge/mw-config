@@ -979,6 +979,10 @@ class WikiForgeFunctions {
 		// Temporary spam prevention
 		$GLOBALS['wgGroupPermissions']['*'] = [];
 
+		// Remove hook
+		$hookIndex = array_search( 'MirahezeMagicHooks::onSkinAddFooterLinks', $GLOBALS['wgHooks']['SkinAddFooterLinks'] );
+		unset( $GLOBALS['wgHooks']['SkinAddFooterLinks'][$hookIndex] );
+
 		// Don't need a global here
 		unset( $GLOBALS['globals'] );
 	}
