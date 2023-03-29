@@ -277,33 +277,17 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => "shared-{$wmgSharedUploadDBname}",
-		'backend' => 'miraheze-swift',
+		'directory' => "/mnt/mediawiki-static/{$wmgSharedUploadDBname}",
 		'url' => "https://static.wikiforge.net/{$wmgSharedUploadDBname}",
 		'hashLevels' => 2,
 		'thumbScriptUrl' => false,
 		'transformVia404' => true,
 		'hasSharedCache' => true,
-		'descBaseUrl' => "https://{$wmgSharedUploadBaseUrl}/wiki/File:",
-		'scriptDirUrl' => "https://{$wmgSharedUploadBaseUrl}/w",
 		'fetchDescription' => true,
 		'descriptionCacheExpiry' => 86400 * 7,
 		'wiki' => $wmgSharedUploadDBname,
-		'initialCapital' => true,
-		'zones' => [
-			'public' => [
-				'container' => 'local-public',
-			],
-			'thumb' => [
-				'container' => 'local-thumb',
-			],
-			'temp' => [
-				'container' => 'local-temp',
-			],
-			'deleted' => [
-				'container' => 'local-deleted',
-			],
-		],
-		'abbrvThreshold' => 160
+		'descBaseUrl' => "https://{$wmgSharedUploadBaseUrl}/wiki/File:",
+		'scriptDirUrl' => "https://{$wmgSharedUploadBaseUrl}/w",
 	];
 }
 
@@ -312,33 +296,17 @@ if ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => 'wikiforgecommons',
-		'backend' => 'miraheze-swift',
+		'directory' => '/mnt/mediawiki-static/commonswiki',
 		'url' => 'https://static.wikiforge.net/commonswiki',
 		'hashLevels' => 2,
 		'thumbScriptUrl' => false,
 		'transformVia404' => true,
 		'hasSharedCache' => true,
-		'descBaseUrl' => 'https://commons.wikiforge.net/wiki/File:',
-		'scriptDirUrl' => 'https://commons.wikiforge.net/w',
 		'fetchDescription' => true,
 		'descriptionCacheExpiry' => 86400 * 7,
 		'wiki' => 'commonswiki',
-		'initialCapital' => true,
-		'zones' => [
-			'public' => [
-				'container' => 'local-public',
-			],
-			'thumb' => [
-				'container' => 'local-thumb',
-			],
-			'temp' => [
-				'container' => 'local-temp',
-			],
-			'deleted' => [
-				'container' => 'local-deleted',
-			],
-		],
-		'abbrvThreshold' => 160
+		'descBaseUrl' => 'https://commons.wikiforge.net/wiki/File:',
+		'scriptDirUrl' => 'https://commons.wikiforge.net/w',
 	];
 }
 
