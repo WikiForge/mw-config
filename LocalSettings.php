@@ -1592,7 +1592,9 @@ $wgConf->settings += [
 		'default' => 'screen -d -m bash -c "mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /mnt/mediawiki-static/metawiki/{file}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y"',
 	],
 	'wgImportDumpUsersNotifiedOnAllRequests' => [
-		'default' => [],
+		'default' => [
+			'Universal Omega',
+		],
 	],
 
 	// Imports
