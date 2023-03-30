@@ -900,9 +900,6 @@ class WikiForgeFunctions {
 			}
 		}
 
-		// Temporary spam prevention
-		$GLOBALS['wgGroupPermissions']['*'] = [];
-
 		// Remove hooks
 		$hookIndex = array_search( 'MirahezeMagicHooks::onCreateWikiReadPersistentModel', $GLOBALS['wgHooks']['CreateWikiReadPersistentModel'] );
 		unset( $GLOBALS['wgHooks']['CreateWikiReadPersistentModel'][$hookIndex] );
