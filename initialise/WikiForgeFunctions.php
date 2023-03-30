@@ -28,29 +28,12 @@ class WikiForgeFunctions {
 
 	private const CACHE_DIRECTORY = '/srv/mediawiki/cache';
 
-	private const DEFAULT_SERVER = [
-		'default' => 'wikiforge.net',
-		'beta' => 'beta.wikiforge.net',
-	];
+	private const DEFAULT_SERVER = 'wikiforge.net';
 
-	private const GLOBAL_DATABASE = [
-		'default' => 'prodglobal',
-		'beta' => 'testglobal',
-	];
-
-	private const TAGS = [
-		'default' => 'default',
-		'beta' => 'beta',
-	];
-
-	public const LISTS = [
-		'default' => 'production',
-		'beta' => 'beta',
-	];
+	private const GLOBAL_DATABASE = 'prodglobal';
 
 	public const SUFFIXES = [
 		'wiki' => 'wikiforge.net',
-		'wikibeta' => 'beta.wikiforge.net',
 	];
 
 	public function __construct() {
@@ -81,19 +64,16 @@ class WikiForgeFunctions {
 	public static function getLocalDatabases(): ?array {
 		global $wgLocalDatabases;
 
-		static $list = null;
 		static $databases = null;
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		$list ??= isset( array_flip( self::readDbListFile( 'beta' ) )[ self::$currentDatabase ] ) ? 'beta' : 'production';
-
 		// We need the CLI to be able to access 'deleted' wikis
 		if ( PHP_SAPI === 'cli' ) {
-			$databases ??= array_merge( self::readDbListFile( $list ), self::readDbListFile( 'deleted-' . $list ) );
+			$databases ??= array_merge( self::readDbListFile( 'databases' ), self::readDbListFile( 'deleted' ) );
 		}
 
-		$databases ??= self::readDbListFile( $list );
+		$databases ??= self::readDbListFile( 'databases' );
 
 		$wgLocalDatabases = $databases;
 		return $databases;
@@ -109,14 +89,6 @@ class WikiForgeFunctions {
 	public static function readDbListFile( string $dblist, bool $onlyDBs = true, ?string $database = null, bool $fromServer = false ) {
 		if ( $database && $onlyDBs && !$fromServer ) {
 			return $database;
-		}
-
-		if ( $dblist === 'production' ) {
-			$dblist = 'databases';
-		}
-
-		if ( $dblist === 'deleted-production' ) {
-			$dblist = 'deleted';
 		}
 
 		if ( !file_exists( self::CACHE_DIRECTORY . "/{$dblist}.json" ) ) {
@@ -194,22 +166,8 @@ class WikiForgeFunctions {
 	/**
 	 * @return string
 	 */
-	public static function getRealm(): string {
-		static $realm = null;
-
-		self::$currentDatabase ??= self::getCurrentDatabase();
-
-		$realm ??= isset( array_flip( self::readDbListFile( 'beta' ) )[ self::$currentDatabase ] ) ?
-			self::TAGS['beta'] : self::TAGS['default'];
-
-		return $realm;
-	}
-
-	/**
-	 * @return string
-	 */
 	public static function getCurrentSuffix(): string {
-		return array_flip( self::SUFFIXES )[ self::DEFAULT_SERVER[self::getRealm()] ];
+		return array_flip( self::SUFFIXES )[ self::DEFAULT_SERVER ];
 	}
 
 	/**
@@ -226,7 +184,7 @@ class WikiForgeFunctions {
 			}
 
 			if ( isset( $wgConf->settings['wgServer'] ) && count( $wgConf->settings['wgServer'] ) > 1 ) {
-				return 'https://' . self::DEFAULT_SERVER[self::getRealm()];
+				return 'https://' . self::DEFAULT_SERVER;
 			}
 		}
 
@@ -237,15 +195,13 @@ class WikiForgeFunctions {
 		$servers = [];
 
 		static $default = null;
-		static $list = null;
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		$list ??= isset( array_flip( self::readDbListFile( 'beta' ) )[ self::$currentDatabase ] ) ? 'beta' : 'production';
-		$databases = self::readDbListFile( $list, false, $database );
+		$databases = self::readDbListFile( 'databases', false, $database );
 
 		if ( $deleted && $databases ) {
-			$databases += self::readDbListFile( "deleted-$list", false, $database );
+			$databases += self::readDbListFile( 'deleted', false, $database );
 		}
 
 		if ( $database !== null ) {
@@ -257,7 +213,7 @@ class WikiForgeFunctions {
 				}
 			}
 
-			$default ??= 'https://' . self::DEFAULT_SERVER[self::getRealm()];
+			$default ??= 'https://' . self::DEFAULT_SERVER;
 			return $default;
 		}
 
@@ -269,7 +225,7 @@ class WikiForgeFunctions {
 			}
 		}
 
-		$default ??= 'https://' . self::DEFAULT_SERVER[self::getRealm()];
+		$default ??= 'https://' . self::DEFAULT_SERVER;
 		$servers['default'] = $default;
 
 		return $servers;
@@ -286,8 +242,7 @@ class WikiForgeFunctions {
 		$hostname = $_SERVER['HTTP_HOST'] ?? 'undefined';
 
 		static $database = null;
-		$database ??= self::readDbListFile( 'production', true, 'https://' . $hostname, true ) ?:
-			self::readDbListFile( 'beta', true, 'https://' . $hostname, true );
+		$database ??= self::readDbListFile( 'databases', true, 'https://' . $hostname, true );
 
 		if ( $database ) {
 			return $database;
@@ -322,8 +277,8 @@ class WikiForgeFunctions {
 		static $allDatabases = null;
 		static $deletedDatabases = null;
 
-		$allDatabases ??= self::readDbListFile( self::LISTS[self::getRealm()], false );
-		$deletedDatabases ??= self::readDbListFile( 'deleted-' . self::LISTS[self::getRealm()], false );
+		$allDatabases ??= self::readDbListFile( 'databases', false );
+		$deletedDatabases ??= self::readDbListFile( 'deleted', false );
 
 		$databases = array_merge( $allDatabases, $deletedDatabases );
 
@@ -362,8 +317,8 @@ class WikiForgeFunctions {
 		static $allDatabases = null;
 		static $deletedDatabases = null;
 
-		$allDatabases ??= self::readDbListFile( self::LISTS[self::getRealm()], false );
-		$deletedDatabases ??= self::readDbListFile( 'deleted-' . self::LISTS[self::getRealm()], false );
+		$allDatabases ??= self::readDbListFile( 'databases', false );
+		$deletedDatabases ??= self::readDbListFile( 'deleted', false );
 
 		$databases = array_merge( $allDatabases, $deletedDatabases );
 
@@ -475,9 +430,6 @@ class WikiForgeFunctions {
 		global $wgDBname, $wgConf;
 
 		$wikiTags = [];
-		if ( self::getRealm() !== 'default' ) {
-			$wikiTags[] = self::getRealm();
-		}
 
 		static $cacheArray = null;
 		$cacheArray ??= self::getCacheArray();
@@ -773,18 +725,6 @@ class WikiForgeFunctions {
 		global $wgDBname;
 
 		if ( !file_exists( self::CACHE_DIRECTORY . '/' . $wgDBname . '.json' ) ) {
-			global $wgConf;
-			if ( self::getRealm() !== 'default' ) {
-				$wgConf->siteParamsCallback = static function () {
-					return [
-						'suffix' => null,
-						'lang' => 'en',
-						'tags' => [ self::getRealm() ],
-						'params' => [],
-					];
-				};
-			}
-
 			return;
 		}
 
@@ -936,34 +876,18 @@ class WikiForgeFunctions {
 		$databaseLists = [
 			'active' => [
 				'combi' => self::getActiveList(
-					self::GLOBAL_DATABASE['default']
-				),
-			],
-			'active-beta' => [
-				'combi' => self::getActiveList(
-					self::GLOBAL_DATABASE['beta']
-				),
-			],
-			'beta' => [
-				'combi' => self::getCombiList(
-					self::GLOBAL_DATABASE['beta']
+					self::GLOBAL_DATABASE
 				),
 			],
 			'databases' => [
 				'combi' => self::getCombiList(
-					self::GLOBAL_DATABASE['default']
+					self::GLOBAL_DATABASE
 				),
 			],
 			'deleted' => [
 				'deleted' => 'databases',
 				'databases' => self::getDeletedList(
-					self::GLOBAL_DATABASE['default']
-				),
-			],
-			'deleted-beta' => [
-				'deleted-beta' => 'databases',
-				'databases' => self::getDeletedList(
-					self::GLOBAL_DATABASE['beta']
+					self::GLOBAL_DATABASE
 				),
 			],
 		];
