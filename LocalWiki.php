@@ -4,7 +4,7 @@
 switch ( $wi->dbname ) {
 	case 'dcmultiversewiki':
 		$wgForeignFileRepos[] = [
-			'class' => ForeignAPIRepo::class,
+			'class' => \MediaWiki\Extension\QuickInstantCommons\Repo::class,
 			'name' => 'miraheze',
 			'apibase' => 'https://dcmultiverse.miraheze.org/w/api.php',
 			'url' => 'https://static.miraheze.org/dcmultiversewiki',
@@ -13,7 +13,7 @@ switch ( $wi->dbname ) {
 			'transformVia404' => true,
 			'fetchDescription' => true,
 			'descriptionCacheExpiry' => 43200,
-			'apiThumbCacheExpiry' => 0,
+			'abbrvThreshold' => 160,
 		];
 		break;
 	case 'metawiki':
