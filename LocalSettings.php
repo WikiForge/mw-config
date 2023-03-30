@@ -300,7 +300,7 @@ $wgConf->settings += [
 		],
 	],
 	'wgHCaptchaSiteKey' => [
-		'default' => '27ec56a0-af2f-4a84-84d8-800b992926cb',
+		'default' => '68a0117d-0fba-4b0e-9325-b54d9d7e1cfe',
 	],
 
 	// Cargo
