@@ -1209,7 +1209,7 @@ $wgManageWikiSettings = [
 		'type' => 'check',
 		'overridedefault' => false,
 		'section' => 'media',
-		'help' => 'By default, Miraheze enables file upload only from a local media but with this option you can upload files remotely from other sites.',
+		'help' => 'By default, WikiForge enables file upload only from a local media but with this option you can upload files remotely from other sites.',
 		'requires' => [],
 	],
 	'wgCopyUploadsFromSpecialUpload' => [
@@ -1595,7 +1595,7 @@ $wgManageWikiSettings = [
 		'type' => 'text',
 		'overridedefault' => false,
 		'section' => 'media',
-		'help' => 'The domain name for the wiki to use as the file repository. Leave empty unless it is a custom domain. By default will be the miraheze subdomain of whatever <code>$wmgSharedUploadDBname</code> is set to below. Do not include https:// or any paths.',
+		'help' => 'The domain name for the wiki to use as the file repository. Leave empty unless it is a custom domain. By default will be the WikiForge subdomain of whatever <code>$wmgSharedUploadDBname</code> is set to below. Do not include https:// or any paths.',
 		'requires' => [],
 	],
 	'wmgSharedUploadClientDBname' => [
@@ -1605,7 +1605,7 @@ $wgManageWikiSettings = [
 		'type' => 'text',
 		'overridedefault' => false,
 		'section' => 'media',
-		'help' => 'The database name for the wiki to allow to use this wiki as the file repository for that wiki. This value must be a valid Miraheze-hosted wiki database.',
+		'help' => 'The database name for the wiki to allow to use this wiki as the file repository for that wiki. This value must be a valid WikiForge-hosted wiki database.',
 		'requires' => [
 			'visibility' => [
 				'state' => 'public',
@@ -1619,7 +1619,7 @@ $wgManageWikiSettings = [
 		'type' => 'text',
 		'overridedefault' => false,
 		'section' => 'media',
-		'help' => 'The database name for the wiki to use as the file repository. This value must be a valid Miraheze-hosted wiki database. The databse in this field will be used for granting permission from the client database. This <b>can not</b> be a private wiki database.',
+		'help' => 'The database name for the wiki to use as the file repository. This value must be a valid WikiForge-hosted wiki database. The databse in this field will be used for granting permission from the client database. This <b>can not</b> be a private wiki database.',
 		'requires' => [],
 	],
 	'wmgEnableSharedUploads' => [
@@ -1721,13 +1721,13 @@ $wgManageWikiSettings = [
 		'requires' => [],
 	],
 	'wmgSiteNoticeOptOut' => [
-		'name' => 'Opt out of global Miraheze notices',
+		'name' => 'Opt out of global WikiForge notices',
 		'from' => 'mediawiki',
 		'global' => true,
 		'type' => 'check',
 		'overridedefault' => false,
 		'section' => 'notifications',
-		'help' => 'Opts your wiki out of global Miraheze notices, only showing important notices.',
+		'help' => 'Opts your wiki out of global WikiForge notices, only showing important notices.',
 		'requires' => [],
 	],
 	'wgMinervaEnableSiteNotice' => [
@@ -2695,9 +2695,9 @@ $wgManageWikiSettings = [
 		'from' => 'mediawiki',
 		'global' => true,
 		'type' => 'text',
-		'overridedefault' => "https://$wmgUploadHostname/metawiki/3/35/Miraheze_Logo.svg",
+		'overridedefault' => "https://$wmgUploadHostname/metawiki/3/35/WikiForge_Logo.svg",
 		'section' => 'styling',
-		'help' => 'This will replace Miraheze\'s default logo. See <a href="https://meta.miraheze.org/wiki/ManageWiki#How_do_I_change_my_logo.2Ffavicon.3F">this link</a> for how you can change it. Also sets the value of <code>$wgLogos[\'1x\']</code>.',
+		'help' => 'This will replace WikiForge\'s default logo. Also sets the value of <code>$wgLogos[\'1x\']</code>.',
 		'requires' => [],
 	],
 	'wgFavicon' => [
@@ -2707,7 +2707,7 @@ $wgManageWikiSettings = [
 		'type' => 'text',
 		'overridedefault' => '/favicon.ico',
 		'section' => 'styling',
-		'help' => 'A favicon is a shortcut image that is displayed on your visitor\'s browser address bar and in the bookmarks page. Most often it is a smaller version of the logo. See <a href="https://meta.miraheze.org/wiki/ManageWiki#How_do_I_change_my_logo.2Ffavicon.3F">this link</a> for how you can add one.',
+		'help' => 'A favicon is a shortcut image that is displayed on your visitor\'s browser address bar and in the bookmarks page. Most often it is a smaller version of the logo.',
 		'requires' => [],
 	],
 	'wgAppleTouchIcon' => [
@@ -2717,7 +2717,7 @@ $wgManageWikiSettings = [
 		'type' => 'text',
 		'overridedefault' => '/apple-touch-icon.png',
 		'section' => 'styling',
-		'help' => 'Favicon for Apple mobile devices. See <a href="https://meta.miraheze.org/wiki/ManageWiki#How_do_I_change_my_logo.2Ffavicon.3F">this link</a> on how you can add one.',
+		'help' => 'Favicon for Apple mobile devices.',
 		'requires' => [],
 	],
 	'wgWordmark' => [
@@ -3611,7 +3611,7 @@ $wgManageWikiSettings = [
 		'type' => 'database',
 		'overridedefault' => $wi->dbname,
 		'section' => 'wikibase',
-		'help' => 'Database identifier of the repository being used. This value must be a valid Miraheze-hosted wiki database.',
+		'help' => 'Database identifier of the repository being used. This value must be a valid WikiForge-hosted wiki database.',
 		'requires' => [],
 	],
 	'wmgAllowEntityImport' => [
