@@ -1584,7 +1584,7 @@ $wgConf->settings += [
 	'wgImportDumpInterwikiMap' => [
 		'default' => [
 			'fandom.com' => 'wikia',
-			'miraheze.org' => 'mh',
+			'miraheze.org' => 'miraheze',
 			'wikiforge.net' => 'wiki',
 		],
 	],
