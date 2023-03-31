@@ -1727,7 +1727,7 @@ $wgConf->settings += [
 			/** localhost */
 			'127.0.0.1' => true,
 			/** mw1 */
-			'' => true,
+			'18.191.46.248' => true,
 		],
 	],
 
