@@ -1752,6 +1752,27 @@ $wgManageWikiExtensions = [
 		],
 		'section' => 'specialpages',
 	],
+	'replacetext' => [
+		'name' => 'Replace Text',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Replace_Text',
+		'var' => 'wmgUseReplaceText',
+		'conflicts' => false,
+		'requires' => [
+			'permissions' => [
+				'managewiki-restricted',
+			],
+		],
+		'install' => [
+			'permissions' => [
+				'sysop' => [
+					'permissions' => [
+						'replacetext',
+					],
+				],
+			],
+		],
+		'section' => 'specialpages',
+	],
 	'report' => [
 		'name' => 'Report',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Report',
