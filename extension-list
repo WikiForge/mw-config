@@ -198,6 +198,7 @@ $IP/extensions/RelatedArticles/extension.json
 $IP/extensions/RemovePII/extension.json
 $IP/extensions/RemoveRedlinks/extension.json
 $IP/extensions/Renameuser/extension.json
+$IP/extensions/ReplaceText/extension.json
 $IP/extensions/Report/extension.json
 $IP/extensions/RevisionSlider/extension.json
 $IP/extensions/RightFunctions/extension.json
