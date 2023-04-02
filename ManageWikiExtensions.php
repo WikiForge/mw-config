@@ -2045,7 +2045,7 @@ $wgManageWikiExtensions = [
 		],
 		'section' => 'other',
 	],
-	'autocreatepages' => [
+	'autocreatepage' => [
 		'name' => 'AutoCreatePage',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:AutoCreatePage',
 		'var' => 'wmgUseAutoCreatePage',

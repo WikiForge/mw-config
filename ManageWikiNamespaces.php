@@ -122,7 +122,7 @@ $wgManageWikiNamespacesAdditional = [
 	],
 	'wgAutoCreatePageNamespaces' => [
 		'name' => 'Should pages in this namespace be auto created?',
-		'from' => 'autocreatepages',
+		'from' => 'autocreatepage',
 		'type' => 'check',
 		'main' => true,
 		'talk' => false,
