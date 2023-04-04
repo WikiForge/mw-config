@@ -335,6 +335,17 @@ $wgConf->settings += [
 		'default' => [ 10 => 1, 20 => 1, 0 => 2 ],
 	],
 
+	// CDN
+	'wgUseCdn' => [
+		'default' => true,
+	],
+	'wgCdnServersNoPurge' => [
+		'default' => [
+			/** Load balancer */
+			'172.31.0.0/16',
+		],
+	],
+
 	// CentralAuth
 	'wgCentralAuthAutoCreateWikis' => [
 		'default' => [
@@ -3369,17 +3380,6 @@ $wgConf->settings += [
 	// UserPageEditProtection
 	'wgOnlyUserEditUserPage' => [
 		'ext-UserPageEditProtection' => true,
-	],
-
-	// Varnish
-	'wgUseCdn' => [
-		'default' => true,
-	],
-	'wgCdnServers' => [
-		'default' => [
-			/** cp1 */
-			':81',
-		],
 	],
 
 	// Vector
