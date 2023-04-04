@@ -29,7 +29,6 @@ wfLoadExtensions( [
 	'IPInfo',
 	'LoginNotify',
 	'ManageWiki',
-	'MirahezeMagic',
 	'MobileDetect',
 	'NativeSvgHandler',
 	'Nuke',
@@ -48,5 +47,6 @@ wfLoadExtensions( [
 	'TorBlock',
 	'WikiDiscover',
 	'WikiEditor',
+	'WikiForgeMagic',
 	'cldr',
 ] );
