@@ -62,7 +62,7 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 		'paths' => [],
 		'modules' => [
 			'parsoid' => [
-				'url' => 'https://mw1.wikiforge.net/w/rest.php',
+				'url' => 'https://mw-lb.wikiforge.net/w/rest.php',
 				'domain' => $wi->server,
 				'prefix' => $wi->dbname,
 				'forwardCookies' => (bool)$cwPrivate,
