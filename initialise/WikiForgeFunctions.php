@@ -900,37 +900,6 @@ class WikiForgeFunctions {
 			}
 		}
 
-		// Remove hooks
-		$hookIndex = array_search( 'MirahezeMagicHooks::onCreateWikiReadPersistentModel', $GLOBALS['wgHooks']['CreateWikiReadPersistentModel'] );
-		unset( $GLOBALS['wgHooks']['CreateWikiReadPersistentModel'][$hookIndex] );
-
-		$hookIndex = array_search( 'MirahezeMagicHooks::onCreateWikiWritePersistentModel', $GLOBALS['wgHooks']['CreateWikiWritePersistentModel'] );
-		unset( $GLOBALS['wgHooks']['CreateWikiWritePersistentModel'][$hookIndex] );
-
-		$hookIndex = array_search( 'MirahezeMagicHooks::onMessageCacheGet', $GLOBALS['wgHooks']['MessageCache::get'] );
-		unset( $GLOBALS['wgHooks']['MessageCache::get'][$hookIndex] );
-
-		$hookIndex = array_search( 'MirahezeMagicHooks::onHtmlPageLinkRendererEnd', $GLOBALS['wgHooks']['HtmlPageLinkRendererEnd'] );
-		unset( $GLOBALS['wgHooks']['HtmlPageLinkRendererEnd'][$hookIndex] );
-
-		$hookIndex = array_search( 'MirahezeMagicHooks::onInitializeArticleMaybeRedirect', $GLOBALS['wgHooks']['InitializeArticleMaybeRedirect'] );
-		unset( $GLOBALS['wgHooks']['InitializeArticleMaybeRedirect'][$hookIndex] );
-
-		$hookIndex = array_search( 'MirahezeMagicHooks::onSkinAddFooterLinks', $GLOBALS['wgHooks']['SkinAddFooterLinks'] );
-		unset( $GLOBALS['wgHooks']['SkinAddFooterLinks'][$hookIndex] );
-
-		$hookIndex = array_search( 'MirahezeMagicHooks::onUserGetRightsRemove', $GLOBALS['wgHooks']['UserGetRightsRemove'] );
-		unset( $GLOBALS['wgHooks']['UserGetRightsRemove'][$hookIndex] );
-
-		$hookIndex = array_search( 'MirahezeMagicHooks::onSiteNoticeAfter', $GLOBALS['wgHooks']['SiteNoticeAfter'] );
-		unset( $GLOBALS['wgHooks']['SiteNoticeAfter'][$hookIndex] );
-
-		$hookIndex = array_search( 'MirahezeMagicHooks::onRecentChange_save', $GLOBALS['wgHooks']['RecentChange_save'] );
-		unset( $GLOBALS['wgHooks']['RecentChange_save'][$hookIndex] );
-
-		$hookIndex = array_search( 'MirahezeMagicHooks::onBlockIpComplete', $GLOBALS['wgHooks']['BlockIpComplete'] );
-		unset( $GLOBALS['wgHooks']['BlockIpComplete'][$hookIndex] );
-
 		// Don't need a global here
 		unset( $GLOBALS['globals'] );
 	}

@@ -109,13 +109,6 @@ if ( $cwClosed ) {
 
 // Public Wikis
 if ( !$cwPrivate ) {
-	$wgRCFeeds['irc'] = [
-		'formatter' => MirahezeIRCRCFeedFormatter::class,
-		'uri' => 'udp://3.15.150.112:5070',
-		'add_interwiki_prefix' => false,
-		'omit_bots' => true,
-	];
-
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
 	$wgDiscordExperimentalWebhook = $wmgDiscordExperimentalWebhook;
 
