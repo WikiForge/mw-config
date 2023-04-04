@@ -135,7 +135,6 @@ $IP/extensions/Math/extension.json
 $IP/extensions/MediaWikiChat/extension.json
 $IP/extensions/Mermaid/extension.json
 $IP/extensions/MintyDocs/extension.json
-$IP/extensions/MirahezeMagic/extension.json
 $IP/extensions/MixedNamespaceSearchSuggestions/extension.json
 $IP/extensions/MobileDetect/MobileDetect.php
 $IP/extensions/MobileFrontend/extension.json
@@ -273,6 +272,7 @@ $IP/extensions/WebChat/extension.json
 $IP/extensions/WikiCategoryTagCloud/extension.json
 $IP/extensions/WikiDiscover/extension.json
 $IP/extensions/WikiEditor/extension.json
+$IP/extensions/WikiForgeMagic/extension.json
 $IP/extensions/WikiForum/extension.json
 $IP/extensions/WikiLove/extension.json
 $IP/extensions/WikiSEO/extension.json
