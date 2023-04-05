@@ -3103,7 +3103,7 @@ $wgConf->settings += [
 		'default' => '/favicon.ico',
 	],
 	'wgLogo' => [
-		'default' => "https://$wmgUploadHostname/metawiki/1/17/WikiForge_Logo.png",
+		'default' => "https://$wmgUploadHostname/metawiki/8/88/WikiForge_Logo.svg",
 	],
 	'wgIcon' => [
 		'default' => false,
