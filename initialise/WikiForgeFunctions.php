@@ -373,7 +373,7 @@ class WikiForgeFunctions {
 	 * @return array
 	 */
 	public static function getConfigGlobals(): array {
-		global $IP, $wgDBname, $wgConf;
+		global $wgDBname, $wgConf;
 
 		// Try configuration cache
 		$confCacheFileName = "config-$wgDBname.json";
@@ -388,7 +388,7 @@ class WikiForgeFunctions {
 			filemtime( __DIR__ . '/../ManageWikiSettings.php' ),
 
 			// When MediaWiki is upgraded
-			filemtime( "$IP/includes/Defines.php" ),
+			filemtime( MW_INSTALL_PATH . '/includes/Defines.php' ),
 
 			// When ManageWiki is changed
 			@filemtime( self::CACHE_DIRECTORY . '/' . $wgDBname . '.json' )
@@ -628,7 +628,7 @@ class WikiForgeFunctions {
 	 * @return array
 	 */
 	public static function getActiveExtensions(): array {
-		global $IP, $wgDBname;
+		global $wgDBname;
 
 		$confCacheFileName = "config-$wgDBname.json";
 
@@ -640,7 +640,7 @@ class WikiForgeFunctions {
 			filemtime( __DIR__ . '/../ManageWikiExtensions.php' ),
 
 			// When MediaWiki is upgraded
-			filemtime( "$IP/includes/Defines.php" ),
+			filemtime( MW_INSTALL_PATH . '/includes/Defines.php' ),
 
 			// When ManageWiki is changed
 			@filemtime( self::CACHE_DIRECTORY . '/' . $wgDBname . '.json' )
