@@ -112,7 +112,13 @@ if ( !$cwPrivate ) {
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
 	$wgDiscordExperimentalWebhook = $wmgDiscordExperimentalWebhook;
 
+	$wgDataDumpDirectory = "/mnt/mediawiki-static/{$wi->dbname}/dumps/";
 	$wgDataDumpDownloadUrl = "https://{$wmgUploadHostname}/{$wi->dbname}/dumps/\${filename}";
+} else {
+	$wgDataDumpDirectory = "/mnt/mediawiki-static/private/dumps/{$wi->dbname}/";
+
+	// Unset $wgDataDumpDownloadUrl so private wikis stream the download via Special:DataDump/download
+	$wgDataDumpDownloadUrl = '';
 }
 
 // Experimental Wikis
@@ -132,8 +138,6 @@ if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 }
 
 // DataDump
-$wgDataDumpDirectory = '';
-
 $wgDataDump = [
 	'xml' => [
 		'file_ending' => '.xml.gz',
@@ -190,10 +194,10 @@ $wgDataDump = [
 				"{$wgUploadDirectory}/"
 			],
 		],
-		'limit' => -1,
+		'limit' => 1,
 		'permissions' => [
 			'view' => 'view-dump',
-			'generate' => 'managewiki-restricted',
+			'generate' => 'generate-dump',
 			'delete' => 'delete-dump',
 		],
 	],
