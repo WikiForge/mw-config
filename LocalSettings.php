@@ -3320,7 +3320,7 @@ $wgConf->settings += [
 
 	// Vector
 	'wgVectorResponsive' => [
-		'default' => false,
+		'default' => true,
 	],
 	'wgVectorDefaultSidebarVisibleForAnonymousUser' => [
 		'default' => true,
