@@ -141,7 +141,6 @@ if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 $wgDataDump = [
 	'xml' => [
 		'file_ending' => '.xml.gz',
-		'useBackendTempStore' => true,
 		'generate' => [
 			'type' => 'mwscript',
 			'script' => "$IP/maintenance/dumpBackup.php",
