@@ -201,7 +201,7 @@ $wgDataDump = [
 		'file_ending' => '.json',
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => "$IP/extensions/MirahezeMagic/maintenance/generateManageWikiBackup.php",
+			'script' => "$IP/extensions/WikiForgeMagic/maintenance/generateManageWikiBackup.php",
 			'options' => [
 				'--filename',
 				'${filename}'
