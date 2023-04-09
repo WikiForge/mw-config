@@ -2723,7 +2723,7 @@ $wgConf->settings += [
 	'wgPWAConfigs' => [
 		'ext-PWA' => [
 			'main' => [
-				'manifest' => 'MediaWiki:manifest.json',
+				'manifest' => 'manifest.json',
 				'patterns' => [ '/.*/' ],
 			],
 		],
