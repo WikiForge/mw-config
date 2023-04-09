@@ -3064,6 +3064,14 @@ $wgManageWikiExtensions = [
 		],
 		'section' => 'other',
 	],
+	'pwa' => [
+		'name' => 'PWA',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PWA',
+		'var' => 'wmgUsePWA',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'other',
+	],
 	'semanticmediawiki' => [
 		'name' => 'SemanticMediaWiki',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:SemanticMediaWiki',

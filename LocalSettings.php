@@ -2719,6 +2719,16 @@ $wgConf->settings += [
 		'default' => 0.05,
 	],
 
+	// PWA
+	'wgPWAConfigs' => [
+		'ext-PWA' => [
+			'main' => [
+				'manifest' => 'MediaWiki:manifest.json',
+				'patterns' => [ '/.*/' ],
+			],
+		],
+	],
+
 	// RateLimits
 	'+wgRateLimits' => [
 		'default' => [],
