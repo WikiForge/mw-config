@@ -1142,32 +1142,6 @@ $wgConf->settings += [
 		'default' => 320,
 	],
 
-	// Evelution
-	'wgEvelutionLeftPersonalLinks' => [
-		'default' => false,
-	],
-	'wgEvelutionDisableColorManagement' => [
-		'default' => false,
-	],
-	'wgEvelutionDisableRightRail' => [
-		'default' => false,
-	],
-	'wgEvelutionServerMode' => [
-		'default' => false,
-	],
-	'wgEvelutionStickyRail' => [
-		'default' => true,
-	],
-	'wgEvelutionDisableRightRailFromSpecificPages' => [
-		'default' => [],
-	],
-	'wgEvelutionMonoLogo' => [
-		'default' => false,
-	],
-	'wgEvelutionChangeMessageBoxesToBanners' => [
-		'default' => false,
-	],
-
 	// External Data
 	'wgExternalDataSources' => [
 		/**
@@ -3000,14 +2974,6 @@ $wgConf->settings += [
 	// Skins
 	'wgSkipSkins' => [
 		'default' => [],
-	],
-
-	// Snap! skin
-	'wgSnapwikiskinWvuiSearchOptions' => [
-		'default' => [
-			'showThumbnail' => false,
-			'showDescription' => false,
-		],
 	],
 
 	// SocialProfile
