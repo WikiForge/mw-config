@@ -149,7 +149,7 @@ $wgDataDump = [
 				'--logs',
 				'--uploads',
 				'--output',
-				'gzip:/tmp/${filename}',
+				"gzip:{$wgDataDumpDirectory}" . '${filename}',
 			],
 			'arguments' => [
 				'--namespaces'
