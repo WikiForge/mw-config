@@ -78,7 +78,7 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 	];
 
 	if ( $wi->isExtensionActive( 'Flow' ) ) {
-		$wgFlowParsoidURL = 'https://mw1.wikiforge.net/w/rest.php';
+		$wgFlowParsoidURL = 'https://mw-lb.wikiforge.net/w/rest.php';
 		$wgFlowParsoidPrefix = $wi->dbname;
 		$wgFlowParsoidTimeout = 30;
 		$wgFlowParsoidForwardCookies = (bool)$cwPrivate;
