@@ -706,6 +706,8 @@ $wgConf->settings += [
 			'mailman',
 			'webmail',
 			'phabricator',
+			'phorge(\d+)?',
+			'support',
 			'static',
 			'upload',
 			'grafana',
@@ -739,6 +741,7 @@ $wgConf->settings += [
 			'mem\d+',
 			'jobchron\d+',
 			'mwtask(\d+)?',
+			'bots(\d+)?',
 			'es\d+',
 			'os\d+',
 			'bast(ion)?(\d+)?',
@@ -1513,7 +1516,7 @@ $wgConf->settings += [
 		'default' => [],
 	],
 	'wgIncidentReportingTaskUrl' => [
-		'default' => '',
+		'default' => 'https://support.wikiforge.net/',
 	],
 
 	// Interwiki
