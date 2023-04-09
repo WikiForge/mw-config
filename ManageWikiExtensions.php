@@ -2803,6 +2803,14 @@ $wgManageWikiExtensions = [
 		],
 		'section' => 'other',
 	],
+	'pwa' => [
+		'name' => 'PWA',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PWA',
+		'var' => 'wmgUsePWA',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'other',
+	],
 	'ratepage' => [
 		'name' => 'RatePage',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:RatePage',
@@ -3062,14 +3070,6 @@ $wgManageWikiExtensions = [
 				"$IP/extensions/Flow/maintenance/FlowCreateTemplates.php" => [],
 			],
 		],
-		'section' => 'other',
-	],
-	'pwa' => [
-		'name' => 'PWA',
-		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PWA',
-		'var' => 'wmgUsePWA',
-		'conflicts' => false,
-		'requires' => [],
 		'section' => 'other',
 	],
 	'semanticmediawiki' => [
