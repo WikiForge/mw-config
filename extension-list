@@ -205,7 +205,6 @@ $IP/extensions/RottenLinks/extension.json
 $IP/extensions/SandboxLink/extension.json
 $IP/extensions/Score/extension.json
 $IP/extensions/Scribunto/extension.json
-$IP/extensions/SecureLinkFixer/extension.json
 $IP/extensions/SemanticFormsSelect/extension.json
 $IP/extensions/SemanticMediaWiki/extension.json
 $IP/extensions/Share/extension.json
