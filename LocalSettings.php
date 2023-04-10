@@ -2197,7 +2197,7 @@ $wgConf->settings += [
 		],
 	],
 	'wgNativeImageLazyLoading' => [
-		'default' => false,
+		'default' => true,
 	],
 	'wgShellRestrictionMethod' => [
 		'default' => 'firejail',
