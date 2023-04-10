@@ -52,8 +52,6 @@ $wgSessionCacheType = CACHE_DB;
 // Same as $wgMainStash
 $wgMWOAuthSessionCacheType = 'db-replicated';
 
-$redisServerIP = '18.217.191.48:6379';
-
 $wgMainCacheType = 'memcached';
 $wgMessageCacheType = 'memcached';
 
@@ -80,7 +78,7 @@ $wgInvalidateCacheOnLocalSettingsChange = false;
 
 $wgJobTypeConf['default'] = [
 	'class' => JobQueueRedis::class,
-	'redisServer' => $redisServerIP,
+	'redisServer' => 'jobchron1.wikiforge.net',
 	'redisConfig' => [
 		'connectTimeout' => 2,
 		'password' => $wmgRedisPassword,
@@ -94,5 +92,3 @@ if ( PHP_SAPI === 'cli' ) {
 	// APC not available in CLI mode
 	$wgLanguageConverterCacheType = CACHE_NONE;
 }
-
-unset( $redisServerIP );
