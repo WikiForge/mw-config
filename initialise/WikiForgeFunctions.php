@@ -769,49 +769,17 @@ class WikiForgeFunctions {
 	 * @param string $globalDatabase
 	 * @return array
 	 */
-	private static function getActiveList( string $globalDatabase ): array {
-		$dbr = self::getDatabaseConnection( $globalDatabase );
-		$activeWikis = $dbr->newSelectQueryBuilder()
-			->table( 'cw_wikis' )
-			->fields( [
-				'wiki_dbcluster',
-				'wiki_dbname',
-				'wiki_sitename',
-			] )
-			->where( [
-				'wiki_closed' => 0,
-				'wiki_deleted' => 0,
-				'wiki_inactive' => 0,
-			] )
-			->caller( __METHOD__ )
-			->fetchResultSet();
-
-		$activeList = [];
-		foreach ( $activeWikis as $wiki ) {
-			$activeList[$wiki->wiki_dbname] = [
-				's' => $wiki->wiki_sitename,
-				'c' => $wiki->wiki_dbcluster,
-			];
-		}
-
-		return $activeList;
-	}
-
-	/**
-	 * @param string $globalDatabase
-	 * @return array
-	 */
 	private static function getCombiList( string $globalDatabase ): array {
 		$dbr = self::getDatabaseConnection( $globalDatabase );
 		$allWikis = $dbr->newSelectQueryBuilder()
-			->table( 'cw_wikis' )
+			->table( 'premium_wikis' )
 			->fields( [
 				'wiki_dbcluster',
 				'wiki_dbname',
 				'wiki_url',
 				'wiki_sitename',
 			] )
-			->where( [ 'wiki_deleted' => 0 ] )
+			->where( [ 'wiki_status' => 'created' ] )
 			->caller( __METHOD__ )
 			->fetchResultSet();
 
@@ -837,13 +805,13 @@ class WikiForgeFunctions {
 	private static function getDeletedList( string $globalDatabase ): array {
 		$dbr = self::getDatabaseConnection( $globalDatabase );
 		$deletedWikis = $dbr->newSelectQueryBuilder()
-			->table( 'cw_wikis' )
+			->table( 'premium_wikis' )
 			->fields( [
 				'wiki_dbcluster',
 				'wiki_dbname',
 				'wiki_sitename',
 			] )
-			->where( [ 'wiki_deleted' => 1 ] )
+			->where( [ 'wiki_status' => 'deleted' ] )
 			->caller( __METHOD__ )
 			->fetchResultSet();
 
@@ -874,11 +842,6 @@ class WikiForgeFunctions {
 	 */
 	public static function onGenerateDatabaseLists( array &$databaseLists ) {
 		$databaseLists = [
-			'active' => [
-				'combi' => self::getActiveList(
-					self::GLOBAL_DATABASE
-				),
-			],
 			'databases' => [
 				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE
