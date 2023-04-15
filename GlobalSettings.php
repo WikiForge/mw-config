@@ -87,26 +87,6 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 
 $wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
-// Closed Wikis
-if ( $cwClosed ) {
-	$wgRevokePermissions = [
-		'*' => [
-			'block' => true,
-			'createaccount' => true,
-			'delete' => true,
-			'edit' => true,
-			'protect' => true,
-			'import' => true,
-			'upload' => true,
-			'undelete' => true,
-		],
-	];
-
-	if ( $wi->isExtensionActive( 'Comments' ) ) {
-		$wgRevokePermissions['*']['comment'] = true;
-	}
-}
-
 // Public Wikis
 if ( !$cwPrivate ) {
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
