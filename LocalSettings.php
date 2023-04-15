@@ -3833,13 +3833,7 @@ $wgConf->settings += [
 	],
 
 	// CreateWiki Defined Special Variables
-	'cwClosed' => [
-		'default' => false,
-	],
 	'cwExperimental' => [
-		'default' => false,
-	],
-	'cwInactive' => [
 		'default' => false,
 	],
 	'cwPrivate' => [
