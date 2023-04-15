@@ -532,7 +532,6 @@ class WikiForgeFunctions {
 
 		// Assign states
 		$settings['cwPrivate']['default'] = (bool)$cacheArray['states']['private'];
-		$settings['cwExperimental']['default'] = (bool)( $cacheArray['states']['experimental'] ?? false );
 
 		// Assign settings
 		if ( isset( $cacheArray['settings'] ) ) {
