@@ -821,7 +821,9 @@ $wgConf->settings += [
 		],
 	],
 	'wgCreateWikiStateDays' => [
-		'default' => [],
+		'default' => [
+			'deleted' => 90,
+		],
 	],
 	'wgCreateWikiCacheDirectory' => [
 		'default' => '/srv/mediawiki/cache'
