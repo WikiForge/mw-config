@@ -821,12 +821,7 @@ $wgConf->settings += [
 		],
 	],
 	'wgCreateWikiStateDays' => [
-		'default' => [
-			'inactive' => 45,
-			'closed' => 15,
-			'removed' => 120,
-			'deleted' => 14
-		],
+		'default' => [],
 	],
 	'wgCreateWikiCacheDirectory' => [
 		'default' => '/srv/mediawiki/cache'
@@ -836,6 +831,7 @@ $wgConf->settings += [
 			'Art & Architecture' => 'artarc',
 			'Automotive' => 'automotive',
 			'Business & Finance' => 'businessfinance',
+			'Commercial' => 'commercial',
 			'Community' => 'community',
 			'Education' => 'education',
 			'Electronics' => 'electronics',
@@ -855,7 +851,6 @@ $wgConf->settings += [
 			'Music' => 'music',
 			'Podcast' => 'podcast',
 			'Politics' => 'politics',
-			'Private' => 'private',
 			'Religion' => 'religion',
 			'Science' => 'science',
 			'Software/Computing' => 'software',
@@ -870,9 +865,6 @@ $wgConf->settings += [
 	'wgCreateWikiSubdomain' => [
 		'default' => 'wikiforge.net',
 	],
-	'wgCreateWikiUseClosedWikis' => [
-		'default' => true,
-	],
 	'wgCreateWikiUseCustomDomains' => [
 		'default' => true,
 	],
@@ -880,9 +872,6 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCreateWikiUseExperimental' => [
-		'default' => true,
-	],
-	'wgCreateWikiUseInactiveWikis' => [
 		'default' => true,
 	],
 	'wgCreateWikiUsePrivateWikis' => [
