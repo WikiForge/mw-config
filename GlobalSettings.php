@@ -101,13 +101,6 @@ if ( !$cwPrivate ) {
 	$wgDataDumpDownloadUrl = '';
 }
 
-// Experimental Wikis
-if ( $cwExperimental ) {
-	$wgParserEnableLegacyMediaDOM = false;
-} else {
-	$wgParserEnableLegacyMediaDOM = true;
-}
-
 // Dynamic cookie settings dependant on $wgServer
 if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 	$wgCentralAuthCookieDomain = '.wikiforge.net';
