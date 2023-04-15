@@ -871,9 +871,6 @@ $wgConf->settings += [
 	'wgCreateWikiUseEchoNotifications' => [
 		'default' => true,
 	],
-	'wgCreateWikiUseExperimental' => [
-		'default' => true,
-	],
 	'wgCreateWikiUsePrivateWikis' => [
 		'default' => true,
 	],
@@ -3833,9 +3830,6 @@ $wgConf->settings += [
 	],
 
 	// CreateWiki Defined Special Variables
-	'cwExperimental' => [
-		'default' => false,
-	],
 	'cwPrivate' => [
 		'default' => false,
 	],
