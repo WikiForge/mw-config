@@ -2515,11 +2515,7 @@ $wgManageWikiExtensions = [
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:MobileFrontend',
 		'var' => 'wmgUseMobileFrontend',
 		'conflicts' => false,
-		'requires' => [
-			'extensions' => [
-				'minervaneue',
-			],
-		],
+		'requires' => [],
 		'section' => 'other',
 	],
 	'mobiletabsplugin' => [
