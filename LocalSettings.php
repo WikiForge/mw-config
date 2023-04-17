@@ -1745,8 +1745,10 @@ $wgConf->settings += [
 			'categorytree',
 			'cite',
 			'citethispage',
+			'citizen',
 			'codeeditor',
 			'codemirror',
+			'cosmos',
 			'darkmode',
 			'globaluserpage',
 			'minervaneue',
@@ -2234,7 +2236,7 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgDefaultMobileSkin' => [
-		'default' => 'minerva',
+		'default' => 'citizen',
 	],
 	'wgMobileUrlTemplate' => [
 		'default' => '',
@@ -2776,6 +2778,8 @@ $wgConf->settings += [
 	// RelatedArticles
 	'wgRelatedArticlesFooterAllowedSkins' => [
 		'default' => [
+			'citizen',
+			'cosmos',
 			'minerva',
 			'timeless',
 			'vector',
