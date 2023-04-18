@@ -49,8 +49,7 @@ $wi = new WikiForgeFunctions();
 // Load PrivateSettings (e.g. $wgDBpassword)
 require_once '/srv/mediawiki/config/PrivateSettings.php';
 
-// Load global skins and extensions
-require_once '/srv/mediawiki/config/GlobalSkins.php';
+// Load global extensions
 require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
 $wgPasswordSender = 'noreply@wikiforge.net';
