@@ -20,6 +20,9 @@ class WikiForgeFunctions {
 	/** @var string */
 	public $sitename;
 
+	/** @var string */
+	public $version;
+
 	/** @var array */
 	public $wikiDBClusters;
 
@@ -53,6 +56,7 @@ class WikiForgeFunctions {
 		$this->server = self::getServer();
 		$this->sitename = self::getSiteName();
 		$this->missing = self::isMissing();
+		$this->version = self::getMediaWikiVersion();
 
 		$this->hostname = $_SERVER['HTTP_HOST'] ??
 			parse_url( $this->server, PHP_URL_HOST ) ?: 'undefined';
@@ -344,6 +348,35 @@ class WikiForgeFunctions {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
 		return self::getSiteNames()[ self::$currentDatabase ] ?? self::getSiteNames()['default'];
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getMediaWikiVersions(): array {
+		static $allDatabases = null;
+		static $deletedDatabases = null;
+
+		$allDatabases ??= self::readDbListFile( 'databases', false );
+		$deletedDatabases ??= self::readDbListFile( 'deleted', false );
+
+		$databases = array_merge( $allDatabases, $deletedDatabases );
+
+		$versionsColumn = array_column( $databases, 'v' );
+
+		$versions = array_combine( array_keys( $databases ), $versionsColumn );
+		$versions['default'] = self::MEDIAWIKI_VERSIONS['stable'];
+
+		return $versions;
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function getMediaWikiVersion(): string {
+		self::$currentDatabase ??= self::getCurrentDatabase();
+
+		return self::getMediaWikiVersions()[ self::$currentDatabase ] ?? self::getMediaWikiVersions()['default'];
 	}
 
 	/**
