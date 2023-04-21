@@ -675,12 +675,13 @@ class WikiForgeFunctions {
 			array_diff( $allExtensions, static::$disabledExtensions )
 		);
 
-		return array_intersect( array_keys(
+		return array_keys( array_intersect_key(
+			$allExtensions,
 			array_intersect(
-				array_flip( $allExtensions ),
-				$cacheArray['extensions'] ?? []
+				array_flip( $cacheArray['extensions'] ?? [] ),
+				array_flip( $enabledExtensions )
 			)
-		), $enabledExtensions );
+		) );
 	}
 
 	/**
