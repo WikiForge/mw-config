@@ -840,6 +840,7 @@ class WikiForgeFunctions {
 				'wiki_dbname',
 				'wiki_url',
 				'wiki_sitename',
+				'wiki_version',
 			] )
 			->where( [ 'wiki_deleted' => 0 ] )
 			->caller( __METHOD__ )
