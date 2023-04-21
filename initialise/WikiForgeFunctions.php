@@ -651,7 +651,7 @@ class WikiForgeFunctions {
 	 * @param string $wiki
 	 * @return mixed
 	 */
-	public static function getSettingValue( string $setting, string $wiki = 'default' ) {
+	public function getSettingValue( string $setting, string $wiki = 'default' ) {
 		global $wgConf;
 
 		static $cacheArray = null;
