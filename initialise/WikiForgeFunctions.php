@@ -359,7 +359,7 @@ class WikiForgeFunctions {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
 		static $version = null;
-		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'];
+		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? null;
 
 		return $version ?? self::MEDIAWIKI_VERSIONS['stable'];
 	}
