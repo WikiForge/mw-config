@@ -850,8 +850,7 @@ class WikiForgeFunctions {
 			$combiList[$wiki->wiki_dbname] = [
 				's' => $wiki->wiki_sitename,
 				'c' => $wiki->wiki_dbcluster,
-				'v' => self::getSettingValue( 'wmgMediaWikiVersion', $wiki->wiki_dbname )
-					?: self::MEDIAWIKI_VERSIONS['stable'],
+				'v' => ( $wiki->wiki_version ?? null ) ?: self::MEDIAWIKI_VERSIONS['stable'],
 			];
 
 			if ( $wiki->wiki_url !== null ) {
