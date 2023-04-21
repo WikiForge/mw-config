@@ -16,11 +16,20 @@ $wgLBFactoryConf = [
 		'user' => $wgDBuser,
 		'password' => $wgDBpassword,
 		'type' => 'mysql',
+		'ssl' => true,
 		'flags' => DBO_DEFAULT,
 		'variables' => [
 			// https://mariadb.com/docs/reference/mdb/system-variables/innodb_lock_wait_timeout
 			'innodb_lock_wait_timeout' => 15,
 		],
+		/**
+		 * MediaWiki checks if the certificate presented by MariaDB is signed
+		 * by the certificate authority listed in 'sslCAFile'. In emergencies
+		 * this could be set to /etc/ssl/certs/ca-certificates.crt (all trusted
+		 * CAs), but setting this to one CA reduces attack vector and CAs
+		 * to dig through when checking the certificate provided by MariaDB.
+		 */
+		'sslCAFile' => '/etc/ssl/certs/LetsEncrypt.crt',
 	],
 	'hostsByName' => [
 		'db1' => 'db1.wikiforge.net',
