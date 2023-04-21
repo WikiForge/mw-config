@@ -32,6 +32,13 @@ class WikiForgeFunctions {
 
 	private const GLOBAL_DATABASE = 'prodglobal';
 
+	public const MEDIAWIKI_VERSIONS = [
+		'legacy' => '1.38',
+		'legacy-lts' => '1.35',
+		'lts' => '1.39',
+		'stable' => '1.39',
+	];
+
 	public const SUFFIXES = [
 		'wiki' => 'wikiforge.net',
 	];
@@ -611,7 +618,7 @@ class WikiForgeFunctions {
 	 * @param string $wiki
 	 * @return mixed
 	 */
-	public function getSettingValue( string $setting, string $wiki = 'default' ) {
+	public static function getSettingValue( string $setting, string $wiki = 'default' ) {
 		global $wgConf;
 
 		static $cacheArray = null;
@@ -810,6 +817,8 @@ class WikiForgeFunctions {
 			$combiList[$wiki->wiki_dbname] = [
 				's' => $wiki->wiki_sitename,
 				'c' => $wiki->wiki_dbcluster,
+				'v' => self::getSettingValue( 'wmgMediaWikiVersion', $wiki->wiki_dbname )
+					?: self::MEDIAWIKI_VERSIONS['stable'],
 			];
 
 			if ( $wiki->wiki_url !== null ) {
