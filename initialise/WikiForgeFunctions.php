@@ -35,6 +35,8 @@ class WikiForgeFunctions {
 
 	private const GLOBAL_DATABASE = 'prodglobal';
 
+	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
+
 	public const MEDIAWIKI_VERSIONS = [
 		'legacy' => '1.38',
 		'legacy-lts' => '1.35',
@@ -351,32 +353,27 @@ class WikiForgeFunctions {
 	}
 
 	/**
-	 * @return array
-	 */
-	public static function getMediaWikiVersions(): array {
-		static $allDatabases = null;
-		static $deletedDatabases = null;
-
-		$allDatabases ??= self::readDbListFile( 'databases', false );
-		$deletedDatabases ??= self::readDbListFile( 'deleted', false );
-
-		$databases = array_merge( $allDatabases, $deletedDatabases );
-
-		$versionsColumn = array_column( $databases, 'v' );
-
-		$versions = array_combine( array_keys( $databases ), $versionsColumn );
-		$versions['default'] = self::MEDIAWIKI_VERSIONS['stable'];
-
-		return $versions;
-	}
-
-	/**
 	 * @return string
 	 */
 	public static function getMediaWikiVersion(): string {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		return self::getMediaWikiVersions()[ self::$currentDatabase ] ?? self::getMediaWikiVersions()['default'];
+		return self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? self::MEDIAWIKI_VERSIONS['stable'];
+	}
+
+	/**
+	 * @param string $file
+	 * @return string
+	 */
+	public static function getMediaWiki( string $file ): string {
+		global $IP;
+
+		$IP = self::MEDIAWIKI_DIRECTORY . self::getMediaWikiVersion();
+
+		chdir( $IP );
+		putenv( "MW_INSTALL_PATH=$IP" );
+
+		return $IP . '/' . $file;
 	}
 
 	/**
@@ -473,6 +470,8 @@ class WikiForgeFunctions {
 
 		static $cacheArray = null;
 		$cacheArray ??= self::getCacheArray();
+
+		$wikiTags[] = self::getMediaWikiVersion();
 		foreach ( $cacheArray['states'] ?? [] as $state => $value ) {
 			if ( $value !== 'exempt' && (bool)$value ) {
 				$wikiTags[] = $state;
