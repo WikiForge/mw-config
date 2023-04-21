@@ -358,7 +358,10 @@ class WikiForgeFunctions {
 	public static function getMediaWikiVersion(): string {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		return self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? self::MEDIAWIKI_VERSIONS['stable'];
+		static $version = null;
+		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'];
+
+		return $version ?? self::MEDIAWIKI_VERSIONS['stable'];
 	}
 
 	/**
