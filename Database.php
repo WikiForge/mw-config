@@ -28,8 +28,10 @@ $wgLBFactoryConf = [
 		 * this could be set to /etc/ssl/certs/ca-certificates.crt (all trusted
 		 * CAs), but setting this to one CA reduces attack vector and CAs
 		 * to dig through when checking the certificate provided by MariaDB.
+		 *
+		 * TEMPORARY: use ca-certificates.crt, as this doesn't seem to like LetsEncrypt.crt
 		 */
-		'sslCAFile' => '/etc/ssl/certs/LetsEncrypt.crt',
+		'sslCAFile' => '/etc/ssl/certs/ca-certificates.crt',
 	],
 	'hostsByName' => [
 		'db1' => 'db1.wikiforge.net',
