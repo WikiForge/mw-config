@@ -335,17 +335,6 @@ $wgConf->settings += [
 		'default' => [ 10 => 1, 20 => 1, 0 => 2 ],
 	],
 
-	// CDN
-	'wgUseCdn' => [
-		'default' => true,
-	],
-	'wgCdnServersNoPurge' => [
-		'default' => [
-			/** Load balancer */
-			'172.31.0.0/16',
-		],
-	],
-
 	// CentralAuth
 	'wgCentralAuthAutoCreateWikis' => [
 		'default' => [
@@ -1690,7 +1679,11 @@ $wgConf->settings += [
 			/** localhost */
 			'127.0.0.1' => true,
 			/** mw1 */
-			'18.191.46.248' => true,
+			'3.145.73.77' => true,
+			/** mw2 */
+			'18.224.51.21' => true,
+			/** test1 */
+			'52.14.195.40' => true,
 		],
 	],
 
@@ -3318,6 +3311,19 @@ $wgConf->settings += [
 		'ext-UserPageEditProtection' => true,
 	],
 
+	// Varnish
+	'wgUseCdn' => [
+		'default' => true,
+	],
+	'wgCdnServers' => [
+		'default' => [
+			/** cp1 */
+			'77.68.52.122:81',
+			/** cp2 */
+			'198.251.65.198:81',
+		],
+	],
+
 	// Vector
 	'wgVectorResponsive' => [
 		'default' => true,
@@ -3877,6 +3883,11 @@ $wgConf->settings += [
 ];
 
 // Start settings requiring external dependency checks/functions
+
+if ( wfHostname() === 'test1' ) {
+	// Prevent cache (better be safe than sorry)
+	$wgConf->settings['wgUseCdn']['default'] = false;
+}
 
 // ManageWiki settings
 require_once __DIR__ . '/ManageWikiExtensions.php';
