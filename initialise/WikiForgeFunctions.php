@@ -760,10 +760,10 @@ class WikiForgeFunctions {
 			return;
 		}
 
-		if ( !file_exists( self::CACHE_DIRECTORY . '/extension-list.json' ) ) {
+		if ( !file_exists( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json' ) ) {
 			$queue = array_fill_keys( array_merge(
-					glob( '/srv/mediawiki/' . $this->version . '/extensions/*/extension*.json' ),
-					glob( '/srv/mediawiki/' . $this->version . '/skins/*/skin.json' )
+					glob( self::MEDIAWIKI_DIRECTORY . $this->version . '/extensions/*/extension*.json' ),
+					glob( self::MEDIAWIKI_DIRECTORY . $this->version . '/skins/*/skin.json' )
 				),
 			true );
 
@@ -781,9 +781,9 @@ class WikiForgeFunctions {
 
 			$list = array_column( $data['credits'], 'path', 'name' );
 
-			file_put_contents( self::CACHE_DIRECTORY . '/extension-list.json', json_encode( $list ), LOCK_EX );
+			file_put_contents( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json', json_encode( $list ), LOCK_EX );
 		} else {
-			$list = json_decode( file_get_contents( self::CACHE_DIRECTORY . '/extension-list.json' ), true );
+			$list = json_decode( file_get_contents( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json' ), true );
 		}
 
 		self::$activeExtensions ??= self::getActiveExtensions();
