@@ -762,8 +762,8 @@ class WikiForgeFunctions {
 
 		if ( !file_exists( self::CACHE_DIRECTORY . '/extension-list.json' ) ) {
 			$queue = array_fill_keys( array_merge(
-					glob( '/srv/mediawiki/w/extensions/*/extension*.json' ),
-					glob( '/srv/mediawiki/w/skins/*/skin.json' )
+					glob( '/srv/mediawiki/' . $this->version . '/extensions/*/extension*.json' ),
+					glob( '/srv/mediawiki/' . $this->version . '/skins/*/skin.json' )
 				),
 			true );
 
