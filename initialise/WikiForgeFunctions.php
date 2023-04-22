@@ -761,6 +761,11 @@ class WikiForgeFunctions {
 		}
 
 		if ( !file_exists( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json' ) ) {
+			if ( !is_dir( self::CACHE_DIRECTORY . '/' . $this->version ) ) {
+				// Create directory since it doesn't exist
+				mkdir( self::CACHE_DIRECTORY . '/' . $this->version );
+			}
+
 			$queue = array_fill_keys( array_merge(
 					glob( self::MEDIAWIKI_DIRECTORY . $this->version . '/extensions/*/extension*.json' ),
 					glob( self::MEDIAWIKI_DIRECTORY . $this->version . '/skins/*/skin.json' )
