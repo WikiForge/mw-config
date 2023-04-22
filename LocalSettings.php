@@ -2219,9 +2219,6 @@ $wgConf->settings += [
 	'wgDefaultLanguageVariant' => [
 		'default' => false,
 	],
-	'wgResourceLoaderMaxQueryLength' => [
-		'default' => 5000,
-	],
 
 	// MobileFrontend
 	'wgMFAutodetectMobileView' => [
@@ -2765,6 +2762,23 @@ $wgConf->settings += [
 	],
 	'wgUseRCPatrol' => [
 		'default' => true,
+	],
+
+	// Resources
+	'wgExtensionAssetsPath' => [
+		'default' => '/' . $wi->version . '/extensions',
+	],
+	'wgLocalStylePath' => [
+		'default' => '/' . $wi->version . '/skins',
+	],
+	'wgResourceBasePath' => [
+		'default' => '/' . $wi->version,
+	],
+	'wgResourceLoaderMaxQueryLength' => [
+		'default' => 5000,
+	],
+	'wgStylePath' => [
+		'default' => '/' . $wi->version . '/skins',
 	],
 
 	// RelatedArticles
