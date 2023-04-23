@@ -381,13 +381,15 @@ class WikiForgeFunctions {
 
 		$IP = self::MEDIAWIKI_DIRECTORY . self::getMediaWikiVersion();
 
-		if ( !getenv( 'MW_INSTALL_PATH' ) ) {
-			putenv( "MW_INSTALL_PATH=$IP" );
-		} else {
+		if ( getenv( 'MW_INSTALL_PATH' ) ) {
 			$IP = getenv( 'MW_INSTALL_PATH' );
+		} else {
+			$IP = self::MEDIAWIKI_DIRECTORY . self::getMediaWikiVersion();
 		}
 
-		chdir( $IP );
+ 		chdir( $IP );
+		putenv( "MW_INSTALL_PATH=$IP" );
+
 		return $IP . '/' . $file;
 	}
 
