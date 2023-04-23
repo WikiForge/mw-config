@@ -368,9 +368,14 @@ class WikiForgeFunctions {
 			return getenv( 'WIKIFORGE_WIKI_VERSION' );
 		}
 
+		static $version = null;
+
+		if ( php_sapi_name() === 'cli' ) {
+			$version ??= explode( '/', dirname( __FILE__ ) )[3] ?? null;
+		}
+
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		static $version = null;
 		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? null;
 
 		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
