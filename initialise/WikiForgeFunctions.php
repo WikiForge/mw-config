@@ -387,7 +387,7 @@ class WikiForgeFunctions {
 			$IP = self::MEDIAWIKI_DIRECTORY . self::getMediaWikiVersion();
 		}
 
- 		chdir( $IP );
+		chdir( $IP );
 		putenv( "MW_INSTALL_PATH=$IP" );
 
 		return $IP . '/' . $file;
