@@ -371,7 +371,7 @@ class WikiForgeFunctions {
 		static $version = null;
 
 		if ( PHP_SAPI === 'cli' ) {
-			$version ??= explode( '/', dirname( __FILE__ ) )[3] ?? null;
+			$version ??= explode( '/', __DIR__ )[3] ?? null;
 		}
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
