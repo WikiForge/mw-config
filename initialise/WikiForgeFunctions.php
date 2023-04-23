@@ -370,7 +370,7 @@ class WikiForgeFunctions {
 
 		static $version = null;
 
-		if ( php_sapi_name() === 'cli' ) {
+		if ( PHP_SAPI === 'cli' ) {
 			$version ??= explode( '/', dirname( __FILE__ ) )[3] ?? null;
 		}
 
