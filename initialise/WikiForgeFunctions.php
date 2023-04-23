@@ -364,6 +364,10 @@ class WikiForgeFunctions {
 	 * @return string
 	 */
 	public static function getMediaWikiVersion(): string {
+		if ( getenv( 'WIKIFORGE_WIKI_VERSION' ) ) {
+			return getenv( 'WIKIFORGE_WIKI_VERSION' );
+		}
+
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
 		static $version = null;
