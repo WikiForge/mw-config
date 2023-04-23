@@ -404,7 +404,7 @@ $wgConf->settings += [
 
 	// Chameleon
 	'egChameleonLayoutFile' => [
-		'default' => '/srv/mediawiki/w/skins/chameleon/layouts/standard.xml',
+		'default' => '/srv/mediawiki/' . $wi->version . '/w/skins/chameleon/layouts/standard.xml',
 	],
 	'egChameleonEnableExternalLinkIcons' => [
 		'default' => false,
@@ -480,7 +480,7 @@ $wgConf->settings += [
 
 	// Comments
 	'wgCommentsDefaultAvatar' => [
-		'default' => '/w/extensions/SocialProfile/avatars/default_ml.gif',
+		'default' => '/' . $wi->version . '/extensions/SocialProfile/avatars/default_ml.gif',
 	],
 	'wgCommentsInRecentChanges' => [
 		'default' => false,
