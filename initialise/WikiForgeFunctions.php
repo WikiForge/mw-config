@@ -38,6 +38,7 @@ class WikiForgeFunctions {
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
 
 	public const MEDIAWIKI_VERSIONS = [
+		'beta' => '1.40',
 		'legacy' => '1.38',
 		'legacy-lts' => '1.35',
 		'lts' => '1.39',
@@ -355,13 +356,20 @@ class WikiForgeFunctions {
 	/**
 	 * @return string
 	 */
+	public static function getDefaultMediaWikiVersion(): string {
+		return wfHostname() === 'test1' ? 'beta' : 'stable';
+	}
+
+	/**
+	 * @return string
+	 */
 	public static function getMediaWikiVersion(): string {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
 		static $version = null;
 		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? null;
 
-		return $version ?? self::MEDIAWIKI_VERSIONS['stable'];
+		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 	}
 
 	/**
@@ -858,7 +866,7 @@ class WikiForgeFunctions {
 			$combiList[$wiki->wiki_dbname] = [
 				's' => $wiki->wiki_sitename,
 				'c' => $wiki->wiki_dbcluster,
-				'v' => ( $wiki->wiki_version ?? null ) ?: self::MEDIAWIKI_VERSIONS['stable'],
+				'v' => ( $wiki->wiki_version ?? null ) ?: self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()],
 			];
 
 			if ( $wiki->wiki_url !== null ) {
