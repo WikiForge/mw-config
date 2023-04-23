@@ -5,6 +5,7 @@ switch ( $wi->dbname ) {
 	case 'dcmultiversewiki':
 		$wgForeignFileRepos[] = [
 			'class' => \MediaWiki\Extension\QuickInstantCommons\Repo::class,
+			'directory' => $wgUploadDirectory,
 			'name' => 'miraheze',
 			'apibase' => 'https://dcmultiverse.miraheze.org/w/api.php',
 			'url' => 'https://static.miraheze.org/dcmultiversewiki',
