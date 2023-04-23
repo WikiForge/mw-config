@@ -2167,7 +2167,7 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgGitInfoCacheDirectory' => [
-		'default' => '/srv/mediawiki/cache/gitinfo',
+		'default' => '/srv/mediawiki/cache/' . $wi->version . '/gitinfo',
 	],
 	'wgAllowExternalImages' => [
 		'default' => false,
@@ -2218,9 +2218,6 @@ $wgConf->settings += [
 	],
 	'wgDefaultLanguageVariant' => [
 		'default' => false,
-	],
-	'wgResourceLoaderMaxQueryLength' => [
-		'default' => 5000,
 	],
 
 	// MobileFrontend
@@ -2765,6 +2762,23 @@ $wgConf->settings += [
 	],
 	'wgUseRCPatrol' => [
 		'default' => true,
+	],
+
+	// Resources
+	'wgExtensionAssetsPath' => [
+		'default' => '/' . $wi->version . '/extensions',
+	],
+	'wgLocalStylePath' => [
+		'default' => '/' . $wi->version . '/skins',
+	],
+	'wgResourceBasePath' => [
+		'default' => '/' . $wi->version,
+	],
+	'wgResourceLoaderMaxQueryLength' => [
+		'default' => 5000,
+	],
+	'wgStylePath' => [
+		'default' => '/' . $wi->version . '/skins',
 	],
 
 	// RelatedArticles
@@ -3914,10 +3928,10 @@ $wgUploadPath = "//$wmgUploadHostname/$wgDBname";
 $wgUploadDirectory = "/mnt/mediawiki-static/$wgDBname";
 
 $wgLocalisationCacheConf['storeClass'] = LCStoreCDB::class;
-$wgLocalisationCacheConf['storeDirectory'] = '/srv/mediawiki/cache/l10n';
+$wgLocalisationCacheConf['storeDirectory'] = '/srv/mediawiki/cache/' . $wi->version . '/l10n';
 $wgLocalisationCacheConf['manualRecache'] = true;
 
-if ( !file_exists( '/srv/mediawiki/cache/l10n/l10n_cache-en.cdb' ) ) {
+if ( !file_exists( '/srv/mediawiki/cache/' . $wi->version . '/l10n/l10n_cache-en.cdb' ) ) {
 	$wgLocalisationCacheConf['manualRecache'] = false;
 }
 

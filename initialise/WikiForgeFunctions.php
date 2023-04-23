@@ -20,6 +20,9 @@ class WikiForgeFunctions {
 	/** @var string */
 	public $sitename;
 
+	/** @var string */
+	public $version;
+
 	/** @var array */
 	public $wikiDBClusters;
 
@@ -31,6 +34,16 @@ class WikiForgeFunctions {
 	private const DEFAULT_SERVER = 'wikiforge.net';
 
 	private const GLOBAL_DATABASE = 'prodglobal';
+
+	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
+
+	public const MEDIAWIKI_VERSIONS = [
+		'beta' => '1.40',
+		'legacy' => '1.38',
+		'legacy-lts' => '1.35',
+		'lts' => '1.39',
+		'stable' => '1.39',
+	];
 
 	public const SUFFIXES = [
 		'wiki' => 'wikiforge.net',
@@ -46,6 +59,7 @@ class WikiForgeFunctions {
 		$this->server = self::getServer();
 		$this->sitename = self::getSiteName();
 		$this->missing = self::isMissing();
+		$this->version = self::getMediaWikiVersion();
 
 		$this->hostname = $_SERVER['HTTP_HOST'] ??
 			parse_url( $this->server, PHP_URL_HOST ) ?: 'undefined';
@@ -340,6 +354,49 @@ class WikiForgeFunctions {
 	}
 
 	/**
+	 * @return string
+	 */
+	public static function getDefaultMediaWikiVersion(): string {
+		return wfHostname() === 'test1.wikiforge.net' ? 'beta' : 'stable';
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function getMediaWikiVersion(): string {
+		if ( getenv( 'WIKIFORGE_WIKI_VERSION' ) ) {
+			return getenv( 'WIKIFORGE_WIKI_VERSION' );
+		}
+
+		static $version = null;
+
+		if ( PHP_SAPI === 'cli' ) {
+			$version ??= explode( '/', __DIR__ )[3] ?? null;
+		}
+
+		self::$currentDatabase ??= self::getCurrentDatabase();
+
+		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? null;
+
+		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
+	}
+
+	/**
+	 * @param string $file
+	 * @return string
+	 */
+	public static function getMediaWiki( string $file ): string {
+		global $IP;
+
+		$IP = self::MEDIAWIKI_DIRECTORY . self::getMediaWikiVersion();
+
+		chdir( $IP );
+		putenv( "MW_INSTALL_PATH=$IP" );
+
+		return $IP . '/' . $file;
+	}
+
+	/**
 	 * @return bool
 	 */
 	public static function isMissing(): bool {
@@ -433,6 +490,8 @@ class WikiForgeFunctions {
 
 		static $cacheArray = null;
 		$cacheArray ??= self::getCacheArray();
+
+		$wikiTags[] = self::getMediaWikiVersion();
 		foreach ( $cacheArray['states'] ?? [] as $state => $value ) {
 			if ( $value !== 'exempt' && (bool)$value ) {
 				$wikiTags[] = $state;
@@ -718,10 +777,15 @@ class WikiForgeFunctions {
 			return;
 		}
 
-		if ( !file_exists( self::CACHE_DIRECTORY . '/extension-list.json' ) ) {
+		if ( !file_exists( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json' ) ) {
+			if ( !is_dir( self::CACHE_DIRECTORY . '/' . $this->version ) ) {
+				// Create directory since it doesn't exist
+				mkdir( self::CACHE_DIRECTORY . '/' . $this->version );
+			}
+
 			$queue = array_fill_keys( array_merge(
-					glob( '/srv/mediawiki/w/extensions/*/extension*.json' ),
-					glob( '/srv/mediawiki/w/skins/*/skin.json' )
+					glob( self::MEDIAWIKI_DIRECTORY . $this->version . '/extensions/*/extension*.json' ),
+					glob( self::MEDIAWIKI_DIRECTORY . $this->version . '/skins/*/skin.json' )
 				),
 			true );
 
@@ -739,9 +803,9 @@ class WikiForgeFunctions {
 
 			$list = array_column( $data['credits'], 'path', 'name' );
 
-			file_put_contents( self::CACHE_DIRECTORY . '/extension-list.json', json_encode( $list ), LOCK_EX );
+			file_put_contents( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json', json_encode( $list ), LOCK_EX );
 		} else {
-			$list = json_decode( file_get_contents( self::CACHE_DIRECTORY . '/extension-list.json' ), true );
+			$list = json_decode( file_get_contents( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json' ), true );
 		}
 
 		self::$activeExtensions ??= self::getActiveExtensions();
@@ -800,6 +864,7 @@ class WikiForgeFunctions {
 				'wiki_dbname',
 				'wiki_url',
 				'wiki_sitename',
+				'wiki_version',
 			] )
 			->where( [ 'wiki_deleted' => 0 ] )
 			->caller( __METHOD__ )
@@ -810,6 +875,7 @@ class WikiForgeFunctions {
 			$combiList[$wiki->wiki_dbname] = [
 				's' => $wiki->wiki_sitename,
 				'c' => $wiki->wiki_dbcluster,
+				'v' => ( $wiki->wiki_version ?? null ) ?: self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()],
 			];
 
 			if ( $wiki->wiki_url !== null ) {
