@@ -357,7 +357,7 @@ class WikiForgeFunctions {
 	 * @return string
 	 */
 	public static function getDefaultMediaWikiVersion(): string {
-		return wfHostname() === 'test1.wikiforge.net' ? 'beta' : 'stable';
+		return php_uname( 'n' ) === 'test1.wikiforge.net' ? 'beta' : 'stable';
 	}
 
 	/**
