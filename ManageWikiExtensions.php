@@ -246,7 +246,6 @@ $wgManageWikiExtensions = [
 	'cargo' => [
 		'name' => 'Cargo',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Cargo',
-		'help' => 'Stewards: it is recommended to not enable this extension on wikis with more than <b>50,000</b> pages. This includes all pages, <b>not</b> only content pages. Please use discretion.',
 		'conflicts' => 'semanticmediawiki',
 		'requires' => [
 			'permissions' => [
@@ -254,6 +253,9 @@ $wgManageWikiExtensions = [
 			],
 		],
 		'install' => [
+			'mwscript' => [
+				"$IP/extensions/WikiForgeMagic/maintenance/createCargoDB.php" => [],
+			],
 			'sql' => [
 				'cargo_tables' => "$IP/extensions/Cargo/sql/Cargo.sql",
 				'cargo_backlinks' => "$IP/extensions/Cargo/sql/cargo_backlinks.sql"
