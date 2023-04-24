@@ -304,6 +304,9 @@ $wgConf->settings += [
 	],
 
 	// Cargo
+	'wgCargoDBname' => [
+		'default' => $wi->dbname . 'cargo',
+	],
 	'wgCargoDBuser' => [
 		'default' => 'cargouser',
 	],
