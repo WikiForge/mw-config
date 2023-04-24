@@ -361,9 +361,10 @@ class WikiForgeFunctions {
 	}
 
 	/**
+	 * @param ?string $database
 	 * @return string
 	 */
-	public static function getMediaWikiVersion(): string {
+	public static function getMediaWikiVersion( ?string $database = null ): string {
 		if ( getenv( 'WIKIFORGE_WIKI_VERSION' ) ) {
 			return getenv( 'WIKIFORGE_WIKI_VERSION' );
 		}
@@ -377,9 +378,11 @@ class WikiForgeFunctions {
 			}
 		}
 
-		self::$currentDatabase ??= self::getCurrentDatabase();
+		if ( !$database ) {
+			self::$currentDatabase ??= self::getCurrentDatabase();
+		}
 
-		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? null;
+		$version ??= self::readDbListFile( 'databases', false, $database ?? self::$currentDatabase )['v'] ?? null;
 
 		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 	}
