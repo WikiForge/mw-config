@@ -3907,9 +3907,6 @@ if ( wfHostname() === 'test1.wikiforge.net' ) {
 // ManageWiki settings
 require_once __DIR__ . '/ManageWikiExtensions.php';
 $wi::$disabledExtensions = [
-	'editnotify',
-	'hitcounters',
-	'regexfunctions',
 	'wikiforum',
 ];
 
