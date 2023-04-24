@@ -372,6 +372,9 @@ class WikiForgeFunctions {
 
 		if ( PHP_SAPI === 'cli' ) {
 			$version ??= explode( '/', __DIR__ )[3] ?? null;
+			if ( !in_array( $version, self::MEDIAWIKI_VERSIONS ) ) {
+				$version = null;
+			}
 		}
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
