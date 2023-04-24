@@ -1325,6 +1325,15 @@ $wgConf->settings += [
 			'showDimensions' => true,
 			'mode' => 'traditional',
 		],
+		'darkangelwiki' => [
+			'imagesPerRow' => 0,
+			'imageWidth' => 120,
+			'imageHeight' => 120,
+			'captionLength' => true,
+			'showBytes' => true,
+			'showDimensions' => true,
+			'mode' => 'packed',
+		],
 		'dcmultiversewiki' => [
 			'imagesPerRow' => 0,
 			'imageWidth' => 120,
@@ -1353,10 +1362,12 @@ $wgConf->settings += [
 			'mode' => 'packed',
 		],
 	],
+
 	// GeoData
 	'wgGlobes' => [
 		'default' => [],
 	],
+
 	// GlobalBlocking
 	'wgApplyGlobalBlocks' => [
 		'default' => true,
