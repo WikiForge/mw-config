@@ -5,10 +5,10 @@ $wgLBFactoryConf = [
 	'sectionsByDB' => $wi->wikiDBClusters,
 	'sectionLoads' => [
 		'DEFAULT' => [
-			'db1' => 1,
+			'db2' => 1,
 		],
 		'c1' => [
-			'db1' => 1,
+			'db2' => 1,
 		],
 	],
 	'serverTemplate' => [
@@ -34,12 +34,12 @@ $wgLBFactoryConf = [
 		'sslCAFile' => '/etc/ssl/certs/ca-certificates.crt',
 	],
 	'hostsByName' => [
-		'db1' => 'db1.wikiforge.net',
+		'db2' => 'db2.wikiforge.net',
 	],
 	'externalLoads' => [
 		'echo' => [
 			/** where the metawiki database is located */
-			'db1' => 1,
+			'db2' => 1,
 		],
 	],
 	'readOnlyBySection' => [
