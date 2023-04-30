@@ -770,7 +770,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCreateWikiNotificationEmail' => [
-		'default' => 'admin@wikiforge.net',
+		'default' => 'sre@wikiforge.net',
 	],
 	'wgCreateWikiPersistentModelFile' => [
 		'default' => '/mnt/mediawiki-static/requestmodel.phpml',
