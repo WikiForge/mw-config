@@ -38,6 +38,7 @@ class WikiForgeFunctions {
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
 
 	public const MEDIAWIKI_VERSIONS = [
+		'alpha' => '1.41',
 		'beta' => '1.40',
 		'legacy' => '1.38',
 		'legacy-lts' => '1.35',
