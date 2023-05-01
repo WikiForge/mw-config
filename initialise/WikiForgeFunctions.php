@@ -865,7 +865,7 @@ class WikiForgeFunctions {
 
 	/**
 	 * @param string $globalDatabase
-	 * @param string ?|null $version
+	 * @param ?string $version
 	 * @return array
 	 */
 	private static function getCombiList( string $globalDatabase, ?string $version = null ): array {
