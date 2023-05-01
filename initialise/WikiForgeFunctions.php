@@ -971,9 +971,9 @@ class WikiForgeFunctions {
 		$formDescriptor['mediawiki-version'] = [
 			'label-message' => 'wikiforge-label-managewiki-mediawiki-version',
 			'type' => 'select',
-			'options' => array_filter( self::MEDIAWIKI_VERSIONS, static function ( $version ) {
+			'options' => array_unique( array_filter( self::MEDIAWIKI_VERSIONS, static function ( $version ) {
 				return is_dir( self::MEDIAWIKI_DIRECTORY . $version );
-			} ),
+			} ) ),
 			'default' => self::getMediaWikiVersion( $dbName ),
 			'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
 			'section' => 'main'
