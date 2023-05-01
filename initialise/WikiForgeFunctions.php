@@ -970,11 +970,7 @@ class WikiForgeFunctions {
 
 		$mwVersion = self::getMediaWikiVersion( $dbName );
 		$versions = array_unique( array_filter( self::MEDIAWIKI_VERSIONS, static function ( $version ) use ( $mwVersion ): bool {
-			if ( $mwVersion === $version ) {
-				return true;
-			}
-
-			return is_dir( self::MEDIAWIKI_DIRECTORY . $version );
+			return $mwVersion === $version || is_dir( self::MEDIAWIKI_DIRECTORY . $version );
 		} ) );
 
 		asort( $versions );
