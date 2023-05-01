@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use Miraheze\CreateWiki\RemoteWiki;
 use Wikimedia\Rdbms\DBConnRef;
 
 class WikiForgeFunctions {
@@ -166,6 +167,8 @@ class WikiForgeFunctions {
 		global $wgHooks;
 
 		$wgHooks['CreateWikiJsonGenerateDatabaseList'][] = 'WikiForgeFunctions::onGenerateDatabaseLists';
+		$wgHooks['ManageWikiCoreAddFormFields'][] = 'WikiForgeFunctions::onManageWikiCoreAddFormFields';
+		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
 		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 	}
 
@@ -954,6 +957,50 @@ class WikiForgeFunctions {
 				),
 			],
 		];
+	}
+
+	/**
+	 * @param bool $ceMW
+	 * @param IContextSource $context
+	 * @param string $dbName
+	 * @param array &$formDescriptor
+	 */
+	public static function onManageWikiCoreAddFormFields( $ceMW, $context, $dbName, &$formDescriptor ) {
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+
+		$versions = array_unique( array_filter( self::MEDIAWIKI_VERSIONS, static function ( $version ) {
+			return is_dir( self::MEDIAWIKI_DIRECTORY . $version );
+		} ) );
+
+		asort( $versions );
+
+		$formDescriptor['mediawiki-version'] = [
+			'label-message' => 'wikiforge-label-managewiki-mediawiki-version',
+			'type' => 'select',
+			'options' => array_combine( $versions, $versions ),
+			'default' => self::getMediaWikiVersion( $dbName ),
+			'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
+			'cssclass' => 'managewiki-infuse',
+			'section' => 'main'
+		];
+	}
+
+	/**
+	 * @param IContextSource $context
+	 * @param string $dbName
+	 * @param DBConnRef $dbw
+	 * @param array $formData
+	 * @param RemoteWiki &$wiki
+	 */
+	public static function onManageWikiCoreFormSubmission( $context, $dbName, $dbw, $formData, &$wiki ) {
+		$version = self::getMediaWikiVersion( $dbName );
+		if ( $formData['mediawiki-version'] !== $version && is_dir( self::MEDIAWIKI_DIRECTORY . $formData['mediawiki-version'] ) ) {
+			$wiki->newRows['wiki_version'] = $formData['mediawiki-version'];
+			$wiki->changes['mediawiki-version'] = [
+				'old' => $version,
+				'new' => $formData['mediawiki-version']
+			];
+		}
 	}
 
 	public static function onMediaWikiServices() {
