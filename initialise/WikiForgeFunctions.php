@@ -989,7 +989,7 @@ class WikiForgeFunctions {
 	 */
 	public static function onManageWikiCoreFormSubmission( $context, $dbName, $dbw, $formData, &$wiki ) {
 		$version = self::getMediaWikiVersion( $dbName );
-		if ( is_dir( self::MEDIAWIKI_DIRECTORY . $formData['mediawiki-version'] ) && $formData['mediawiki-version'] !== $version ) {
+		if ( $formData['mediawiki-version'] !== $version && is_dir( self::MEDIAWIKI_DIRECTORY . $formData['mediawiki-version'] ) ) {
 			$wiki->newRows['wiki_version'] = $formData['mediawiki-version'];
 			$wiki->changes['mediawiki-version'] = [
 				'old' => $version,
