@@ -980,6 +980,7 @@ class WikiForgeFunctions {
 			'options' => array_combine( $versions, $versions ),
 			'default' => self::getMediaWikiVersion( $dbName ),
 			'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
+			'cssclass' => 'managewiki-infuse',
 			'section' => 'main'
 		];
 	}
