@@ -971,7 +971,9 @@ class WikiForgeFunctions {
 		$formDescriptor['mediawiki-version'] = [
 			'label-message' => 'wikiforge-label-managewiki-mediawiki-version',
 			'type' => 'select',
-			'options' => self::MEDIAWIKI_VERSIONS,
+			'options' => array_filter( self::MEDIAWIKI_VERSIONS, static function ( $version ) {
+				return is_dir( self::MEDIAWIKI_DIRECTORY . $version );
+			} ),
 			'default' => self::getMediaWikiVersion( $dbName ),
 			'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
 			'section' => 'main'
@@ -987,7 +989,7 @@ class WikiForgeFunctions {
 	 */
 	public static function onManageWikiCoreFormSubmission( $context, $dbName, $dbw, $formData, &$wiki ) {
 		$version = self::getMediaWikiVersion( $dbName );
-		if ( $formData['mediawiki-version'] !== $version ) {
+		if ( is_dir( self::MEDIAWIKI_DIRECTORY . $formData['mediawiki-version'] ) && $formData['mediawiki-version'] !== $version ) {
 			$wiki->newRows['wiki_version'] = $formData['mediawiki-version'];
 			$wiki->changes['mediawiki-version'] = [
 				'old' => $version,
