@@ -865,10 +865,12 @@ class WikiForgeFunctions {
 
 	/**
 	 * @param string $globalDatabase
+	 * @param ?string $version
 	 * @return array
 	 */
-	private static function getCombiList( string $globalDatabase ): array {
+	private static function getCombiList( string $globalDatabase, ?string $version = null ): array {
 		$dbr = self::getDatabaseConnection( $globalDatabase );
+		$wikiVersion = $version ? [ 'wiki_version' => $version ] : [];
 		$allWikis = $dbr->newSelectQueryBuilder()
 			->table( 'cw_wikis' )
 			->fields( [
@@ -878,7 +880,7 @@ class WikiForgeFunctions {
 				'wiki_sitename',
 				'wiki_version',
 			] )
-			->where( [ 'wiki_deleted' => 0 ] )
+			->where( [ 'wiki_deleted' => 0 ] + $wikiVersion )
 			->caller( __METHOD__ )
 			->fetchResultSet();
 
@@ -959,6 +961,17 @@ class WikiForgeFunctions {
 				),
 			],
 		];
+
+		foreach ( self::MEDIAWIKI_VERSIONS as $name => $version ) {
+			$databaseLists += [
+				$name . '-wikis' => [
+					'combi' => self::getCombiList(
+						self::GLOBAL_DATABASE,
+						$version
+					),
+				],
+			];
+		}
 	}
 
 	/**
