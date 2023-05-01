@@ -968,7 +968,12 @@ class WikiForgeFunctions {
 	public static function onManageWikiCoreAddFormFields( $ceMW, $context, $dbName, &$formDescriptor ) {
 		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
 
-		$versions = array_unique( array_filter( self::MEDIAWIKI_VERSIONS, static function ( $version ) {
+		$mwVersion = self::getMediaWikiVersion( $dbName );
+		$versions = array_unique( array_filter( self::MEDIAWIKI_VERSIONS, static function ( $version ) use ( $mwVersion ): bool {
+			if ( $mwVersion === $version ) {
+				return true;
+			}
+
 			return is_dir( self::MEDIAWIKI_DIRECTORY . $version );
 		} ) );
 
@@ -978,7 +983,7 @@ class WikiForgeFunctions {
 			'label-message' => 'wikiforge-label-managewiki-mediawiki-version',
 			'type' => 'select',
 			'options' => array_combine( $versions, $versions ),
-			'default' => self::getMediaWikiVersion( $dbName ),
+			'default' => $mwVersion,
 			'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
 			'cssclass' => 'managewiki-infuse',
 			'section' => 'main'
