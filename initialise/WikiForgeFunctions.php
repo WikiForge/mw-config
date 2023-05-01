@@ -358,11 +358,10 @@ class WikiForgeFunctions {
 	}
 
 	/**
-	 * @param ?string $database
 	 * @return string
 	 */
-	public static function getDefaultMediaWikiVersion( ?string $database = null ): string {
-		return $database === 'test1wiki' || php_uname( 'n' ) === 'test1.wikiforge.net' ? 'beta' : 'stable';
+	public static function getDefaultMediaWikiVersion(): string {
+		return php_uname( 'n' ) === 'test1.wikiforge.net' ? 'beta' : 'stable';
 	}
 
 	/**
@@ -374,6 +373,11 @@ class WikiForgeFunctions {
 			return getenv( 'WIKIFORGE_WIKI_VERSION' );
 		}
 
+		if ( $database ) {
+			$mwVersion = self::readDbListFile( 'databases', false, $database )['v'] ?? null;
+			return $mwVersion ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
+		}
+
 		static $version = null;
 
 		if ( PHP_SAPI === 'cli' ) {
@@ -383,13 +387,10 @@ class WikiForgeFunctions {
 			}
 		}
 
-		if ( !$database ) {
-			self::$currentDatabase ??= self::getCurrentDatabase();
-		}
+		self::$currentDatabase ??= self::getCurrentDatabase();
+		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? null;
 
-		$version ??= self::readDbListFile( 'databases', false, $database ?? self::$currentDatabase )['v'] ?? null;
-
-		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion( $database )];
+		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 	}
 
 	/**
@@ -886,7 +887,7 @@ class WikiForgeFunctions {
 			$combiList[$wiki->wiki_dbname] = [
 				's' => $wiki->wiki_sitename,
 				'c' => $wiki->wiki_dbcluster,
-				'v' => ( $wiki->wiki_version ?? null ) ?: self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion( $wiki->wiki_dbname )],
+				'v' => ( $wiki->wiki_version ?? null ) ?: self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()],
 			];
 
 			if ( $wiki->wiki_url !== null ) {
