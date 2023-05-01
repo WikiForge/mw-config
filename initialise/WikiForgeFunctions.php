@@ -358,10 +358,11 @@ class WikiForgeFunctions {
 	}
 
 	/**
+	 * @param ?string $database
 	 * @return string
 	 */
-	public static function getDefaultMediaWikiVersion(): string {
-		return php_uname( 'n' ) === 'test1.wikiforge.net' ? 'beta' : 'stable';
+	public static function getDefaultMediaWikiVersion( ?string $database = null ): string {
+		return $database === 'test1wiki' || php_uname( 'n' ) === 'test1.wikiforge.net' ? 'beta' : 'stable';
 	}
 
 	/**
@@ -388,7 +389,7 @@ class WikiForgeFunctions {
 
 		$version ??= self::readDbListFile( 'databases', false, $database ?? self::$currentDatabase )['v'] ?? null;
 
-		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
+		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion( $database )];
 	}
 
 	/**
@@ -885,7 +886,7 @@ class WikiForgeFunctions {
 			$combiList[$wiki->wiki_dbname] = [
 				's' => $wiki->wiki_sitename,
 				'c' => $wiki->wiki_dbcluster,
-				'v' => ( $wiki->wiki_version ?? null ) ?: self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()],
+				'v' => ( $wiki->wiki_version ?? null ) ?: self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion( $wiki->wiki_dbname )],
 			];
 
 			if ( $wiki->wiki_url !== null ) {
