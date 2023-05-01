@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use Miraheze\CreateWiki\RemoteWiki;
 use Wikimedia\Rdbms\DBConnRef;
 
 class WikiForgeFunctions {
@@ -166,6 +167,8 @@ class WikiForgeFunctions {
 		global $wgHooks;
 
 		$wgHooks['CreateWikiJsonGenerateDatabaseList'][] = 'WikiForgeFunctions::onGenerateDatabaseLists';
+		$wgHooks['ManageWikiCoreAddFormFields'][] = 'WikiForgeFunctions::onManageWikiCoreAddFormFields';
+		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
 		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 	}
 
@@ -954,6 +957,43 @@ class WikiForgeFunctions {
 				),
 			],
 		];
+	}
+
+	/**
+	 * @param bool $ceMW
+	 * @param IContextSource $context
+	 * @param string $dbName
+	 * @param array &$formDescriptor
+	 */
+	public static function onManageWikiCoreAddFormFields( $ceMW, $context, $dbName, &$formDescriptor ) {
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+
+		$formDescriptor['mediawiki-version'] = [
+			'label-message' => 'wikiforge-label-managewiki-mediawiki-version',
+			'type' => 'select',
+			'options' => self::MEDIAWIKI_VERSIONS,
+			'default' => self::getMediaWikiVersion( $dbName ),
+			'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
+			'section' => 'main'
+		];
+	}
+
+	/**
+	 * @param IContextSource $context
+	 * @param string $dbName
+	 * @param DBConnRef $dbw
+	 * @param array $formData
+	 * @param RemoteWiki &$wiki
+	 */
+	public static function onManageWikiCoreFormSubmission( $context, $dbName, $dbw, $formData, &$wiki ) {
+		$version = self::getMediaWikiVersion( $dbName );
+		if ( $formData['mediawiki-version'] !== $version ) {
+			$wiki->newRows['wiki_version'] = $formData['mediawiki-version'];
+			$wiki->changes['mediawiki-version'] = [
+				'old' => $version,
+				'new' => $formData['mediawiki-version']
+			];
+		}
 	}
 
 	public static function onMediaWikiServices() {
