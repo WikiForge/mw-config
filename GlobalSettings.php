@@ -7,6 +7,10 @@ if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
 }
 
+if ( $wi->version === '1.41' && $wi->isExtensionActive( 'StandardDialogs' ) ) {
+	wfLoadExtension( 'OOJSPlus' );
+}
+
 if ( $wgWikiForgeCommons && !$cwPrivate ) {
 	wfLoadExtension( 'GlobalUsage' );
 }
