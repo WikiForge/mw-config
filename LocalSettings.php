@@ -407,7 +407,7 @@ $wgConf->settings += [
 
 	// Chameleon
 	'egChameleonLayoutFile' => [
-		'default' => '/srv/mediawiki/' . $wi->version . '/w/skins/chameleon/layouts/standard.xml',
+		'default' => '/srv/mediawiki/' . $wi->version . '/skins/chameleon/layouts/standard.xml',
 	],
 	'egChameleonEnableExternalLinkIcons' => [
 		'default' => false,
