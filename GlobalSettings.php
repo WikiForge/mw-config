@@ -7,7 +7,7 @@ if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
 }
 
-if ( $wi->version === '1.41' && $wi->isExtensionActive( 'StandardDialogs' ) ) {
+if ( $wi->version >= 1.41 && $wi->isExtensionActive( 'StandardDialogs' ) ) {
 	wfLoadExtension( 'OOJSPlus' );
 }
 
