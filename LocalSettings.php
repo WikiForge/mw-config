@@ -278,11 +278,6 @@ $wgConf->settings += [
 	'wgCacheDirectory' => [
 		'default' => '/srv/mediawiki/cache',
 	],
-	'wgExtensionEntryPointListFiles' => [
-		'default' => [
-			'/srv/mediawiki/config/extension-list'
-		],
-	],
 
 	// Captcha
 	'wgCaptchaTriggers' => [
@@ -3916,6 +3911,12 @@ $wgConf->settings += [
 if ( wfHostname() === 'test1.wikiforge.net' ) {
 	// Prevent cache (better be safe than sorry)
 	$wgConf->settings['wgUseCdn']['default'] = false;
+}
+
+$wgExtensionEntryPointListFiles = [];
+$wgExtensionEntryPointListFiles[] = __DIR__ . '/extension-list';
+if ( file_exists( __DIR__ . '/extension-list-' . MW_VERSION ) ) {
+	$wgExtensionEntryPointListFiles[] = __DIR__ . '/extension-list-' . MW_VERSION;
 }
 
 // ManageWiki settings
