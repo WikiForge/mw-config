@@ -278,11 +278,6 @@ $wgConf->settings += [
 	'wgCacheDirectory' => [
 		'default' => '/srv/mediawiki/cache',
 	],
-	'wgExtensionEntryPointListFiles' => [
-		'default' => [
-			'/srv/mediawiki/config/extension-list'
-		],
-	],
 
 	// Captcha
 	'wgCaptchaTriggers' => [
@@ -3918,6 +3913,12 @@ if ( wfHostname() === 'test1.wikiforge.net' ) {
 	$wgConf->settings['wgUseCdn']['default'] = false;
 }
 
+$wgExtensionEntryPointListFiles = [];
+$wgExtensionEntryPointListFiles[] = __DIR__ . '/extension-list';
+if ( file_exists( __DIR__ . '/extension-list-' . $wi->version ) ) {
+	$wgExtensionEntryPointListFiles[] = __DIR__ . '/extension-list-' . $wi->version;
+}
+
 // ManageWiki settings
 require_once __DIR__ . '/ManageWikiExtensions.php';
 $wi::$disabledExtensions = [
@@ -3973,10 +3974,10 @@ require_once '/srv/mediawiki/config/LocalWiki.php';
 
 // Define last - Extension message files for loading extensions
 if (
-	file_exists( __DIR__ . '/ExtensionMessageFiles.php' ) &&
+	file_exists( __DIR__ . '/ExtensionMessageFiles-' . $wi->version . '.php' ) &&
 	!defined( 'MW_NO_EXTENSION_MESSAGES' )
 ) {
-	require_once __DIR__ . '/ExtensionMessageFiles.php';
+	require_once __DIR__ . '/ExtensionMessageFiles-' . $wi->version . '.php';
 }
 
 // Don't need a global here

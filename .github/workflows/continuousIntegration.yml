@@ -30,8 +30,21 @@ jobs:
         composer fix
         composer test
 
-    - name: Check if extension-list is sorted alphabetically
-      run: LC_ALL=C sort -c extension-list
+    - name: Check if extension-list files are sorted alphabetically
+      run: |
+        shopt -s nullglob
+        exit_code=0
+
+        for file in extension-list*; do
+            if [[ -f "$file" ]]; then
+                if ! LC_ALL=C sort -c "$file"; then
+                    echo "The file '$file' is not sorted alphabetically."
+                    exit_code=1
+                fi
+            fi
+        done
+        
+        exit $exit_code
 
     - name: Check for common typos
       run: |

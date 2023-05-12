@@ -159,7 +159,6 @@ $IP/extensions/Nuke/extension.json
 $IP/extensions/NukeDPL/extension.json
 $IP/extensions/OATHAuth/extension.json
 $IP/extensions/OAuth/extension.json
-$IP/extensions/OOJSPlus/extension.json
 $IP/extensions/OpenGraphMeta/extension.json
 $IP/extensions/OrphanedTalkPages/extension.json
 $IP/extensions/PDFEmbed/extension.json
@@ -198,7 +197,6 @@ $IP/extensions/RegexFunctions/extension.json
 $IP/extensions/RelatedArticles/extension.json
 $IP/extensions/RemovePII/extension.json
 $IP/extensions/RemoveRedlinks/extension.json
-$IP/extensions/Renameuser/extension.json
 $IP/extensions/ReplaceText/extension.json
 $IP/extensions/Report/extension.json
 $IP/extensions/RevisionSlider/extension.json
