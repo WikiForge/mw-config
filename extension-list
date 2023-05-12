@@ -159,7 +159,6 @@ $IP/extensions/Nuke/extension.json
 $IP/extensions/NukeDPL/extension.json
 $IP/extensions/OATHAuth/extension.json
 $IP/extensions/OAuth/extension.json
-$IP/extensions/OOJSPlus/extension.json
 $IP/extensions/OpenGraphMeta/extension.json
 $IP/extensions/OrphanedTalkPages/extension.json
 $IP/extensions/PDFEmbed/extension.json
