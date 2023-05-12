@@ -3915,8 +3915,8 @@ if ( wfHostname() === 'test1.wikiforge.net' ) {
 
 $wgExtensionEntryPointListFiles = [];
 $wgExtensionEntryPointListFiles[] = __DIR__ . '/extension-list';
-if ( file_exists( __DIR__ . '/extension-list-' . MW_VERSION ) ) {
-	$wgExtensionEntryPointListFiles[] = __DIR__ . '/extension-list-' . MW_VERSION;
+if ( file_exists( __DIR__ . '/extension-list-' . $wi->version ) ) {
+	$wgExtensionEntryPointListFiles[] = __DIR__ . '/extension-list-' . $wi->version;
 }
 
 // ManageWiki settings
