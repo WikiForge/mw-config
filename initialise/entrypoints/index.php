@@ -7,11 +7,11 @@ require WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
 
 if ( $wgArticlePath === '/$1' && strpos( strtoupper( $_SERVER['REQUEST_URI'] ), strtoupper( '/wiki/' ) ) === 0 ) {
 	// Redirect to the same page maintaining the path
-	header( 'Location: ' . str_replace( '/wiki/', '/', $_SERVER['REQUEST_URI'] ), true, 302 );
+	header( 'Location: ' . str_replace( '/wiki/', '/', $_SERVER['REQUEST_URI'] ), true, 301 );
 	exit;
 } elseif ( $wgArticlePath === '/wiki/$1' && strpos( $_SERVER['REQUEST_URI'], '/wiki/' ) !== 0 && !str_contains( $_SERVER['REQUEST_URI'], '/w/' ) ) {
 	// Redirect to the same page maintaining the path
-	header( 'Location: /wiki' . $_SERVER['REQUEST_URI'], true, 302 );
+	header( 'Location: /wiki' . $_SERVER['REQUEST_URI'], true, 301 );
 	exit;
 }
 
