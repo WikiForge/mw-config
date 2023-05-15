@@ -996,7 +996,7 @@ class WikiForgeFunctions {
 		$formDescriptor['article-path'] = [
 			'label-message' => 'wikiforge-label-managewiki-article-path',
 			'type' => 'select',
-			'option-messages' =>[
+			'option-messages' => [
 				'wikiforge-label-managewiki-article-path-wiki' => '/wiki/$1',
 				'wikiforge-label-managewiki-article-path-root' => '/$1',
 			],
