@@ -27,8 +27,10 @@ if ( strpos( $_SERVER['REQUEST_URI'], '/w/index.php' ) !== 0 && ( $_GET['action'
 		exit;
 	}
 
-	header( 'Location: ' . $articlePath, true, 302 );
-	exit;
+	if ( $_SERVER['REQUEST_URI'] === '/w/index.php' ) {
+		header( 'Location: ' . $articlePath, true, 302 );
+		exit;
+	}
 }
 
 require_once WikiForgeFunctions::getMediaWiki( 'includes/PHPVersionCheck.php' );
