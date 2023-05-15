@@ -9,7 +9,7 @@ if ( $wgArticlePath === '/$1' && strpos( $_SERVER['REQUEST_URI'], '/wiki/' ) !==
 	// Redirect to the same page maintaining the path
 	$output = RequestContext::getMain()->getOutput();
 	$output->redirect( $_SERVER['REQUEST_URI'], 302 );
-} elseif ( $wgArticlePath === '/wiki/$1' ) {
+} elseif ( $wgArticlePath === '/wiki/$1' && strpos( $_SERVER['REQUEST_URI'], '/wiki/' ) === 0 ) {
 	// Redirect to the same page maintaining the path
 	$output = RequestContext::getMain()->getOutput();
 	$output->redirect( '/wiki' . $_SERVER['REQUEST_URI'], 302 );
