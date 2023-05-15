@@ -169,7 +169,7 @@ $wgConf->settings += [
 		'default' => [
 			'spam' => [
 				'files' => [
-					'https://meta.wikiforge.net/w/index.php?title=Spam_blacklist&action=raw&sb_ver=1',
+					'https://meta.wikiforge.net/wiki/Spam_blacklist?action=raw&sb_ver=1',
 				],
 			],
 		],
@@ -384,10 +384,10 @@ $wgConf->settings += [
 		'metawiki' => true,
 	],
 	'wgCentralSelectedBannerDispatcher' => [
-		'default' => 'https://meta.wikiforge.net/w/index.php/Special:BannerLoader',
+		'default' => 'https://meta.wikiforge.net/wiki/Special:BannerLoader',
 	],
 	'wgCentralBannerRecorder' => [
-		'default' => 'https://meta.wikiforge.net/w/index.php/Special:RecordImpression',
+		'default' => 'https://meta.wikiforge.net/wiki/Special:RecordImpression',
 	],
 	'wgCentralDBname' => [
 		'default' => 'metawiki',
@@ -3212,7 +3212,7 @@ $wgConf->settings += [
 		'default' => [
 			'global' => [
 				'type' => 'url',
-				'src' => 'https://meta.wikiforge.net/w/index.php?title=Title_blacklist&action=raw',
+				'src' => 'https://meta.wikiforge.net/wiki/Title_blacklist?action=raw',
 			],
 			'local' => [
 				'type' => 'localpage',
