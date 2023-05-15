@@ -2,6 +2,7 @@
 
 use MediaWiki\MediaWikiServices;
 use Miraheze\CreateWiki\RemoteWiki;
+use Miraheze\ManageWiki\Helpers\ManageWikiSettings;
 use Wikimedia\Rdbms\DBConnRef;
 
 class WikiForgeFunctions {
@@ -990,6 +991,21 @@ class WikiForgeFunctions {
 
 		asort( $versions );
 
+		$mwSettings = new ManageWikiSettings( $dbName );
+		$setList = $mwSettings->list();
+		$formDescriptor['article-path'] = [
+			'label-message' => 'wikiforge-label-managewiki-article-path',
+			'type' => 'select',
+			'option-messages' =>[
+				'wikiforge-label-managewiki-article-path-wiki' => '/wiki/$1',
+				'wikiforge-label-managewiki-article-path-root' => '/$1',
+			],
+			'default' => $setList['wgArticlePath'] ?? '/wiki/$1',
+			'disabled' => !$ceMW,
+			'cssclass' => 'managewiki-infuse',
+			'section' => 'main'
+		];
+
 		$formDescriptor['mediawiki-version'] = [
 			'label-message' => 'wikiforge-label-managewiki-mediawiki-version',
 			'type' => 'select',
@@ -1015,6 +1031,17 @@ class WikiForgeFunctions {
 			$wiki->changes['mediawiki-version'] = [
 				'old' => $version,
 				'new' => $formData['mediawiki-version']
+			];
+		}
+
+		$mwSettings = new ManageWikiSettings( $dbName );
+		$articlePath = $mwSettings->list()['wgArticlePath'] ?? '';
+		if ( $formData['article-path'] !== $articlePath ) {
+			$mwSettings->modify( [ 'wgArticlePath' => $formData['article-path'] ] );
+			$mwSettings->commit();
+			$wiki->changes['article-path'] = [
+				'old' => $articlePath,
+				'new' => $formData['article-path']
 			];
 		}
 	}
