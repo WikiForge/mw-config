@@ -31,6 +31,9 @@ if ( strpos( $_SERVER['REQUEST_URI'], '/w/index.php' ) !== 0 && ( $_GET['action'
 		header( 'Location: ' . $articlePath, true, 302 );
 		exit;
 	}
+
+	// We don't need globals here
+	unset( $queryString, $articlePath );
 }
 
 require_once WikiForgeFunctions::getMediaWiki( 'includes/PHPVersionCheck.php' );
