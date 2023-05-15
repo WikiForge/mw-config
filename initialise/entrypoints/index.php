@@ -7,12 +7,14 @@ require WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
 
 if ( $wgArticlePath === '/$1' && strpos( $_SERVER['REQUEST_URI'], '/wiki/' ) !== 0 ) {
 	// Redirect to the same page maintaining the path
-	$output = RequestContext::getMain()->getOutput();
-	$output->redirect( $_SERVER['REQUEST_URI'], 302 );
+	http_response_code( 302 );
+	header( 'Location: ' . $_SERVER['REQUEST_URI'] );
+	exit;
 } elseif ( $wgArticlePath === '/wiki/$1' && strpos( $_SERVER['REQUEST_URI'], '/wiki/' ) !== 0 ) {
 	// Redirect to the same page maintaining the path
-	$output = RequestContext::getMain()->getOutput();
-	$output->redirect( '/wiki' . $_SERVER['REQUEST_URI'], 302 );
+	http_response_code( 302 );
+	header( 'Location: /wiki' . $_SERVER['REQUEST_URI'] );
+	exit;
 }
 
 require_once WikiForgeFunctions::getMediaWiki( 'includes/PHPVersionCheck.php' );
