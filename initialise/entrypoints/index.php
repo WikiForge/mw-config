@@ -15,7 +15,7 @@ if ( $wgArticlePath === '/$1' && strpos( strtoupper( $_SERVER['REQUEST_URI'] ), 
 	exit;
 }
 
-if ( strpos( $_SERVER['REQUEST_URI'], '/w/index.php' ) !== 0 ) {
+if ( strpos( $_SERVER['REQUEST_URI'], '/w/index.php' ) !== 0 && ( $_GET['action'] ?? '' ) !== 'submit' ) {
 	$queryString = $_SERVER['QUERY_STRING'];
 	$articlePath = str_replace( '$1', '', $wgArticlePath );
 
