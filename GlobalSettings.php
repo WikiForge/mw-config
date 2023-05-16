@@ -2,6 +2,8 @@
 
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 
+$wgSpecialPages['RequestPremiumWiki'] = DisabledSpecialPage::getCallback( 'RequestPremiumWiki', 'requestpremiumwiki-coming-soon' );
+
 // Extensions
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
