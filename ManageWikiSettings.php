@@ -3088,7 +3088,6 @@ $wgManageWikiSettings = [
 	'wgTimelessBackdropImage' => [
 		'name' => 'Timeless Backdrop Image',
 		'from' => 'timeless',
-		'global' => true,
 		'type' => 'text',
 		'overridedefault' => 'cat.svg',
 		'section' => 'styling',
@@ -3098,7 +3097,6 @@ $wgManageWikiSettings = [
 	'wgTimelessLogo' => [
 		'name' => 'Timeless Logo',
 		'from' => 'timeless',
-		'global' => true,
 		'type' => 'text',
 		'overridedefault' => null,
 		'section' => 'styling',
@@ -3108,7 +3106,6 @@ $wgManageWikiSettings = [
 	'wgTimelessWordmark' => [
 		'name' => 'Timeless Wordmark',
 		'from' => 'timeless',
-		'global' => true,
 		'type' => 'text',
 		'overridedefault' => null,
 		'section' => 'styling',
@@ -3310,12 +3307,15 @@ $wgManageWikiSettings = [
 		'from' => 'relatedarticles',
 		'type' => 'skins',
 		'overridedefault' => [
+			'citizen',
+			'cosmos',
 			'minerva',
 			'timeless',
 			'vector',
+			'vector-2022',
 		],
 		'section' => 'styling',
-		'help' => 'List of skin names (e.g. "minerva", "vector") where related articles will be shown in the footer.',
+		'help' => 'Skins where related articles will be shown in the footer.',
 		'requires' => [],
 	],
 	'wgMultiBoilerplateDiplaySpecialPage' => [

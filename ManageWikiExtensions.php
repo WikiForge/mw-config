@@ -2332,11 +2332,7 @@ $wgManageWikiExtensions = [
 		'name' => 'MobileFrontend',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:MobileFrontend',
 		'conflicts' => false,
-		'requires' => [
-			'extensions' => [
-				'minervaneue',
-			],
-		],
+		'requires' => [],
 		'section' => 'other',
 	],
 	'mobiletabsplugin' => [
@@ -3402,6 +3398,13 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'section' => 'skins',
 	],
+	'cologneblue' => [
+		'name' => 'CologneBlue',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:CologneBlue',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'skins',
+	],
 	'cosmos' => [
 		'name' => 'Cosmos',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Cosmos',
@@ -3479,9 +3482,23 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'section' => 'skins',
 	],
+	'modern' => [
+		'name' => 'Modern',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Modern',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'skins',
+	],
 	'monaco' => [
 		'name' => 'Monaco',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Monaco',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'skins',
+	],
+	'monobook' => [
+		'name' => 'MonoBook',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:MonoBook',
 		'conflicts' => false,
 		'requires' => [],
 		'section' => 'skins',
@@ -3517,6 +3534,13 @@ $wgManageWikiExtensions = [
 	'splash' => [
 		'name' => 'Splash',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Splash',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'skins',
+	],
+	'timeless' => [
+		'name' => 'Timeless',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Timeless',
 		'conflicts' => false,
 		'requires' => [],
 		'section' => 'skins',

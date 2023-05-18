@@ -1,5 +1,7 @@
 <?php
 
+wfLoadSkin( 'Vector' );
+
 wfLoadExtensions( [
 	'AbuseFilter',
 	'AntiSpoof',

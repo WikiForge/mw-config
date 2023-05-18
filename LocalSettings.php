@@ -49,8 +49,7 @@ $wi = new WikiForgeFunctions();
 // Load PrivateSettings (e.g. $wgDBpassword)
 require_once '/srv/mediawiki/config/PrivateSettings.php';
 
-// Load global skins and extensions
-require_once '/srv/mediawiki/config/GlobalSkins.php';
+// Load global extensions
 require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
 $wgPasswordSender = 'noreply@wikiforge.net';
@@ -1753,15 +1752,21 @@ $wgConf->settings += [
 			'categorytree',
 			'cite',
 			'citethispage',
+			'citizen',
 			'codeeditor',
 			'codemirror',
+			'cologneblue',
+			'cosmos',
 			'darkmode',
 			'globaluserpage',
 			'minervaneue',
 			'mobilefrontend',
+			'modern',
+			'monobook',
 			'purge',
 			'syntaxhighlight_geshi',
 			'textextracts',
+			'timeless',
 			'urlshortener',
 			'wikiseo',
 		],
@@ -2798,6 +2803,8 @@ $wgConf->settings += [
 	// RelatedArticles
 	'wgRelatedArticlesFooterAllowedSkins' => [
 		'default' => [
+			'citizen',
+			'cosmos',
 			'minerva',
 			'timeless',
 			'vector',
