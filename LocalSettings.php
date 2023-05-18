@@ -2233,7 +2233,7 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgDefaultMobileSkin' => [
-		'default' => 'citizen',
+		'default' => 'vector-2022',
 	],
 	'wgMobileUrlTemplate' => [
 		'default' => '',
