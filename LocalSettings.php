@@ -1874,6 +1874,12 @@ $wgConf->settings += [
 				'createwiki' => true,
 			],
 		],
+		'+test1wiki' => [
+			'sysop' => [
+				'createwiki' => true,
+				'requestwiki' => true,
+			],
+		],
 		'+ext-Flow' => [
 			'oversight' => [
 				'flow-suppress' => true,
