@@ -2,7 +2,9 @@
 
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 
-$wgSpecialPages['RequestPremiumWiki'] = DisabledSpecialPage::getCallback( 'RequestPremiumWiki', 'requestpremiumwiki-coming-soon' );
+if ( wfHostname() !== 'test1.wikiforge.net' ) {
+	$wgSpecialPages['RequestPremiumWiki'] = DisabledSpecialPage::getCallback( 'RequestPremiumWiki', 'requestpremiumwiki-coming-soon' );
+}
 
 // Extensions
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
