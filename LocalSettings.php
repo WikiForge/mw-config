@@ -49,8 +49,7 @@ $wi = new WikiForgeFunctions();
 // Load PrivateSettings (e.g. $wgDBpassword)
 require_once '/srv/mediawiki/config/PrivateSettings.php';
 
-// Load global skins and extensions
-require_once '/srv/mediawiki/config/GlobalSkins.php';
+// Load global extensions
 require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
 $wgPasswordSender = 'noreply@wikiforge.net';
@@ -169,7 +168,7 @@ $wgConf->settings += [
 		'default' => [
 			'spam' => [
 				'files' => [
-					'https://meta.wikiforge.net/w/index.php?title=Spam_blacklist&action=raw&sb_ver=1',
+					'https://meta.wikiforge.net/wiki/Spam_blacklist?action=raw&sb_ver=1',
 				],
 			],
 		],
@@ -304,6 +303,9 @@ $wgConf->settings += [
 	],
 
 	// Cargo
+	'wgCargoDBname' => [
+		'default' => $wi->dbname . 'cargo',
+	],
 	'wgCargoDBuser' => [
 		'default' => 'cargouser',
 	],
@@ -333,17 +335,6 @@ $wgConf->settings += [
 	],
 	'wgCategoryTreeMaxDepth' => [
 		'default' => [ 10 => 1, 20 => 1, 0 => 2 ],
-	],
-
-	// CDN
-	'wgUseCdn' => [
-		'default' => true,
-	],
-	'wgCdnServersNoPurge' => [
-		'default' => [
-			/** Load balancer */
-			'172.31.0.0/16',
-		],
 	],
 
 	// CentralAuth
@@ -392,10 +383,10 @@ $wgConf->settings += [
 		'metawiki' => true,
 	],
 	'wgCentralSelectedBannerDispatcher' => [
-		'default' => 'https://meta.wikiforge.net/w/index.php/Special:BannerLoader',
+		'default' => 'https://meta.wikiforge.net/wiki/Special:BannerLoader',
 	],
 	'wgCentralBannerRecorder' => [
-		'default' => 'https://meta.wikiforge.net/w/index.php/Special:RecordImpression',
+		'default' => 'https://meta.wikiforge.net/wiki/Special:RecordImpression',
 	],
 	'wgCentralDBname' => [
 		'default' => 'metawiki',
@@ -415,7 +406,7 @@ $wgConf->settings += [
 
 	// Chameleon
 	'egChameleonLayoutFile' => [
-		'default' => '/srv/mediawiki/w/skins/chameleon/layouts/standard.xml',
+		'default' => '/srv/mediawiki/' . $wi->version . '/skins/chameleon/layouts/standard.xml',
 	],
 	'egChameleonEnableExternalLinkIcons' => [
 		'default' => false,
@@ -491,7 +482,7 @@ $wgConf->settings += [
 
 	// Comments
 	'wgCommentsDefaultAvatar' => [
-		'default' => '/w/extensions/SocialProfile/avatars/default_ml.gif',
+		'default' => '/' . $wi->version . '/extensions/SocialProfile/avatars/default_ml.gif',
 	],
 	'wgCommentsInRecentChanges' => [
 		'default' => false,
@@ -672,9 +663,10 @@ $wgConf->settings += [
 			'(.*)wikiforge(.*)',
 			'subdomain',
 			'example',
+			'meta',
 			'beta(meta)?',
 			'community',
-			'testwiki',
+			'test(wiki)?',
 			'wikitest',
 			'help',
 			'noc',
@@ -777,7 +769,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCreateWikiNotificationEmail' => [
-		'default' => 'admin@wikiforge.net',
+		'default' => 'sre@wikiforge.net',
 	],
 	'wgCreateWikiPersistentModelFile' => [
 		'default' => '/mnt/mediawiki-static/requestmodel.phpml',
@@ -1323,6 +1315,15 @@ $wgConf->settings += [
 			'showDimensions' => true,
 			'mode' => 'traditional',
 		],
+		'darkangelwiki' => [
+			'imagesPerRow' => 0,
+			'imageWidth' => 120,
+			'imageHeight' => 120,
+			'captionLength' => true,
+			'showBytes' => true,
+			'showDimensions' => true,
+			'mode' => 'packed',
+		],
 		'dcmultiversewiki' => [
 			'imagesPerRow' => 0,
 			'imageWidth' => 120,
@@ -1351,10 +1352,12 @@ $wgConf->settings += [
 			'mode' => 'packed',
 		],
 	],
+
 	// GeoData
 	'wgGlobes' => [
 		'default' => [],
 	],
+
 	// GlobalBlocking
 	'wgApplyGlobalBlocks' => [
 		'default' => true,
@@ -1678,7 +1681,11 @@ $wgConf->settings += [
 			/** localhost */
 			'127.0.0.1' => true,
 			/** mw1 */
-			'18.191.46.248' => true,
+			'3.145.73.77' => true,
+			/** mw2 */
+			'18.224.51.21' => true,
+			/** test1 */
+			'52.14.195.40' => true,
 		],
 	],
 
@@ -1733,15 +1740,21 @@ $wgConf->settings += [
 			'categorytree',
 			'cite',
 			'citethispage',
+			'citizen',
 			'codeeditor',
 			'codemirror',
+			'cologneblue',
+			'cosmos',
 			'darkmode',
 			'globaluserpage',
 			'minervaneue',
 			'mobilefrontend',
+			'modern',
+			'monobook',
 			'purge',
 			'syntaxhighlight_geshi',
 			'textextracts',
+			'timeless',
 			'urlshortener',
 			'wikiseo',
 		],
@@ -2161,7 +2174,7 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgGitInfoCacheDirectory' => [
-		'default' => '/srv/mediawiki/cache/gitinfo',
+		'default' => '/srv/mediawiki/cache/' . $wi->version . '/gitinfo',
 	],
 	'wgAllowExternalImages' => [
 		'default' => false,
@@ -2212,9 +2225,6 @@ $wgConf->settings += [
 	],
 	'wgDefaultLanguageVariant' => [
 		'default' => false,
-	],
-	'wgResourceLoaderMaxQueryLength' => [
-		'default' => 5000,
 	],
 
 	// MobileFrontend
@@ -2761,9 +2771,28 @@ $wgConf->settings += [
 		'default' => true,
 	],
 
+	// Resources
+	'wgExtensionAssetsPath' => [
+		'default' => '/' . $wi->version . '/extensions',
+	],
+	'wgLocalStylePath' => [
+		'default' => '/' . $wi->version . '/skins',
+	],
+	'wgResourceBasePath' => [
+		'default' => '/' . $wi->version,
+	],
+	'wgResourceLoaderMaxQueryLength' => [
+		'default' => 5000,
+	],
+	'wgStylePath' => [
+		'default' => '/' . $wi->version . '/skins',
+	],
+
 	// RelatedArticles
 	'wgRelatedArticlesFooterAllowedSkins' => [
 		'default' => [
+			'citizen',
+			'cosmos',
 			'minerva',
 			'timeless',
 			'vector',
@@ -3173,7 +3202,7 @@ $wgConf->settings += [
 		'default' => [
 			'global' => [
 				'type' => 'url',
-				'src' => 'https://meta.wikiforge.net/w/index.php?title=Title_blacklist&action=raw',
+				'src' => 'https://meta.wikiforge.net/wiki/Title_blacklist?action=raw',
 			],
 			'local' => [
 				'type' => 'localpage',
@@ -3299,6 +3328,19 @@ $wgConf->settings += [
 	// UserPageEditProtection
 	'wgOnlyUserEditUserPage' => [
 		'ext-UserPageEditProtection' => true,
+	],
+
+	// Varnish
+	'wgUseCdn' => [
+		'default' => true,
+	],
+	'wgCdnServers' => [
+		'default' => [
+			/** cp1 */
+			'77.68.52.122:81',
+			/** cp2 */
+			'198.251.65.198:81',
+		],
 	],
 
 	// Vector
@@ -3846,19 +3888,20 @@ $wgConf->settings += [
 	// Logging
 	// Control MediaWiki Deprecation Warnings
 	'wgDeprecationReleaseLimit' => [
-		'default' => '1.36',
+		'default' => '1.34',
 	],
 ];
 
 // Start settings requiring external dependency checks/functions
 
+if ( wfHostname() === 'test1.wikiforge.net' ) {
+	// Prevent cache (better be safe than sorry)
+	$wgConf->settings['wgUseCdn']['default'] = false;
+}
+
 // ManageWiki settings
 require_once __DIR__ . '/ManageWikiExtensions.php';
 $wi::$disabledExtensions = [
-	'editnotify',
-	'hitcounters',
-	'lingo',
-	'regexfunctions',
 	'wikiforum',
 ];
 
@@ -3876,10 +3919,10 @@ $wgUploadPath = "//$wmgUploadHostname/$wgDBname";
 $wgUploadDirectory = "/mnt/mediawiki-static/$wgDBname";
 
 $wgLocalisationCacheConf['storeClass'] = LCStoreCDB::class;
-$wgLocalisationCacheConf['storeDirectory'] = '/srv/mediawiki/cache/l10n';
+$wgLocalisationCacheConf['storeDirectory'] = '/srv/mediawiki/cache/' . $wi->version . '/l10n';
 $wgLocalisationCacheConf['manualRecache'] = true;
 
-if ( !file_exists( '/srv/mediawiki/cache/l10n/l10n_cache-en.cdb' ) ) {
+if ( !file_exists( '/srv/mediawiki/cache/' . $wi->version . '/l10n/l10n_cache-en.cdb' ) ) {
 	$wgLocalisationCacheConf['manualRecache'] = false;
 }
 
@@ -3910,10 +3953,10 @@ require_once '/srv/mediawiki/config/LocalWiki.php';
 
 // Define last - Extension message files for loading extensions
 if (
-	file_exists( __DIR__ . '/ExtensionMessageFiles.php' ) &&
+	file_exists( __DIR__ . '/ExtensionMessageFiles-' . $wi->version . '.php' ) &&
 	!defined( 'MW_NO_EXTENSION_MESSAGES' )
 ) {
-	require_once __DIR__ . '/ExtensionMessageFiles.php';
+	require_once __DIR__ . '/ExtensionMessageFiles-' . $wi->version . '.php';
 }
 
 // Don't need a global here

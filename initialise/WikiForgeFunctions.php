@@ -1,6 +1,8 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use Miraheze\CreateWiki\RemoteWiki;
+use Miraheze\ManageWiki\Helpers\ManageWikiSettings;
 use Wikimedia\Rdbms\DBConnRef;
 
 class WikiForgeFunctions {
@@ -20,6 +22,9 @@ class WikiForgeFunctions {
 	/** @var string */
 	public $sitename;
 
+	/** @var string */
+	public $version;
+
 	/** @var array */
 	public $wikiDBClusters;
 
@@ -31,6 +36,17 @@ class WikiForgeFunctions {
 	private const DEFAULT_SERVER = 'wikiforge.net';
 
 	private const GLOBAL_DATABASE = 'prodglobal';
+
+	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
+
+	public const MEDIAWIKI_VERSIONS = [
+		'alpha' => '1.41',
+		'beta' => '1.40',
+		'legacy' => '1.38',
+		'legacy-lts' => '1.35',
+		'lts' => '1.39',
+		'stable' => '1.39',
+	];
 
 	public const SUFFIXES = [
 		'wiki' => 'wikiforge.net',
@@ -46,6 +62,7 @@ class WikiForgeFunctions {
 		$this->server = self::getServer();
 		$this->sitename = self::getSiteName();
 		$this->missing = self::isMissing();
+		$this->version = self::getMediaWikiVersion();
 
 		$this->hostname = $_SERVER['HTTP_HOST'] ??
 			parse_url( $this->server, PHP_URL_HOST ) ?: 'undefined';
@@ -151,6 +168,8 @@ class WikiForgeFunctions {
 		global $wgHooks;
 
 		$wgHooks['CreateWikiJsonGenerateDatabaseList'][] = 'WikiForgeFunctions::onGenerateDatabaseLists';
+		$wgHooks['ManageWikiCoreAddFormFields'][] = 'WikiForgeFunctions::onManageWikiCoreAddFormFields';
+		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
 		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 	}
 
@@ -340,6 +359,57 @@ class WikiForgeFunctions {
 	}
 
 	/**
+	 * @return string
+	 */
+	public static function getDefaultMediaWikiVersion(): string {
+		return php_uname( 'n' ) === 'test1.wikiforge.net' ? 'beta' : 'stable';
+	}
+
+	/**
+	 * @param ?string $database
+	 * @return string
+	 */
+	public static function getMediaWikiVersion( ?string $database = null ): string {
+		if ( getenv( 'WIKIFORGE_WIKI_VERSION' ) ) {
+			return getenv( 'WIKIFORGE_WIKI_VERSION' );
+		}
+
+		if ( $database ) {
+			$mwVersion = self::readDbListFile( 'databases', false, $database )['v'] ?? null;
+			return $mwVersion ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
+		}
+
+		static $version = null;
+
+		if ( PHP_SAPI === 'cli' ) {
+			$version ??= explode( '/', $_SERVER['SCRIPT_NAME'] )[3] ?? null;
+			if ( !in_array( $version, self::MEDIAWIKI_VERSIONS ) ) {
+				$version = null;
+			}
+		}
+
+		self::$currentDatabase ??= self::getCurrentDatabase();
+		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? null;
+
+		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
+	}
+
+	/**
+	 * @param string $file
+	 * @return string
+	 */
+	public static function getMediaWiki( string $file ): string {
+		global $IP;
+
+		$IP = self::MEDIAWIKI_DIRECTORY . self::getMediaWikiVersion();
+
+		chdir( $IP );
+		putenv( "MW_INSTALL_PATH=$IP" );
+
+		return $IP . '/' . $file;
+	}
+
+	/**
 	 * @return bool
 	 */
 	public static function isMissing(): bool {
@@ -433,6 +503,8 @@ class WikiForgeFunctions {
 
 		static $cacheArray = null;
 		$cacheArray ??= self::getCacheArray();
+
+		$wikiTags[] = self::getMediaWikiVersion();
 		foreach ( $cacheArray['states'] ?? [] as $state => $value ) {
 			if ( $value !== 'exempt' && (bool)$value ) {
 				$wikiTags[] = $state;
@@ -672,23 +744,13 @@ class WikiForgeFunctions {
 			array_diff( $allExtensions, static::$disabledExtensions )
 		);
 
-		// To-Do: Deprecate 'var', and make database/cache use extension names
-		/* return array_intersect( array_keys(
+		return array_keys( array_intersect_key(
+			$allExtensions,
 			array_intersect(
-				array_flip( $allExtensions ),
-				$cacheArray['extensions'] ?? []
+				array_flip( $cacheArray['extensions'] ?? [] ),
+				array_flip( $enabledExtensions )
 			)
-		), $enabledExtensions ); */
-
-		return array_intersect(
-			array_keys( array_intersect(
-				array_flip( array_filter( array_flip(
-					array_column( $wgManageWikiExtensions, 'var', 'name' )
-				) ) ),
-				$cacheArray['extensions'] ?? []
-			) ),
-			$enabledExtensions
-		);
+		) );
 	}
 
 	/**
@@ -725,10 +787,15 @@ class WikiForgeFunctions {
 			return;
 		}
 
-		if ( !file_exists( self::CACHE_DIRECTORY . '/extension-list.json' ) ) {
+		if ( !file_exists( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json' ) ) {
+			if ( !is_dir( self::CACHE_DIRECTORY . '/' . $this->version ) ) {
+				// Create directory since it doesn't exist
+				mkdir( self::CACHE_DIRECTORY . '/' . $this->version );
+			}
+
 			$queue = array_fill_keys( array_merge(
-					glob( '/srv/mediawiki/w/extensions/*/extension*.json' ),
-					glob( '/srv/mediawiki/w/skins/*/skin.json' )
+					glob( self::MEDIAWIKI_DIRECTORY . $this->version . '/extensions/*/extension*.json' ),
+					glob( self::MEDIAWIKI_DIRECTORY . $this->version . '/skins/*/skin.json' )
 				),
 			true );
 
@@ -746,9 +813,9 @@ class WikiForgeFunctions {
 
 			$list = array_column( $data['credits'], 'path', 'name' );
 
-			file_put_contents( self::CACHE_DIRECTORY . '/extension-list.json', json_encode( $list ), LOCK_EX );
+			file_put_contents( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json', json_encode( $list ), LOCK_EX );
 		} else {
-			$list = json_decode( file_get_contents( self::CACHE_DIRECTORY . '/extension-list.json' ), true );
+			$list = json_decode( file_get_contents( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json' ), true );
 		}
 
 		self::$activeExtensions ??= self::getActiveExtensions();
@@ -764,10 +831,12 @@ class WikiForgeFunctions {
 
 	/**
 	 * @param string $globalDatabase
+	 * @param ?string $version
 	 * @return array
 	 */
-	private static function getCombiList( string $globalDatabase ): array {
+	private static function getCombiList( string $globalDatabase, ?string $version = null ): array {
 		$dbr = self::getDatabaseConnection( $globalDatabase );
+		$wikiVersion = $version ? [ 'wiki_version' => $version ] : [];
 		$allWikis = $dbr->newSelectQueryBuilder()
 			->table( 'cw_wikis' )
 			->fields( [
@@ -775,8 +844,9 @@ class WikiForgeFunctions {
 				'wiki_dbname',
 				'wiki_url',
 				'wiki_sitename',
+				'wiki_version',
 			] )
-			->where( [ 'wiki_deleted' => 0 ] )
+			->where( [ 'wiki_deleted' => 0 ] + $wikiVersion )
 			->caller( __METHOD__ )
 			->fetchResultSet();
 
@@ -785,6 +855,7 @@ class WikiForgeFunctions {
 			$combiList[$wiki->wiki_dbname] = [
 				's' => $wiki->wiki_sitename,
 				'c' => $wiki->wiki_dbcluster,
+				'v' => ( $wiki->wiki_version ?? null ) ?: self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()],
 			];
 
 			if ( $wiki->wiki_url !== null ) {
@@ -851,16 +922,100 @@ class WikiForgeFunctions {
 				),
 			],
 		];
+
+		foreach ( self::MEDIAWIKI_VERSIONS as $name => $version ) {
+			$databaseLists += [
+				$name . '-wikis' => [
+					'combi' => self::getCombiList(
+						self::GLOBAL_DATABASE,
+						$version
+					),
+				],
+			];
+		}
+	}
+
+	/**
+	 * @param bool $ceMW
+	 * @param IContextSource $context
+	 * @param string $dbName
+	 * @param array &$formDescriptor
+	 */
+	public static function onManageWikiCoreAddFormFields( $ceMW, $context, $dbName, &$formDescriptor ) {
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+
+		$mwVersion = self::getMediaWikiVersion( $dbName );
+		$versions = array_unique( array_filter( self::MEDIAWIKI_VERSIONS, static function ( $version ) use ( $mwVersion ): bool {
+			return $mwVersion === $version || is_dir( self::MEDIAWIKI_DIRECTORY . $version );
+		} ) );
+
+		asort( $versions );
+
+		$mwSettings = new ManageWikiSettings( $dbName );
+		$setList = $mwSettings->list();
+		$formDescriptor['article-path'] = [
+			'label-message' => 'wikiforge-label-managewiki-article-path',
+			'type' => 'select',
+			'options-messages' => [
+				'wikiforge-label-managewiki-article-path-wiki' => '/wiki/$1',
+				'wikiforge-label-managewiki-article-path-root' => '/$1',
+			],
+			'default' => $setList['wgArticlePath'] ?? '/wiki/$1',
+			'disabled' => !$ceMW,
+			'cssclass' => 'managewiki-infuse',
+			'section' => 'main'
+		];
+
+		$formDescriptor['mediawiki-version'] = [
+			'label-message' => 'wikiforge-label-managewiki-mediawiki-version',
+			'type' => 'select',
+			'options' => array_combine( $versions, $versions ),
+			'default' => $mwVersion,
+			'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
+			'cssclass' => 'managewiki-infuse',
+			'section' => 'main'
+		];
+	}
+
+	/**
+	 * @param IContextSource $context
+	 * @param string $dbName
+	 * @param DBConnRef $dbw
+	 * @param array $formData
+	 * @param RemoteWiki &$wiki
+	 */
+	public static function onManageWikiCoreFormSubmission( $context, $dbName, $dbw, $formData, &$wiki ) {
+		$version = self::getMediaWikiVersion( $dbName );
+		if ( $formData['mediawiki-version'] !== $version && is_dir( self::MEDIAWIKI_DIRECTORY . $formData['mediawiki-version'] ) ) {
+			$wiki->newRows['wiki_version'] = $formData['mediawiki-version'];
+			$wiki->changes['mediawiki-version'] = [
+				'old' => $version,
+				'new' => $formData['mediawiki-version']
+			];
+		}
+
+		$mwSettings = new ManageWikiSettings( $dbName );
+		$articlePath = $mwSettings->list()['wgArticlePath'] ?? '';
+		if ( $formData['article-path'] !== $articlePath ) {
+			$mwSettings->modify( [ 'wgArticlePath' => $formData['article-path'] ] );
+			$mwSettings->commit();
+			$wiki->changes['article-path'] = [
+				'old' => $articlePath,
+				'new' => $formData['article-path']
+			];
+		}
 	}
 
 	public static function onMediaWikiServices() {
-		foreach ( $GLOBALS['globals'] as $global => $value ) {
-			if ( !isset( $GLOBALS['wgConf']->settings["+$global"] ) ) {
-				$GLOBALS[$global] = $value;
+		if ( isset( $GLOBALS['globals'] ) ) {
+			foreach ( $GLOBALS['globals'] as $global => $value ) {
+				if ( !isset( $GLOBALS['wgConf']->settings["+$global"] ) ) {
+					$GLOBALS[$global] = $value;
+				}
 			}
-		}
 
-		// Don't need a global here
-		unset( $GLOBALS['globals'] );
+			// Don't need a global here
+			unset( $GLOBALS['globals'] );
+		}
 	}
 }
