@@ -93,26 +93,6 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 
 $wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
-// Closed Wikis
-if ( $cwClosed ) {
-	$wgRevokePermissions = [
-		'*' => [
-			'block' => true,
-			'createaccount' => true,
-			'delete' => true,
-			'edit' => true,
-			'protect' => true,
-			'import' => true,
-			'upload' => true,
-			'undelete' => true,
-		],
-	];
-
-	if ( $wi->isExtensionActive( 'Comments' ) ) {
-		$wgRevokePermissions['*']['comment'] = true;
-	}
-}
-
 // Public Wikis
 if ( !$cwPrivate ) {
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
@@ -125,13 +105,6 @@ if ( !$cwPrivate ) {
 
 	// Unset $wgDataDumpDownloadUrl so private wikis stream the download via Special:DataDump/download
 	$wgDataDumpDownloadUrl = '';
-}
-
-// Experimental Wikis
-if ( $cwExperimental ) {
-	$wgParserEnableLegacyMediaDOM = false;
-} else {
-	$wgParserEnableLegacyMediaDOM = true;
 }
 
 // Dynamic cookie settings dependant on $wgServer

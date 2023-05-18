@@ -814,10 +814,7 @@ $wgConf->settings += [
 	],
 	'wgCreateWikiStateDays' => [
 		'default' => [
-			'inactive' => 45,
-			'closed' => 15,
-			'removed' => 120,
-			'deleted' => 14
+			'deleted' => 90,
 		],
 	],
 	'wgCreateWikiCacheDirectory' => [
@@ -828,6 +825,7 @@ $wgConf->settings += [
 			'Art & Architecture' => 'artarc',
 			'Automotive' => 'automotive',
 			'Business & Finance' => 'businessfinance',
+			'Commercial' => 'commercial',
 			'Community' => 'community',
 			'Education' => 'education',
 			'Electronics' => 'electronics',
@@ -847,7 +845,6 @@ $wgConf->settings += [
 			'Music' => 'music',
 			'Podcast' => 'podcast',
 			'Politics' => 'politics',
-			'Private' => 'private',
 			'Religion' => 'religion',
 			'Science' => 'science',
 			'Software/Computing' => 'software',
@@ -862,19 +859,10 @@ $wgConf->settings += [
 	'wgCreateWikiSubdomain' => [
 		'default' => 'wikiforge.net',
 	],
-	'wgCreateWikiUseClosedWikis' => [
-		'default' => true,
-	],
 	'wgCreateWikiUseCustomDomains' => [
 		'default' => true,
 	],
 	'wgCreateWikiUseEchoNotifications' => [
-		'default' => true,
-	],
-	'wgCreateWikiUseExperimental' => [
-		'default' => true,
-	],
-	'wgCreateWikiUseInactiveWikis' => [
 		'default' => true,
 	],
 	'wgCreateWikiUsePrivateWikis' => [
@@ -3008,11 +2996,6 @@ $wgConf->settings += [
 		'default' => true,
 	],
 
-	// Site notice opt out
-	'wmgSiteNoticeOptOut' => [
-		'default' => false,
-	],
-
 	// Skins
 	'wgSkipSkins' => [
 		'default' => [],
@@ -3886,15 +3869,6 @@ $wgConf->settings += [
 	],
 
 	// CreateWiki Defined Special Variables
-	'cwClosed' => [
-		'default' => false,
-	],
-	'cwExperimental' => [
-		'default' => false,
-	],
-	'cwInactive' => [
-		'default' => false,
-	],
 	'cwPrivate' => [
 		'default' => false,
 	],
@@ -3968,7 +3942,6 @@ if ( $wgRequestTimeLimit ) {
 require_once '/srv/mediawiki/config/Database.php';
 require_once '/srv/mediawiki/config/GlobalCache.php';
 require_once '/srv/mediawiki/config/GlobalLogging.php';
-require_once '/srv/mediawiki/config/Sitenotice.php';
 
 if ( $wi->missing ) {
 	require_once '/srv/mediawiki/ErrorPages/MissingWiki.php';

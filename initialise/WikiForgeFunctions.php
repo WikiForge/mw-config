@@ -604,9 +604,6 @@ class WikiForgeFunctions {
 
 		// Assign states
 		$settings['cwPrivate']['default'] = (bool)$cacheArray['states']['private'];
-		$settings['cwClosed']['default'] = (bool)$cacheArray['states']['closed'];
-		$settings['cwInactive']['default'] = ( $cacheArray['states']['inactive'] === 'exempt' ) ? 'exempt' : (bool)$cacheArray['states']['inactive'];
-		$settings['cwExperimental']['default'] = (bool)( $cacheArray['states']['experimental'] ?? false );
 
 		// Assign settings
 		if ( isset( $cacheArray['settings'] ) ) {
@@ -834,38 +831,6 @@ class WikiForgeFunctions {
 
 	/**
 	 * @param string $globalDatabase
-	 * @return array
-	 */
-	private static function getActiveList( string $globalDatabase ): array {
-		$dbr = self::getDatabaseConnection( $globalDatabase );
-		$activeWikis = $dbr->newSelectQueryBuilder()
-			->table( 'cw_wikis' )
-			->fields( [
-				'wiki_dbcluster',
-				'wiki_dbname',
-				'wiki_sitename',
-			] )
-			->where( [
-				'wiki_closed' => 0,
-				'wiki_deleted' => 0,
-				'wiki_inactive' => 0,
-			] )
-			->caller( __METHOD__ )
-			->fetchResultSet();
-
-		$activeList = [];
-		foreach ( $activeWikis as $wiki ) {
-			$activeList[$wiki->wiki_dbname] = [
-				's' => $wiki->wiki_sitename,
-				'c' => $wiki->wiki_dbcluster,
-			];
-		}
-
-		return $activeList;
-	}
-
-	/**
-	 * @param string $globalDatabase
 	 * @param ?string $version
 	 * @return array
 	 */
@@ -945,11 +910,6 @@ class WikiForgeFunctions {
 	 */
 	public static function onGenerateDatabaseLists( array &$databaseLists ) {
 		$databaseLists = [
-			'active' => [
-				'combi' => self::getActiveList(
-					self::GLOBAL_DATABASE
-				),
-			],
 			'databases' => [
 				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE

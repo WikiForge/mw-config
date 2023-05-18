@@ -1720,16 +1720,6 @@ $wgManageWikiSettings = [
 		'help' => 'Maximum number of users that will be notified that they were linked from an edit summary or 0 for no notifications.',
 		'requires' => [],
 	],
-	'wmgSiteNoticeOptOut' => [
-		'name' => 'Opt out of global WikiForge notices',
-		'from' => 'mediawiki',
-		'global' => true,
-		'type' => 'check',
-		'overridedefault' => false,
-		'section' => 'notifications',
-		'help' => 'Opts your wiki out of global WikiForge notices, only showing important notices.',
-		'requires' => [],
-	],
 	'wgMinervaEnableSiteNotice' => [
 		'name' => 'Minerva Sitenotice',
 		'from' => 'minervaneue',
