@@ -608,6 +608,11 @@ class WikiForgeFunctions {
 		// Assign settings
 		if ( isset( $cacheArray['settings'] ) ) {
 			foreach ( $cacheArray['settings'] as $var => $val ) {
+				if ( $var === 'wgWikiDiscoverExclude' ) {
+					$settings[$var][ $GLOBALS['wgDBname'] ] = $val;
+					continue;
+				}
+
 				$settings[$var]['default'] = $val;
 			}
 		}
