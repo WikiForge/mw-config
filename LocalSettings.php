@@ -3919,6 +3919,10 @@ $globals = WikiForgeFunctions::getConfigGlobals();
 // phpcs:ignore MediaWiki.Usage.ForbiddenFunctions.extract
 extract( $globals );
 
+if ( $wgWikiDiscoverExclude ) {
+	$wgConf->settings['wgWikiDiscoverExclude'][$wi->dbname] = $wgWikiDiscoverExclude;
+}
+
 $wi->loadExtensions();
 
 require_once __DIR__ . '/ManageWikiNamespaces.php';
