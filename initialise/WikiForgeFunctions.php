@@ -617,6 +617,10 @@ class WikiForgeFunctions {
 			}
 		}
 
+		if ( $GLOBALS['wgWikiDiscoverExclude'] ) {
+			$settings['wgWikiDiscoverExclude'][ $GLOBALS['wgDBname'] ] = $GLOBALS['wgWikiDiscoverExclude'];
+		}
+
 		// Handle namespaces
 		if ( isset( $cacheArray['namespaces'] ) ) {
 			foreach ( $cacheArray['namespaces'] as $name => $ns ) {
