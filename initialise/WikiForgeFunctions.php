@@ -505,6 +505,10 @@ class WikiForgeFunctions {
 		$cacheArray ??= self::getCacheArray();
 
 		$wikiTags[] = self::getMediaWikiVersion();
+		if ( $wgConf->get( 'wgWikiDiscoverExclude', $wgDBname ) ) {
+			$wikiTags[] = 'exclude-wikidiscover';
+		}
+
 		foreach ( $cacheArray['states'] ?? [] as $state => $value ) {
 			if ( $value !== 'exempt' && (bool)$value ) {
 				$wikiTags[] = $state;
