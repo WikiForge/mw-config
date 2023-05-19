@@ -3733,6 +3733,9 @@ $wgConf->settings += [
 	],
 
 	// WikiDiscover
+	'wgWikiDiscoverExclude' => [
+		'default' => false,
+	],
 	'wgWikiDiscoverListPrivateWikis' => [
 		'default' => false,
 	],
