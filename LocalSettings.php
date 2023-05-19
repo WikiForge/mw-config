@@ -741,9 +741,6 @@ $wgConf->settings += [
 			'(.*)wiki(pedi)?a(.*)',
 		],
 	],
-	'wgCreateWikiCannedResponses' => [
-		'default' => [],
-	],
 	'wgCreateWikiCustomDomainPage' => [
 		'default' => 'Special:MyLanguage/Custom_domains',
 	],
@@ -773,29 +770,6 @@ $wgConf->settings += [
 	],
 	'wgCreateWikiPersistentModelFile' => [
 		'default' => '/mnt/mediawiki-static/requestmodel.phpml',
-	],
-	'wgCreateWikiPurposes' => [
-		'default' => [
-			'Alternate history wiki' => 'Alternate history wiki',
-			'Class or group project education wiki' => 'Class or group project education wiki',
-			'Curriculum resource wiki' => 'Curriculum resource wiki',
-			'Documentation (hardware) wiki' => 'Documentation (hardware) wiki',
-			'Documentation (software) wiki' => 'Documentation (software) wiki',
-			'Encyclopedia (general) wiki' => 'Encyclopedia (general) wiki',
-			'Encyclopedia (specialized) wiki' => 'Encyclopedia (specialized) wiki',
-			'Eurovision-style song contest statistics tracking wiki' => 'Eurovision-style song contest statistics tracking wiki',
-			'Fictional worldbuilding/constructed world wiki' => 'Fictional worldbuilding/constructed world wiki',
-			'Minecraft server wiki' => 'Minecraft server wiki',
-			'Organization (coordination) wiki' => 'Organization (coordination) wiki',
-			'Political simulation wiki' => 'Political simulation wiki',
-			'Roleplaying game wiki' => 'Roleplaying game wiki',
-			'Video game (specified video game) information wiki' => 'Video game (specified video game) information wiki',
-			'Video game (broad genre or video game series) information wiki' => 'Video game (broad genre or video game series) information wiki',
-			'None of the above' => 'None of the above',
-		],
-	],
-	'wgCreateWikiShowBiographicalOption' => [
-		'default' => true,
 	],
 	'wgCreateWikiSQLfiles' => [
 		'default' => [
@@ -850,7 +824,7 @@ $wgConf->settings += [
 			'Software/Computing' => 'software',
 			'Song Contest' => 'songcontest',
 			'Sports' => 'sport',
-			'Uncategorised' => 'uncategorised',
+			'Uncategorized' => 'uncategorised',
 		],
 	],
 	'wgCreateWikiUseCategories' => [
