@@ -1721,8 +1721,6 @@ $wgConf->settings += [
 			'cosmos',
 			'darkmode',
 			'globaluserpage',
-			'minervaneue',
-			'mobilefrontend',
 			'modern',
 			'monobook',
 			'purge',
