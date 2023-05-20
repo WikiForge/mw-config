@@ -7,7 +7,6 @@ wfLoadExtensions( [
 	'AntiSpoof',
 	'BetaFeatures',
 	'CentralAuth',
-	'CentralNotice',
 	'CheckUser',
 	'CreateWiki',
 	'CookieWarning',
@@ -17,10 +16,6 @@ wfLoadExtensions( [
 	'DiscordNotifications',
 	'DismissableSiteNotice',
 	'Echo',
-	// Required by CentralNotice
-	'EventLogging',
-	// Required by EventLogging
-	'EventStreamConfig',
 	'GlobalCssJs',
 	'GlobalBlocking',
 	'GlobalNewFiles',
