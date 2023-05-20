@@ -1709,28 +1709,6 @@ $wgConf->settings += [
 			'settings' => true
 		],
 	],
-	'wgManageWikiExtensionsDefault' => [
-		'default' => [
-			'categorytree',
-			'cite',
-			'citethispage',
-			'citizen',
-			'codeeditor',
-			'codemirror',
-			'cologneblue',
-			'cosmos',
-			'darkmode',
-			'globaluserpage',
-			'modern',
-			'monobook',
-			'purge',
-			'syntaxhighlight_geshi',
-			'textextracts',
-			'timeless',
-			'urlshortener',
-			'wikiseo',
-		],
-	],
 	'wgManageWikiPermissionsAdditionalAddGroups' => [
 		'default' => [],
 	],
@@ -3702,6 +3680,29 @@ $wgConf->settings += [
 	],
 	'wgWikiForumLogsInRC' => [
 		'default' => true,
+	],
+
+	'wgWikiForgeMagicRequestPremiumWikiExtensionsDefaultEnabled' => [
+		'default' => [
+			'categorytree',
+			'cite',
+			'citethispage',
+			'citizen',
+			'codeeditor',
+			'codemirror',
+			'cologneblue',
+			'cosmos',
+			'darkmode',
+			'globaluserpage',
+			'modern',
+			'monobook',
+			'purge',
+			'syntaxhighlight_geshi',
+			'textextracts',
+			'timeless',
+			'urlshortener',
+			'wikiseo',
+		],
 	],
 
 	// WikiDiscover
