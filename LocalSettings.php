@@ -2410,9 +2410,6 @@ $wgConf->settings += [
 	'wgOAuth2RefreshTokenTTL' => [
 		'default' => 'P365D',
 	],
-	'wgMWOAuthSharedUserSource' => [
-		'default' => 'CentralAuth',
-	],
 	'wgMWOAuthSecureTokenTransfer' => [
 		'default' => true,
 	],
