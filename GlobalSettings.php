@@ -13,6 +13,10 @@ if ( wfHostname() !== 'test1.wikiforge.net' ) {
 if ( $wgWikiForgeUseCentralAuth ) {
 	wfLoadExtensions( [
 		'CentralAuth',
+		'GlobalCssJs',
+		'GlobalBlocking',
+		'GlobalPreferences',
+		'ImportDump',
 		'RemovePII',
 	] );
 
