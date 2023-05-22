@@ -3682,6 +3682,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 
+	// WikiForge
 	'wgWikiForgeMagicRequestPremiumWikiExtensionsDefaultEnabled' => [
 		'default' => [
 			'categorytree',
@@ -3693,7 +3694,6 @@ $wgConf->settings += [
 			'cologneblue',
 			'cosmos',
 			'darkmode',
-			'globaluserpage',
 			'modern',
 			'monobook',
 			'purge',
@@ -3703,6 +3703,9 @@ $wgConf->settings += [
 			'urlshortener',
 			'wikiseo',
 		],
+	],
+	'wgWikiForgeUseCentralAuth' => [
+		'default' => true,
 	],
 
 	// WikiDiscover
