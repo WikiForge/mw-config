@@ -976,8 +976,9 @@ class WikiForgeFunctions {
 			'section' => 'main'
 		];
 
+		$wiki = new RemoteWiki( $dbName );
 		if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
-			unset( $formData['category'], $formData['description'] );
+			unset( $formDescriptor['category'], $formDescriptor['description'] );
 		}
 	}
 
