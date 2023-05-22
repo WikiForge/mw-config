@@ -17,6 +17,7 @@ if ( $wgWikiForgeUseCentralAuth ) {
 	] );
 
 	$wgMWOAuthSharedUserSource = 'CentralAuth';
+	$wgOATHAuthDatabase = 'prodglobal';
 }
 
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
