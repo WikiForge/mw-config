@@ -975,6 +975,10 @@ class WikiForgeFunctions {
 			'cssclass' => 'managewiki-infuse',
 			'section' => 'main'
 		];
+
+		if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
+			unset( $formData['category'], $formData['description'] )
+		}
 	}
 
 	/**
