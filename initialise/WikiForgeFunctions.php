@@ -977,7 +977,7 @@ class WikiForgeFunctions {
 		];
 
 		if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
-			unset( $formData['category'], $formData['description'] )
+			unset( $formData['category'], $formData['description'] );
 		}
 	}
 
