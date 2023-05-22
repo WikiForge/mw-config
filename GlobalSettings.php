@@ -10,6 +10,13 @@ if ( wfHostname() !== 'test1.wikiforge.net' ) {
 }
 
 // Extensions
+if ( $wgWikiForgeUseCentralAuth ) {
+	wfLoadExtensions( [
+		'CentralAuth',
+		'RemovePII',
+	] );
+}
+
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
 }
