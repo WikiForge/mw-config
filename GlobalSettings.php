@@ -15,6 +15,8 @@ if ( $wgWikiForgeUseCentralAuth ) {
 		'CentralAuth',
 		'RemovePII',
 	] );
+
+	$wgMWOAuthSharedUserSource = 'CentralAuth';
 }
 
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
