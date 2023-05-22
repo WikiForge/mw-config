@@ -2365,9 +2365,6 @@ $wgConf->settings += [
 	],
 
 	// OATHAuth
-	'wgOATHAuthDatabase' => [
-		'default' => 'prodglobal',
-	],
 	'wgOATHExclusiveRights' => [
 		'default' => [
 			'abusefilter-privatedetails',
