@@ -26,7 +26,7 @@ if ( $queryString ) {
 
 // TODO: use ucfirst() and support $wgCapitalLinks and $wgCapitalLinkOverrides
 $redirectUrl = str_replace( ' ', '_', $redirectUrl );
-header( 'Location: ' . $redirectUrl, true, 302 );
+header( 'Location: ' . $redirectUrl, true, 301 );
 
 exit();
 ?>
