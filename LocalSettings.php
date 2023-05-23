@@ -1702,9 +1702,6 @@ $wgConf->settings += [
 				'abusefilter-privatedetails' => true,
 				'abusefilter-privatedetails-log' => true,
 			],
-			'interwiki-admin' => [
-				'interwiki' => true
-			],
 			'oversight' => [
 				'abusefilter-hidden-log' => true,
 				'abusefilter-hide-log' => true,
@@ -1785,7 +1782,6 @@ $wgConf->settings += [
 				'view-private-import-dump-requests' => true,
 			],
 			'sysop' => [
-				'interwiki' => true,
 				'autopatrolled' => true,
 			],
 			'user' => [
@@ -1844,7 +1840,6 @@ $wgConf->settings += [
 				'handle-import-dump-requests',
 				'handle-pii',
 				'hideuser',
-				'interwiki',
 				'investigate',
 				'ipinfo',
 				'ipinfo-view-basic',
@@ -1924,7 +1919,6 @@ $wgConf->settings += [
 			'oversight',
 			'steward',
 			'staff',
-			'interwiki-admin',
 			'sysadmin',
 			'trustandsafety',
 		],
@@ -2531,14 +2525,6 @@ $wgConf->settings += [
 	],
 	'wgCentralAuthGlobalPasswordPolicies' => [
 		'default' => [
-			'global-interwiki-admin' => [
-				'MinimalPasswordLength' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 6, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
 			'global-sysop' => [
 				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
 				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
