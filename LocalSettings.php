@@ -377,33 +377,6 @@ $wgConf->settings += [
 		'default' => true,
 	],
 
-	// CentralNotice
-	'wgNoticeInfrastructure' => [
-		'default' => false,
-		'metawiki' => true,
-	],
-	'wgCentralSelectedBannerDispatcher' => [
-		'default' => 'https://meta.wikiforge.net/wiki/Special:BannerLoader',
-	],
-	'wgCentralBannerRecorder' => [
-		'default' => 'https://meta.wikiforge.net/wiki/Special:RecordImpression',
-	],
-	'wgCentralDBname' => [
-		'default' => 'metawiki',
-	],
-	'wgCentralHost' => [
-		'default' => 'https://meta.wikiforge.net',
-	],
-	'wgNoticeProjects' => [
-		'default' => [
-			'all',
-			'optout',
-		],
-	],
-	'wgNoticeUseTranslateExtension' => [
-		'default' => true,
-	],
-
 	// Chameleon
 	'egChameleonLayoutFile' => [
 		'default' => '/srv/mediawiki/' . $wi->version . '/skins/chameleon/layouts/standard.xml',
