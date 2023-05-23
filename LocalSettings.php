@@ -408,7 +408,7 @@ $wgConf->settings += [
 		'default' => [
 			'centralDB' => 'metawiki',
 			'groups' => [
-				'steward',
+				'staff',
 			],
 		],
 	],
@@ -416,7 +416,7 @@ $wgConf->settings += [
 		'default' => [
 			'centralDB' => 'metawiki',
 			'groups' => [
-				'steward',
+				'staff',
 			],
 		],
 	],
@@ -1695,9 +1695,6 @@ $wgConf->settings += [
 				'checkuser' => true,
 				'checkuser-log' => true,
 			],
-			'steward' => [
-				'userrights' => true,
-			],
 			'suppress' => [
 				'abusefilter-hidden-log' => true,
 				'abusefilter-hide-log' => true,
@@ -1721,7 +1718,7 @@ $wgConf->settings += [
 				'mwoauthproposeconsumer' => true,
 				'mwoauthupdateownconsumer' => true,
 			],
-			'steward' => [
+			'staff' => [
 				'abusefilter-modify-global' => true,
 				'centralauth-lock' => true,
 				'centralauth-suppress' => true,
@@ -1729,34 +1726,18 @@ $wgConf->settings += [
 				'centralauth-unmerge' => true,
 				'createwiki' => true,
 				'globalblock' => true,
-				'managewiki' => true,
-				'managewiki-restricted' => true,
-				'noratelimit' => true,
-				'userrights' => true,
-				'userrights-interwiki' => true,
-				'globalgroupmembership' => true,
-				'globalgrouppermissions' => true,
-			],
-			'sysadmin' => [
 				'globalgroupmembership' => true,
 				'globalgrouppermissions' => true,
 				'handle-import-dump-interwiki' => true,
 				'handle-import-dump-requests' => true,
-				'oathauth-verify-user' => true,
-				'oathauth-disable-for-user' => true,
-				'view-private-import-dump-requests' => true,
-			],
-			'trustandsafety' => [
-				'userrights' => true,
-				'globalblock' => true,
-				'globalgroupmembership' => true,
-				'globalgrouppermissions' => true,
-				'userrights-interwiki' => true,
-				'centralauth-lock' => true,
-				'centralauth-rename' => true,
 				'handle-pii' => true,
+				'managewiki' => true,
+				'managewiki-restricted' => true,
+				'noratelimit' => true,
 				'oathauth-disable-for-user' => true,
 				'oathauth-verify-user' => true,
+				'userrights' => true,
+				'userrights-interwiki' => true,
 				'view-private-import-dump-requests' => true,
 			],
 			'user' => [
@@ -2330,7 +2311,7 @@ $wgConf->settings += [
 	'wgOATHRequiredForGroups' => [
 		'default' => [
 			'checkuser',
-			'steward',
+			'staff',
 			'suppress',
 		],
 	],
@@ -2491,23 +2472,7 @@ $wgConf->settings += [
 	],
 	'wgCentralAuthGlobalPasswordPolicies' => [
 		'default' => [
-			'steward' => [
-				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
-			'sysadmin' => [
-				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
-			'trustandsafety' => [
+			'staff' => [
 				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
 				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
 				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
@@ -2681,8 +2646,8 @@ $wgConf->settings += [
 	],
 	'wgRemovePIIHashPrefixOptions' => [
 		'default' => [
-			'Trust and Safety' => 'WikiForgeGDPR_',
-			'Stewards' => 'Vanished user ',
+			'GDPR' => 'WikiForgeGDPR_',
+			'Vanishing' => 'Vanished user ',
 		],
 	],
 	'wgRemovePIIHashPrefix' => [
