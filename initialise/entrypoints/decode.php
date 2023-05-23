@@ -4,9 +4,7 @@ $uri = $_SERVER['REQUEST_URI'];
 $queryString = $_SERVER['QUERY_STRING'] ?? '';
 
 $decodedUri = urldecode( $uri );
-
 $decodedUri = str_replace( '/w/index.php', '', $decodedUri );
-$decodedUri = str_replace( '%20', '_', $decodedUri );
 
 $redirectUrl = '/wiki' . $decodedUri;
 
@@ -26,6 +24,8 @@ if ( $queryString ) {
 	}
 }
 
+$redirectUrl = str_replace( '%20', '_', $redirectUrl );
 header( 'Location: ' . $redirectUrl, true, 302 );
+
 exit();
 ?>
