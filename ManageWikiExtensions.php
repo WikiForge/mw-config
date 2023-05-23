@@ -1753,6 +1753,9 @@ $wgManageWikiExtensions = [
 		'conflicts' => false,
 		'requires' => [],
 		'install' => [
+			'sql' => [
+				'urlshortcodes' => "$IP/extensions/UrlShortener/schemas/tables-generated.sql",
+			],
 			'permissions' => [
 				'sysop' => [
 					'permissions' => [
