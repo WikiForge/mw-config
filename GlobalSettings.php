@@ -2,12 +2,8 @@
 
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 
-if ( wfHostname() !== 'test1.wikiforge.net' ) {
-	$wgSpecialPages['RequestPremiumWiki'] = DisabledSpecialPage::getCallback( 'RequestPremiumWiki', 'requestpremiumwiki-coming-soon' );
-} else {
-	$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
-	$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
-}
+$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
+$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
 
 // Extensions
 if ( $wgWikiForgeUseCentralAuth ) {
