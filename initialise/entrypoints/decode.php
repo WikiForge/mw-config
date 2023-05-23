@@ -5,6 +5,8 @@ $queryString = $_SERVER['QUERY_STRING'] ?? '';
 
 $decodedUri = urldecode( $uri );
 
+$decodedUri = str_replace( '/w/index.php', '', $decodedUri );
+
 $redirectUrl = '/wiki' . $decodedUri;
 
 if ( $queryString ) {
@@ -15,7 +17,7 @@ if ( $queryString ) {
 		$title = $queryParameters['title'];
 		unset( $queryParameters['title'] );
 
-		$redirectUrl .= '/' . $title;
+		$redirectUrl = '/wiki/' . $title;
 	}
 
 	if ( !empty( $queryParameters ) ) {
@@ -26,4 +28,3 @@ if ( $queryString ) {
 header( 'Location: ' . $redirectUrl, true, 302 );
 exit();
 ?>
-
