@@ -741,9 +741,6 @@ $wgConf->settings += [
 	'wgCreateWikiNotificationEmail' => [
 		'default' => 'sre@wikiforge.net',
 	],
-	'wgCreateWikiPersistentModelFile' => [
-		'default' => '/mnt/mediawiki-static/requestmodel.phpml',
-	],
 	'wgCreateWikiSQLfiles' => [
 		'default' => [
 			"$IP/maintenance/tables-generated.sql",
@@ -796,7 +793,7 @@ $wgConf->settings += [
 			'Software/Computing' => 'software',
 			'Song Contest' => 'songcontest',
 			'Sports' => 'sport',
-			'Uncategorized' => 'uncategorised',
+			'Uncategorized' => 'uncategorized',
 		],
 	],
 	'wgCreateWikiUseCategories' => [
@@ -822,9 +819,6 @@ $wgConf->settings += [
 			'dumps-backup',
 			'timeline-render',
 		],
-	],
-	'wgCreateWikiUseJobQueue' => [
-		'default' => true,
 	],
 
 	// CookieWarning
@@ -1678,7 +1672,7 @@ $wgConf->settings += [
 			'extensions' => true,
 			'namespaces' => true,
 			'permissions' => true,
-			'settings' => true
+			'settings' => true,
 		],
 	],
 	'wgManageWikiPermissionsAdditionalAddGroups' => [
@@ -1688,21 +1682,24 @@ $wgConf->settings += [
 		'default' => [
 			'*' => [
 				'autocreateaccount' => true,
-				'read' => true,
-				'oathauth-enable' => true,
-				'viewmyprivateinfo' => true,
 				'editmyoptions' => true,
 				'editmyprivateinfo' => true,
 				'editmywatchlist' => true,
+				'oathauth-enable' => true,
+				'read' => true,
+				'viewmyprivateinfo' => true,
 				'writeapi' => true,
 			],
 			'checkuser' => [
-				'checkuser' => true,
-				'checkuser-log' => true,
 				'abusefilter-privatedetails' => true,
 				'abusefilter-privatedetails-log' => true,
+				'checkuser' => true,
+				'checkuser-log' => true,
 			],
-			'oversight' => [
+			'steward' => [
+				'userrights' => true,
+			],
+			'suppress' => [
 				'abusefilter-hidden-log' => true,
 				'abusefilter-hide-log' => true,
 				'browsearchive' => true,
@@ -1715,33 +1712,15 @@ $wgConf->settings += [
 				'suppressrevision' => true,
 				'viewsuppressed' => true,
 			],
-			'steward' => [
-				'userrights' => true,
-			],
 			'user' => [
 				'mwoauthmanagemygrants' => true,
 				'user' => true,
 			],
 		],
 		'+metawiki' => [
-			'autopatrolled' => [
-				'autopatrolled' => true,
-			],
 			'confirmed' => [
 				'mwoauthproposeconsumer' => true,
 				'mwoauthupdateownconsumer' => true,
-			],
-			'global-sysop' => [
-				'abusefilter-modify-global' => true,
-				'centralauth-lock' => true,
-				'globalblock' => true,
-			],
-			'proxybot' => [
-				'globalblock' => true,
-				'centralauth-lock' => true,
-			],
-			'requestwikiblocked' => [
-				'read' => true,
 			],
 			'steward' => [
 				'abusefilter-modify-global' => true,
@@ -1781,15 +1760,9 @@ $wgConf->settings += [
 				'oathauth-verify-user' => true,
 				'view-private-import-dump-requests' => true,
 			],
-			'sysop' => [
-				'autopatrolled' => true,
-			],
 			'user' => [
 				'request-import-dump' => true,
 				'requestwiki' => true,
-			],
-			'wikicreator' => [
-				'createwiki' => true,
 			],
 		],
 		'+test1wiki' => [
@@ -1799,7 +1772,7 @@ $wgConf->settings += [
 			],
 		],
 		'+ext-Flow' => [
-			'oversight' => [
+			'suppress' => [
 				'flow-suppress' => true,
 			],
 		],
@@ -1817,13 +1790,12 @@ $wgConf->settings += [
 				'abusefilter-private-log',
 				'abusefilter-privatedetails',
 				'abusefilter-privatedetails-log',
-				'aft-oversighter',
 				'autocreateaccount',
 				'bigdelete',
 				'centralauth-createlocal',
 				'centralauth-lock',
-				'centralauth-suppress',
 				'centralauth-rename',
+				'centralauth-suppress',
 				'centralauth-unmerge',
 				'checkuser',
 				'checkuser-log',
@@ -1845,8 +1817,8 @@ $wgConf->settings += [
 				'ipinfo-view-basic',
 				'ipinfo-view-full',
 				'ipinfo-view-log',
-				'managewiki-restricted',
 				'managewiki-editdefault',
+				'managewiki-restricted',
 				'moderation-checkuser',
 				'mwoauthmanageconsumer',
 				'mwoauthmanagemygrants',
@@ -1879,46 +1851,49 @@ $wgConf->settings += [
 				'viewsuppressed',
 				'writeapi',
 			],
-			'user' => [
-				'autoconfirmed',
-				'noratelimit',
-				'skipcaptcha',
-				'managewiki',
-				'globalblock-whitelist',
-				'ipblock-exempt',
-			],
 			'*' => [
-				'read',
-				'skipcaptcha',
-				'torunblocked',
+				'autoconfirmed',
 				'centralauth-merge',
-				'generate-dump',
-				'editsitecss',
-				'editsitejson',
-				'editsitejs',
-				'editusercss',
-				'edituserjson',
-				'edituserjs',
 				'editmyoptions',
 				'editmyprivateinfo',
 				'editmywatchlist',
+				'editsitecss',
+				'editsitejs',
+				'editsitejson',
+				'editusercss',
+				'edituserjs',
+				'edituserjson',
+				'generate-dump',
 				'globalblock-whitelist',
+				'interwiki',
 				'ipblock-exempt',
-				'viewmyprivateinfo',
-				'viewmywatchlist',
 				'managewiki',
 				'noratelimit',
+				'read',
+				'skipcaptcha',
+				'torunblocked',
+				'viewmyprivateinfo',
+				'viewmywatchlist',
+			],
+			'user' => [
 				'autoconfirmed',
+				'globalblock-whitelist',
+				'interwiki',
+				'ipblock-exempt',
+				'noratelimit',
+				'managewiki',
+				'skipcaptcha',
 			],
 		],
 	],
 	'wgManageWikiPermissionsDisallowedGroups' => [
 		'default' => [
 			'checkuser',
-			'smwadministrator',
 			'oversight',
+			'smwadministrator',
 			'steward',
 			'staff',
+			'suppress',
 			'sysadmin',
 			'trustandsafety',
 		],
@@ -2341,26 +2316,23 @@ $wgConf->settings += [
 			'checkuser',
 			'checkuser-log',
 			'globalblock',
-			'globalgrouppermissions',
 			'globalgroupmembership',
+			'globalgrouppermissions',
 			'suppressionlog',
 			'suppressrevision',
 			'userrights',
 			'userrights-interwiki',
 		],
 		'+metawiki' => [
-			'edituserjs',
 			'editsitejs',
+			'edituserjs',
 		],
 	],
 	'wgOATHRequiredForGroups' => [
 		'default' => [
 			'checkuser',
-			'oversight',
 			'steward',
-		],
-		'+metawiki' => [
-			'global-sysop',
+			'suppress',
 		],
 	],
 	// OAuth
@@ -2458,11 +2430,6 @@ $wgConf->settings += [
 	],
 	'+wgRevokePermissions' => [
 		'default' => [],
-		'+metawiki' => [
-			'requestwikiblocked' => [
-				'requestwiki' => true,
-			],
-		],
 		'+ext-MediaWikiChat' => [
 			'blockedfromchat' => [
 				'chat' => true,
@@ -2525,14 +2492,6 @@ $wgConf->settings += [
 	],
 	'wgCentralAuthGlobalPasswordPolicies' => [
 		'default' => [
-			'global-sysop' => [
-				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
 			'steward' => [
 				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
 				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
@@ -2638,11 +2597,6 @@ $wgConf->settings += [
 	// RateLimits
 	'+wgRateLimits' => [
 		'default' => [],
-		'metawiki' => [
-			'requestwiki' => [
-				'user' => [ 1, 3600 ],
-			],
-		],
 	],
 
 	// RatePage
@@ -2744,9 +2698,6 @@ $wgConf->settings += [
 			'autoconfirmed',
 			'sysop'
 		],
-		'+metawiki' => [
-			'autopatrolled',
-		],
 		'+ext-AuthorProtect' => [
 			'author',
 		],
@@ -2763,9 +2714,6 @@ $wgConf->settings += [
 	// Rights
 	'+wgAvailableRights' => [
 		'default' => [],
-		'metawiki' => [
-			'autopatrolled',
-		],
 		'+ext-SocialProfile' => [
 			'updatepoints',
 		],
@@ -3634,6 +3582,14 @@ $wgConf->settings += [
 		'default' => true,
 	],
 
+	// WikiDiscover
+	'wgWikiDiscoverListPrivateWikis' => [
+		'default' => false,
+	],
+	'wgWikiDiscoverUseDescriptions' => [
+		'default' => true,
+	],
+
 	// WikiForge
 	'wgWikiForgeMagicRequestPremiumWikiExtensionsDefaultEnabled' => [
 		'default' => [
@@ -3657,14 +3613,6 @@ $wgConf->settings += [
 		],
 	],
 	'wgWikiForgeUseCentralAuth' => [
-		'default' => true,
-	],
-
-	// WikiDiscover
-	'wgWikiDiscoverListPrivateWikis' => [
-		'default' => false,
-	],
-	'wgWikiDiscoverUseDescriptions' => [
 		'default' => true,
 	],
 
