@@ -4,9 +4,7 @@ $uri = $_SERVER['REQUEST_URI'];
 $queryString = $_SERVER['QUERY_STRING'] ?? '';
 
 $decodedUri = urldecode( $uri );
-
 $decodedUri = str_replace( '/w/index.php', '', $decodedUri );
-$decodedUri = str_replace( ' ', '_', $decodedUri );
 
 $redirectUrl = '/wiki' . $decodedUri;
 
@@ -26,6 +24,8 @@ if ( $queryString ) {
 	}
 }
 
+// TODO: use ucfirst() and support $wgCapitalLinks and $wgCapitalLinkOverrides
+$redirectUrl = str_replace( ' ', '_', $redirectUrl );
 header( 'Location: ' . $redirectUrl, true, 302 );
 
 exit();
