@@ -9,7 +9,7 @@ if ( $wgArticlePath === '/$1' && str_contains( strtoupper( $_SERVER['REQUEST_URI
 	// Redirect to the same page maintaining the path
 	header( 'Location: ' . str_replace( '/wiki/', '/', $_SERVER['REQUEST_URI'] ), true, 301 );
 	exit;
-} elseif ( $wgArticlePath === '/wiki/$1' && strpos( $_SERVER['REQUEST_URI'], '/wiki/' ) !== 0 && !str_contains( $_SERVER['REQUEST_URI'], '/w/' ) ) {
+} elseif ( $wgArticlePath === '/wiki/$1' && !str_contains( $_SERVER['REQUEST_URI'], '/wiki/' ) && !str_contains( $_SERVER['REQUEST_URI'], '/w/' ) ) {
 	// Redirect to the same page maintaining the path
 	header( 'Location: /wiki' . $_SERVER['REQUEST_URI'], true, 301 );
 	exit;
