@@ -16,21 +16,37 @@ if ( $wgArticlePath === '/$1' && str_contains( strtoupper( $_SERVER['REQUEST_URI
 	exit;
 }
 
-if ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) {
+if ( $wgArticlePath === '/$1' || ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
 	// Try to redirect the main page to domain root if using $wgMainPageIsDomainRoot
 	$title = '';
 	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
 		$path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 		$segments = explode( '/', $path );
 		$title = end( $segments );
-		$title = str_replace( '_', ' ', $title );
 	}
 
 	// Check if the title matches the main page title
-	if ( $title === wfMessage( 'mainpage' )->text() ) {
+	if ( $title === str_replace( ' ', '_', wfMessage( 'mainpage' )->text() ) ) {
 		// Redirect to the domain root
 		header( 'Location: /', true, 301 );
 		exit;
+	}
+
+	if ( mb_strtolower( mb_substr( $title, 0, 1 ) ) === mb_substr( $title, 0, 1 ) ) {
+		$currentTitle = Title::newFromText( $title );
+		if ( $currentTitle ) {
+			$namespaceInfo = MediaWiki\MediaWikiServices::getInstance()->getNamespaceInfo();
+			if ( $namespaceInfo->isCapitalized( $currentTitle->getNamespace() ) ) {
+				header( 'Location: ' . str_replace( $title, ucfirst( $title ), $_SERVER['REQUEST_URI'] ), true, 301 );
+				exit;
+			}
+
+			// Don't need a global here
+			unset( $namespaceInfo );
+		}
+
+		// Don't need a global here
+		unset( $currentTitle );
 	}
 
 	// Don't need a global here
