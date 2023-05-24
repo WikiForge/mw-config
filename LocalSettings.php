@@ -3614,6 +3614,9 @@ $wgConf->settings += [
 	'wgWikiForgeUseCentralAuth' => [
 		'default' => true,
 	],
+	'wgWikiForgeVarnishRateLimit' => [
+		'default' => [ 'requests' => 12, 'period' => '2s' ],
+	],
 
 	// WikimediaIncubator
 	'wmincProjects' => [
