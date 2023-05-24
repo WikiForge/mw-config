@@ -167,6 +167,7 @@ class WikiForgeFunctions {
 	public static function setupHooks() {
 		global $wgHooks;
 
+		$wgHooks['BeforePageDisplay'][] = 'WikiForgeFunctions::onBeforePageDisplay';
 		$wgHooks['CreateWikiJsonGenerateDatabaseList'][] = 'WikiForgeFunctions::onGenerateDatabaseLists';
 		$wgHooks['ManageWikiCoreAddFormFields'][] = 'WikiForgeFunctions::onManageWikiCoreAddFormFields';
 		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
@@ -1028,6 +1029,20 @@ class WikiForgeFunctions {
 				'old' => $mainPageIsDomainRoot,
 				'new' => $formData['mainpage-is-domain-root']
 			];
+		}
+	}
+
+	/**
+	 * @param OutputPage $out
+	 * @param Skin $skin
+	 */
+	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
+		if ( $skin->getConfig()->get( 'WikiForgeVarnishRateLimit' ) ) ) {
+			$rateLimit = $skin->getConfig()->get( 'WikiForgeVarnishRateLimit' );
+			$requests = $rateLimit['requests'];
+			$period = $rateLimit['period'];
+
+			header( 'X-Wiki-RateLimit: ' . $requests . '/' . $period );
 		}
 	}
 
