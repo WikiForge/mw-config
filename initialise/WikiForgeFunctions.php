@@ -1039,10 +1039,11 @@ class WikiForgeFunctions {
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
 		if ( $skin->getConfig()->get( 'WikiForgeVarnishRateLimit' ) ) {
 			$rateLimit = $skin->getConfig()->get( 'WikiForgeVarnishRateLimit' );
-			$requests = $rateLimit['requests'];
-			$period = $rateLimit['period'];
-
-			header( 'X-Wiki-RateLimit: ' . $requests . '/' . $period );
+			$requests = $rateLimit['requests'] ?? 12;
+			$period = $rateLimit['period'] ?? '2s';
+			if ( !( $requests === 12 && $period === '2s' ) ) {
+				header( 'X-Wiki-RateLimit: ' . $requests . '/' . $period );
+			}
 		}
 	}
 
