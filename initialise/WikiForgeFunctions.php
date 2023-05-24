@@ -1037,7 +1037,7 @@ class WikiForgeFunctions {
 	 * @param Skin $skin
 	 */
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
-		if ( $skin->getConfig()->get( 'WikiForgeVarnishRateLimit' ) ) ) {
+		if ( $skin->getConfig()->get( 'WikiForgeVarnishRateLimit' ) ) {
 			$rateLimit = $skin->getConfig()->get( 'WikiForgeVarnishRateLimit' );
 			$requests = $rateLimit['requests'];
 			$period = $rateLimit['period'];
