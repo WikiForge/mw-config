@@ -35,12 +35,12 @@ if ( $queryString ) {
 				if ( $namespaceInfo->isCapitalized( $currentTitle->getNamespace() ) ) {
 					$title = ucfirst( $title );
 				}
-
-				if ( $wgMainPageIsDomainRoot && $currentTitle->isMainPage() ) {
-					$articlePath = '';
-					$title = '';
-				}
 			}
+		}
+
+		if ( $wgMainPageIsDomainRoot && $title === wfMessage( 'mainpage' )->text() ) {
+			$articlePath = '';
+			$title = '';
 		}
 
 		$redirectUrl = $articlePath . '/' . $title;
