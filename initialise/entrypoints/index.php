@@ -26,7 +26,7 @@ if ( $wgArticlePath === '/$1' || ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_
 	}
 
 	// Check if the title matches the main page title
-	if ( $title === str_replace( ' ', '_', wfMessage( 'mainpage' )->text() ) ) {
+	if ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' && $title === str_replace( ' ', '_', wfMessage( 'mainpage' )->text() ) ) {
 		// Redirect to the domain root
 		header( 'Location: /', true, 301 );
 		exit;
