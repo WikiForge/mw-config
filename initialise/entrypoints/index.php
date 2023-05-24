@@ -16,15 +16,24 @@ if ( $wgArticlePath === '/$1' && str_contains( strtoupper( $_SERVER['REQUEST_URI
 	exit;
 }
 
-if (
-	$wgMainPageIsDomainRoot &&
-	$_SERVER['REQUEST_URI'] !== '/' &&
-	RequestContext::getMain()->getTitle() &&
-	RequestContext::getMain()->getTitle()->isMainPage()
-) {
-	// If $wgMainPageIsDomainRoot, redirect the main page to the domain root
-	header( 'Location: /', true, 301 );
-	exit;
+if ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) {
+	// Try to redirect the main page to domain root if using $wgMainPageIsDomainRoot
+	$title = '';
+	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
+		$path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+		$segments = explode( '/', $path );
+		$title = end( $segments );
+	}
+
+	// Check if the title matches the main page title
+	if ( $title === wfMessage( 'mainpage' )->text() ) {
+		// Redirect to the domain root
+		header( 'Location: /', true, 301 );
+		exit;
+	}
+
+	// Don't need a global here
+	unset( $title );
 }
 
 require_once WikiForgeFunctions::getMediaWiki( 'includes/PHPVersionCheck.php' );
