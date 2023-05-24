@@ -963,7 +963,16 @@ class WikiForgeFunctions {
 			'default' => $setList['wgArticlePath'] ?? '/wiki/$1',
 			'disabled' => !$ceMW,
 			'cssclass' => 'managewiki-infuse',
-			'section' => 'main'
+			'section' => 'main',
+		];
+
+		$formDescriptor['mainpage-is-domain-root'] = [
+			'label-message' => 'wikiforge-label-managewiki-mainpage-is-domain-root',
+			'type' => 'check',
+			'default' => $setList['wgMainPageIsDomainRoot'] ?? false,
+			'disabled' => !$ceMW,
+			'cssclass' => 'managewiki-infuse',
+			'section' => 'main',
 		];
 
 		$formDescriptor['mediawiki-version'] = [
@@ -973,7 +982,7 @@ class WikiForgeFunctions {
 			'default' => $mwVersion,
 			'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
 			'cssclass' => 'managewiki-infuse',
-			'section' => 'main'
+			'section' => 'main',
 		];
 
 		$wiki = new RemoteWiki( $dbName );
@@ -1000,6 +1009,7 @@ class WikiForgeFunctions {
 		}
 
 		$mwSettings = new ManageWikiSettings( $dbName );
+
 		$articlePath = $mwSettings->list()['wgArticlePath'] ?? '';
 		if ( $formData['article-path'] !== $articlePath ) {
 			$mwSettings->modify( [ 'wgArticlePath' => $formData['article-path'] ] );
@@ -1007,6 +1017,16 @@ class WikiForgeFunctions {
 			$wiki->changes['article-path'] = [
 				'old' => $articlePath,
 				'new' => $formData['article-path']
+			];
+		}
+
+		$mainPageIsDomainRoot = $mwSettings->list()['wgMainPageIsDomainRoot'] ?? false;
+		if ( $formData['mainpage-is-domain-root'] !== $mainPageIsDomainRoot ) {
+			$mwSettings->modify( [ 'wgMainPageIsDomainRoot' => $formData['mainpage-is-domain-root'] ] );
+			$mwSettings->commit();
+			$wiki->changes['mainpage-is-domain-root'] = [
+				'old' => $mainPageIsDomainRoot,
+				'new' => $formData['mainpage-is-domain-root']
 			];
 		}
 	}
