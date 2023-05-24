@@ -48,7 +48,7 @@ if ( $wgArticlePath === '/$1' || ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_
 				$decodedUri = urldecode( $uri );
 				$redirectUrl = $decodedUri . '?' . http_build_query( $queryParameters );
 
-				header( 'Location: ' . str_replace( '?useformat=mobile', '', $redirectUrl ), true, 301 );
+				header( 'Location: ' . $redirectUrl, true, 301 );
 				exit;
 			}
 
