@@ -46,6 +46,6 @@ if ( $queryString ) {
 }
 
 $redirectUrl = str_replace( ' ', '_', $redirectUrl );
-header( 'Location: ' . $redirectUrl, true, 302 );
+header( 'Location: ' . $redirectUrl, true, 301 );
 
 exit;
