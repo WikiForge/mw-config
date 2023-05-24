@@ -16,6 +16,17 @@ if ( $wgArticlePath === '/$1' && str_contains( strtoupper( $_SERVER['REQUEST_URI
 	exit;
 }
 
+if (
+	$wgMainPageIsDomainRoot &&
+	$_SERVER['REQUEST_URI'] !== '/' &&
+	RequestContext::getMain()->getTitle() &&
+	RequestContext::getMain()->getTitle()->isMainPage()
+) {
+	// If $wgMainPageIsDomainRoot, redirect the main page to the domain root
+	header( 'Location: /', true, 301 );
+	exit;
+}
+
 require_once WikiForgeFunctions::getMediaWiki( 'includes/PHPVersionCheck.php' );
 wfEntryPointCheck( 'html', dirname( $_SERVER['SCRIPT_NAME'] ) );
 
