@@ -1,7 +1,7 @@
 <?php
 
 require_once '/srv/mediawiki/config/initialise/WikiForgeFunctions.php';
-require_once WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
+require WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
 
 use MediaWiki\MediaWikiServices;
 
@@ -46,12 +46,7 @@ if ( $queryString ) {
 }
 
 $redirectUrl = str_replace( ' ', '_', $redirectUrl );
+header( 'Location: ' . $redirectUrl, true, 302 );
 
-$decodedRedirectUrl = urldecode( $redirectUrl );
-$decodedRedirectUrl = str_replace( '/w/index.php', '', $decodedRedirectUrl );
-
-if ( $decodedUri !== $decodedRedirectUrl ) {
-	header( 'Location: ' . $redirectUrl, true, 302 );
-	exit;
-}
+exit;
 ?>
