@@ -23,6 +23,7 @@ if ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) {
 		$path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 		$segments = explode( '/', $path );
 		$title = end( $segments );
+		$title = str_replace( '_', ' ', $title );
 	}
 
 	// Check if the title matches the main page title
