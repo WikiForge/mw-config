@@ -37,7 +37,18 @@ if ( $wgArticlePath === '/$1' || ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_
 		if ( $currentTitle ) {
 			$namespaceInfo = MediaWiki\MediaWikiServices::getInstance()->getNamespaceInfo();
 			if ( $namespaceInfo->isCapitalized( $currentTitle->getNamespace() ) ) {
-				header( 'Location: ' . str_replace( $title, ucfirst( $title ), $_SERVER['REQUEST_URI'] ), true, 301 );
+				$decodedQueryString = urldecode( $_SERVER['QUERY_STRING'] ?? '' );
+				parse_str( $decodedQueryString, $queryParameters );
+				if ( isset( $queryParameters['useformat'] ) ) {
+					$_GET['useformat'] = $queryParameters['useformat'];
+					unset( $queryParameters['useformat'] );
+				}
+
+				$uri = strtok( str_replace( $title, ucfirst( $title ), $_SERVER['REQUEST_URI'] ), '?' );
+				$decodedUri = urldecode( $uri );
+				$redirectUrl = $decodedUri . '?' . http_build_query( $queryParameters );
+
+				header( 'Location: ' . $redirectUrl, true, 301 );
 				exit;
 			}
 
