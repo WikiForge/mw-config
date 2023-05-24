@@ -10,6 +10,7 @@ $queryString = $_SERVER['QUERY_STRING'] ?? '';
 
 $decodedUri = urldecode( $uri );
 $decodedUri = str_replace( '/w/index.php', '', $decodedUri );
+$decodedUri = str_replace( '/index.php', '', $decodedUri );
 
 $articlePath = str_replace( '/$1', '', $wgArticlePath );
 $redirectUrl = $articlePath . $decodedUri;
