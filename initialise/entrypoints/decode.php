@@ -5,7 +5,7 @@ require WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
 
 use MediaWiki\MediaWikiServices;
 
-$uri = $_SERVER['REQUEST_URI'];
+$uri = strtok( $_SERVER['REQUEST_URI'], '?' );
 $queryString = $_SERVER['QUERY_STRING'] ?? '';
 
 $decodedUri = urldecode( $uri );
@@ -13,7 +13,7 @@ $decodedUri = str_replace( '/w/index.php', '', $decodedUri );
 $decodedUri = str_replace( '/index.php', '', $decodedUri );
 
 $articlePath = str_replace( '/$1', '', $wgArticlePath );
-$redirectUrl = $articlePath . $decodedUri;
+$redirectUrl = ( $articlePath ?: '/' ) . $decodedUri;
 
 if ( $queryString ) {
 	$decodedQueryString = urldecode( $queryString );
