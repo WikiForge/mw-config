@@ -3,6 +3,8 @@
 require_once '/srv/mediawiki/config/initialise/WikiForgeFunctions.php';
 require WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
 
+use MediaWiki\MediaWikiServices;
+
 $uri = $_SERVER['REQUEST_URI'];
 $queryString = $_SERVER['QUERY_STRING'] ?? '';
 
@@ -25,6 +27,16 @@ if ( $queryString ) {
 		$title = $queryParameters['title'];
 		unset( $queryParameters['title'] );
 
+		if ( mb_strtolower( mb_substr( $title, 0, 1 ) ) === mb_substr( $title, 0, 1 ) ) {
+			$currentTitle = Title::newFromText( $title );
+			if ( $currentTitle ) {
+				$namespaceInfo = MediaWikiServices::getInstance()->getNamespaceInfo();
+				if ( $namespaceInfo->isCapitalized( $currentTitle->getNamespace() ) ) {
+					$title = ucfirst( $title );
+				}
+			}
+		}
+
 		$redirectUrl = $articlePath . '/' . $title;
 	}
 
@@ -33,7 +45,6 @@ if ( $queryString ) {
 	}
 }
 
-// TODO: use ucfirst() and support $wgCapitalLinks and $wgCapitalLinkOverrides
 $redirectUrl = str_replace( ' ', '_', $redirectUrl );
 header( 'Location: ' . $redirectUrl, true, 301 );
 
