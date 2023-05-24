@@ -51,7 +51,7 @@ $decodedRedirectUrl = urldecode( $redirectUrl );
 $decodedRedirectUrl = str_replace( '/w/index.php', '', $decodedRedirectUrl );
 
 if ( $decodedUri !== $decodedRedirectUrl ) {
-	header( 'Location: ' . $redirectUrl, true, 301 );
+	header( 'Location: ' . $redirectUrl, true, 302 );
 	exit;
 }
 ?>
