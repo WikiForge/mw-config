@@ -3616,6 +3616,9 @@ $wgConf->settings += [
 	],
 	'wgWikiForgeVarnishRateLimit' => [
 		'default' => [ 'requests' => 12, 'period' => '2s' ],
+		'alphatestwiki' => [ 'requests' => 12, 'period' => '2s' ],
+		'betatestwiki' => [ 'requests' => 1, 'period' => '2s' ],
+		'test1wiki' => [ 'requests' => 12, 'period' => '10s' ],
 	],
 
 	// WikimediaIncubator
