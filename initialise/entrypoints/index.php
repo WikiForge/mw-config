@@ -20,7 +20,7 @@ if ( $wgArticlePath === '/$1' || ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_
 	// Try to redirect the main page to domain root if using $wgMainPageIsDomainRoot
 	$title = '';
 	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
-		$path = parse_url( strtok( $_SERVER['REQUEST_URI'], '?' ), PHP_URL_PATH );
+		$path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 		$segments = explode( '/', $path );
 		$title = end( $segments );
 	}
@@ -48,7 +48,7 @@ if ( $wgArticlePath === '/$1' || ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_
 				$decodedUri = urldecode( $uri );
 				$redirectUrl = $decodedUri . '?' . http_build_query( $queryParameters );
 
-				header( 'Location: ' . $redirectUrl, true, 301 );
+				header( 'Location: ' . str_replace( '?useformat=mobile', '', $redirectUrl ), true, 301 );
 				exit;
 			}
 
