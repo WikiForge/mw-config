@@ -35,6 +35,11 @@ if ( $queryString ) {
 				if ( $namespaceInfo->isCapitalized( $currentTitle->getNamespace() ) ) {
 					$title = ucfirst( $title );
 				}
+
+				if ( $wgMainPageIsDomainRoot && $currentTitle->isMainPage() ) {
+					$articlePath = '';
+					$title = '';
+				}
 			}
 		}
 
