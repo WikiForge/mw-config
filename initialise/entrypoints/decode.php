@@ -1,52 +1,57 @@
 <?php
 
 require_once '/srv/mediawiki/config/initialise/WikiForgeFunctions.php';
-require WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
+require_once WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
 
 use MediaWiki\MediaWikiServices;
 
-$uri = $_SERVER['REQUEST_URI'];
-$queryString = $_SERVER['QUERY_STRING'] ?? '';
+function wfGetDecodedRedirect() {
+	global $wgArticlePath;
 
-$decodedUri = urldecode( $uri );
-$decodedUri = str_replace( '/w/index.php', '', $decodedUri );
+	$uri = $_SERVER['REQUEST_URI'];
+	$queryString = $_SERVER['QUERY_STRING'] ?? '';
 
-$articlePath = str_replace( '/$1', '', $wgArticlePath );
-$redirectUrl = $articlePath . $decodedUri;
+	$decodedUri = urldecode( $uri );
+	$decodedUri = str_replace( '/w/index.php', '', $decodedUri );
 
-if ( $queryString ) {
-	$decodedQueryString = urldecode( $queryString );
-	parse_str( $decodedQueryString, $queryParameters );
+	$articlePath = str_replace( '/$1', '', $wgArticlePath );
+	$redirectUrl = $articlePath . $decodedUri;
 
-	if ( isset( $queryParameters['useformat'] ) ) {
-		$_GET['useformat'] = $queryParameters['useformat'];
-		unset( $queryParameters['useformat'] );
-	}
+	if ( $queryString ) {
+		$decodedQueryString = urldecode( $queryString );
+		parse_str( $decodedQueryString, $queryParameters );
 
-	if ( isset( $queryParameters['title'] ) ) {
-		$title = $queryParameters['title'];
-		unset( $queryParameters['title'] );
-
-		if ( mb_strtolower( mb_substr( $title, 0, 1 ) ) === mb_substr( $title, 0, 1 ) ) {
-			$currentTitle = Title::newFromText( $title );
-			if ( $currentTitle ) {
-				$namespaceInfo = MediaWikiServices::getInstance()->getNamespaceInfo();
-				if ( $namespaceInfo->isCapitalized( $currentTitle->getNamespace() ) ) {
-					$title = ucfirst( $title );
-				}
-			}
+		if ( isset( $queryParameters['useformat'] ) ) {
+			$_GET['useformat'] = $queryParameters['useformat'];
+			unset( $queryParameters['useformat'] );
 		}
 
-		$redirectUrl = $articlePath . '/' . $title;
+		if ( isset( $queryParameters['title'] ) ) {
+			$title = $queryParameters['title'];
+			unset( $queryParameters['title'] );
+
+			if ( mb_strtolower( mb_substr( $title, 0, 1 ) ) === mb_substr( $title, 0, 1 ) ) {
+				$currentTitle = Title::newFromText( $title );
+				if ( $currentTitle ) {
+					$namespaceInfo = MediaWikiServices::getInstance()->getNamespaceInfo();
+					if ( $namespaceInfo->isCapitalized( $currentTitle->getNamespace() ) ) {
+						$title = ucfirst( $title );
+					}
+				}
+			}
+
+			$redirectUrl = $articlePath . '/' . $title;
+		}
+
+		if ( !empty( $queryParameters ) ) {
+			$redirectUrl .= '?' . http_build_query( $queryParameters );
+		}
 	}
 
-	if ( !empty( $queryParameters ) ) {
-		$redirectUrl .= '?' . http_build_query( $queryParameters );
-	}
+	return str_replace( ' ', '_', $redirectUrl );
 }
 
-$redirectUrl = str_replace( ' ', '_', $redirectUrl );
-header( 'Location: ' . $redirectUrl, true, 302 );
-
-exit;
-?>
+if ( str_contains( $_SERVER['REQUEST_URI'], '/w/index.php' ) ) {
+	header( 'Location: ' . wfGetDecodedRedirect(), true, 302 );
+	exit;
+}
