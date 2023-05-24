@@ -15,9 +15,22 @@ $decodedUri = str_replace( '/index.php', '', $decodedUri );
 $articlePath = str_replace( '/$1', '', $wgArticlePath );
 $redirectUrl = ( $articlePath ?: '/' ) . $decodedUri;
 
-if ( $queryString ) {
+if ( $decodedUri && !str_contains( $queryString, 'title' ) ) {
+	$path = parse_url( $decodedUri, PHP_URL_PATH );
+	$segments = explode( '/', $path );
+	$title = end( $segments );
+
 	$decodedQueryString = urldecode( $queryString );
 	parse_str( $decodedQueryString, $queryParameters );
+
+	$queryParameters['title'] = $title;
+}
+
+if ( $queryString || isset( $queryParameters ) ) {
+	if ( !isset( $queryParameters ) ) {
+		$decodedQueryString = urldecode( $queryString );
+		parse_str( $decodedQueryString, $queryParameters );
+	}
 
 	if ( isset( $queryParameters['useformat'] ) ) {
 		$_GET['useformat'] = $queryParameters['useformat'];
