@@ -16,7 +16,7 @@ if ( $wgArticlePath === '/$1' && str_contains( strtoupper( $_SERVER['REQUEST_URI
 	exit;
 }
 
-if ( $wgArticlePath === '/$1' || ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
+if ( /* $wgArticlePath === '/$1' || */ ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
 	// Try to redirect the main page to domain root if using $wgMainPageIsDomainRoot
 	$title = '';
 	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
@@ -32,7 +32,7 @@ if ( $wgArticlePath === '/$1' || ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_
 		exit;
 	}
 
-	if ( mb_strtolower( mb_substr( $title, 0, 1 ) ) === mb_substr( $title, 0, 1 ) ) {
+	/* if ( mb_strtolower( mb_substr( $title, 0, 1 ) ) === mb_substr( $title, 0, 1 ) ) {
 		$currentTitle = Title::newFromText( $title );
 		if ( $currentTitle ) {
 			$namespaceInfo = MediaWiki\MediaWikiServices::getInstance()->getNamespaceInfo();
@@ -58,7 +58,7 @@ if ( $wgArticlePath === '/$1' || ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_
 
 		// Don't need a global here
 		unset( $currentTitle );
-	}
+	} */
 
 	// Don't need a global here
 	unset( $title );
