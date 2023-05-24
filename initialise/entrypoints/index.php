@@ -16,7 +16,8 @@ if ( $wgArticlePath === '/$1' && str_contains( strtoupper( $_SERVER['REQUEST_URI
 	exit;
 }
 
-if ( /* $wgArticlePath === '/$1' || */ ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
+// $wgArticlePath === '/$1' ||
+if ( ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
 	// Try to redirect the main page to domain root if using $wgMainPageIsDomainRoot
 	$title = '';
 	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
