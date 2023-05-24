@@ -15,7 +15,7 @@ if ( $wgArticlePath === '/$1' && str_contains( strtoupper( $_SERVER['REQUEST_URI
 	exit;
 }
 
-require_once '/w/decode.php';
+require_once '/srv/mediawiki/w/decode.php';
 
 require_once WikiForgeFunctions::getMediaWiki( 'includes/PHPVersionCheck.php' );
 wfEntryPointCheck( 'html', dirname( $_SERVER['SCRIPT_NAME'] ) );
