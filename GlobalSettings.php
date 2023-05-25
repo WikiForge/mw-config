@@ -125,8 +125,6 @@ $wgDiscordNotificationWikiUrlEndingUserRights = 'Special:UserRights?user=';
  */
 if ( $wgWikiForgeUseCleanActionPaths ?? false ) {
 	$wgActionPaths['view'] = $wgArticlePath;
-	$wgArticlePath = $wgActionPaths['view'];
-
 	$wgActionPaths['edit'] = $articlePath . 'Special:EditPage/$1';
 	$wgActionPaths['submit'] = $wgActionPaths['edit'];
 	$wgActionPaths['delete'] = $articlePath . 'Special:DeletePage/$1';
