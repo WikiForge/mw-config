@@ -734,6 +734,7 @@ $wgConf->settings += [
 	],
 	'wgCreateWikiGlobalWiki' => [
 		'default' => 'metawiki',
+		'test1wiki' => 'test1wiki',
 	],
 	'wgCreateWikiEmailNotifications' => [
 		'default' => true,
