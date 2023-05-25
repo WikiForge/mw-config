@@ -106,6 +106,23 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 	}
 }
 
+// Action paths
+$wgActionPaths['view'] = $wgArticlePath;
+$wgArticlePath = $wgActionPaths['view'];
+
+$articlePath = str_replace( '$1', '', $wgArticlePath );
+
+$wgActionPaths['edit'] = $articlePath . '/Special:EditPage/$1';
+$wgActionPaths['submit'] = $wgActionPaths['edit'];
+$wgActionPaths['delete'] = $articlePath . 'Special:DeletePage/$1';
+$wgActionPaths['protect'] = $articlePath . 'Special:ProtectPage/$1';
+$wgActionPaths['unprotect'] = $wgActionPaths['protect'];
+$wgActionPaths['history'] = $articlePath . 'Special:PageHistory/$1';
+$wgActionPaths['info'] = $articlePath . 'Special:PageInfo/$1';
+
+// Don't need a global here
+unset( $articlePath );
+
 $wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
 // Public Wikis
