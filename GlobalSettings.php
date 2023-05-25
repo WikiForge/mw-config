@@ -106,6 +106,37 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 	}
 }
 
+// action and article paths
+$articlePath = str_replace( '$1', '', $wgArticlePath );
+
+$wgDiscordNotificationWikiUrl = $wi->server . $articlePath;
+$wgDiscordNotificationWikiUrlEnding = '';
+$wgDiscordNotificationWikiUrlEndingUserRights = 'Special:UserRights?user=';
+$wgDiscordNotificationWikiUrlEndingDeleteArticle = '?action=delete';
+$wgDiscordNotificationWikiUrlEndingDiff = '?diff=prev&oldid=';
+$wgDiscordNotificationWikiUrlEndingEditArticle = '?action=edit';
+$wgDiscordNotificationWikiUrlEndingHistory = '?action=history';
+$wgDiscordNotificationWikiUrlEndingUserRights = 'Special:UserRights?user=';
+
+/** TODO:
+ * Add to ManageWiki (core)
+ * Add rewrites to decode.php and index.php
+ * Support more options (E.G. /edit/page also)
+ */
+if ( $wgWikiForgeUseCleanActionPaths ?? false ) {
+	$wgActionPaths['view'] = $wgArticlePath;
+	$wgActionPaths['edit'] = $articlePath . 'Special:EditPage/$1';
+	$wgActionPaths['submit'] = $wgActionPaths['edit'];
+	$wgActionPaths['delete'] = $articlePath . 'Special:DeletePage/$1';
+	$wgActionPaths['protect'] = $articlePath . 'Special:ProtectPage/$1';
+	$wgActionPaths['unprotect'] = $wgActionPaths['protect'];
+	$wgActionPaths['history'] = $articlePath . 'Special:PageHistory/$1';
+	$wgActionPaths['info'] = $articlePath . 'Special:PageInfo/$1';
+}
+
+// Don't need a global here
+unset( $articlePath );
+
 $wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
 // Public Wikis
