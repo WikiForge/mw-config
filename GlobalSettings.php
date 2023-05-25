@@ -118,7 +118,12 @@ $wgDiscordNotificationWikiUrlEndingEditArticle = '?action=edit';
 $wgDiscordNotificationWikiUrlEndingHistory = '?action=history';
 $wgDiscordNotificationWikiUrlEndingUserRights = 'Special:UserRights?user=';
 
-if ( $wgWikiForgeUseCleanActionPaths ?? true ) {
+/** TODO:
+ * Add to ManageWiki (core)
+ * Add rewrites to decode.php and index.php
+ * Support more options (E.G. /edit/page also)
+ */
+if ( $wgWikiForgeUseCleanActionPaths ?? false ) {
 	$wgActionPaths['view'] = $wgArticlePath;
 	$wgArticlePath = $wgActionPaths['view'];
 
