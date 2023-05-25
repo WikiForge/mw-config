@@ -897,9 +897,6 @@ $wgConf->settings += [
 	'wgDiscordNotificationShowSuppressed' => [
 		'default' => false,
 	],
-	'wgDiscordNotificationWikiUrl' => [
-		'default' => $wi->server . '/w/',
-	],
 	'wgDiscordNotificationCentralAuthWikiUrl' => [
 		'default' => 'https://meta.wikiforge.net/',
 	],
