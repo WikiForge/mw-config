@@ -3615,9 +3615,9 @@ $wgConf->settings += [
 				'pricing' => 'Starting from $9.99/month',
 				'info' => 'Get started with our basic plan that offers essential features for your premium wiki.',
 				'features' => [
-					'10 GB file storage (+$2/month for every +10GB)',
+					'10 GB file storage (+$2/month for every 10GB after that)',
 					'Custom domain support',
-					'SSO (Single Sign-On) integration (if you choose)',
+					'SSO (Single Sign-On) integration (optional)',
 					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
 				],
 			],
@@ -3627,9 +3627,9 @@ $wgConf->settings += [
 				'features' => [
 					'50 GB file storage (+$2/month for every 10GB after that)',
 					'Custom domain support',
-					'SSO (Single Sign-On) integration support',
+					'SSO (Single Sign-On) integration support (optional)',
 					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
-					'Dedicated MediaWiki servers (2vcpu/2GB RAM) (or extra servers in a load-balanced cluster for +$10/month/server)',
+					'Dedicated MediaWiki servers (2vCPU / 2GB RAM) (or extra servers in a load-balanced cluster for an extra $10/month/server)',
 				],
 			],
 			'enterprise' => [
