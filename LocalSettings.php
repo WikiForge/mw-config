@@ -1799,7 +1799,6 @@ $wgConf->settings += [
 				'createwiki',
 				'editothersprofiles-private',
 				'flow-suppress',
-				'generate-random-hash',
 				'globalblock',
 				'globalblock-exempt',
 				'globalgroupmembership',
