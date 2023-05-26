@@ -3636,9 +3636,10 @@ $wgConf->settings += [
 				'pricing' => 'Contact us for pricing',
 				'info' => 'Tailored solutions for enterprise customers with specific requirements and scalability needs.',
 				'features' => [
-				'All features from the dedicated plan',
-				'Customize resources to your needs',
-				'Custom extensions (if technically feasible)',
+					'All features from the dedicated plan',
+					'Customize resources to your needs',
+					'Custom extensions (if technically feasible)',
+				],
 			],
 		],
 	],
