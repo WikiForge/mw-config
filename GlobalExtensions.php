@@ -16,7 +16,6 @@ wfLoadExtensions( [
 	'DismissableSiteNotice',
 	'Echo',
 	'GlobalNewFiles',
-	'IncidentReporting',
 	'Interwiki',
 	'IPInfo',
 	'LoginNotify',

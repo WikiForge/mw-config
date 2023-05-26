@@ -12,8 +12,6 @@ if ( $wgWikiForgeUseCentralAuth ) {
 		'GlobalCssJs',
 		'GlobalBlocking',
 		'GlobalPreferences',
-		'ImportDump',
-		'RemovePII',
 	] );
 
 	$wgMWOAuthSharedUserSource = 'CentralAuth';
