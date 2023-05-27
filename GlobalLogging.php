@@ -17,7 +17,6 @@ $wgDebugLogGroups = [
 	'exception' => "$wmgLogDir/debuglogs/exception.log",
 	'exec' => "$wmgLogDir/debuglogs/exec.log",
 	'Math' => "$wmgLogDir/debuglogs/Math.log",
-	'MatomoAnalytics' => "$wmgLogDir/debuglogs/MatomoAnalytics.log",
 	'ManageWiki' => "$wmgLogDir/debuglogs/ManageWiki.log",
 	'memcached' => [
 		'destination' => "$wmgLogDir/debuglogs/memcached.log",
