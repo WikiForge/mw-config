@@ -3603,6 +3603,40 @@ $wgConf->settings += [
 			'wikiseo',
 		],
 	],
+	'wgWikiForgeMagicRequestPremiumWikiPlans' => [
+		'default' => [
+			'basic' => [
+				'pricing' => 'Starting from $9.99/month',
+				'info' => 'Get started with our basic plan that offers essential features for your premium wiki.',
+				'features' => [
+					'10 GB file storage (+$2/month for every 10 GB after that)',
+					'Custom domain support',
+					'SSO (Single Sign-On) integration (optional)',
+					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
+				],
+			],
+			'dedicated' => [
+				'pricing' => 'Starting from $28.99/month',
+				'info' => 'Upgrade to our dedicated plan for advanced capabilities and dedicated resources. Host your wiki on dedicated MediaWiki servers.',
+				'features' => [
+					'50 GB file storage (+$2/month for every 10 GB after that)',
+					'Custom domain support',
+					'SSO (Single Sign-On) integration support (optional)',
+					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
+					'Dedicated MediaWiki servers (2vCPU / 2GB RAM) (or extra servers in a load-balanced cluster for an extra $10/month/server)',
+				],
+			],
+			'enterprise' => [
+				'pricing' => 'Contact us for pricing',
+				'info' => 'Tailored solutions for enterprise customers with specific requirements and scalability needs.',
+				'features' => [
+					'All features from the dedicated plan',
+					'Customize resources to your needs',
+					'Custom extensions (if technically feasible)',
+				],
+			],
+		],
+	],
 	'wgWikiForgeUseCentralAuth' => [
 		'default' => true,
 	],
