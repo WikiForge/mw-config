@@ -408,7 +408,7 @@ $wgConf->settings += [
 		'default' => [
 			'centralDB' => 'metawiki',
 			'groups' => [
-				'steward',
+				'staff',
 			],
 		],
 	],
@@ -416,7 +416,7 @@ $wgConf->settings += [
 		'default' => [
 			'centralDB' => 'metawiki',
 			'groups' => [
-				'steward',
+				'staff',
 			],
 		],
 	],
@@ -734,6 +734,7 @@ $wgConf->settings += [
 	],
 	'wgCreateWikiGlobalWiki' => [
 		'default' => 'metawiki',
+		'test1wiki' => 'test1wiki',
 	],
 	'wgCreateWikiEmailNotifications' => [
 		'default' => true,
@@ -896,9 +897,6 @@ $wgConf->settings += [
 	],
 	'wgDiscordNotificationShowSuppressed' => [
 		'default' => false,
-	],
-	'wgDiscordNotificationWikiUrl' => [
-		'default' => $wi->server . '/w/',
 	],
 	'wgDiscordNotificationCentralAuthWikiUrl' => [
 		'default' => 'https://meta.wikiforge.net/',
@@ -1695,9 +1693,6 @@ $wgConf->settings += [
 				'checkuser' => true,
 				'checkuser-log' => true,
 			],
-			'steward' => [
-				'userrights' => true,
-			],
 			'suppress' => [
 				'abusefilter-hidden-log' => true,
 				'abusefilter-hide-log' => true,
@@ -1721,7 +1716,7 @@ $wgConf->settings += [
 				'mwoauthproposeconsumer' => true,
 				'mwoauthupdateownconsumer' => true,
 			],
-			'steward' => [
+			'staff' => [
 				'abusefilter-modify-global' => true,
 				'centralauth-lock' => true,
 				'centralauth-suppress' => true,
@@ -1729,34 +1724,18 @@ $wgConf->settings += [
 				'centralauth-unmerge' => true,
 				'createwiki' => true,
 				'globalblock' => true,
-				'managewiki' => true,
-				'managewiki-restricted' => true,
-				'noratelimit' => true,
-				'userrights' => true,
-				'userrights-interwiki' => true,
-				'globalgroupmembership' => true,
-				'globalgrouppermissions' => true,
-			],
-			'sysadmin' => [
 				'globalgroupmembership' => true,
 				'globalgrouppermissions' => true,
 				'handle-import-dump-interwiki' => true,
 				'handle-import-dump-requests' => true,
-				'oathauth-verify-user' => true,
-				'oathauth-disable-for-user' => true,
-				'view-private-import-dump-requests' => true,
-			],
-			'trustandsafety' => [
-				'userrights' => true,
-				'globalblock' => true,
-				'globalgroupmembership' => true,
-				'globalgrouppermissions' => true,
-				'userrights-interwiki' => true,
-				'centralauth-lock' => true,
-				'centralauth-rename' => true,
 				'handle-pii' => true,
+				'managewiki' => true,
+				'managewiki-restricted' => true,
+				'noratelimit' => true,
 				'oathauth-disable-for-user' => true,
 				'oathauth-verify-user' => true,
+				'userrights' => true,
+				'userrights-interwiki' => true,
 				'view-private-import-dump-requests' => true,
 			],
 			'user' => [
@@ -1799,17 +1778,12 @@ $wgConf->settings += [
 				'checkuser',
 				'checkuser-log',
 				'createwiki',
-				'editincidents',
 				'editothersprofiles-private',
 				'flow-suppress',
-				'generate-random-hash',
 				'globalblock',
 				'globalblock-exempt',
 				'globalgroupmembership',
 				'globalgrouppermissions',
-				'handle-import-dump-interwiki',
-				'handle-import-dump-requests',
-				'handle-pii',
 				'hideuser',
 				'investigate',
 				'ipinfo',
@@ -1830,7 +1804,6 @@ $wgConf->settings += [
 				'oathauth-verify-user',
 				'oathauth-view-log',
 				'renameuser',
-				'request-import-dump',
 				'requestwiki',
 				'siteadmin',
 				'smw-admin',
@@ -2330,7 +2303,7 @@ $wgConf->settings += [
 	'wgOATHRequiredForGroups' => [
 		'default' => [
 			'checkuser',
-			'steward',
+			'staff',
 			'suppress',
 		],
 	],
@@ -2491,23 +2464,7 @@ $wgConf->settings += [
 	],
 	'wgCentralAuthGlobalPasswordPolicies' => [
 		'default' => [
-			'steward' => [
-				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
-			'sysadmin' => [
-				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
-			'trustandsafety' => [
+			'staff' => [
 				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
 				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
 				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
@@ -2681,8 +2638,8 @@ $wgConf->settings += [
 	],
 	'wgRemovePIIHashPrefixOptions' => [
 		'default' => [
-			'Trust and Safety' => 'WikiForgeGDPR_',
-			'Stewards' => 'Vanished user ',
+			'GDPR' => 'WikiForgeGDPR_',
+			'Vanishing' => 'Vanished user ',
 		],
 	],
 	'wgRemovePIIHashPrefix' => [
@@ -3609,6 +3566,40 @@ $wgConf->settings += [
 			'timeless',
 			'urlshortener',
 			'wikiseo',
+		],
+	],
+	'wgWikiForgeMagicRequestPremiumWikiPlans' => [
+		'default' => [
+			'basic' => [
+				'pricing' => 'Starting from $9.99/month',
+				'info' => 'Get started with our basic plan that offers essential features for your premium wiki.',
+				'features' => [
+					'10 GB file storage (+$2/month for every 10 GB after that)',
+					'Custom domain support',
+					'SSO (Single Sign-On) integration (optional)',
+					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
+				],
+			],
+			'dedicated' => [
+				'pricing' => 'Starting from $28.99/month',
+				'info' => 'Upgrade to our dedicated plan for advanced capabilities and dedicated resources. Host your wiki on dedicated MediaWiki servers.',
+				'features' => [
+					'50 GB file storage (+$2/month for every 10 GB after that)',
+					'Custom domain support',
+					'SSO (Single Sign-On) integration support (optional)',
+					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
+					'Dedicated MediaWiki servers (2vCPU / 2GB RAM) (or extra servers in a load-balanced cluster for an extra $10/month/server)',
+				],
+			],
+			'enterprise' => [
+				'pricing' => 'Contact us for pricing',
+				'info' => 'Tailored solutions for enterprise customers with specific requirements and scalability needs.',
+				'features' => [
+					'All features from the dedicated plan',
+					'Customize resources to your needs',
+					'Custom extensions (if technically feasible)',
+				],
+			],
 		],
 	],
 	'wgWikiForgeUseCentralAuth' => [
