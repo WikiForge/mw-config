@@ -18,6 +18,7 @@ wfLoadExtensions( [
 	'OATHAuth',
 	'OAuth',
 	'Renameuser',
+	'WebAuthn',
 	'WikiDiscover',
 	'WikiForgeMagic',
 ] );
