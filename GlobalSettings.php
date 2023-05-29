@@ -174,6 +174,22 @@ unset( $articlePath );
 
 $wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
+// AWS
+$wgAWSCredentials = [
+	'key' => $wmgAWSAccessKey,
+	'secret' => $wmgAWSAccessSecretKey,
+	'token' => false,
+];
+
+$wgAWSRegion = 'us-east-2';
+$wgAWSBucketName = 'static.wikiforge.net';
+// $wgAWSBucketDomain = 'static.wikiforge.net';
+
+$wgAWSRepoHashLevels = 2;
+$wgAWSRepoDeletedHashLevels = 3;
+
+$wgAWSBucketTopSubdirectory = '/' . $wgDBname;
+
 // Public Wikis
 if ( !$cwPrivate ) {
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
