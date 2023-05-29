@@ -3788,7 +3788,7 @@ require_once __DIR__ . '/ManageWikiNamespaces.php';
 require_once __DIR__ . '/ManageWikiSettings.php';
 
 $wgUploadPath = "//$wmgUploadHostname/$wgDBname";
-$wgUploadDirectory = "/mnt/mediawiki-static/$wgDBname";
+$wgUploadDirectory = false;
 
 $wgLocalisationCacheConf['storeClass'] = LCStoreCDB::class;
 $wgLocalisationCacheConf['storeDirectory'] = '/srv/mediawiki/cache/' . $wi->version . '/l10n';
