@@ -184,6 +184,7 @@ $wgAWSCredentials = [
 $wgAWSRegion = 'us-east-2';
 $wgAWSBucketName = 'static.wikiforge.net';
 // $wgAWSBucketDomain = 'static.wikiforge.net';
+$wgAWSUseHTTPS = false;
 
 $wgAWSRepoHashLevels = 2;
 $wgAWSRepoDeletedHashLevels = 3;
