@@ -57,6 +57,8 @@ if ( $wi->isExtensionActive( 'SemanticMediaWiki' ) ) {
 
 if ( $wi->isExtensionActive( 'SocialProfile' ) ) {
 	require_once "$IP/extensions/SocialProfile/SocialProfile.php";
+
+	$wgSocialProfileFileBackend = 'AmazonS3';
 }
 
 if ( $wi->isExtensionActive( 'VisualEditor' ) ) {
@@ -195,13 +197,7 @@ if ( !$cwPrivate ) {
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
 	$wgDiscordExperimentalWebhook = $wmgDiscordExperimentalWebhook;
 
-	$wgDataDumpDirectory = "/mnt/mediawiki-static/{$wi->dbname}/dumps/";
 	$wgDataDumpDownloadUrl = "https://{$wmgUploadHostname}/{$wi->dbname}/dumps/\${filename}";
-} else {
-	$wgDataDumpDirectory = "/mnt/mediawiki-static/private/dumps/{$wi->dbname}/";
-
-	// Unset $wgDataDumpDownloadUrl so private wikis stream the download via Special:DataDump/download
-	$wgDataDumpDownloadUrl = '';
 }
 
 // Dynamic cookie settings dependant on $wgServer
@@ -214,6 +210,9 @@ if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 }
 
 // DataDump
+$wgDataDumpFileBackend = 'AmazonS3';
+$wgDataDumpDirectory = '';
+
 $wgDataDump = [
 	'xml' => [
 		'file_ending' => '.xml.gz',
@@ -327,6 +326,14 @@ if ( $wi->isExtensionActive( 'UploadWizard' ) ) {
 		'campaignExpensiveStatsEnabled' => false,
 		'flickrApiKey' => $wmgUploadWizardFlickrApiKey,
 	];
+}
+
+if ( $wi->isExtensionActive( 'Score' ) ) {
+	$wgScoreFileBackend = 'AmazonS3';
+}
+
+if ( $wi->isExtensionActive( 'EasyTimeline' ) ) {
+	$wgTimelineFileBackend = 'AmazonS3';
 }
 
 // $wgFooterIcons
