@@ -108,7 +108,7 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 	}
 }
 
-// action and article paths
+// Action and article paths
 $articlePath = str_replace( '$1', '', $wgArticlePath );
 
 $wgDiscordNotificationWikiUrl = $wi->server . $articlePath;
@@ -138,6 +138,8 @@ if ( ( $wgWikiForgeActionPathsFormat ?? 'default' ) !== 'default' ) {
 			break;
 		case '$1/action':
 		case 'action/$1':
+			// ?action=raw is not supported by this
+			// according to documentation
 			$actions = [
 				'delete',
 				'edit',
