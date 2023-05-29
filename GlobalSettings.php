@@ -26,6 +26,10 @@ if ( $wi->isExtensionActive( 'StandardDialogs' ) ) {
 	wfLoadExtension( 'OOJSPlus' );
 }
 
+if ( $wi->isAnyOfExtensionsActive( 'Email Authorization', 'OpenID Connect', 'SimpleSAMLphp', 'WSOAuth' ) ) {
+	wfLoadExtension( 'PluggableAuth' );
+}
+
 if ( $wgWikiForgeCommons && !$cwPrivate ) {
 	wfLoadExtension( 'GlobalUsage' );
 }
