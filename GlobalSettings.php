@@ -183,8 +183,7 @@ $wgAWSCredentials = [
 
 $wgAWSRegion = 'us-east-2';
 $wgAWSBucketName = 'static.wikiforge.net';
-$wgAWSBucketDomain = 'http://$1.s3.amazonaws.com';
-$wgAWSUseHTTPS = false;
+$wgAWSBucketDomain = 'static.wikiforge.net';
 
 $wgAWSRepoHashLevels = 2;
 $wgAWSRepoDeletedHashLevels = 3;
