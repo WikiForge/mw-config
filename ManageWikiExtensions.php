@@ -1819,6 +1819,17 @@ $wgManageWikiExtensions = [
 	],
 
 	// Other
+	'advancedsearch' => [
+		'name' => 'AdvancedSearch',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:AdvancedSearch',
+		'conflicts' => false,
+		'requires' => [
+			'extensions' => [
+				'cirrussearch',
+			],
+		],
+		'section' => 'other',
+	],
 	'articlecreationworkflow' => [
 		'name' => 'ArticleCreationWorkflow',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ArticleCreationWorkflow',
