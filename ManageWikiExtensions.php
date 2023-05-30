@@ -1971,6 +1971,14 @@ $wgManageWikiExtensions = [
 		'install' => [],
 		'section' => 'other',
 	],
+	'cirrussearch' => [
+		'name' => 'CirrusSearch',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CirrusSearch',
+		'conflicts' => false,
+		'requires' => [],
+		'install' => [],
+		'section' => 'other',
+	],
 	'cleanchanges' => [
 		'name' => 'Clean Changes',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CleanChanges',
