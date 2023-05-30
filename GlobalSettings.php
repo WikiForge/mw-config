@@ -24,7 +24,7 @@ if ( $wi->isExtensionActive( 'chameleon' ) ) {
 
 if ( $wi->isExtensionActive( 'CirrusSearch' ) ) {
 	wfLoadExtension( 'Elastica' );
-	$wgDisableSearchUpdate = true;
+	$wgSearchType = 'CirrusSearch';
 	$wgCirrusSearchClusters = [
 		'default' => [
 			[
