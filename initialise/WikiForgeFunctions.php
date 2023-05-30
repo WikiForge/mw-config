@@ -171,7 +171,7 @@ class WikiForgeFunctions {
 		$wgHooks['ManageWikiCoreAddFormFields'][] = 'WikiForgeFunctions::onManageWikiCoreAddFormFields';
 		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
 		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
-		
+
 		$wgExtensionFunctions[] = 'WikiForgeFunctions::onExtensionFunctions';
 	}
 
