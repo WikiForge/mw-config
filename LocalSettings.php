@@ -3550,6 +3550,7 @@ $wgConf->settings += [
 	'wgWikiForgeMagicRequestPremiumWikiExtensionsDefaultEnabled' => [
 		'default' => [
 			'categorytree',
+			'cirrussearch',
 			'cite',
 			'citethispage',
 			'citizen',
