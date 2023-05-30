@@ -1819,6 +1819,17 @@ $wgManageWikiExtensions = [
 	],
 
 	// Other
+	'advancedsearch' => [
+		'name' => 'AdvancedSearch',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:AdvancedSearch',
+		'conflicts' => false,
+		'requires' => [
+			'extensions' => [
+				'cirrussearch',
+			],
+		],
+		'section' => 'other',
+	],
 	'articlecreationworkflow' => [
 		'name' => 'ArticleCreationWorkflow',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ArticleCreationWorkflow',
@@ -1966,6 +1977,14 @@ $wgManageWikiExtensions = [
 	'categorysortheaders' => [
 		'name' => 'CategorySortHeaders',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CategorySortHeaders',
+		'conflicts' => false,
+		'requires' => [],
+		'install' => [],
+		'section' => 'other',
+	],
+	'cirrussearch' => [
+		'name' => 'CirrusSearch',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CirrusSearch',
 		'conflicts' => false,
 		'requires' => [],
 		'install' => [],

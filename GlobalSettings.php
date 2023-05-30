@@ -22,8 +22,25 @@ if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
 }
 
-if ( $wi->version >= 1.41 && $wi->isExtensionActive( 'StandardDialogs' ) ) {
+if ( $wi->isExtensionActive( 'CirrusSearch' ) ) {
+	wfLoadExtension( 'Elastica' );
+	$wgSearchType = 'CirrusSearch';
+	$wgCirrusSearchClusters = [
+		'default' => [
+			[
+				'host' => 'search-elasticsearch-jtuqyxjkhmon354q2p2w2rvdwa.us-east-2.es.amazonaws.com',
+				'port' => 80,
+			],
+		],
+	];
+}
+
+if ( $wi->isExtensionActive( 'StandardDialogs' ) ) {
 	wfLoadExtension( 'OOJSPlus' );
+}
+
+if ( $wi->isAnyOfExtensionsActive( 'Email Authorization', 'OpenID Connect', 'SimpleSAMLphp', 'WSOAuth' ) ) {
+	wfLoadExtension( 'PluggableAuth' );
 }
 
 if ( $wgWikiForgeCommons && !$cwPrivate ) {
@@ -53,6 +70,8 @@ if ( $wi->isExtensionActive( 'SemanticMediaWiki' ) ) {
 
 if ( $wi->isExtensionActive( 'SocialProfile' ) ) {
 	require_once "$IP/extensions/SocialProfile/SocialProfile.php";
+
+	$wgSocialProfileFileBackend = 'AmazonS3';
 }
 
 if ( $wi->isExtensionActive( 'VisualEditor' ) ) {
@@ -104,7 +123,7 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 	}
 }
 
-// action and article paths
+// Action and article paths
 $articlePath = str_replace( '$1', '', $wgArticlePath );
 
 $wgDiscordNotificationWikiUrl = $wi->server . $articlePath;
@@ -134,6 +153,8 @@ if ( ( $wgWikiForgeActionPathsFormat ?? 'default' ) !== 'default' ) {
 			break;
 		case '$1/action':
 		case 'action/$1':
+			// ?action=raw is not supported by this
+			// according to documentation
 			$actions = [
 				'delete',
 				'edit',
@@ -168,18 +189,28 @@ unset( $articlePath );
 
 $wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
+// AWS
+$wgAWSCredentials = [
+	'key' => $wmgAWSAccessKey,
+	'secret' => $wmgAWSAccessSecretKey,
+	'token' => false,
+];
+
+$wgAWSRegion = 'us-east-2';
+$wgAWSBucketName = 'static.wikiforge.net';
+$wgAWSBucketDomain = 'static.wikiforge.net';
+
+$wgAWSRepoHashLevels = 2;
+$wgAWSRepoDeletedHashLevels = 3;
+
+$wgAWSBucketTopSubdirectory = '/' . $wgDBname;
+
 // Public Wikis
 if ( !$cwPrivate ) {
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
 	$wgDiscordExperimentalWebhook = $wmgDiscordExperimentalWebhook;
 
-	$wgDataDumpDirectory = "/mnt/mediawiki-static/{$wi->dbname}/dumps/";
 	$wgDataDumpDownloadUrl = "https://{$wmgUploadHostname}/{$wi->dbname}/dumps/\${filename}";
-} else {
-	$wgDataDumpDirectory = "/mnt/mediawiki-static/private/dumps/{$wi->dbname}/";
-
-	// Unset $wgDataDumpDownloadUrl so private wikis stream the download via Special:DataDump/download
-	$wgDataDumpDownloadUrl = '';
 }
 
 // Dynamic cookie settings dependant on $wgServer
@@ -192,6 +223,9 @@ if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 }
 
 // DataDump
+$wgDataDumpFileBackend = 'AmazonS3';
+$wgDataDumpDirectory = '';
+
 $wgDataDump = [
 	'xml' => [
 		'file_ending' => '.xml.gz',
@@ -305,6 +339,14 @@ if ( $wi->isExtensionActive( 'UploadWizard' ) ) {
 		'campaignExpensiveStatsEnabled' => false,
 		'flickrApiKey' => $wmgUploadWizardFlickrApiKey,
 	];
+}
+
+if ( $wi->isExtensionActive( 'Score' ) ) {
+	$wgScoreFileBackend = 'AmazonS3';
+}
+
+if ( $wi->isExtensionActive( 'EasyTimeline' ) ) {
+	$wgTimelineFileBackend = 'AmazonS3';
 }
 
 // $wgFooterIcons
