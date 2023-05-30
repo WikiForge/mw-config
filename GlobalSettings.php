@@ -22,6 +22,19 @@ if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
 }
 
+if ( $wi->isExtensionActive( 'CirrusSearch' ) ) {
+	wfLoadExtension( 'Elastica' );
+	$wgDisableSearchUpdate = true;
+	$wgCirrusSearchClusters = [
+		'default' => [
+			[
+				'host' => 'search-elasticsearch-jtuqyxjkhmon354q2p2w2rvdwa.us-east-2.es.amazonaws.com',
+				'port' => 80,
+			],
+		],
+	];
+}
+
 if ( $wi->isExtensionActive( 'StandardDialogs' ) ) {
 	wfLoadExtension( 'OOJSPlus' );
 }
