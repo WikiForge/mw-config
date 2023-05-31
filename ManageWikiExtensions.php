@@ -1987,7 +1987,18 @@ $wgManageWikiExtensions = [
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CirrusSearch',
 		'conflicts' => false,
 		'requires' => [],
-		'install' => [],
+		'install' => [
+			'mwscript' => [
+				"$IP/extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php" => [],
+				"$IP/extensions/CirrusSearch/maintenance/ForceSearchIndex.php" => [
+					'skipLinks' => false,
+					'indexOnSkip' => false,
+					'repeat-with' => [
+						'skipParse' => false,
+					],
+				],
+			],
+		],
 		'section' => 'other',
 	],
 	'cleanchanges' => [
