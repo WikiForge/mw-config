@@ -31,6 +31,7 @@ if ( ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
 	if ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' && $title === str_replace( ' ', '_', wfMessage( 'mainpage' )->text() ) ) {
 		// Redirect to the domain root
 		$redirectUrl = str_replace( $title, '', $_SERVER['REQUEST_URI'] );
+		$redirectUrl = str_replace( '?useformat=mobile', '', $redirectUrl );
 		$redirectUrl = str_replace( '&useformat=mobile', '', $redirectUrl );
 		header( 'Location: ' . $redirectUrl, true, 301 );
 		exit;
