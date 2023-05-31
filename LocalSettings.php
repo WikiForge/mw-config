@@ -3587,7 +3587,7 @@ $wgConf->settings += [
 					'50 GB file storage (+$2/month for every 10 GB after that)',
 					'Custom domain support',
 					'CirrusSearch/ElasticSearch support',
-					'SSO (Single Sign-On) integration support (optional)',
+					'SSO (Single Sign-On) integration (optional)',
 					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
 					'Dedicated MediaWiki servers (2vCPU / 2GB RAM) (or extra servers in a load-balanced cluster for an extra $10/month/server)',
 				],
