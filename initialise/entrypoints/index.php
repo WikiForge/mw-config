@@ -23,12 +23,14 @@ if ( ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
 		$path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 		$segments = explode( '/', $path );
 		$title = end( $segments );
+
+		$title = str_replace( '%20', '_', $title );
 	}
 
 	// Check if the title matches the main page title
 	if ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' && $title === str_replace( ' ', '_', wfMessage( 'mainpage' )->text() ) ) {
 		// Redirect to the domain root
-		header( 'Location: /', true, 301 );
+		header( 'Location: ' . str_replace( $title, '', $_SERVER['REQUEST_URI'] ), true, 301 );
 		exit;
 	}
 
