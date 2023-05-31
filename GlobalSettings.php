@@ -33,6 +33,10 @@ if ( $wi->isExtensionActive( 'CirrusSearch' ) ) {
 			],
 		],
 	];
+
+	if ( $wi->isExtensionActive( 'RelatedArticles' ) ) {
+		$wgRelatedArticlesUseCirrusSearch = true;
+	}
 }
 
 if ( $wi->isExtensionActive( 'StandardDialogs' ) ) {
