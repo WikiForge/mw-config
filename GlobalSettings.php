@@ -132,7 +132,6 @@ $articlePath = str_replace( '$1', '', $wgArticlePath );
 
 $wgDiscordNotificationWikiUrl = $wi->server . $articlePath;
 $wgDiscordNotificationWikiUrlEnding = '';
-$wgDiscordNotificationWikiUrlEndingUserRights = 'Special:UserRights?user=';
 $wgDiscordNotificationWikiUrlEndingDeleteArticle = '?action=delete';
 $wgDiscordNotificationWikiUrlEndingDiff = '?diff=prev&oldid=';
 $wgDiscordNotificationWikiUrlEndingEditArticle = '?action=edit';
