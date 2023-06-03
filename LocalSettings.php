@@ -3603,6 +3603,9 @@ $wgConf->settings += [
 			],
 		],
 	],
+	'wgWikiForgeMagicServicesRepo' => [
+		'default' => '/srv/services/services',
+	],
 	'wgWikiForgeUseCentralAuth' => [
 		'default' => true,
 	],
