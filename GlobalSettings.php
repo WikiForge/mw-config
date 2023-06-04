@@ -208,6 +208,12 @@ $wgAWSRepoDeletedHashLevels = 3;
 
 $wgAWSBucketTopSubdirectory = '/' . $wgDBname;
 
+$wgFileStorageMonitorAWSBucketName = $wgAWSBucketName;
+$wgFileStorageMonitorAWSPrefix = $wgAWSBucketTopSubdirectory;
+$wgFileStorageMonitorAWSRegion = $wgAWSRegion;
+$wgFileStorageMonitorAWSAccessKey = $wmgAWSAccessKey;
+$wgFileStorageMonitorAWSSecretKey = $wmgAWSAccessSecretKey;
+
 // Public Wikis
 if ( !$cwPrivate ) {
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
