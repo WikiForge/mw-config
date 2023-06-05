@@ -209,7 +209,6 @@ $wgAWSRepoDeletedHashLevels = 3;
 $wgAWSBucketTopSubdirectory = '/' . $wgDBname;
 
 $wgFileStorageMonitorAWSBucketName = $wgAWSBucketName;
-$wgFileStorageMonitorAWSPrefix = $wgDBname;
 $wgFileStorageMonitorAWSRegion = $wgAWSRegion;
 $wgFileStorageMonitorAWSAccessKey = $wmgAWSAccessKey;
 $wgFileStorageMonitorAWSSecretKey = $wmgAWSAccessSecretKey;
