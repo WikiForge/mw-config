@@ -7,10 +7,16 @@ switch ( $wi->dbname ) {
 		break;
 	case 'metawiki':
 		wfLoadExtensions( [
+			'FileStorageMonitor',
 			'GlobalWatchlist',
 			'ImportDump',
 			'IncidentReporting',
 			'RemovePII',
 		] );
+
+		$wgFileStorageMonitorAWSBucketName = $wgAWSBucketName;
+		$wgFileStorageMonitorAWSRegion = $wgAWSRegion;
+		$wgFileStorageMonitorAWSAccessKey = $wmgAWSAccessKey;
+		$wgFileStorageMonitorAWSSecretKey = $wmgAWSAccessSecretKey;
 		break;
 }
