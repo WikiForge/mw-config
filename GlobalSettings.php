@@ -6,6 +6,47 @@ $wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialReques
 $wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
 
 // Extensions
+wfLoadSkin( 'Vector' );
+wfLoadExtensions( [
+	'AWS',
+	'AbuseFilter',
+	'AntiSpoof',
+	'BetaFeatures',
+	'CheckUser',
+	'CreateWiki',
+	'CookieWarning',
+	'ConfirmEdit',
+	'ConfirmEdit/hCaptcha',
+	'DataDump',
+	'DiscordNotifications',
+	'DismissableSiteNotice',
+	'Echo',
+	'GlobalNewFiles',
+	'Interwiki',
+	'IPInfo',
+	'LoginNotify',
+	'ManageWiki',
+	'MobileDetect',
+	'NativeSvgHandler',
+	'Nuke',
+	'OATHAuth',
+	'OAuth',
+	'ParserFunctions',
+	'QuickInstantCommons',
+	'Renameuser',
+	'RottenLinks',
+	'Scribunto',
+	'SpamBlacklist',
+	'StopForumSpam',
+	'TitleBlacklist',
+	'TorBlock',
+	'WebAuthn',
+	'WikiDiscover',
+	'WikiEditor',
+	'WikiForgeMagic',
+	'cldr',
+] );
+
 if ( $wgWikiForgeUseCentralAuth ) {
 	wfLoadExtensions( [
 		'CentralAuth',
