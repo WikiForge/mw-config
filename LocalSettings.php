@@ -49,9 +49,6 @@ $wi = new WikiForgeFunctions();
 // Load PrivateSettings (e.g. $wgDBpassword)
 require_once '/srv/mediawiki/config/PrivateSettings.php';
 
-// Load global extensions
-require_once '/srv/mediawiki/config/GlobalExtensions.php';
-
 $wgPasswordSender = 'noreply@wikiforge.net';
 $wmgUploadHostname = 'static.wikiforge.net';
 
