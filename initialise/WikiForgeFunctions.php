@@ -109,7 +109,7 @@ class WikiForgeFunctions {
 			$databases ??= array_merge( self::readDbListFile( 'databases-' . $list ), self::readDbListFile( 'deleted-' . $list ) );
 		}
 
-		$databases ??= self::readDbListFile( 'databases' );
+		$databases ??= self::readDbListFile( 'databases-' . $list );
 
 		$wgLocalDatabases = $databases;
 		return $databases;
