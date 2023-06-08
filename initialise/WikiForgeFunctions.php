@@ -97,6 +97,7 @@ class WikiForgeFunctions {
 	 */
 	public static function getLocalDatabases(): ?array {
 		global $wgLocalDatabases;
+
 		static $list = null;
 		static $databases = null;
 
