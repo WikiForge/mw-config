@@ -218,14 +218,10 @@ class WikiForgeFunctions {
 	 * @return string
 	 */
 	public static function getWikiFarm(): string {
-		static $wikiFarm = null;
-
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		$wikiFarm ??= isset( array_flip( self::readDbListFile( 'databases-wikiforge' ) )[ self::$currentDatabase ] ) ?
+		return ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ?
 			self::TAGS['wikiforge'] : self::TAGS['wikitide'];
-
-		return ( substr( $GLOBALS['wgDBname'], -4 ) === 'wiki' ) ? self::TAGS['wikiforge'] : $wikiFarm;
 	}
 
 	/**
@@ -332,10 +328,12 @@ class WikiForgeFunctions {
 	}
 
 	public function setDatabase() {
-		global $wgConf, $wgDBname;
+		global $wgConf, $wgDBname, $wgCreateWikiDatabase;
 
 		$wgConf->settings['wgDBname'][$this->dbname] = $this->dbname;
 		$wgDBname = $this->dbname;
+
+		$wgCreateWikiDatabase = self::GLOBAL_DATABASE[$this->wikifarm];
 	}
 
 	/**
