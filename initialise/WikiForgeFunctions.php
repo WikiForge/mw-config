@@ -212,7 +212,7 @@ class WikiForgeFunctions {
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		$wikiFarm ??= isset( array_flip( self::readDbListFile( 'wikiforge' ) )[ self::$currentDatabase ] ) ?
+		$wikiFarm ??= isset( array_flip( self::readDbListFile( 'databases-wikiforge' ) )[ self::$currentDatabase ] ) ?
 			self::TAGS['wikiforge'] : self::TAGS['wikitide'];
 
 		return $wikiFarm;
