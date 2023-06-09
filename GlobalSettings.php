@@ -247,6 +247,9 @@ if ( !$cwPrivate ) {
 if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 	$wgCentralAuthCookieDomain = '.wikiforge.net';
 	$wgMFStopRedirectCookieHost = '.wikiforge.net';
+} elseif ( preg_match( '/wikitide\.com$/', $wi->server ) ) {
+	$wgCentralAuthCookieDomain = '.wikitide.com';
+	$wgMFStopRedirectCookieHost = '.wikitide.com';
 } else {
 	$wgCentralAuthCookieDomain = $wi->hostname;
 	$wgMFStopRedirectCookieHost = $wi->hostname;
@@ -322,7 +325,7 @@ $wgDataDump = [
 		'file_ending' => '.json',
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => "$IP/extensions/WikiForgeMagic/maintenance/generateManageWikiBackup.php",
+			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateManageWikiBackup.php',
 			'options' => [
 				'--filename',
 				'${filename}'
@@ -343,7 +346,7 @@ if ( $wi->isExtensionActive( 'ContactPage' ) ) {
 		'default' => [
 			'RecipientUser' => $wmgContactPageRecipientUser ?? null,
 			'SenderEmail' => $wgPasswordSender,
-			'SenderName' => 'WikiForge No Reply',
+			'SenderName' => ( $wi->wikifarm === 'wikitide' ? 'WikiTide' : 'WikiForge' ) . ' No Reply',
 			'RequireDetails' => true,
 			// Should never be set to true
 			'IncludeIP' => false,
@@ -393,7 +396,7 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 	if ( !$wmgSharedUploadBaseUrl || $wmgSharedUploadBaseUrl === $wmgSharedUploadDBname ) {
 		$wmgSharedUploadSubdomain = substr( $wmgSharedUploadDBname, 0, -4 );
 
-		$wmgSharedUploadBaseUrl = "{$wmgSharedUploadSubdomain}.wikiforge.net";
+		$wmgSharedUploadBaseUrl = "{$wmgSharedUploadSubdomain}.{$wgCreateWikiSubdomain}";
 	}
 
 	$wgForeignFileRepos[] = [
