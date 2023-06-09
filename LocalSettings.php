@@ -823,7 +823,8 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCreateWikiSubdomain' => [
-		'default' => $wi::DEFAULT_SERVER[$wi->wikifarm],
+		'wikiforge' => 'wikiforge.net',
+		'wikitide' => 'wikitide.com',
 	],
 	'wgCreateWikiUseCustomDomains' => [
 		'default' => true,
