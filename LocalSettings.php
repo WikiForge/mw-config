@@ -816,9 +816,6 @@ $wgConf->settings += [
 	'wgCreateWikiCustomDomainPage' => [
 		'default' => 'Special:MyLanguage/Custom_domains',
 	],
-	'wgCreateWikiDatabase' => [
-		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
-	],
 	'wgCreateWikiDatabaseClusters' => [
 		'default' => [
 			'c1',
