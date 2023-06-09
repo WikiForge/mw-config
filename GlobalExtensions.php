@@ -42,7 +42,11 @@ wfLoadExtensions( [
 ] );
 
 if ( $wi->wikifarm === 'wikitide' ) {
-	wfLoadExtension( 'WikiTideMagic' );
+	wfLoadExtensions( [
+		'CentralNotice',
+		'EventLogging',
+		'WikiTideMagic',
+	] );
 } else {
 	wfLoadExtension( 'WikiForgeMagic' );
 }
