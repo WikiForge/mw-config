@@ -198,6 +198,10 @@ class WikiForgeFunctions {
 		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
 		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 
+		if ( self::getWikiFarm() === 'wikitide' ) {
+			$wgHooks['CreateWikiJsonBuilder'][] = 'WikiForgeFunctions::onCreateWikiJsonBuilder';
+		}
+
 		$wgExtensionFunctions[] = 'WikiForgeFunctions::onExtensionFunctions';
 	}
 
@@ -650,6 +654,13 @@ class WikiForgeFunctions {
 		// Assign states
 		$settings['cwPrivate']['default'] = (bool)$cacheArray['states']['private'];
 
+		if ( self::getWikiFarm() === 'wikitide' ) {
+			$settings['cwClosed']['default'] = (bool)$cacheArray['states']['closed'];
+			$settings['cwLocked']['default'] = (bool)$cacheArray['states']['locked'] ?? false;
+			$settings['cwInactive']['default'] = ( $cacheArray['states']['inactive'] === 'exempt' ) ? 'exempt' : (bool)$cacheArray['states']['inactive'];
+			$settings['cwExperimental']['default'] = (bool)( $cacheArray['states']['experimental'] ?? false );
+		}
+
 		// Assign settings
 		if ( isset( $cacheArray['settings'] ) ) {
 			foreach ( $cacheArray['settings'] as $var => $val ) {
@@ -995,6 +1006,22 @@ class WikiForgeFunctions {
 				],
 			];
 		}
+	}
+
+	/**
+	 * @param string $wiki
+	 * @param DBConnRef $dbr
+	 * @param array &$jsonArray
+	 */
+	public static function onCreateWikiJsonBuilder( string $wiki, DBConnRef $dbr, array &$jsonArray ) {
+		$row = $dbr->newSelectQueryBuilder()
+			->table( 'cw_wikis' )
+			->fields( [ 'wiki_locked' ] )
+			->where( [ 'wiki_dbname' => $wiki ] )
+			->caller( __METHOD__ )
+			->fetchRow();
+
+		$jsonArray['states']['locked'] = (bool)$row->wiki_locked;
 	}
 
 	/**
