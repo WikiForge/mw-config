@@ -59,7 +59,7 @@ $wgObjectCaches['mysql-multiwrite'] = [
 ];
 
 $wgObjectCaches['session'] = [
-	'class' => SQLBagOStuff::class,
+	'class' => SqlBagOStuff::class,
 	'tablePrefix' => $wi->wikifarm . '_',
 ];
 
