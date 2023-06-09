@@ -86,11 +86,12 @@ $wgConf->settings += [
 		],
 	],
 	'wgAbuseFilterCentralDB' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgAbuseFilterIsCentral' => [
 		'default' => false,
 		'metawiki' => true,
+		'metawikitide' => true,
 	],
 	'wgAbuseFilterBlockDuration' => [
 		'default' => 'indefinite',
@@ -165,10 +166,17 @@ $wgConf->settings += [
 	],
 	// https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:SpamBlacklist#Block_list_syntax
 	'wgBlacklistSettings' => [
-		'default' => [
+		'wikiforge' => [
 			'spam' => [
 				'files' => [
 					'https://meta.wikiforge.net/wiki/Spam_blacklist?action=raw&sb_ver=1',
+				],
+			],
+		],
+		'wikitide' => [
+			'spam' => [
+				'files' => [
+					'https://meta.wikitide.com/wiki/Spam_blacklist?action=raw&sb_ver=1',
 				],
 			],
 		],
@@ -270,7 +278,7 @@ $wgConf->settings += [
 
 	// Bot passwords
 	'wgBotPasswordsDatabase' => [
-		'default' => 'prodglobal',
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// Cache
@@ -340,7 +348,7 @@ $wgConf->settings += [
 	// CentralAuth
 	'wgCentralAuthAutoCreateWikis' => [
 		'default' => [
-			'metawiki',
+			$wi::CENTRAL_WIKI[$wi->wikifarm],
 		],
 	],
 	'wgCentralAuthAutoNew' => [
@@ -362,13 +370,13 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCentralAuthDatabase' => [
-		'default' => 'prodglobal',
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 	'wgCentralAuthEnableGlobalRenameRequest' => [
 		'default' => true,
 	],
 	'wgCentralAuthLoginWiki' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthPreventUnattached' => [
 		'default' => true,
@@ -402,21 +410,33 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCheckUserCAtoollink' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCheckUserGBtoollink' => [
-		'default' => [
+		'wikiforge' => [
 			'centralDB' => 'metawiki',
 			'groups' => [
 				'staff',
 			],
 		],
+		'wikitide' => [
+			'centralDB' => 'metawikitide',
+			'groups' => [
+				'steward',
+			],
+		],
 	],
 	'wgCheckUserCAMultiLock' => [
-		'default' => [
-			'centralDB' => 'metawiki',
+		'wikiforge' => [
+			'centralDB' => $wi::CENTRAL_WIKI['wikiforge'],
 			'groups' => [
 				'staff',
+			],
+		],
+		'wikitide' => [
+			'centralDB' => $wi::CENTRAL_WIKI['wikitide'],
+			'groups' => [
+				'steward',
 			],
 		],
 	],
@@ -634,6 +654,8 @@ $wgConf->settings += [
 	'wgCreateWikiDisallowedSubdomains' => [
 		'default' => [
 			'(.*)wikiforge(.*)',
+			'(.*)wikitide(.*)',
+			'(.*)fwikis(.*)',
 			'subdomain',
 			'example',
 			'meta',
@@ -718,7 +740,7 @@ $wgConf->settings += [
 		'default' => 'Special:MyLanguage/Custom_domains',
 	],
 	'wgCreateWikiDatabase' => [
-		'default' => 'prodglobal',
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 	'wgCreateWikiDatabaseClusters' => [
 		'default' => [
@@ -730,10 +752,11 @@ $wgConf->settings += [
 		'default' => []
 	],
 	'wgCreateWikiDatabaseSuffix' => [
-		'default' => 'wiki',
+		'wikiforge' => 'wiki',
+		'wikitide' => 'wikitide',
 	],
 	'wgCreateWikiGlobalWiki' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 		'test1wiki' => 'test1wiki',
 	],
 	'wgCreateWikiEmailNotifications' => [
@@ -800,7 +823,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCreateWikiSubdomain' => [
-		'default' => 'wikiforge.net',
+		'default' => $wi::DEFAULT_SERVER[$wi->wikifarm],
 	],
 	'wgCreateWikiUseCustomDomains' => [
 		'default' => true,
@@ -823,7 +846,7 @@ $wgConf->settings += [
 
 	// CookieWarning
 	'wgCookieWarningMoreUrl' => [
-		'default' => 'https://meta.wikiforge.net/wiki/Special:MyLanguage/Privacy_Policy#4._Cookies',
+		'default' => 'https://meta.wikitide.com/wiki/Special:MyLanguage/Privacy_Policy#4._Cookies',
 	],
 	'wgCookieWarningEnabled' => [
 		'default' => true,
@@ -1017,7 +1040,7 @@ $wgConf->settings += [
 		'default' => 'echo',
 	],
 	'wgEchoSharedTrackingDB' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgEchoUseCrossWikiBetaFeature' => [
 		'default' => true,
@@ -1301,21 +1324,27 @@ $wgConf->settings += [
 		'metawiki' => false,
 	],
 	'wgGlobalBlockingDatabase' => [
-		'default' => 'prodglobal',
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// GlobalCssJs
 	'wgGlobalCssJsConfig' => [
 		'default' => [
-			'wiki' => 'metawiki',
-			'source' => 'metawiki',
+			'wiki' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+			'source' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 		],
 	],
 	'+wgResourceLoaderSources' => [
-		'default' => [
+		'wikiforge' => [
 			'metawiki' => [
 				'apiScript' => '//meta.wikiforge.net/w/api.php',
 				'loadScript' => '//meta.wikiforge.net/w/load.php',
+			],
+		],
+		'wikitide' => [
+			'metawikitide' => [
+				'apiScript' => '//meta.wikitide.com/w/api.php',
+				'loadScript' => '//meta.wikitide.com/w/load.php',
 			],
 		],
 	],
@@ -1325,12 +1354,13 @@ $wgConf->settings += [
 
 	// GlobalPreferences
 	'wgGlobalPreferencesDB' => [
-		'default' => 'prodglobal',
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// GlobalUsage
 	'wgGlobalUsageDatabase' => [
-		'default' => 'commonswiki',
+		'wikiforge' => 'commonswiki',
+		'wikiforge' => 'commonswikitide',
 	],
 	'wgGlobalUsageSharedRepoWiki' => [
 		'default' => false,
@@ -1341,10 +1371,11 @@ $wgConf->settings += [
 
 	// GlobalUserPage
 	'wgGlobalUserPageAPIUrl' => [
-		'default' => 'https://meta.wikiforge.net/w/api.php',
+		'wikiforge' => 'https://meta.wikiforge.net/w/api.php',
+		'wikitide' => 'https://meta.wikitide.com/w/api.php',
 	],
 	'wgGlobalUserPageDBname' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 
 	// Grant Permissions for BotPasswords and OAuth
@@ -1477,6 +1508,7 @@ $wgConf->settings += [
 			'fandom.com' => 'fandom',
 			'miraheze.org' => 'miraheze',
 			'wikiforge.net' => 'wiki',
+			'wikitide.com' => 'wt',
 		],
 	],
 	'wgImportDumpScriptCommand' => [
@@ -1515,6 +1547,7 @@ $wgConf->settings += [
 	'wgJsonConfigInterwikiPrefix' => [
 		'default' => 'commons',
 		'commonswiki' => 'meta',
+		'commonswikitide' => 'meta',
 	],
 	'wgJsonConfigModels' => [
 		'default' => [
@@ -1874,7 +1907,7 @@ $wgConf->settings += [
 		'default' => 'member',
 	],
 	'wgManageWikiHelpUrl' => [
-		'default' => '//meta.wikiforge.net/wiki/Special:MyLanguage/ManageWiki',
+		'default' => '//meta.wikitide.com/wiki/Special:MyLanguage/ManageWiki',
 	],
 	'wgManageWikiForceSidebarLinks' => [
 		'default' => false,
@@ -2628,19 +2661,26 @@ $wgConf->settings += [
 	'wgRemovePIIAllowedWikis' => [
 		'default' => [
 			'metawiki',
+			'metawikitide',
 		],
 	],
 	'wgRemovePIIAutoPrefix' => [
-		'default' => 'WikiForgeGDPR_',
+		'wikiforge' => 'WikiForgeGDPR_',
+		'wikitide' => 'WikiTideGDPR_',
 	],
 	'wgRemovePIIHashPrefixOptions' => [
-		'default' => [
+		'wikiforge' => [
 			'GDPR' => 'WikiForgeGDPR_',
+			'Vanishing' => 'Vanished user ',
+		],
+		'wikitide' => [
+			'GDPR' => 'WikiTideGDPR_',
 			'Vanishing' => 'Vanished user ',
 		],
 	],
 	'wgRemovePIIHashPrefix' => [
-		'default' => 'WikiForgeGDPR_',
+		'wikiforge' => 'WikiForgeGDPR_',
+		'wikitide' => 'WikiTideGDPR_',
 	],
 
 	// Restriction types
@@ -3037,6 +3077,11 @@ $wgConf->settings += [
 				'en' => 'English is the source language.',
 			],
 		],
+		'metawikitide' => [
+			'*' => [
+				'en' => 'English is the source language.',
+			],
+		],
 	],
 	'wgTranslateDocumentationLanguageCode' => [
 		'default' => false,
@@ -3118,7 +3163,7 @@ $wgConf->settings += [
 		'default' => '/m/$1',
 	],
 	'wgUrlShortenerDBName' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 
 	// UserFunctions
