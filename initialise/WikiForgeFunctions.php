@@ -227,7 +227,7 @@ class WikiForgeFunctions {
 
 		return ( substr( $GLOBALS['wgDBname'], -4 ) === 'wiki' ) ?
 			self::TAGS['wikiforge'] :
-		( substr( $GLOBALS['wgDBname'], -4 ) === 'wiki' ) ?
+		( substr( $GLOBALS['wgDBname'], -8 ) === 'wikitide' ) ?
 			self::TAGS['wikitide'] : $wikiFarm;
 	}
 
