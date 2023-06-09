@@ -2505,12 +2505,6 @@ $wgConf->settings += [
 			'steward',
 			'suppress',
 		],
-		'+metawiki' => [
-			'global-sysop',
-			'interface-admin',
-			'sysadmin',
-			'trustandsafety'
-		],
 		'+metawikitide' => [
 			'global-sysop',
 			'interface-admin',
