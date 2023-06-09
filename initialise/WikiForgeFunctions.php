@@ -949,17 +949,6 @@ class WikiForgeFunctions {
 	 */
 	public static function onGenerateDatabaseLists( array &$databaseLists ) {
 		$databaseLists = [
-			'databases-fwikis' => [
-				'combi' => self::getCombiList(
-					self::GLOBAL_DATABASE['fwikis']
-				),
-			],
-			'deleted-fwikis' => [
-				'deleted' => 'databases',
-				'databases' => self::getDeletedList(
-					self::GLOBAL_DATABASE['fwikis']
-				),
-			],
 			'databases-wikiforge' => [
 				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE['wikiforge']
@@ -969,6 +958,17 @@ class WikiForgeFunctions {
 				'deleted' => 'databases',
 				'databases' => self::getDeletedList(
 					self::GLOBAL_DATABASE['wikiforge']
+				),
+			],
+			'databases-wikitide' => [
+				'combi' => self::getCombiList(
+					self::GLOBAL_DATABASE['wikitide']
+				),
+			],
+			'deleted-wikitide' => [
+				'deleted' => 'databases',
+				'databases' => self::getDeletedList(
+					self::GLOBAL_DATABASE['wikitide']
 				),
 			],
 		];
