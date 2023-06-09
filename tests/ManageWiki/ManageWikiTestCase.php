@@ -28,6 +28,7 @@ abstract class ManageWikiTestCase extends TestCase {
 		$mock->dbname = '';
 		$mock->hostname = '';
 		$mock->version = '';
+		$mock->wikifarm = '';
 
 		foreach ( $methods as $m => $returnValue ) {
 			$mock
