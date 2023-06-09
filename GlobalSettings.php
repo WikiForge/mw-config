@@ -433,7 +433,7 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 }
 
 // WikiForge Commons
-if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ) ) {
+if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ?? false ) ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => 'wikiforgecommons',
@@ -468,7 +468,7 @@ if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiFo
 }
 
 // WikiTide Commons
-if ( $wi->wikifarm === 'wikitide' && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ) ) {
+if ( $wi->wikifarm === 'wikitide' && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ?? false ) ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => 'wikitidecommons',
