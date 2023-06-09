@@ -58,7 +58,6 @@ $wgObjectCaches['mysql-multiwrite'] = [
 	'reportDupes' => false
 ];
 
-
 if ( $wi->wikifarm === 'wikitide' ) {
 	$wgSessionCacheType = 'memcached';
 } else {
