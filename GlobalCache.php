@@ -70,7 +70,7 @@ if ( $wi->wikifarm === 'wikitide' ) {
 	$wgSessionCacheType = 'redis-session';
 } else {
 	$wgSessionCacheType = CACHE_DB;
-	
+
 	// Same as $wgMainStash
 	$wgMWOAuthSessionCacheType = 'db-replicated';
 }
