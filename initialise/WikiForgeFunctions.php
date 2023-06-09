@@ -887,6 +887,38 @@ class WikiForgeFunctions {
 
 	/**
 	 * @param string $globalDatabase
+	 * @return array
+	 */
+	private static function getActiveList( string $globalDatabase ): array {
+		$dbr = self::getDatabaseConnection( $globalDatabase );
+		$activeWikis = $dbr->newSelectQueryBuilder()
+			->table( 'cw_wikis' )
+			->fields( [
+				'wiki_dbcluster',
+				'wiki_dbname',
+				'wiki_sitename',
+			] )
+			->where( [
+				'wiki_closed' => 0,
+				'wiki_deleted' => 0,
+				'wiki_inactive' => 0,
+			] )
+			->caller( __METHOD__ )
+			->fetchResultSet();
+
+		$activeList = [];
+		foreach ( $activeWikis as $wiki ) {
+			$activeList[$wiki->wiki_dbname] = [
+				's' => $wiki->wiki_sitename,
+				'c' => $wiki->wiki_dbcluster,
+			];
+		}
+
+		return $activeList;
+	}
+
+	/**
+	 * @param string $globalDatabase
 	 * @param ?string $version
 	 * @return array
 	 */
@@ -966,20 +998,25 @@ class WikiForgeFunctions {
 	 */
 	public static function onGenerateDatabaseLists( array &$databaseLists ) {
 		$databaseLists = [
-			'databases-wikiforge' => [
-				'combi' => self::getCombiList(
-					self::GLOBAL_DATABASE['wikiforge']
+			'active-wikitide' => [
+				'combi' => self::getActiveList(
+					self::GLOBAL_DATABASE['wikitide']
 				),
 			],
-			'deleted-wikiforge' => [
-				'deleted' => 'databases',
-				'databases' => self::getDeletedList(
+			'databases-wikiforge' => [
+				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE['wikiforge']
 				),
 			],
 			'databases-wikitide' => [
 				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE['wikitide']
+				),
+			],
+			'deleted-wikiforge' => [
+				'deleted' => 'databases',
+				'databases' => self::getDeletedList(
+					self::GLOBAL_DATABASE['wikiforge']
 				),
 			],
 			'deleted-wikitide' => [
@@ -1031,6 +1068,7 @@ class WikiForgeFunctions {
 	 * @param array &$formDescriptor
 	 */
 	public static function onManageWikiCoreAddFormFields( $ceMW, $context, $dbName, &$formDescriptor ) {
+		$wikiFarm = self::getWikiFarm();
 		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
 
 		$mwVersion = self::getMediaWikiVersion( $dbName );
@@ -1040,29 +1078,31 @@ class WikiForgeFunctions {
 
 		asort( $versions );
 
-		$mwSettings = new ManageWikiSettings( $dbName );
-		$setList = $mwSettings->list();
-		$formDescriptor['article-path'] = [
-			'label-message' => 'wikiforge-label-managewiki-article-path',
-			'type' => 'select',
-			'options-messages' => [
-				'wikiforge-label-managewiki-article-path-wiki' => '/wiki/$1',
-				'wikiforge-label-managewiki-article-path-root' => '/$1',
-			],
-			'default' => $setList['wgArticlePath'] ?? '/wiki/$1',
-			'disabled' => !$ceMW,
-			'cssclass' => 'managewiki-infuse',
-			'section' => 'main',
-		];
+		if ( $wikiFarm !== 'wikitide' ) {
+			$mwSettings = new ManageWikiSettings( $dbName );
+			$setList = $mwSettings->list();
+			$formDescriptor['article-path'] = [
+				'label-message' => 'wikiforge-label-managewiki-article-path',
+				'type' => 'select',
+				'options-messages' => [
+					'wikiforge-label-managewiki-article-path-wiki' => '/wiki/$1',
+					'wikiforge-label-managewiki-article-path-root' => '/$1',
+				],
+				'default' => $setList['wgArticlePath'] ?? '/wiki/$1',
+				'disabled' => !$ceMW,
+				'cssclass' => 'managewiki-infuse',
+				'section' => 'main',
+			];
 
-		$formDescriptor['mainpage-is-domain-root'] = [
-			'label-message' => 'wikiforge-label-managewiki-mainpage-is-domain-root',
-			'type' => 'check',
-			'default' => $setList['wgMainPageIsDomainRoot'] ?? false,
-			'disabled' => !$ceMW,
-			'cssclass' => 'managewiki-infuse',
-			'section' => 'main',
-		];
+			$formDescriptor['mainpage-is-domain-root'] = [
+				'label-message' => 'wikiforge-label-managewiki-mainpage-is-domain-root',
+				'type' => 'check',
+				'default' => $setList['wgMainPageIsDomainRoot'] ?? false,
+				'disabled' => !$ceMW,
+				'cssclass' => 'managewiki-infuse',
+				'section' => 'main',
+			];
+		}
 
 		$formDescriptor['mediawiki-version'] = [
 			'label-message' => 'wikiforge-label-managewiki-mediawiki-version',
@@ -1074,9 +1114,11 @@ class WikiForgeFunctions {
 			'section' => 'main',
 		];
 
-		$wiki = new RemoteWiki( $dbName );
-		if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
-			unset( $formDescriptor['category'], $formDescriptor['description'] );
+		if ( $wikiFarm !== 'wikitide' ) {
+			$wiki = new RemoteWiki( $dbName );
+			if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
+				unset( $formDescriptor['category'], $formDescriptor['description'] );
+			}
 		}
 	}
 
@@ -1095,6 +1137,10 @@ class WikiForgeFunctions {
 				'old' => $version,
 				'new' => $formData['mediawiki-version']
 			];
+		}
+
+		if ( self::getWikiFarm() === 'wikitide' ) {
+			return;
 		}
 
 		$mwSettings = new ManageWikiSettings( $dbName );
