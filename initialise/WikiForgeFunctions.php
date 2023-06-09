@@ -551,7 +551,7 @@ class WikiForgeFunctions {
 
 		$wikiTags[] = self::getMediaWikiVersion();
 		foreach ( $cacheArray['states'] ?? [] as $state => $value ) {
-			if ( (bool)$value ) {
+			if ( $value !== 'exempt' && (bool)$value ) {
 				$wikiTags[] = $state;
 			}
 		}
