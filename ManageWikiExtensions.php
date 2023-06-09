@@ -3600,3 +3600,12 @@ $wgManageWikiExtensions = [
 		'section' => 'skins',
 	],
 ];
+
+// No CirrusSearch on WikiTide (yet at least)
+if ( $wi->wikifarm === 'wikitide' ) {
+	unset(
+		$wgManageWikiExtensions['advancedsearch'],
+		$wgManageWikiExtensions['cirrussearch'],
+		$wgManageWikiExtensions['relatedarticles']
+	);
+}
