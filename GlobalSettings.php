@@ -49,7 +49,7 @@ if ( $wi->isAnyOfExtensionsActive( 'Email Authorization', 'OpenID Connect', 'Sim
 	wfLoadExtension( 'PluggableAuth' );
 }
 
-if ( ( $wgWikiTideCommons || $wgWikiForgeCommons ) && !$cwPrivate ) {
+if ( ( ( $wgWikiTideCommons ?? false ) || ( $wgWikiForgeCommons ?? false ) ) && !$cwPrivate ) {
 	wfLoadExtension( 'GlobalUsage' );
 }
 
