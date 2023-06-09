@@ -213,6 +213,26 @@ $wgFileStorageMonitorAWSRegion = $wgAWSRegion;
 $wgFileStorageMonitorAWSAccessKey = $wmgAWSAccessKey;
 $wgFileStorageMonitorAWSSecretKey = $wmgAWSAccessSecretKey;
 
+// Closed Wikis
+if ( $wi->wikifarm === 'wikitide' && $cwClosed ) {
+	$wgRevokePermissions = [
+		'*' => [
+			'block' => true,
+			'createaccount' => true,
+			'delete' => true,
+			'edit' => true,
+			'protect' => true,
+			'import' => true,
+			'upload' => true,
+			'undelete' => true,
+		],
+	];
+
+	if ( $wi->isExtensionActive( 'Comments' ) ) {
+		$wgRevokePermissions['*']['comment'] = true;
+	}
+}
+
 // Public Wikis
 if ( !$cwPrivate ) {
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
