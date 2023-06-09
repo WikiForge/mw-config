@@ -225,9 +225,9 @@ class WikiForgeFunctions {
 		$wikiFarm ??= isset( array_flip( self::readDbListFile( 'databases-wikiforge' ) )[ self::$currentDatabase ] ) ?
 			self::TAGS['wikiforge'] : self::TAGS['wikitide'];
 
-		return ( substr( $GLOBALS['wgDBname'], -4 ) === 'wiki' ) ?
+		return ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ?
 			self::TAGS['wikiforge'] :
-		( substr( $GLOBALS['wgDBname'], -8 ) === 'wikitide' ) ?
+		( substr( self::$currentDatabase, -8 ) === 'wikitide' ) ?
 			self::TAGS['wikitide'] : $wikiFarm;
 	}
 
