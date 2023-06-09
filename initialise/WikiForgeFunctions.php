@@ -222,7 +222,7 @@ class WikiForgeFunctions {
 	 * @return string
 	 */
 	public static function getCurrentSuffix(): string {
-		return array_flip( self::SUFFIXES )[ self::DEFAULT_SERVER[self::getRealm()] ];
+		return array_flip( self::SUFFIXES )[ self::DEFAULT_SERVER[self::getWikiFarm()] ];
 	}
 
 	/**
@@ -239,7 +239,7 @@ class WikiForgeFunctions {
 			}
 
 			if ( isset( $wgConf->settings['wgServer'] ) && count( $wgConf->settings['wgServer'] ) > 1 ) {
-				return 'https://' . self::DEFAULT_SERVER[self::getRealm()];
+				return 'https://' . self::DEFAULT_SERVER[self::getWikiFarm()];
 			}
 		}
 
