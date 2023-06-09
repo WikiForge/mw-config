@@ -38,16 +38,21 @@ class WikiForgeFunctions {
 		'wikitide' => 'wikitide.com',
 	];
 
-	private const GLOBAL_DATABASE = [
-		'wikiforge' => 'prodglobal',
-		'wikitide' => 'wtglobal',
-	];
-
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
 
 	private const TAGS = [
 		'wikiforge' => 'wikiforge',
 		'wikitide' => 'wikitide',
+	];
+
+	public const CENTRAL_WIKI = [
+		'wikiforge' => 'metawiki',
+		'wikitide' => 'metawikitide',
+	];
+
+	public const GLOBAL_DATABASE = [
+		'wikiforge' => 'prodglobal',
+		'wikitide' => 'wtglobal',
 	];
 
 	public const LISTS = [
@@ -80,6 +85,7 @@ class WikiForgeFunctions {
 		$this->sitename = self::getSiteName();
 		$this->missing = self::isMissing();
 		$this->version = self::getMediaWikiVersion();
+		$this->wikifarm = self::getWikiFarm();
 
 		$this->hostname = $_SERVER['HTTP_HOST'] ??
 			parse_url( $this->server, PHP_URL_HOST ) ?: 'undefined';
