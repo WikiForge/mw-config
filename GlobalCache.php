@@ -58,7 +58,12 @@ $wgObjectCaches['mysql-multiwrite'] = [
 	'reportDupes' => false
 ];
 
-$wgSessionCacheType = CACHE_DB;
+$wgObjectCaches['session'] = [
+    'class' => SQLBagOStuff::class,
+    'tablePrefix' => $wi->wikifarm . '_',
+];
+
+$wgSessionCacheType = 'session';
 
 // Same as $wgMainStash
 $wgMWOAuthSessionCacheType = 'db-replicated';
