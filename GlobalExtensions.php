@@ -38,6 +38,11 @@ wfLoadExtensions( [
 	'WebAuthn',
 	'WikiDiscover',
 	'WikiEditor',
-	'WikiForgeMagic',
 	'cldr',
 ] );
+
+if ( $wi->wikifarm === 'wikitide' ) {
+	wfLoadExtension( 'WikiTideMagic' );
+} else {
+	wfLoadExtension( 'WikiForgeMagic' );
+}
