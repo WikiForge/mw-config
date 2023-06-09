@@ -34,25 +34,25 @@ class WikiForgeFunctions {
 	private const CACHE_DIRECTORY = '/srv/mediawiki/cache';
 
 	private const DEFAULT_SERVER = [
-		'fwikis' => 'fwikis.com',
 		'wikiforge' => 'wikiforge.net',
+		'wikitide' => 'wikitide.com',
 	];
 
 	private const GLOBAL_DATABASE = [
-		'fwikis' => 'fwglobal',
 		'wikiforge' => 'prodglobal',
+		'wikitide' => 'wtglobal',
 	];
 
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
 
 	private const TAGS = [
-		'fwikis' => 'fwikis',
 		'wikiforge' => 'wikiforge',
+		'wikitide' => 'wikitide',
 	];
 
 	public const LISTS = [
-		'fwikis' => 'fwikis',
 		'wikiforge' => 'wikiforge',
+		'wikitide' => 'wikitide',
 	];
 
 	public const MEDIAWIKI_VERSIONS = [
@@ -65,8 +65,8 @@ class WikiForgeFunctions {
 	];
 
 	public const SUFFIXES = [
-		'fwiki' => 'fwikis.com',
 		'wiki' => 'wikiforge.net',
+		'wtwiki' => 'wikitide.com',
 	];
 
 	public function __construct() {
@@ -98,19 +98,19 @@ class WikiForgeFunctions {
 	public static function getLocalDatabases(): ?array {
 		global $wgLocalDatabases;
 
-		static $list = null;
+		static $wikiFarm = null;
 		static $databases = null;
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		$list ??= isset( array_flip( self::readDbListFile( 'wikiforge' ) )[ self::$currentDatabase ] ) ? 'wikiforge' : 'fwikis';
+		$wikiFarm ??= self::getWikiFarm();
 
 		// We need the CLI to be able to access 'deleted' wikis
 		if ( PHP_SAPI === 'cli' ) {
-			$databases ??= array_merge( self::readDbListFile( 'databases-' . $list ), self::readDbListFile( 'deleted-' . $list ) );
+			$databases ??= array_merge( self::readDbListFile( 'databases-' . $wikiFarm ), self::readDbListFile( 'deleted-' . $wikkFarm ) );
 		}
 
-		$databases ??= self::readDbListFile( 'databases-' . $list );
+		$databases ??= self::readDbListFile( 'databases-' . $wikiFarm );
 
 		$wgLocalDatabases = $databases;
 		return $databases;
@@ -207,15 +207,15 @@ class WikiForgeFunctions {
 	/**
 	 * @return string
 	 */
-	public static function getRealm(): string {
-		static $realm = null;
+	public static function getWikiFarm(): string {
+		static $wikiFarm = null;
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		$realm ??= isset( array_flip( self::readDbListFile( 'wikiforge' ) )[ self::$currentDatabase ] ) ?
-			self::TAGS['wikiforge'] : self::TAGS['fwikis'];
+		$wikiFarm ??= isset( array_flip( self::readDbListFile( 'wikiforge' ) )[ self::$currentDatabase ] ) ?
+			self::TAGS['wikiforge'] : self::TAGS['wikitide'];
 
-		return $realm;
+		return $wikiFarm;
 	}
 
 	/**
@@ -254,11 +254,11 @@ class WikiForgeFunctions {
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		$list ??= isset( array_flip( self::readDbListFile( 'wikiforge' ) )[ self::$currentDatabase ] ) ? 'wikiforge' : 'fwikis';
-		$databases = self::readDbListFile( 'databases-' . $list, false, $database );
+		$wikiFarm ??= self::getWikiFarm();
+		$databases = self::readDbListFile( 'databases-' . $wikiFarm, false, $database );
 
 		if ( $deleted && $databases ) {
-			$databases += self::readDbListFile( 'deleted-' . $list, false, $database );
+			$databases += self::readDbListFile( 'deleted-' . $wikiFarm, false, $database );
 		}
 
 		if ( $database !== null ) {
@@ -270,7 +270,7 @@ class WikiForgeFunctions {
 				}
 			}
 
-			$default ??= 'https://' . self::DEFAULT_SERVER[self::getRealm()];
+			$default ??= 'https://' . self::DEFAULT_SERVER[$wikiFarm];
 			return $default;
 		}
 
@@ -282,7 +282,7 @@ class WikiForgeFunctions {
 			}
 		}
 
-		$default ??= 'https://' . self::DEFAULT_SERVER[self::getRealm()];
+		$default ??= 'https://' . self::DEFAULT_SERVER[$wikiFarm];
 		$servers['default'] = $default;
 
 		return $servers;
@@ -300,7 +300,7 @@ class WikiForgeFunctions {
 
 		static $database = null;
 		$database ??= self::readDbListFile( 'databases-wikiforge', true, 'https://' . $hostname, true ) ?:
-			self::readDbListFile( 'databases-fwikis', true, 'https://' . $hostname, true );
+			self::readDbListFile( 'databases-wikitide', true, 'https://' . $hostname, true );
 
 		if ( $database ) {
 			return $database;
@@ -335,8 +335,8 @@ class WikiForgeFunctions {
 		static $allDatabases = null;
 		static $deletedDatabases = null;
 
-		$allDatabases ??= self::readDbListFile( 'databases-' . self::LISTS[self::getRealm()], false );
-		$deletedDatabases ??= self::readDbListFile( 'deleted-' . self::LISTS[self::getRealm()], false );
+		$allDatabases ??= self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false );
+		$deletedDatabases ??= self::readDbListFile( 'deleted-' . self::LISTS[self::getWikiFarm()], false );
 
 		$databases = array_merge( $allDatabases, $deletedDatabases );
 
@@ -375,8 +375,8 @@ class WikiForgeFunctions {
 		static $allDatabases = null;
 		static $deletedDatabases = null;
 
-		$allDatabases ??= self::readDbListFile( 'databases-' . self::LISTS[self::getRealm()], false );
-		$deletedDatabases ??= self::readDbListFile( 'deleted-' . self::LISTS[self::getRealm()], false );
+		$allDatabases ??= self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false );
+		$deletedDatabases ??= self::readDbListFile( 'deleted-' . self::LISTS[self::getWikiFarm()], false );
 
 		$databases = array_merge( $allDatabases, $deletedDatabases );
 
@@ -414,7 +414,7 @@ class WikiForgeFunctions {
 		}
 
 		if ( $database ) {
-			$mwVersion = self::readDbListFile( 'databases-' . self::LISTS[self::getRealm()], false, $database )['v'] ?? null;
+			$mwVersion = self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, $database )['v'] ?? null;
 			return $mwVersion ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 		}
 
@@ -428,7 +428,7 @@ class WikiForgeFunctions {
 		}
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
-		$version ??= self::readDbListFile( 'databases-' . self::LISTS[self::getRealm()], false, self::$currentDatabase )['v'] ?? null;
+		$version ??= self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, self::$currentDatabase )['v'] ?? null;
 
 		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 	}
@@ -538,14 +538,14 @@ class WikiForgeFunctions {
 	public static function getConfigForCaching(): array {
 		global $wgDBname, $wgConf;
 
-		$wikiTags = [ self::getRealm() ];
+		$wikiTags = [ self::getWikiFarm() ];
 
 		static $cacheArray = null;
 		$cacheArray ??= self::getCacheArray();
 
 		$wikiTags[] = self::getMediaWikiVersion();
 		foreach ( $cacheArray['states'] ?? [] as $state => $value ) {
-			if ( $value !== 'exempt' && (bool)$value ) {
+			if ( (bool)$value ) {
 				$wikiTags[] = $state;
 			}
 		}
