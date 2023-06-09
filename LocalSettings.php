@@ -364,7 +364,8 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCentralAuthCookiePrefix' => [
-		'default' => 'centralauth_',
+		'wikiforge' => 'centralauth_wikiforge_',
+		'wikitide' => 'centralauth_wikitide_',
 	],
 	'wgCentralAuthCreateOnView' => [
 		'default' => true,
@@ -428,13 +429,13 @@ $wgConf->settings += [
 	],
 	'wgCheckUserCAMultiLock' => [
 		'wikiforge' => [
-			'centralDB' => $wi::CENTRAL_WIKI['wikiforge'],
+			'centralDB' => 'metawiki',
 			'groups' => [
 				'staff',
 			],
 		],
 		'wikitide' => [
-			'centralDB' => $wi::CENTRAL_WIKI['wikitide'],
+			'centralDB' => 'metawikitide',
 			'groups' => [
 				'steward',
 			],
@@ -846,6 +847,9 @@ $wgConf->settings += [
 			"$IP/extensions/OAuth/schema/mysql/tables-generated.sql",
 			"$IP/extensions/RottenLinks/sql/rottenlinks.sql",
 		],
+		'+wikitide' => [
+			"$IP/extensions/GlobalBlocking/sql/mysql/tables-generated-global_block_whitelist.sql",
+		],
 	],
 	'wgCreateWikiStateDays' => [
 		'wikiforge' => [
@@ -862,7 +866,7 @@ $wgConf->settings += [
 		'default' => '/srv/mediawiki/cache'
 	],
 	'wgCreateWikiCategories' => [
-		'default' => [
+		'wikiforge' => [
 			'Art & Architecture' => 'artarc',
 			'Automotive' => 'automotive',
 			'Business & Finance' => 'businessfinance',
@@ -886,6 +890,37 @@ $wgConf->settings += [
 			'Music' => 'music',
 			'Podcast' => 'podcast',
 			'Politics' => 'politics',
+			'Religion' => 'religion',
+			'Science' => 'science',
+			'Software/Computing' => 'software',
+			'Song Contest' => 'songcontest',
+			'Sports' => 'sport',
+			'Uncategorized' => 'uncategorized',
+		],
+		'wikitide' => [
+			'Art & Architecture' => 'artarc',
+			'Automotive' => 'automotive',
+			'Business & Finance' => 'businessfinance',
+			'Community' => 'community',
+			'Education' => 'education',
+			'Electronics' => 'electronics',
+			'Entertainment' => 'entertainment',
+			'Fandom' => 'fandom',
+			'Fantasy' => 'fantasy',
+			'Gaming' => 'gaming',
+			'Geography' => 'geography',
+			'History' => 'history',
+			'Humour/Satire' => 'humour',
+			'Language/Linguistics' => 'langling',
+			'Leisure' => 'leisure',
+			'Literature/Writing' => 'literature',
+			'Media/Journalism' => 'media',
+			'Medicine/Medical' => 'medical',
+			'Military/War' => 'military',
+			'Music' => 'music',
+			'Podcast' => 'podcast',
+			'Politics' => 'politics',
+			'Private' => 'private',
 			'Religion' => 'religion',
 			'Science' => 'science',
 			'Software/Computing' => 'software',
@@ -931,7 +966,7 @@ $wgConf->settings += [
 
 	// CookieWarning
 	'wgCookieWarningMoreUrl' => [
-		'default' => 'https://meta.wikitide.com/wiki/Special:MyLanguage/Privacy_Policy#4._Cookies',
+		'default' => 'https://meta.wikiforge.net/wiki/Special:MyLanguage/Privacy_Policy#4._Cookies',
 	],
 	'wgCookieWarningEnabled' => [
 		'default' => true,
@@ -1007,7 +1042,8 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgDiscordNotificationCentralAuthWikiUrl' => [
-		'default' => 'https://meta.wikiforge.net/',
+		'wikiforge' => 'https://meta.wikiforge.net/',
+		'wikitide' => 'https://meta.wikitide.com/',
 	],
 	'wgDiscordNotificationBlockedUser' => [
 		'default' => true,
@@ -1018,6 +1054,7 @@ $wgConf->settings += [
 	'wgDiscordNotificationIncludeAutocreatedUsers' => [
 		'default' => true,
 		'metawiki' => false,
+		'metawikitide' => false,
 	],
 	'wgDiscordAdditionalIncomingWebhookUrls' => [
 		'default' => [],
@@ -1053,6 +1090,20 @@ $wgConf->settings += [
 			],
 		],
 		'+metawiki' => [
+			'article_inserted' => [
+				'groups' => [
+					'bot',
+					'flood',
+				],
+			],
+			'article_saved' => [
+				'groups' => [
+					'bot',
+					'flood',
+				],
+			],
+		],
+		'+metawikitide' => [
 			'article_inserted' => [
 				'groups' => [
 					'bot',
@@ -1143,12 +1194,6 @@ $wgConf->settings += [
 	],
 
 	// ElasticSearch
-	'wmgDisableSearchUpdate' => [
-		'default' => false,
-	],
-	'wmgSearchType' => [
-		'default' => false,
-	],
 	'wmgShowPopupsByDefault' => [
 		'default' => false,
 	],
@@ -1410,6 +1455,7 @@ $wgConf->settings += [
 	'wgApplyGlobalBlocks' => [
 		'default' => true,
 		'metawiki' => false,
+		'metawikitide' => false,
 	],
 	'wgGlobalBlockingDatabase' => [
 		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
@@ -1448,7 +1494,7 @@ $wgConf->settings += [
 	// GlobalUsage
 	'wgGlobalUsageDatabase' => [
 		'wikiforge' => 'commonswiki',
-		'wikiforge' => 'commonswikitide',
+		'wikitide' => 'commonswikitide',
 	],
 	'wgGlobalUsageSharedRepoWiki' => [
 		'default' => false,
@@ -1571,7 +1617,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgInterwikiCentralDB' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgExtraInterlanguageLinkPrefixes' => [
 		'default' => [
@@ -1589,7 +1635,7 @@ $wgConf->settings += [
 
 	// ImportDump
 	'wgImportDumpCentralWiki' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgImportDumpInterwikiMap' => [
 		'default' => [
@@ -1600,7 +1646,7 @@ $wgConf->settings += [
 		],
 	],
 	'wgImportDumpScriptCommand' => [
-		'default' => 'screen -d -m bash -c ". /etc/s3-env.sh; aws s3 cp s3://static.wikiforge.net/metawiki/{file} /home/$USER/{file}; mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /home/$USER/{file}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y; rm /home/$USER/{file}"',
+		'default' => 'screen -d -m bash -c ". /etc/s3-env.sh; aws s3 cp s3://static.wikiforge.net/' . $wi::CENTRAL_WIKI[$wi->wikifarm] . '/{file} /home/$USER/{file}; mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /home/$USER/{file}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y; rm /home/$USER/{file}"',
 	],
 	'wgImportDumpUsersNotifiedOnAllRequests' => [
 		'default' => [
@@ -1791,6 +1837,27 @@ $wgConf->settings += [
 			'namespaces' => true,
 			'permissions' => true,
 			'settings' => true,
+		],
+	],
+	'wgManageWikiExtensionsDefault' => [
+		'wikitide' => [
+			'categorytree',
+			'cite',
+			'citethispage',
+			'citizen',
+			'codeeditor',
+			'codemirror',
+			'cologneblue',
+			'cosmos',
+			'darkmode',
+			'modern',
+			'monobook',
+			'purge',
+			'syntaxhighlight_geshi',
+			'textextracts',
+			'timeless',
+			'urlshortener',
+			'wikiseo',
 		],
 	],
 	'wgManageWikiPermissionsAdditionalAddGroups' => [
@@ -2277,8 +2344,11 @@ $wgConf->settings += [
 		'default' => 'firejail',
 	],
 	'wgCrossSiteAJAXdomains' => [
-		'default' => [
+		'wikiforge' => [
 			'meta.wikiforge.net',
+		],
+		'wikitide' => [
+			'meta.wikitide.com',
 		],
 	],
 	'wgTidyConfig' => [
@@ -2500,6 +2570,10 @@ $wgConf->settings += [
 			'userrights-interwiki',
 		],
 		'+metawiki' => [
+			'editsitejs',
+			'edituserjs',
+		],
+		'+metawikitide' => [
 			'editsitejs',
 			'edituserjs',
 		],
@@ -2879,8 +2953,10 @@ $wgConf->settings += [
 
 	// RemovePII
 	'wgRemovePIIAllowedWikis' => [
-		'default' => [
+		'wikiforge' => [
 			'metawiki',
+		],
+		'wikitide' => [
 			'metawikitide',
 		],
 	],
@@ -3135,7 +3211,6 @@ $wgConf->settings += [
 	// StopForumSpam
 	// Download from https://www.stopforumspam.com/downloads (recommended listed_ip_30_all.zip)
 	// for ipv4 + ipv6 combined.
-	// TODO: Setup cron to update this automatically.
 	'wgSFSIPListLocation' => [
 		'default' => '/srv/mediawiki/stopforumspam/listed_ip_30_ipv46_all.txt',
 	],
@@ -3268,10 +3343,20 @@ $wgConf->settings += [
 
 	// TitleBlacklist
 	'wgTitleBlacklistSources' => [
-		'default' => [
+		'wikiforge' => [
 			'global' => [
 				'type' => 'url',
 				'src' => 'https://meta.wikiforge.net/wiki/Title_blacklist?action=raw',
+			],
+			'local' => [
+				'type' => 'localpage',
+				'src' => 'MediaWiki:Titleblacklist',
+			],
+		],
+		'wikitide' => [
+			'global' => [
+				'type' => 'url',
+				'src' => 'https://meta.wikitide.com/wiki/Title_blacklist?action=raw',
 			],
 			'local' => [
 				'type' => 'localpage',
@@ -3802,7 +3887,7 @@ $wgConf->settings += [
 
 	// WikiDiscover
 	'wgWikiDiscoverListPrivateWikis' => [
-		'default' => false,
+		'wikiforge' => false,
 	],
 	'wgWikiDiscoverUseDescriptions' => [
 		'default' => true,
@@ -3810,7 +3895,7 @@ $wgConf->settings += [
 
 	// WikiForge
 	'wgWikiForgeMagicRequestPremiumWikiExtensionsDefaultEnabled' => [
-		'default' => [
+		'wikiforge' => [
 			'advancedsearch',
 			'categorytree',
 			'cirrussearch',
@@ -3833,7 +3918,7 @@ $wgConf->settings += [
 		],
 	],
 	'wgWikiForgeMagicRequestPremiumWikiPlans' => [
-		'default' => [
+		'wikiforge' => [
 			'basic' => [
 				'pricing' => 'Starting from $9.99/month',
 				'info' => 'Get started with our basic plan that offers essential features for your premium wiki.',
@@ -3869,10 +3954,25 @@ $wgConf->settings += [
 		],
 	],
 	'wgWikiForgeMagicServicesRepo' => [
-		'default' => '/srv/services/services',
+		'wikiforge' => '/srv/services/services',
 	],
 	'wgWikiForgeUseCentralAuth' => [
-		'default' => true,
+		'wikiforge' => true,
+	],
+
+	// WikiTide
+	'wgWikiTideMagicServicesRepo' => [
+		'wikitide' => '/srv/services/services',
+	],
+	/**
+	 * Only SRE are allowed access
+	 * DO NOT ADD UNAUTHORIZED USERS
+	 */
+	'wgWikiTideMagicSREAccessIds' => [
+		'default' => [],
+	],
+	'wgWikiTideMagicSurveyEnabled' => [
+		'default' => false,
 	],
 
 	// WikimediaIncubator
@@ -4042,6 +4142,9 @@ $wgConf->settings += [
 	// Control MediaWiki Deprecation Warnings
 	'wgDeprecationReleaseLimit' => [
 		'default' => '1.34',
+		'alphatestwiki' => false,
+		'betatestwiki' => false,
+		'test1wiki' => false,
 	],
 ];
 
