@@ -351,9 +351,6 @@ $wgConf->settings += [
 			$wi::CENTRAL_WIKI[$wi->wikifarm],
 		],
 	],
-	'wgCentralAuthAutoNew' => [
-		'default' => true,
-	],
 	'wgCentralAuthAutoMigrate' => [
 		'default' => true,
 	],
@@ -376,14 +373,50 @@ $wgConf->settings += [
 	'wgCentralAuthEnableGlobalRenameRequest' => [
 		'default' => true,
 	],
+	'wgCentralAuthGlobalBlockInterwikiPrefix' => [
+		'default' => 'meta',
+	],
 	'wgCentralAuthLoginWiki' => [
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+	],
+	'wgCentralAuthOldNameAntiSpoofWiki' => [
 		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthPreventUnattached' => [
 		'default' => true,
 	],
-	'wgCentralAuthSilentLogin' => [
+	'wgGlobalRenameDenylist' => [
+		'wikiforge' => 'https://meta.wikiforge.net/wiki/MediaWiki:Global_rename_denylist?action=raw',
+		'wikitide' => 'https://meta.wikitide.com/wiki/MediaWiki:Global_rename_denylist?action=raw',
+	],
+	'wgGlobalRenameDenylistRegex' => [
 		'default' => true,
+	],
+
+	// CentralNotice
+	'wgNoticeInfrastructure' => [
+		'metawikitide' => true,
+	],
+	'wgCentralSelectedBannerDispatcher' => [
+		'wikitide' => 'https://meta.wikitide.com/wiki/Special:BannerLoader',
+	],
+	'wgCentralBannerRecorder' => [
+		'wikitide' => 'https://meta.wikitide.com/wiki/Special:RecordImpression',
+	],
+	'wgCentralDBname' => [
+		'wikitide' => 'metawikitide',
+	],
+	'wgCentralHost' => [
+		'wikitide' => 'https://meta.wikitide.com',
+	],
+	'wgNoticeProjects' => [
+		'wikitide' => [
+			'all',
+			'optout',
+		],
+	],
+	'wgNoticeUseTranslateExtension' => [
+		'wikitide' => true,
 	],
 
 	// Chameleon
