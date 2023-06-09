@@ -4052,6 +4052,11 @@ if ( wfHostname() === 'test1.wikiforge.net' ) {
 	$wgConf->settings['wgUseCdn']['default'] = false;
 }
 
+// CookieWarning exempt ElectronPdfService (services1)
+if ( in_array( $_SERVER['REMOTE_ADDR'] ?? '', [ '74.208.104.183' ] ) ) {
+	$wgConf->settings['wgCookieWarningEnabled']['default'] = false;
+}
+
 // ManageWiki settings
 require_once __DIR__ . '/ManageWikiExtensions.php';
 $wi::$disabledExtensions = [
