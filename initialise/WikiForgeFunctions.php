@@ -227,8 +227,8 @@ class WikiForgeFunctions {
 
 		return ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ?
 			self::TAGS['wikiforge'] :
-		( substr( self::$currentDatabase, -8 ) === 'wikitide' ) ?
-			self::TAGS['wikitide'] : $wikiFarm;
+		( ( substr( self::$currentDatabase, -8 ) === 'wikitide' ) ?
+			self::TAGS['wikitide'] : $wikiFarm );
 	}
 
 	/**
