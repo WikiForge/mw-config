@@ -71,7 +71,7 @@ class WikiForgeFunctions {
 
 	public const SUFFIXES = [
 		'wiki' => 'wikiforge.net',
-		'wtwiki' => 'wikitide.com',
+		'wikitide' => 'wikitide.com',
 	];
 
 	public function __construct() {
