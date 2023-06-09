@@ -59,8 +59,8 @@ $wgObjectCaches['mysql-multiwrite'] = [
 ];
 
 $wgObjectCaches['session'] = [
-    'class' => SQLBagOStuff::class,
-    'tablePrefix' => $wi->wikifarm . '_',
+	'class' => SQLBagOStuff::class,
+	'tablePrefix' => $wi->wikifarm . '_',
 ];
 
 $wgSessionCacheType = 'session';
