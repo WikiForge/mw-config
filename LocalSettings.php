@@ -798,6 +798,9 @@ $wgConf->settings += [
 		'wikiforge' => 'wiki',
 		'wikitide' => 'wikitide',
 	],
+	'wgCreateWikiEnableManageInactiveWikis' => [
+		'wikitide' => true,
+	],
 	'wgCreateWikiGlobalWiki' => [
 		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 		'test1wiki' => 'test1wiki',
@@ -1319,7 +1322,10 @@ $wgConf->settings += [
 		'default' => '1.25e7',
 	],
 	'wgWikiForgeCommons' => [
-		'default' => true,
+		'wikiforge' => true,
+	],
+	'wgWikiTideCommons' => [
+		'wikitide' => true,
 	],
 	'wgEnableImageWhitelist' => [
 		'default' => false,
@@ -4004,6 +4010,18 @@ $wgConf->settings += [
 	],
 
 	// CreateWiki Defined Special Variables
+	'cwClosed' => [
+		'wikitide' => false,
+	],
+	'cwExperimental' => [
+		'wikitide' => false,
+	],
+	'cwInactive' => [
+		'wikitide' => false,
+	],
+	'cwLocked' => [
+		'wikitide' => false,
+	],
 	'cwPrivate' => [
 		'default' => false,
 	],
