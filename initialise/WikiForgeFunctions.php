@@ -107,7 +107,7 @@ class WikiForgeFunctions {
 
 		// We need the CLI to be able to access 'deleted' wikis
 		if ( PHP_SAPI === 'cli' ) {
-			$databases ??= array_merge( self::readDbListFile( 'databases-' . $wikiFarm ), self::readDbListFile( 'deleted-' . $wikkFarm ) );
+			$databases ??= array_merge( self::readDbListFile( 'databases-' . $wikiFarm ), self::readDbListFile( 'deleted-' . $wikiFarm ) );
 		}
 
 		$databases ??= self::readDbListFile( 'databases-' . $wikiFarm );
@@ -975,9 +975,15 @@ class WikiForgeFunctions {
 
 		foreach ( self::MEDIAWIKI_VERSIONS as $name => $version ) {
 			$databaseLists += [
-				$name . '-wikis' => [
+				$name . '-wikis-wikiforge' => [
 					'combi' => self::getCombiList(
-						self::GLOBAL_DATABASE,
+						self::GLOBAL_DATABASE['wikiforge'],
+						$version
+					),
+				],
+				$name . '-wikis-wikitide' => [
+					'combi' => self::getCombiList(
+						self::GLOBAL_DATABASE['wikitide'],
 						$version
 					),
 				],
