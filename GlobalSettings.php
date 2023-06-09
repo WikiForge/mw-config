@@ -2,11 +2,13 @@
 
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 
-$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
-$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
+if ( $wi->wikifarm === 'wikiforge' ) {
+	$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
+	$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
+}
 
 // Extensions
-if ( $wgWikiForgeUseCentralAuth ) {
+if ( $wi->wikifarm === 'wikitide' || $wgWikiForgeUseCentralAuth ) {
 	wfLoadExtensions( [
 		'CentralAuth',
 		'GlobalCssJs',
@@ -15,7 +17,7 @@ if ( $wgWikiForgeUseCentralAuth ) {
 	] );
 
 	$wgMWOAuthSharedUserSource = 'CentralAuth';
-	$wgOATHAuthDatabase = 'prodglobal';
+	$wgOATHAuthDatabase = $wi::GLOBAL_DATABASE[$wi->wikifarm];
 }
 
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
@@ -47,7 +49,7 @@ if ( $wi->isAnyOfExtensionsActive( 'Email Authorization', 'OpenID Connect', 'Sim
 	wfLoadExtension( 'PluggableAuth' );
 }
 
-if ( $wgWikiForgeCommons && !$cwPrivate ) {
+if ( ( $wgWikiTideCommons || $wgWikiForgeCommons ) && !$cwPrivate ) {
 	wfLoadExtension( 'GlobalUsage' );
 }
 
@@ -428,7 +430,7 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 }
 
 // WikiForge Commons
-if ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ) {
+if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ) ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => 'wikiforgecommons',
@@ -443,6 +445,41 @@ if ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ) {
 		'fetchDescription' => true,
 		'descriptionCacheExpiry' => 86400 * 7,
 		'wiki' => 'commonswiki',
+		'initialCapital' => true,
+		'zones' => [
+			'public' => [
+				'container' => 'local-public',
+			],
+			'thumb' => [
+				'container' => 'local-thumb',
+			],
+			'temp' => [
+				'container' => 'local-temp',
+			],
+			'deleted' => [
+				'container' => 'local-deleted',
+			],
+		],
+		'abbrvThreshold' => 160
+	];
+}
+
+// WikiTide Commons
+if ( $wi->wikifarm === 'wikitide' && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ) ) {
+	$wgForeignFileRepos[] = [
+		'class' => ForeignDBViaLBRepo::class,
+		'name' => 'wikitidecommons',
+		'backend' => 'AmazonS3',
+		'url' => 'https://static.wikiforge.net/commonswikitide',
+		'hashLevels' => 2,
+		'thumbScriptUrl' => false,
+		'transformVia404' => true,
+		'hasSharedCache' => true,
+		'descBaseUrl' => 'https://commons.wikitide.com/wiki/File:',
+		'scriptDirUrl' => 'https://commons.wikitide.com/w',
+		'fetchDescription' => true,
+		'descriptionCacheExpiry' => 86400 * 7,
+		'wiki' => 'commonswikitide',
 		'initialCapital' => true,
 		'zones' => [
 			'public' => [
@@ -487,9 +524,13 @@ if ( $wgWordmark ) {
 // $wgUrlShortenerAllowedDomains
 $wgUrlShortenerAllowedDomains = [
 	'(.*\.)?wikiforge\.net',
+	'(.*\.)?wikitide\.com',
 ];
 
-if ( !preg_match( '/^(.*).wikiforge.net$/', $wi->hostname ) ) {
+if (
+	!preg_match( '/^(.*).wikiforge.net$/', $wi->hostname ) &&
+	!preg_match( '/^(.*).wikitide.com$/', $wi->hostname )
+) {
 	$wgUrlShortenerAllowedDomains = array_merge(
 		$wgUrlShortenerAllowedDomains,
 		[ preg_quote( str_replace( 'https://', '', $wgServer ) ) ]
@@ -517,13 +558,23 @@ if ( $wi->isExtensionActive( 'JsonConfig' ) ) {
 		],
 	];
 
-	if ( $wgDBname !== 'commonswiki' ) {
+	if ( $wi->wikifarm === 'wikiforge' && $wgDBname !== 'commonswiki' ) {
 		$wgJsonConfigs['Map.JsonConfig']['remote'] = [
 			'url' => 'https://commons.wikiforge.net/w/api.php'
 		];
 
 		$wgJsonConfigs['Tabular.JsonConfig']['remote'] = [
 			'url' => 'https://commons.wikiforge.net/w/api.php'
+		];
+	}
+
+	if ( $wi->wikifarm === 'wikitide' && $wgDBname !== 'commonswikitide' ) {
+		$wgJsonConfigs['Map.JsonConfig']['remote'] = [
+			'url' => 'https://commons.wikitide.com/w/api.php'
+		];
+
+		$wgJsonConfigs['Tabular.JsonConfig']['remote'] = [
+			'url' => 'https://commons.wikitide.com/w/api.php'
 		];
 	}
 }
