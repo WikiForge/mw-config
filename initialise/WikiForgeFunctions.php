@@ -1025,6 +1025,13 @@ class WikiForgeFunctions {
 			],
 		];
 
+		$databaseLists['databases-all'] = [
+			'combi' => array_merge(
+				$databaseLists['databases-wikiforge']['combi'],
+				$databaseLists['databases-wikitide']['combi']
+			)
+		];
+
 		foreach ( self::MEDIAWIKI_VERSIONS as $name => $version ) {
 			$databaseLists += [
 				$name . '-wikis-wikiforge' => [
