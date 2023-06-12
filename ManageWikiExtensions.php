@@ -1819,6 +1819,17 @@ $wgManageWikiExtensions = [
 	],
 
 	// Other
+	'advancedsearch' => [
+		'name' => 'AdvancedSearch',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:AdvancedSearch',
+		'conflicts' => false,
+		'requires' => [
+			'extensions' => [
+				'cirrussearch',
+			],
+		],
+		'section' => 'other',
+	],
 	'articlecreationworkflow' => [
 		'name' => 'ArticleCreationWorkflow',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ArticleCreationWorkflow',
@@ -1969,6 +1980,25 @@ $wgManageWikiExtensions = [
 		'conflicts' => false,
 		'requires' => [],
 		'install' => [],
+		'section' => 'other',
+	],
+	'cirrussearch' => [
+		'name' => 'CirrusSearch',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CirrusSearch',
+		'conflicts' => false,
+		'requires' => [],
+		'install' => [
+			'mwscript' => [
+				"$IP/extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php" => [],
+				"$IP/extensions/CirrusSearch/maintenance/ForceSearchIndex.php" => [
+					'skipLinks' => false,
+					'indexOnSkip' => false,
+					'repeat-with' => [
+						'skipParse' => false,
+					],
+				],
+			],
+		],
 		'section' => 'other',
 	],
 	'cleanchanges' => [
@@ -3570,3 +3600,12 @@ $wgManageWikiExtensions = [
 		'section' => 'skins',
 	],
 ];
+
+// No CirrusSearch on WikiTide (yet at least)
+if ( $wi->wikifarm === 'wikitide' ) {
+	unset(
+		$wgManageWikiExtensions['advancedsearch'],
+		$wgManageWikiExtensions['cirrussearch'],
+		$wgManageWikiExtensions['relatedarticles']
+	);
+}

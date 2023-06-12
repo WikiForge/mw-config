@@ -23,13 +23,25 @@ if ( ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
 		$path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 		$segments = explode( '/', $path );
 		$title = end( $segments );
+
+		$title = str_replace( '%20', '_', $title );
 	}
 
 	// Check if the title matches the main page title
-	if ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' && $title === str_replace( ' ', '_', wfMessage( 'mainpage' )->text() ) ) {
-		// Redirect to the domain root
-		header( 'Location: /', true, 301 );
-		exit;
+	if ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' && $title === str_replace( ' ', '_', wfMessage( 'mainpage' )->text() ) && !str_contains( $_SERVER['REQUEST_URI'], '/wiki/' ) ) {
+		$currentTitle = Title::newFromText( $segments[1] ?? $title );
+		if ( $currentTitle && $currentTitle->getNamespace() !== NS_SPECIAL ) {
+			// Redirect to the domain root
+			$redirectUrl = str_replace( $title, '', $_SERVER['REQUEST_URI'] );
+			$redirectUrl = str_replace( '?useformat=mobile', '', $redirectUrl );
+			$redirectUrl = str_replace( '&useformat=mobile', '', $redirectUrl );
+
+			header( 'Location: ' . $redirectUrl, true, 301 );
+			exit;
+		}
+
+		// Don't need a global here
+		unset( $currentTitle );
 	}
 
 	/* if ( mb_strtolower( mb_substr( $title, 0, 1 ) ) === mb_substr( $title, 0, 1 ) ) {

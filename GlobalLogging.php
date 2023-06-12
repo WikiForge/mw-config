@@ -17,7 +17,6 @@ $wgDebugLogGroups = [
 	'exception' => "$wmgLogDir/debuglogs/exception.log",
 	'exec' => "$wmgLogDir/debuglogs/exec.log",
 	'Math' => "$wmgLogDir/debuglogs/Math.log",
-	'MatomoAnalytics' => "$wmgLogDir/debuglogs/MatomoAnalytics.log",
 	'ManageWiki' => "$wmgLogDir/debuglogs/ManageWiki.log",
 	'memcached' => [
 		'destination' => "$wmgLogDir/debuglogs/memcached.log",
@@ -31,6 +30,11 @@ $wgDebugLogGroups = [
 	'thumbnail' => "$wmgLogDir/debuglogs/thumbnail.log",
 	'VisualEditor' => "$wmgLogDir/debuglogs/VisualEditor.log",
 ];
+
+if ( wfHostname() === 'test1.wikiforge.net' ) {
+	$wgShowExceptionDetails = true;
+	$wgDebugDumpSql = true;
+}
 
 if ( $wgCommandLineMode ) {
 	error_reporting( -1 );

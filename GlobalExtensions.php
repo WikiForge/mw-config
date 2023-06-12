@@ -3,6 +3,7 @@
 wfLoadSkin( 'Vector' );
 
 wfLoadExtensions( [
+	'AWS',
 	'AbuseFilter',
 	'AntiSpoof',
 	'BetaFeatures',
@@ -16,7 +17,6 @@ wfLoadExtensions( [
 	'DismissableSiteNotice',
 	'Echo',
 	'GlobalNewFiles',
-	'IncidentReporting',
 	'Interwiki',
 	'IPInfo',
 	'LoginNotify',
@@ -35,8 +35,18 @@ wfLoadExtensions( [
 	'StopForumSpam',
 	'TitleBlacklist',
 	'TorBlock',
+	'WebAuthn',
 	'WikiDiscover',
 	'WikiEditor',
-	'WikiForgeMagic',
 	'cldr',
 ] );
+
+if ( $wi->wikifarm === 'wikitide' ) {
+	wfLoadExtensions( [
+		'CentralNotice',
+		'EventLogging',
+		'WikiTideMagic',
+	] );
+} else {
+	wfLoadExtension( 'WikiForgeMagic' );
+}

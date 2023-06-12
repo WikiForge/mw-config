@@ -1242,6 +1242,16 @@ $wgManageWikiSettings = [
 		'help' => 'This option allows you to use the WikiForge Commons file database on your wiki.',
 		'requires' => [],
 	],
+	'wgWikiTideCommons' => [
+		'name' => 'Enable WikiTide Commons (linking to commons.wikitide.com)',
+		'from' => 'mediawiki',
+		'global' => true,
+		'type' => 'check',
+		'overridedefault' => true,
+		'section' => 'media',
+		'help' => 'This option allows you to use the WikiTide Commons file database on your wiki.',
+		'requires' => [],
+	],
 	'wgShowArchiveThumbnails' => [
 		'name' => 'Show Old Thumbnails On Description Page',
 		'from' => 'mediawiki',
@@ -4350,6 +4360,12 @@ $wgManageWikiSettings = [
 		'requires' => [],
 	],
 ];
+
+if ( $wi->wikifarm === 'wikitide' ) {
+	unset( $wgManageWikiSettings['wgWikiForgeCommons'] );
+} else {
+	unset( $wgManageWikiSettings['wgWikiTideCommons'] );
+}
 
 if ( $wi->isAllOfExtensionsActive( 'Gamepress', 'Theme' ) ) {
 	$wgManageWikiSettings['wgDefaultTheme']['options']['Blue (Gamepress only)'] = 'blue';

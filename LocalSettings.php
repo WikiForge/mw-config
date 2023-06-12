@@ -86,11 +86,12 @@ $wgConf->settings += [
 		],
 	],
 	'wgAbuseFilterCentralDB' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgAbuseFilterIsCentral' => [
 		'default' => false,
 		'metawiki' => true,
+		'metawikitide' => true,
 	],
 	'wgAbuseFilterBlockDuration' => [
 		'default' => 'indefinite',
@@ -165,10 +166,17 @@ $wgConf->settings += [
 	],
 	// https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:SpamBlacklist#Block_list_syntax
 	'wgBlacklistSettings' => [
-		'default' => [
+		'wikiforge' => [
 			'spam' => [
 				'files' => [
 					'https://meta.wikiforge.net/wiki/Spam_blacklist?action=raw&sb_ver=1',
+				],
+			],
+		],
+		'wikitide' => [
+			'spam' => [
+				'files' => [
+					'https://meta.wikitide.com/wiki/Spam_blacklist?action=raw&sb_ver=1',
 				],
 			],
 		],
@@ -270,7 +278,7 @@ $wgConf->settings += [
 
 	// Bot passwords
 	'wgBotPasswordsDatabase' => [
-		'default' => 'prodglobal',
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// Cache
@@ -340,11 +348,8 @@ $wgConf->settings += [
 	// CentralAuth
 	'wgCentralAuthAutoCreateWikis' => [
 		'default' => [
-			'metawiki',
+			$wi::CENTRAL_WIKI[$wi->wikifarm],
 		],
-	],
-	'wgCentralAuthAutoNew' => [
-		'default' => true,
 	],
 	'wgCentralAuthAutoMigrate' => [
 		'default' => true,
@@ -356,25 +361,62 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCentralAuthCookiePrefix' => [
-		'default' => 'centralauth_',
+		'wikiforge' => 'centralauth_wikiforge_',
+		'wikitide' => 'centralauth_wikitide_',
 	],
 	'wgCentralAuthCreateOnView' => [
 		'default' => true,
 	],
 	'wgCentralAuthDatabase' => [
-		'default' => 'prodglobal',
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 	'wgCentralAuthEnableGlobalRenameRequest' => [
 		'default' => true,
 	],
+	'wgCentralAuthGlobalBlockInterwikiPrefix' => [
+		'default' => 'meta',
+	],
 	'wgCentralAuthLoginWiki' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+	],
+	'wgCentralAuthOldNameAntiSpoofWiki' => [
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthPreventUnattached' => [
 		'default' => true,
 	],
-	'wgCentralAuthSilentLogin' => [
+	'wgGlobalRenameDenylist' => [
+		'wikiforge' => 'https://meta.wikiforge.net/wiki/MediaWiki:Global_rename_denylist?action=raw',
+		'wikitide' => 'https://meta.wikitide.com/wiki/MediaWiki:Global_rename_denylist?action=raw',
+	],
+	'wgGlobalRenameDenylistRegex' => [
 		'default' => true,
+	],
+
+	// CentralNotice
+	'wgNoticeInfrastructure' => [
+		'metawikitide' => true,
+	],
+	'wgCentralSelectedBannerDispatcher' => [
+		'wikitide' => 'https://meta.wikitide.com/wiki/Special:BannerLoader',
+	],
+	'wgCentralBannerRecorder' => [
+		'wikitide' => 'https://meta.wikitide.com/wiki/Special:RecordImpression',
+	],
+	'wgCentralDBname' => [
+		'wikitide' => 'metawikitide',
+	],
+	'wgCentralHost' => [
+		'wikitide' => 'https://meta.wikitide.com',
+	],
+	'wgNoticeProjects' => [
+		'wikitide' => [
+			'all',
+			'optout',
+		],
+	],
+	'wgNoticeUseTranslateExtension' => [
+		'wikitide' => true,
 	],
 
 	// Chameleon
@@ -402,19 +444,31 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCheckUserCAtoollink' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCheckUserGBtoollink' => [
-		'default' => [
+		'wikiforge' => [
 			'centralDB' => 'metawiki',
+			'groups' => [
+				'staff',
+			],
+		],
+		'wikitide' => [
+			'centralDB' => 'metawikitide',
 			'groups' => [
 				'steward',
 			],
 		],
 	],
 	'wgCheckUserCAMultiLock' => [
-		'default' => [
+		'wikiforge' => [
 			'centralDB' => 'metawiki',
+			'groups' => [
+				'staff',
+			],
+		],
+		'wikitide' => [
+			'centralDB' => 'metawikitide',
 			'groups' => [
 				'steward',
 			],
@@ -634,6 +688,8 @@ $wgConf->settings += [
 	'wgCreateWikiDisallowedSubdomains' => [
 		'default' => [
 			'(.*)wikiforge(.*)',
+			'(.*)wikitide(.*)',
+			'(.*)fwikis(.*)',
 			'subdomain',
 			'example',
 			'meta',
@@ -714,11 +770,51 @@ $wgConf->settings += [
 			'(.*)wiki(pedi)?a(.*)',
 		],
 	],
+	'wgCreateWikiCannedResponses' => [
+		'wikitide' => [
+			'Approval reasons' => [
+				'Perfect request' => 'Perfect. Clear purpose, scope, and topic. Please ensure your wiki complies with all aspects of the Content Policy and Code of Conduct at all times and that it does not deviate from the approved scope or else your wiki may be closed. Thank you for choosing WikiTide!',
+				'Good request' => 'Pretty good. Purpose and description are a bit vague, but there is nonetheless a clear enough purpose, scope, and/or topic here. Please ensure your wiki complies with all aspects of the Content Policy and Code of Conduct at all times and that it does not deviate from the approved scope or else your wiki will be closed. Thank you for choosing WikiTide!',
+				'Okay request' => 'Okay-ish. Description doesn\'t meet our requirements, but in this case the sitename, URL, and categorisation suggest this is a wiki that would follow the Content Policy made clear by the preceding fields, and it is conditionally approved as such. Please be advised that if your wiki deviates too much from this approval, remedial action can be taken by a Steward which includes wiki closure and potential revocation of wiki requesting privileges, if necessary. Please ensure your wiki complies with all aspects of Content Policy and Code of Conduct at all times. Thank you.',
+				'Categorised as private' => 'The purpose and scope of your wiki is clear enough. Please ensure your wiki complies with all aspects of the Content Policy and Code of Conduct at all times or it may be closed. Please also note that I have categorised your wiki as "Private". Thank you.',
+			],
+			'Decline reasons' => [
+				'Needs more details' => 'Can you give us a few more details on the purpose for, scope of, and topic of your wiki, and briefly describe some of your wiki\'s content in approximately 2-3 sentences? Additionally can you elaborate on your wiki\'s scope and topical focus a bit further? A few sentences describing the scope of your wiki and the sort of content it will contain should be helpful. Please go back into your original request and add to, but do not replace, your existing description. Thank you.',
+				'Invalid or unclear subdomain' => 'The scope and purpose of the wiki seem clear enough. However, your requested subdomain is either invalid, is too generic, conveys a WikiTide affiliation, or suggests the wiki is an English language or multilingual wiki when it is not. Please change it to something that better reflects your wiki\'s purpose and scope. Thank you.',
+				'Invalid sitename/subdomain (obsence wording)' => 'The scope and purpose of the wiki seem clear enough. However, the requested wiki name or subdomain is in violation of our Content Policy which prohibits obsence wording in wiki names and subdomains. Please change it to something that is better. Thank you.',
+				'Use Public Test Wiki' => 'Please use Public Test Wiki, https://publictestwiki.com, to test the administrator and bureaucrat tools. You should review and follow all TestWiki:Policies, especially TestWiki:Testing policy and TestWiki:Main policy, reverting all tests you perform in the reverse order which you performed them. Request permissions at TestWiki:Request permissions. Thank you.',
+				'Database exists (wiki active)' => 'A wiki already exists at the selected subdomain. Please visit the local wiki and contribute there. Please reach out to any local bureaucrat to request any permissions if you require them. If bureaucrats are not active on the wiki after a reasonable period of time, please start a local election and ask a Steward to evaluate it on the Stewards\' noticeboard. Thanks.',
+				'Database exists (wiki closed)' => 'A wiki exists at the subdomain selected but is closed. Please visit the Requests for reopening wikis page to request to reopen the wiki or ask for help on Community noticeboard.',
+				'Database exists (wiki already deleted)' => 'A wiki exists at the selected subdomain but has been deleted in accordance with the Dormancy Policy. I will request a Steward undelete it for you. When it has been undeleted and reopened, please visit the local wiki and ensure you make at least one edit or log action every 45 days. Wikis are only deleted after 6 months of complete inactivity; if you require a Dormancy Policy exemption, you should review the policy and request it once your wiki has at least 40-60 content pages. Thank you.',
+				'Database exists (wiki undeleted)' => 'The selected wiki database name already exists and the wiki was closed, however, the wiki has now been reopened. Please visit the wiki and ensure you make at least one edit or log action every 45 days. Wikis are only deleted after 6 months of complete inactivity. Please reach out to any local bureaucrat to request any permissions if you require them. If bureaucrats are not active on the wiki after a reasonable period of time, please start a local election and ask a Steward to evaluate it on the Stewards\' noticeboard. Thank you.',
+				'Database exists (unrelated purpose)' => 'Wiki database name and subdomain already exist. The wiki does not however seem to have the same purpose as the one you are requesting here, so you will need to request a different subdomain.  Please update this request once you have selected a new subdomain to reopen it for consideration.',
+				'Duplicate request' => 'Declining as a duplicate request, which needs more information. Please do not edit this request and instead go back into your original request. Also, please do not submit duplicate requests. Thank you.',
+				'Excessive requests' => 'Declining as you have requested an excessive amount of wikis. Thank you for your understanding. If you believe you have legitimate need for this amount of wikis, please reply to this request with a 2-3 sentence reasoning on why you need the wikis.',
+				'Vandal request' => 'Declining as this wiki request is product of either vandalism or trolling.',
+				'Content Policy (commercial activity)' => 'Declining per Content Policy provision, "The primary purpose of your wiki cannot be for commercial activity." Thank you for understanding. If in error, please edit this wiki request and articulate a clearer purpose and scope for your wiki that makes it clear how this wiki would not violate this criterion of Content Policy.',
+				'Content Policy (deceive, defraud or mislead)' => 'Declining per Content Policy provision, "WikiTide does not host wikis with the sole purpose of deceiving, defrauding, or misleading people." Thank you for your understanding.',
+				'Content Policy (duplicate/similar wiki)' => 'Your proposed wiki appears to duplicate, either substantially or entirely, the scope of an existing wiki, which is prohibited by the Content Policy. Could you please describe in a few more sentences by adding to, but not replacing, your existing description, the scope and focus for your wiki, and also assure us that your wiki will not be a complete or substantial duplication? If your wiki fouses on a subtopic of a bigger wiki, please clarify that. Thank you.',
+				'Content Policy (file sharing service)' => 'Declining per Content Policy provision, "WikiTide does not host wikis whose main purpose is to act as a file sharing service." Thank you for your understanding.',
+				'Content Policy (forks)' => 'Declining per Content Policy provision, "Direct forks of other WikiForge or WikiTide wikis where no attempts at mediations are made are not allowed." Thank you for your understanding.',
+				'Content Policy (illegal UK activity)' => 'Declining per Content Policy provision, "WikiTide does not host any content that is illegal in the United States or the United Kingdom." Thank you for understanding. If you believe this decline reason was used incorrectly, please address this with the declining wiki creator on their user talk page first before escalating your concern to the Stewards\' noticeboard. Thank you.',
+				'Content Policy (makes it difficult for other wikis)' => 'Declining per Content Policy provision, "A wiki must not create problems which make it difficult for other wikis." Thank you for understanding.',
+				'Content Policy (no anarchy wikis)' => 'Declining per Content Policy provision, "WikiTide does not host wikis that operate on the basis of an anarchy system (i.e. no leadership and no rules)." Thank you for understanding.',
+				'Content Policy (sexual nature involving minors)' => 'Declining per Content Policy provision, "WikiTide does not host wikis of a sexual nature which involve minors in any way." Thank you for your understanding.',
+				'Content Policy (toxic communities)' => 'Declining per Content Policy provision, "WikiTide does not host wikis where the community has developed in such a way as to be characterised as toxic." Thank you for your understanding.',
+				'Content Policy (unsubstantiated insult)' => 'Declining per Content Policy provision, "WikiTide does not host wikis which spread unsubstantiated insult, hate or rumours against a person or group of people." Thank you for understanding.',
+				'Content Policy (violence, hatred or harrassment)' => 'Declining per Content Policy provision, "WikiTide does not host wikis that promote violence, hatred, or harassment against a person or group of people." Thank you for your understanding.',
+				'Content Policy (Wikimedia-like wikis/forks)' => 'Declining per Content Policy provision, "Direct forks and forks where a substantial amount of content is copied from a Wikimedia project are not allowed." Thank you for your understanding.',
+				'Reception wiki' => 'Declining per resolution of a Request for Comment, "No new reception wikis will be accepted on the platform." Thank you for your understanding.',
+				'Author request' => 'Declined at the request of the wiki requester.',
+			],
+			'On hold reasons' => [
+				'On hold pending response' => 'On hold pending response from the wiki requester (see the "Request Comments" tab). Please reply to the questions left by the wiki creator on this request but do not create another wiki request. Thank you.',
+				'On hold pending review from another wiki creator' => 'On hold pending review from another Wiki creator or Steward.',
+			],
+		],
+	],
 	'wgCreateWikiCustomDomainPage' => [
 		'default' => 'Special:MyLanguage/Custom_domains',
-	],
-	'wgCreateWikiDatabase' => [
-		'default' => 'prodglobal',
 	],
 	'wgCreateWikiDatabaseClusters' => [
 		'default' => [
@@ -730,16 +826,44 @@ $wgConf->settings += [
 		'default' => []
 	],
 	'wgCreateWikiDatabaseSuffix' => [
-		'default' => 'wiki',
+		'wikiforge' => 'wiki',
+		'wikitide' => 'wikitide',
+	],
+	'wgCreateWikiEnableManageInactiveWikis' => [
+		'wikitide' => true,
 	],
 	'wgCreateWikiGlobalWiki' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'test1wiki' => 'test1wiki',
 	],
 	'wgCreateWikiEmailNotifications' => [
 		'default' => true,
 	],
 	'wgCreateWikiNotificationEmail' => [
 		'default' => 'sre@wikiforge.net',
+	],
+	'wgCreateWikiPurposes' => [
+		'wikitide' => [
+			'Alternate history wiki' => 'Alternate history wiki',
+			'Class or group project education wiki' => 'Class or group project education wiki',
+			'Curriculum resource wiki' => 'Curriculum resource wiki',
+			'Documentation (hardware) wiki' => 'Documentation (hardware) wiki',
+			'Documentation (software) wiki' => 'Documentation (software) wiki',
+			'Encyclopedia (general) wiki' => 'Encyclopedia (general) wiki',
+			'Encyclopedia (specialized) wiki' => 'Encyclopedia (specialized) wiki',
+			'Eurovision-style song contest statistics tracking wiki' => 'Eurovision-style song contest statistics tracking wiki',
+			'Fictional worldbuilding/constructed world wiki' => 'Fictional worldbuilding/constructed world wiki',
+			'Minecraft server wiki' => 'Minecraft server wiki',
+			'Organization (coordination) wiki' => 'Organization (coordination) wiki',
+			'Political simulation wiki' => 'Political simulation wiki',
+			'Roleplaying game wiki' => 'Roleplaying game wiki',
+			'Video game (specified video game) information wiki' => 'Video game (specified video game) information wiki',
+			'Video game (broad genre or video game series) information wiki' => 'Video game (broad genre or video game series) information wiki',
+			'None of the above' => 'None of the above',
+		],
+	],
+	'wgCreateWikiShowBiographicalOption' => [
+		'wikitide' => true,
 	],
 	'wgCreateWikiSQLfiles' => [
 		'default' => [
@@ -753,17 +877,26 @@ $wgConf->settings += [
 			"$IP/extensions/OAuth/schema/mysql/tables-generated.sql",
 			"$IP/extensions/RottenLinks/sql/rottenlinks.sql",
 		],
+		'+wikitide' => [
+			"$IP/extensions/GlobalBlocking/sql/mysql/tables-generated-global_block_whitelist.sql",
+		],
 	],
 	'wgCreateWikiStateDays' => [
-		'default' => [
+		'wikiforge' => [
 			'deleted' => 90,
+		],
+		'wikitide' => [
+			'inactive' => 45,
+			'closed' => 15,
+			'removed' => 120,
+			'deleted' => 14
 		],
 	],
 	'wgCreateWikiCacheDirectory' => [
 		'default' => '/srv/mediawiki/cache'
 	],
 	'wgCreateWikiCategories' => [
-		'default' => [
+		'wikiforge' => [
 			'Art & Architecture' => 'artarc',
 			'Automotive' => 'automotive',
 			'Business & Finance' => 'businessfinance',
@@ -777,7 +910,7 @@ $wgConf->settings += [
 			'Gaming' => 'gaming',
 			'Geography' => 'geography',
 			'History' => 'history',
-			'Humour/Satire' => 'humour',
+			'Humor/Satire' => 'humor',
 			'Language/Linguistics' => 'langling',
 			'Leisure' => 'leisure',
 			'Literature/Writing' => 'literature',
@@ -794,18 +927,59 @@ $wgConf->settings += [
 			'Sports' => 'sport',
 			'Uncategorized' => 'uncategorized',
 		],
+		'wikitide' => [
+			'Art & Architecture' => 'artarc',
+			'Automotive' => 'automotive',
+			'Business & Finance' => 'businessfinance',
+			'Community' => 'community',
+			'Education' => 'education',
+			'Electronics' => 'electronics',
+			'Entertainment' => 'entertainment',
+			'Fandom' => 'fandom',
+			'Fantasy' => 'fantasy',
+			'Gaming' => 'gaming',
+			'Geography' => 'geography',
+			'History' => 'history',
+			'Humor/Satire' => 'humor',
+			'Language/Linguistics' => 'langling',
+			'Leisure' => 'leisure',
+			'Literature/Writing' => 'literature',
+			'Media/Journalism' => 'media',
+			'Medicine/Medical' => 'medical',
+			'Military/War' => 'military',
+			'Music' => 'music',
+			'Podcast' => 'podcast',
+			'Politics' => 'politics',
+			'Private' => 'private',
+			'Religion' => 'religion',
+			'Science' => 'science',
+			'Software/Computing' => 'software',
+			'Song Contest' => 'songcontest',
+			'Sports' => 'sport',
+			'Uncategorized' => 'uncategorized',
+		],
 	],
 	'wgCreateWikiUseCategories' => [
 		'default' => true,
 	],
 	'wgCreateWikiSubdomain' => [
-		'default' => 'wikiforge.net',
+		'wikiforge' => 'wikiforge.net',
+		'wikitide' => 'wikitide.com',
+	],
+	'wgCreateWikiUseClosedWikis' => [
+		'wikitide' => true,
 	],
 	'wgCreateWikiUseCustomDomains' => [
 		'default' => true,
 	],
 	'wgCreateWikiUseEchoNotifications' => [
 		'default' => true,
+	],
+	'wgCreateWikiUseExperimental' => [
+		'wikitide' => true,
+	],
+	'wgCreateWikiUseInactiveWikis' => [
+		'wikitide' => true,
 	],
 	'wgCreateWikiUsePrivateWikis' => [
 		'default' => true,
@@ -898,7 +1072,8 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgDiscordNotificationCentralAuthWikiUrl' => [
-		'default' => 'https://meta.wikiforge.net/',
+		'wikiforge' => 'https://meta.wikiforge.net/',
+		'wikitide' => 'https://meta.wikitide.com/',
 	],
 	'wgDiscordNotificationBlockedUser' => [
 		'default' => true,
@@ -909,6 +1084,7 @@ $wgConf->settings += [
 	'wgDiscordNotificationIncludeAutocreatedUsers' => [
 		'default' => true,
 		'metawiki' => false,
+		'metawikitide' => false,
 	],
 	'wgDiscordAdditionalIncomingWebhookUrls' => [
 		'default' => [],
@@ -944,6 +1120,20 @@ $wgConf->settings += [
 			],
 		],
 		'+metawiki' => [
+			'article_inserted' => [
+				'groups' => [
+					'bot',
+					'flood',
+				],
+			],
+			'article_saved' => [
+				'groups' => [
+					'bot',
+					'flood',
+				],
+			],
+		],
+		'+metawikitide' => [
 			'article_inserted' => [
 				'groups' => [
 					'bot',
@@ -1016,7 +1206,7 @@ $wgConf->settings += [
 		'default' => 'echo',
 	],
 	'wgEchoSharedTrackingDB' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgEchoUseCrossWikiBetaFeature' => [
 		'default' => true,
@@ -1034,12 +1224,6 @@ $wgConf->settings += [
 	],
 
 	// ElasticSearch
-	'wmgDisableSearchUpdate' => [
-		'default' => false,
-	],
-	'wmgSearchType' => [
-		'default' => false,
-	],
 	'wmgShowPopupsByDefault' => [
 		'default' => false,
 	],
@@ -1213,7 +1397,10 @@ $wgConf->settings += [
 		'default' => '1.25e7',
 	],
 	'wgWikiForgeCommons' => [
-		'default' => true,
+		'wikiforge' => true,
+	],
+	'wgWikiTideCommons' => [
+		'wikitide' => true,
 	],
 	'wgEnableImageWhitelist' => [
 		'default' => false,
@@ -1298,23 +1485,30 @@ $wgConf->settings += [
 	'wgApplyGlobalBlocks' => [
 		'default' => true,
 		'metawiki' => false,
+		'metawikitide' => false,
 	],
 	'wgGlobalBlockingDatabase' => [
-		'default' => 'prodglobal',
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// GlobalCssJs
 	'wgGlobalCssJsConfig' => [
 		'default' => [
-			'wiki' => 'metawiki',
-			'source' => 'metawiki',
+			'wiki' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+			'source' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 		],
 	],
 	'+wgResourceLoaderSources' => [
-		'default' => [
+		'wikiforge' => [
 			'metawiki' => [
 				'apiScript' => '//meta.wikiforge.net/w/api.php',
 				'loadScript' => '//meta.wikiforge.net/w/load.php',
+			],
+		],
+		'wikitide' => [
+			'metawikitide' => [
+				'apiScript' => '//meta.wikitide.com/w/api.php',
+				'loadScript' => '//meta.wikitide.com/w/load.php',
 			],
 		],
 	],
@@ -1324,12 +1518,13 @@ $wgConf->settings += [
 
 	// GlobalPreferences
 	'wgGlobalPreferencesDB' => [
-		'default' => 'prodglobal',
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// GlobalUsage
 	'wgGlobalUsageDatabase' => [
-		'default' => 'commonswiki',
+		'wikiforge' => 'commonswiki',
+		'wikitide' => 'commonswikitide',
 	],
 	'wgGlobalUsageSharedRepoWiki' => [
 		'default' => false,
@@ -1340,10 +1535,11 @@ $wgConf->settings += [
 
 	// GlobalUserPage
 	'wgGlobalUserPageAPIUrl' => [
-		'default' => 'https://meta.wikiforge.net/w/api.php',
+		'wikiforge' => 'https://meta.wikiforge.net/w/api.php',
+		'wikitide' => 'https://meta.wikitide.com/w/api.php',
 	],
 	'wgGlobalUserPageDBname' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 
 	// Grant Permissions for BotPasswords and OAuth
@@ -1451,7 +1647,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgInterwikiCentralDB' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgExtraInterlanguageLinkPrefixes' => [
 		'default' => [
@@ -1469,17 +1665,18 @@ $wgConf->settings += [
 
 	// ImportDump
 	'wgImportDumpCentralWiki' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgImportDumpInterwikiMap' => [
 		'default' => [
 			'fandom.com' => 'fandom',
 			'miraheze.org' => 'miraheze',
 			'wikiforge.net' => 'wiki',
+			'wikitide.com' => 'wt',
 		],
 	],
 	'wgImportDumpScriptCommand' => [
-		'default' => 'screen -d -m bash -c "mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /mnt/mediawiki-static/metawiki/{file}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y"',
+		'default' => 'screen -d -m bash -c ". /etc/s3-env.sh; aws s3 cp s3://static.wikiforge.net/' . $wi::CENTRAL_WIKI[$wi->wikifarm] . '/{file} /home/$USER/{file}; mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /home/$USER/{file}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y; rm /home/$USER/{file}"',
 	],
 	'wgImportDumpUsersNotifiedOnAllRequests' => [
 		'default' => [
@@ -1514,6 +1711,7 @@ $wgConf->settings += [
 	'wgJsonConfigInterwikiPrefix' => [
 		'default' => 'commons',
 		'commonswiki' => 'meta',
+		'commonswikitide' => 'meta',
 	],
 	'wgJsonConfigModels' => [
 		'default' => [
@@ -1671,6 +1869,27 @@ $wgConf->settings += [
 			'settings' => true,
 		],
 	],
+	'wgManageWikiExtensionsDefault' => [
+		'wikitide' => [
+			'categorytree',
+			'cite',
+			'citethispage',
+			'citizen',
+			'codeeditor',
+			'codemirror',
+			'cologneblue',
+			'cosmos',
+			'darkmode',
+			'modern',
+			'monobook',
+			'purge',
+			'syntaxhighlight_geshi',
+			'textextracts',
+			'timeless',
+			'urlshortener',
+			'wikiseo',
+		],
+	],
 	'wgManageWikiPermissionsAdditionalAddGroups' => [
 		'default' => [],
 	],
@@ -1691,9 +1910,6 @@ $wgConf->settings += [
 				'abusefilter-privatedetails-log' => true,
 				'checkuser' => true,
 				'checkuser-log' => true,
-			],
-			'steward' => [
-				'userrights' => true,
 			],
 			'suppress' => [
 				'abusefilter-hidden-log' => true,
@@ -1718,6 +1934,50 @@ $wgConf->settings += [
 				'mwoauthproposeconsumer' => true,
 				'mwoauthupdateownconsumer' => true,
 			],
+			'staff' => [
+				'abusefilter-modify-global' => true,
+				'centralauth-lock' => true,
+				'centralauth-suppress' => true,
+				'centralauth-rename' => true,
+				'centralauth-unmerge' => true,
+				'createwiki' => true,
+				'globalblock' => true,
+				'globalgroupmembership' => true,
+				'globalgrouppermissions' => true,
+				'handle-import-dump-interwiki' => true,
+				'handle-import-dump-requests' => true,
+				'handle-pii' => true,
+				'managewiki' => true,
+				'managewiki-restricted' => true,
+				'noratelimit' => true,
+				'oathauth-disable-for-user' => true,
+				'oathauth-verify-user' => true,
+				'userrights' => true,
+				'userrights-interwiki' => true,
+				'view-private-import-dump-requests' => true,
+			],
+			'user' => [
+				'request-import-dump' => true,
+				'requestwiki' => true,
+			],
+		],
+		'+metawikitide' => [
+			'confirmed' => [
+				'mwoauthproposeconsumer' => true,
+				'mwoauthupdateownconsumer' => true,
+			],
+			'global-renamer' => [
+				'centralauth-rename' => true,
+			],
+			'global-sysop' => [
+				'abusefilter-modify-global' => true,
+				'centralauth-lock' => true,
+				'globalblock' => true,
+			],
+			'proxybot' => [
+				'globalblock' => true,
+				'centralauth-lock' => true,
+			],
 			'steward' => [
 				'abusefilter-modify-global' => true,
 				'centralauth-lock' => true,
@@ -1729,6 +1989,7 @@ $wgConf->settings += [
 				'managewiki' => true,
 				'managewiki-restricted' => true,
 				'noratelimit' => true,
+				'oathauth-verify-user' => true,
 				'userrights' => true,
 				'userrights-interwiki' => true,
 				'globalgroupmembership' => true,
@@ -1756,15 +2017,26 @@ $wgConf->settings += [
 				'oathauth-verify-user' => true,
 				'view-private-import-dump-requests' => true,
 			],
+			'sysop' => [
+				'interwiki' => true,
+			],
 			'user' => [
 				'request-import-dump' => true,
 				'requestwiki' => true,
+			],
+			'wiki-creator' => [
+				'createwiki' => true,
 			],
 		],
 		'+test1wiki' => [
 			'sysop' => [
 				'createwiki' => true,
 				'requestwiki' => true,
+			],
+		],
+		'+wikitide' => [
+			'steward' => [
+				'userrights' => true,
 			],
 		],
 		'+ext-Flow' => [
@@ -1796,17 +2068,12 @@ $wgConf->settings += [
 				'checkuser',
 				'checkuser-log',
 				'createwiki',
-				'editincidents',
 				'editothersprofiles-private',
 				'flow-suppress',
-				'generate-random-hash',
 				'globalblock',
 				'globalblock-exempt',
 				'globalgroupmembership',
 				'globalgrouppermissions',
-				'handle-import-dump-interwiki',
-				'handle-import-dump-requests',
-				'handle-pii',
 				'hideuser',
 				'investigate',
 				'ipinfo',
@@ -1827,7 +2094,6 @@ $wgConf->settings += [
 				'oathauth-verify-user',
 				'oathauth-view-log',
 				'renameuser',
-				'request-import-dump',
 				'requestwiki',
 				'siteadmin',
 				'smw-admin',
@@ -1898,7 +2164,7 @@ $wgConf->settings += [
 		'default' => 'member',
 	],
 	'wgManageWikiHelpUrl' => [
-		'default' => '//meta.wikiforge.net/wiki/Special:MyLanguage/ManageWiki',
+		'default' => '//meta.wikitide.com/wiki/Special:MyLanguage/ManageWiki',
 	],
 	'wgManageWikiForceSidebarLinks' => [
 		'default' => false,
@@ -2097,8 +2363,11 @@ $wgConf->settings += [
 		'default' => 'firejail',
 	],
 	'wgCrossSiteAJAXdomains' => [
-		'default' => [
+		'wikiforge' => [
 			'meta.wikiforge.net',
+		],
+		'wikitide' => [
+			'meta.wikitide.com',
 		],
 	],
 	'wgTidyConfig' => [
@@ -2323,17 +2592,28 @@ $wgConf->settings += [
 			'editsitejs',
 			'edituserjs',
 		],
+		'+metawikitide' => [
+			'editsitejs',
+			'edituserjs',
+		],
 	],
 	'wgOATHRequiredForGroups' => [
 		'default' => [
 			'checkuser',
+			'staff',
 			'steward',
 			'suppress',
+		],
+		'+metawikitide' => [
+			'global-sysop',
+			'interface-admin',
+			'sysadmin',
+			'trustandsafety'
 		],
 	],
 	// OAuth
 	'wgMWOAuthCentralWiki' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgOAuth2GrantExpirationInterval' => [
 		'default' => 'PT4H',
@@ -2487,7 +2767,33 @@ $wgConf->settings += [
 		],
 	],
 	'wgCentralAuthGlobalPasswordPolicies' => [
-		'default' => [
+		'wikiforge' => [
+			'staff' => [
+				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
+				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
+				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+			],
+		],
+		'wikitide' => [
+			'global-interwiki-admin' => [
+				'MinimalPasswordLength' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
+				'MinimumPasswordLengthToLogin' => [ 'value' => 6, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
+				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+			],
+			'global-sysop' => [
+				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
+				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
+				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+			],
 			'steward' => [
 				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
 				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
@@ -2657,9 +2963,6 @@ $wgConf->settings += [
 			'vector-2022',
 		],
 	],
-	'wgRelatedArticlesUseCirrusSearch' => [
-		'ext-RelatedArticles' => false,
-	],
 	'wgRelatedArticlesCardLimit' => [
 		'default' => 3,
 	],
@@ -2669,21 +2972,30 @@ $wgConf->settings += [
 
 	// RemovePII
 	'wgRemovePIIAllowedWikis' => [
-		'default' => [
+		'wikiforge' => [
 			'metawiki',
+		],
+		'wikitide' => [
+			'metawikitide',
 		],
 	],
 	'wgRemovePIIAutoPrefix' => [
-		'default' => 'WikiForgeGDPR_',
+		'wikiforge' => 'WikiForgeGDPR_',
+		'wikitide' => 'WikiTideGDPR_',
 	],
 	'wgRemovePIIHashPrefixOptions' => [
-		'default' => [
-			'Trust and Safety' => 'WikiForgeGDPR_',
-			'Stewards' => 'Vanished user ',
+		'wikiforge' => [
+			'GDPR' => 'WikiForgeGDPR_',
+			'Vanishing' => 'Vanished user ',
+		],
+		'wikitide' => [
+			'GDPR' => 'WikiTideGDPR_',
+			'Vanishing' => 'Vanished user ',
 		],
 	],
 	'wgRemovePIIHashPrefix' => [
-		'default' => 'WikiForgeGDPR_',
+		'wikiforge' => 'WikiForgeGDPR_',
+		'wikitide' => 'WikiTideGDPR_',
 	],
 
 	// Restriction types
@@ -2918,7 +3230,6 @@ $wgConf->settings += [
 	// StopForumSpam
 	// Download from https://www.stopforumspam.com/downloads (recommended listed_ip_30_all.zip)
 	// for ipv4 + ipv6 combined.
-	// TODO: Setup cron to update this automatically.
 	'wgSFSIPListLocation' => [
 		'default' => '/srv/mediawiki/stopforumspam/listed_ip_30_ipv46_all.txt',
 	],
@@ -3051,10 +3362,20 @@ $wgConf->settings += [
 
 	// TitleBlacklist
 	'wgTitleBlacklistSources' => [
-		'default' => [
+		'wikiforge' => [
 			'global' => [
 				'type' => 'url',
 				'src' => 'https://meta.wikiforge.net/wiki/Title_blacklist?action=raw',
+			],
+			'local' => [
+				'type' => 'localpage',
+				'src' => 'MediaWiki:Titleblacklist',
+			],
+		],
+		'wikitide' => [
+			'global' => [
+				'type' => 'url',
+				'src' => 'https://meta.wikitide.com/wiki/Title_blacklist?action=raw',
 			],
 			'local' => [
 				'type' => 'localpage',
@@ -3076,6 +3397,11 @@ $wgConf->settings += [
 	'wgTranslateDisabledTargetLanguages' => [
 		'default' => [],
 		'metawiki' => [
+			'*' => [
+				'en' => 'English is the source language.',
+			],
+		],
+		'metawikitide' => [
 			'*' => [
 				'en' => 'English is the source language.',
 			],
@@ -3161,7 +3487,7 @@ $wgConf->settings += [
 		'default' => '/m/$1',
 	],
 	'wgUrlShortenerDBName' => [
-		'default' => 'metawiki',
+		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 
 	// UserFunctions
@@ -3580,7 +3906,7 @@ $wgConf->settings += [
 
 	// WikiDiscover
 	'wgWikiDiscoverListPrivateWikis' => [
-		'default' => false,
+		'wikiforge' => false,
 	],
 	'wgWikiDiscoverUseDescriptions' => [
 		'default' => true,
@@ -3588,8 +3914,10 @@ $wgConf->settings += [
 
 	// WikiForge
 	'wgWikiForgeMagicRequestPremiumWikiExtensionsDefaultEnabled' => [
-		'default' => [
+		'wikiforge' => [
+			'advancedsearch',
 			'categorytree',
+			'cirrussearch',
 			'cite',
 			'citethispage',
 			'citizen',
@@ -3608,8 +3936,62 @@ $wgConf->settings += [
 			'wikiseo',
 		],
 	],
+	'wgWikiForgeMagicRequestPremiumWikiPlans' => [
+		'wikiforge' => [
+			'basic' => [
+				'pricing' => 'Starting from $9.99/month',
+				'info' => 'Get started with our basic plan that offers essential features for your premium wiki.',
+				'features' => [
+					'10 GB file storage (+$2/month for every 10 GB after that)',
+					'Custom domain support',
+					'CirrusSearch/ElasticSearch support',
+					'SSO (Single Sign-On) integration (optional)',
+					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
+				],
+			],
+			'dedicated' => [
+				'pricing' => 'Starting from $28.99/month',
+				'info' => 'Upgrade to our dedicated plan for advanced capabilities and dedicated resources. Host your wiki on dedicated MediaWiki servers.',
+				'features' => [
+					'50 GB file storage (+$2/month for every 10 GB after that)',
+					'Custom domain support',
+					'CirrusSearch/ElasticSearch support',
+					'SSO (Single Sign-On) integration (optional)',
+					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
+					'Dedicated MediaWiki servers (2vCPU / 2GB RAM) (or extra servers in a load-balanced cluster for an extra $10/month/server)',
+				],
+			],
+			'enterprise' => [
+				'pricing' => 'Contact us for pricing',
+				'info' => 'Tailored solutions for enterprise customers with specific requirements and scalability needs.',
+				'features' => [
+					'All features from the dedicated plan',
+					'Customize resources to your needs',
+					'Custom extensions (if technically feasible)',
+				],
+			],
+		],
+	],
+	'wgWikiForgeMagicServicesRepo' => [
+		'wikiforge' => '/srv/services/services',
+	],
 	'wgWikiForgeUseCentralAuth' => [
-		'default' => true,
+		'wikiforge' => true,
+	],
+
+	// WikiTide
+	'wgWikiTideMagicServicesRepo' => [
+		'wikitide' => '/srv/services/services',
+	],
+	/**
+	 * Only SRE are allowed access
+	 * DO NOT ADD UNAUTHORIZED USERS
+	 */
+	'wgWikiTideMagicSREAccessIds' => [
+		'default' => [],
+	],
+	'wgWikiTideMagicSurveyEnabled' => [
+		'default' => false,
 	],
 	'wgWikiForgeVarnishRateLimit' => [
 		'default' => [ 'requests' => 12, 'period' => '2s' ],
@@ -3753,6 +4135,18 @@ $wgConf->settings += [
 	],
 
 	// CreateWiki Defined Special Variables
+	'cwClosed' => [
+		'wikitide' => false,
+	],
+	'cwExperimental' => [
+		'wikitide' => false,
+	],
+	'cwInactive' => [
+		'wikitide' => false,
+	],
+	'cwLocked' => [
+		'wikitide' => false,
+	],
 	'cwPrivate' => [
 		'default' => false,
 	],
@@ -3773,6 +4167,9 @@ $wgConf->settings += [
 	// Control MediaWiki Deprecation Warnings
 	'wgDeprecationReleaseLimit' => [
 		'default' => '1.34',
+		'alphatestwiki' => false,
+		'betatestwiki' => false,
+		'test1wiki' => false,
 	],
 ];
 
@@ -3781,6 +4178,11 @@ $wgConf->settings += [
 if ( wfHostname() === 'test1.wikiforge.net' ) {
 	// Prevent cache (better be safe than sorry)
 	$wgConf->settings['wgUseCdn']['default'] = false;
+}
+
+// CookieWarning exempt ElectronPdfService (services1)
+if ( in_array( $_SERVER['REMOTE_ADDR'] ?? '', [ '74.208.104.183' ] ) ) {
+	$wgConf->settings['wgCookieWarningEnabled']['default'] = false;
 }
 
 // ManageWiki settings
@@ -3800,7 +4202,7 @@ require_once __DIR__ . '/ManageWikiNamespaces.php';
 require_once __DIR__ . '/ManageWikiSettings.php';
 
 $wgUploadPath = "//$wmgUploadHostname/$wgDBname";
-$wgUploadDirectory = "/mnt/mediawiki-static/$wgDBname";
+$wgUploadDirectory = false;
 
 $wgLocalisationCacheConf['storeClass'] = LCStoreCDB::class;
 $wgLocalisationCacheConf['storeDirectory'] = '/srv/mediawiki/cache/' . $wi->version . '/l10n';
