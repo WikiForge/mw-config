@@ -2150,11 +2150,6 @@ $wgConf->settings += [
 				'skipcaptcha',
 			],
 		],
-		'+wikitide' => [
-			'any' => [
-				'interwiki',
-			],
-		],
 	],
 	'wgManageWikiPermissionsDisallowedGroups' => [
 		'default' => [
