@@ -2001,6 +2001,20 @@ $wgManageWikiExtensions = [
 		],
 		'section' => 'other',
 	],
+	'citoid' => [
+		'name' => 'Citoid',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Citoid',
+		'conflicts' => false,
+		'requires' => [
+			'extensions' => [
+				'cite',
+				'viusaleditor',
+			],
+			'visibility' => [
+				'state' => 'public',
+			],
+		'section' => 'other',
+	],
 	'cleanchanges' => [
 		'name' => 'Clean Changes',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CleanChanges',
