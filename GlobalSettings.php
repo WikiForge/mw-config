@@ -2,11 +2,13 @@
 
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 
-$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
-$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
+if ( $wi->wikifarm !== 'wikitide' ) {
+	$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
+	$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
+}
 
 // Extensions
-if ( $wgWikiForgeUseCentralAuth ) {
+if ( $wi->wikifarm === 'wikitide' || $wgWikiForgeUseCentralAuth ) {
 	wfLoadExtensions( [
 		'CentralAuth',
 		'GlobalCssJs',
@@ -15,7 +17,7 @@ if ( $wgWikiForgeUseCentralAuth ) {
 	] );
 
 	$wgMWOAuthSharedUserSource = 'CentralAuth';
-	$wgOATHAuthDatabase = 'prodglobal';
+	$wgOATHAuthDatabase = $wi::GLOBAL_DATABASE[$wi->wikifarm];
 }
 
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
@@ -47,7 +49,7 @@ if ( $wi->isAnyOfExtensionsActive( 'Email Authorization', 'OpenID Connect', 'Sim
 	wfLoadExtension( 'PluggableAuth' );
 }
 
-if ( $wgWikiForgeCommons && !$cwPrivate ) {
+if ( ( ( $wgWikiTideCommons ?? false ) || ( $wgWikiForgeCommons ?? false ) ) && !$cwPrivate ) {
 	wfLoadExtension( 'GlobalUsage' );
 }
 
@@ -208,6 +210,26 @@ $wgAWSRepoDeletedHashLevels = 3;
 
 $wgAWSBucketTopSubdirectory = '/' . $wgDBname;
 
+// Closed Wikis
+if ( $wi->wikifarm === 'wikitide' && $cwClosed ) {
+	$wgRevokePermissions = [
+		'*' => [
+			'block' => true,
+			'createaccount' => true,
+			'delete' => true,
+			'edit' => true,
+			'protect' => true,
+			'import' => true,
+			'upload' => true,
+			'undelete' => true,
+		],
+	];
+
+	if ( $wi->isExtensionActive( 'Comments' ) ) {
+		$wgRevokePermissions['*']['comment'] = true;
+	}
+}
+
 // Public Wikis
 if ( !$cwPrivate ) {
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
@@ -220,6 +242,9 @@ if ( !$cwPrivate ) {
 if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 	$wgCentralAuthCookieDomain = '.wikiforge.net';
 	$wgMFStopRedirectCookieHost = '.wikiforge.net';
+} elseif ( preg_match( '/wikitide\.com$/', $wi->server ) ) {
+	$wgCentralAuthCookieDomain = '.wikitide.com';
+	$wgMFStopRedirectCookieHost = '.wikitide.com';
 } else {
 	$wgCentralAuthCookieDomain = $wi->hostname;
 	$wgMFStopRedirectCookieHost = $wi->hostname;
@@ -295,7 +320,7 @@ $wgDataDump = [
 		'file_ending' => '.json',
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => "$IP/extensions/WikiForgeMagic/maintenance/generateManageWikiBackup.php",
+			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateManageWikiBackup.php',
 			'options' => [
 				'--filename',
 				'${filename}'
@@ -316,7 +341,7 @@ if ( $wi->isExtensionActive( 'ContactPage' ) ) {
 		'default' => [
 			'RecipientUser' => $wmgContactPageRecipientUser ?? null,
 			'SenderEmail' => $wgPasswordSender,
-			'SenderName' => 'WikiForge No Reply',
+			'SenderName' => ( $wi->wikifarm === 'wikitide' ? 'WikiTide' : 'WikiForge' ) . ' No Reply',
 			'RequireDetails' => true,
 			// Should never be set to true
 			'IncludeIP' => false,
@@ -366,42 +391,109 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 	if ( !$wmgSharedUploadBaseUrl || $wmgSharedUploadBaseUrl === $wmgSharedUploadDBname ) {
 		$wmgSharedUploadSubdomain = substr( $wmgSharedUploadDBname, 0, -4 );
 
-		$wmgSharedUploadBaseUrl = "{$wmgSharedUploadSubdomain}.wikiforge.net";
+		$wmgSharedUploadBaseUrl = "{$wmgSharedUploadSubdomain}.{$wgCreateWikiSubdomain}";
 	}
 
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => "shared-{$wmgSharedUploadDBname}",
-		'directory' => "/mnt/mediawiki-static/{$wmgSharedUploadDBname}",
+		'backend' => 'AmazonS3',
 		'url' => "https://static.wikiforge.net/{$wmgSharedUploadDBname}",
 		'hashLevels' => 2,
 		'thumbScriptUrl' => false,
 		'transformVia404' => true,
 		'hasSharedCache' => true,
+		'descBaseUrl' => "https://{$wmgSharedUploadBaseUrl}/wiki/File:",
+		'scriptDirUrl' => "https://{$wmgSharedUploadBaseUrl}/w",
 		'fetchDescription' => true,
 		'descriptionCacheExpiry' => 86400 * 7,
 		'wiki' => $wmgSharedUploadDBname,
-		'descBaseUrl' => "https://{$wmgSharedUploadBaseUrl}/wiki/File:",
-		'scriptDirUrl' => "https://{$wmgSharedUploadBaseUrl}/w",
+		'initialCapital' => true,
+		'zones' => [
+			'public' => [
+				'container' => 'local-public',
+			],
+			'thumb' => [
+				'container' => 'local-thumb',
+			],
+			'temp' => [
+				'container' => 'local-temp',
+			],
+			'deleted' => [
+				'container' => 'local-deleted',
+			],
+		],
+		'abbrvThreshold' => 160
 	];
 }
 
 // WikiForge Commons
-if ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ) {
+if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ?? false ) ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => 'wikiforgecommons',
-		'directory' => '/mnt/mediawiki-static/commonswiki',
+		'backend' => 'AmazonS3',
 		'url' => 'https://static.wikiforge.net/commonswiki',
 		'hashLevels' => 2,
 		'thumbScriptUrl' => false,
 		'transformVia404' => true,
 		'hasSharedCache' => true,
+		'descBaseUrl' => 'https://commons.wikiforge.net/wiki/File:',
+		'scriptDirUrl' => 'https://commons.wikiforge.net/w',
 		'fetchDescription' => true,
 		'descriptionCacheExpiry' => 86400 * 7,
 		'wiki' => 'commonswiki',
-		'descBaseUrl' => 'https://commons.wikiforge.net/wiki/File:',
-		'scriptDirUrl' => 'https://commons.wikiforge.net/w',
+		'initialCapital' => true,
+		'zones' => [
+			'public' => [
+				'container' => 'local-public',
+			],
+			'thumb' => [
+				'container' => 'local-thumb',
+			],
+			'temp' => [
+				'container' => 'local-temp',
+			],
+			'deleted' => [
+				'container' => 'local-deleted',
+			],
+		],
+		'abbrvThreshold' => 160
+	];
+}
+
+// WikiTide Commons
+if ( $wi->wikifarm === 'wikitide' && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ?? false ) ) {
+	$wgForeignFileRepos[] = [
+		'class' => ForeignDBViaLBRepo::class,
+		'name' => 'wikitidecommons',
+		'backend' => 'AmazonS3',
+		'url' => 'https://static.wikiforge.net/commonswikitide',
+		'hashLevels' => 2,
+		'thumbScriptUrl' => false,
+		'transformVia404' => true,
+		'hasSharedCache' => true,
+		'descBaseUrl' => 'https://commons.wikitide.com/wiki/File:',
+		'scriptDirUrl' => 'https://commons.wikitide.com/w',
+		'fetchDescription' => true,
+		'descriptionCacheExpiry' => 86400 * 7,
+		'wiki' => 'commonswikitide',
+		'initialCapital' => true,
+		'zones' => [
+			'public' => [
+				'container' => 'local-public',
+			],
+			'thumb' => [
+				'container' => 'local-thumb',
+			],
+			'temp' => [
+				'container' => 'local-temp',
+			],
+			'deleted' => [
+				'container' => 'local-deleted',
+			],
+		],
+		'abbrvThreshold' => 160
 	];
 }
 
@@ -430,9 +522,13 @@ if ( $wgWordmark ) {
 // $wgUrlShortenerAllowedDomains
 $wgUrlShortenerAllowedDomains = [
 	'(.*\.)?wikiforge\.net',
+	'(.*\.)?wikitide\.com',
 ];
 
-if ( !preg_match( '/^(.*).wikiforge.net$/', $wi->hostname ) ) {
+if (
+	!preg_match( '/^(.*).wikiforge.net$/', $wi->hostname ) &&
+	!preg_match( '/^(.*).wikitide.com$/', $wi->hostname )
+) {
 	$wgUrlShortenerAllowedDomains = array_merge(
 		$wgUrlShortenerAllowedDomains,
 		[ preg_quote( str_replace( 'https://', '', $wgServer ) ) ]
@@ -460,13 +556,23 @@ if ( $wi->isExtensionActive( 'JsonConfig' ) ) {
 		],
 	];
 
-	if ( $wgDBname !== 'commonswiki' ) {
+	if ( $wi->wikifarm === 'wikiforge' && $wgDBname !== 'commonswiki' ) {
 		$wgJsonConfigs['Map.JsonConfig']['remote'] = [
 			'url' => 'https://commons.wikiforge.net/w/api.php'
 		];
 
 		$wgJsonConfigs['Tabular.JsonConfig']['remote'] = [
 			'url' => 'https://commons.wikiforge.net/w/api.php'
+		];
+	}
+
+	if ( $wi->wikifarm === 'wikitide' && $wgDBname !== 'commonswikitide' ) {
+		$wgJsonConfigs['Map.JsonConfig']['remote'] = [
+			'url' => 'https://commons.wikitide.com/w/api.php'
+		];
+
+		$wgJsonConfigs['Tabular.JsonConfig']['remote'] = [
+			'url' => 'https://commons.wikitide.com/w/api.php'
 		];
 	}
 }

@@ -33,11 +33,32 @@ class WikiForgeFunctions {
 
 	private const CACHE_DIRECTORY = '/srv/mediawiki/cache';
 
-	private const DEFAULT_SERVER = 'wikiforge.net';
-
-	private const GLOBAL_DATABASE = 'prodglobal';
+	private const DEFAULT_SERVER = [
+		'wikiforge' => 'wikiforge.net',
+		'wikitide' => 'wikitide.com',
+	];
 
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
+
+	private const TAGS = [
+		'wikiforge' => 'wikiforge',
+		'wikitide' => 'wikitide',
+	];
+
+	public const CENTRAL_WIKI = [
+		'wikiforge' => 'metawiki',
+		'wikitide' => 'metawikitide',
+	];
+
+	public const GLOBAL_DATABASE = [
+		'wikiforge' => 'prodglobal',
+		'wikitide' => 'wtglobal',
+	];
+
+	public const LISTS = [
+		'wikiforge' => 'wikiforge',
+		'wikitide' => 'wikitide',
+	];
 
 	public const MEDIAWIKI_VERSIONS = [
 		'alpha' => '1.41',
@@ -50,6 +71,7 @@ class WikiForgeFunctions {
 
 	public const SUFFIXES = [
 		'wiki' => 'wikiforge.net',
+		'wikitide' => 'wikitide.com',
 	];
 
 	public function __construct() {
@@ -63,6 +85,7 @@ class WikiForgeFunctions {
 		$this->sitename = self::getSiteName();
 		$this->missing = self::isMissing();
 		$this->version = self::getMediaWikiVersion();
+		$this->wikifarm = self::getWikiFarm();
 
 		$this->hostname = $_SERVER['HTTP_HOST'] ??
 			parse_url( $this->server, PHP_URL_HOST ) ?: 'undefined';
@@ -81,16 +104,19 @@ class WikiForgeFunctions {
 	public static function getLocalDatabases(): ?array {
 		global $wgLocalDatabases;
 
+		static $wikiFarm = null;
 		static $databases = null;
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
+		$wikiFarm ??= self::getWikiFarm();
+
 		// We need the CLI to be able to access 'deleted' wikis
 		if ( PHP_SAPI === 'cli' ) {
-			$databases ??= array_merge( self::readDbListFile( 'databases' ), self::readDbListFile( 'deleted' ) );
+			$databases ??= array_merge( self::readDbListFile( 'databases-' . $wikiFarm ), self::readDbListFile( 'deleted-' . $wikiFarm ) );
 		}
 
-		$databases ??= self::readDbListFile( 'databases' );
+		$databases ??= self::readDbListFile( 'databases-' . $wikiFarm );
 
 		$wgLocalDatabases = $databases;
 		return $databases;
@@ -172,6 +198,10 @@ class WikiForgeFunctions {
 		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
 		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 
+		if ( self::getWikiFarm() === 'wikitide' ) {
+			$wgHooks['CreateWikiJsonBuilder'][] = 'WikiForgeFunctions::onCreateWikiJsonBuilder';
+		}
+
 		$wgExtensionFunctions[] = 'WikiForgeFunctions::onExtensionFunctions';
 	}
 
@@ -187,8 +217,18 @@ class WikiForgeFunctions {
 	/**
 	 * @return string
 	 */
+	public static function getWikiFarm(): string {
+		self::$currentDatabase ??= self::getCurrentDatabase();
+
+		return ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ?
+			self::TAGS['wikiforge'] : self::TAGS['wikitide'];
+	}
+
+	/**
+	 * @return string
+	 */
 	public static function getCurrentSuffix(): string {
-		return array_flip( self::SUFFIXES )[ self::DEFAULT_SERVER ];
+		return array_flip( self::SUFFIXES )[ self::DEFAULT_SERVER[self::getWikiFarm()] ];
 	}
 
 	/**
@@ -205,7 +245,7 @@ class WikiForgeFunctions {
 			}
 
 			if ( isset( $wgConf->settings['wgServer'] ) && count( $wgConf->settings['wgServer'] ) > 1 ) {
-				return 'https://' . self::DEFAULT_SERVER;
+				return 'https://' . self::DEFAULT_SERVER[self::getWikiFarm()];
 			}
 		}
 
@@ -216,13 +256,15 @@ class WikiForgeFunctions {
 		$servers = [];
 
 		static $default = null;
+		static $list = null;
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		$databases = self::readDbListFile( 'databases', false, $database );
+		$wikiFarm ??= self::getWikiFarm();
+		$databases = self::readDbListFile( 'databases-' . $wikiFarm, false, $database );
 
 		if ( $deleted && $databases ) {
-			$databases += self::readDbListFile( 'deleted', false, $database );
+			$databases += self::readDbListFile( 'deleted-' . $wikiFarm, false, $database );
 		}
 
 		if ( $database !== null ) {
@@ -234,7 +276,7 @@ class WikiForgeFunctions {
 				}
 			}
 
-			$default ??= 'https://' . self::DEFAULT_SERVER;
+			$default ??= 'https://' . self::DEFAULT_SERVER[$wikiFarm];
 			return $default;
 		}
 
@@ -246,7 +288,7 @@ class WikiForgeFunctions {
 			}
 		}
 
-		$default ??= 'https://' . self::DEFAULT_SERVER;
+		$default ??= 'https://' . self::DEFAULT_SERVER[$wikiFarm];
 		$servers['default'] = $default;
 
 		return $servers;
@@ -263,7 +305,8 @@ class WikiForgeFunctions {
 		$hostname = $_SERVER['HTTP_HOST'] ?? 'undefined';
 
 		static $database = null;
-		$database ??= self::readDbListFile( 'databases', true, 'https://' . $hostname, true );
+		$database ??= self::readDbListFile( 'databases-wikiforge', true, 'https://' . $hostname, true ) ?:
+			self::readDbListFile( 'databases-wikitide', true, 'https://' . $hostname, true );
 
 		if ( $database ) {
 			return $database;
@@ -285,10 +328,12 @@ class WikiForgeFunctions {
 	}
 
 	public function setDatabase() {
-		global $wgConf, $wgDBname;
+		global $wgConf, $wgDBname, $wgCreateWikiDatabase;
 
 		$wgConf->settings['wgDBname'][$this->dbname] = $this->dbname;
 		$wgDBname = $this->dbname;
+
+		$wgCreateWikiDatabase = self::GLOBAL_DATABASE[$this->wikifarm];
 	}
 
 	/**
@@ -298,8 +343,8 @@ class WikiForgeFunctions {
 		static $allDatabases = null;
 		static $deletedDatabases = null;
 
-		$allDatabases ??= self::readDbListFile( 'databases', false );
-		$deletedDatabases ??= self::readDbListFile( 'deleted', false );
+		$allDatabases ??= self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false );
+		$deletedDatabases ??= self::readDbListFile( 'deleted-' . self::LISTS[self::getWikiFarm()], false );
 
 		$databases = array_merge( $allDatabases, $deletedDatabases );
 
@@ -338,8 +383,8 @@ class WikiForgeFunctions {
 		static $allDatabases = null;
 		static $deletedDatabases = null;
 
-		$allDatabases ??= self::readDbListFile( 'databases', false );
-		$deletedDatabases ??= self::readDbListFile( 'deleted', false );
+		$allDatabases ??= self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false );
+		$deletedDatabases ??= self::readDbListFile( 'deleted-' . self::LISTS[self::getWikiFarm()], false );
 
 		$databases = array_merge( $allDatabases, $deletedDatabases );
 
@@ -377,7 +422,7 @@ class WikiForgeFunctions {
 		}
 
 		if ( $database ) {
-			$mwVersion = self::readDbListFile( 'databases', false, $database )['v'] ?? null;
+			$mwVersion = self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, $database )['v'] ?? null;
 			return $mwVersion ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 		}
 
@@ -391,7 +436,7 @@ class WikiForgeFunctions {
 		}
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
-		$version ??= self::readDbListFile( 'databases', false, self::$currentDatabase )['v'] ?? null;
+		$version ??= self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, self::$currentDatabase )['v'] ?? null;
 
 		return $version ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 	}
@@ -501,7 +546,7 @@ class WikiForgeFunctions {
 	public static function getConfigForCaching(): array {
 		global $wgDBname, $wgConf;
 
-		$wikiTags = [];
+		$wikiTags = [ self::getWikiFarm() ];
 
 		static $cacheArray = null;
 		$cacheArray ??= self::getCacheArray();
@@ -606,6 +651,13 @@ class WikiForgeFunctions {
 
 		// Assign states
 		$settings['cwPrivate']['default'] = (bool)$cacheArray['states']['private'];
+
+		if ( self::getWikiFarm() === 'wikitide' ) {
+			$settings['cwClosed']['default'] = (bool)$cacheArray['states']['closed'];
+			$settings['cwLocked']['default'] = (bool)$cacheArray['states']['locked'] ?? false;
+			$settings['cwInactive']['default'] = ( $cacheArray['states']['inactive'] === 'exempt' ) ? 'exempt' : (bool)$cacheArray['states']['inactive'];
+			$settings['cwExperimental']['default'] = (bool)( $cacheArray['states']['experimental'] ?? false );
+		}
 
 		// Assign settings
 		if ( isset( $cacheArray['settings'] ) ) {
@@ -833,6 +885,38 @@ class WikiForgeFunctions {
 
 	/**
 	 * @param string $globalDatabase
+	 * @return array
+	 */
+	private static function getActiveList( string $globalDatabase ): array {
+		$dbr = self::getDatabaseConnection( $globalDatabase );
+		$activeWikis = $dbr->newSelectQueryBuilder()
+			->table( 'cw_wikis' )
+			->fields( [
+				'wiki_dbcluster',
+				'wiki_dbname',
+				'wiki_sitename',
+			] )
+			->where( [
+				'wiki_closed' => 0,
+				'wiki_deleted' => 0,
+				'wiki_inactive' => 0,
+			] )
+			->caller( __METHOD__ )
+			->fetchResultSet();
+
+		$activeList = [];
+		foreach ( $activeWikis as $wiki ) {
+			$activeList[$wiki->wiki_dbname] = [
+				's' => $wiki->wiki_sitename,
+				'c' => $wiki->wiki_dbcluster,
+			];
+		}
+
+		return $activeList;
+	}
+
+	/**
+	 * @param string $globalDatabase
 	 * @param ?string $version
 	 * @return array
 	 */
@@ -912,29 +996,74 @@ class WikiForgeFunctions {
 	 */
 	public static function onGenerateDatabaseLists( array &$databaseLists ) {
 		$databaseLists = [
-			'databases' => [
-				'combi' => self::getCombiList(
-					self::GLOBAL_DATABASE
+			'active-wikitide' => [
+				'combi' => self::getActiveList(
+					self::GLOBAL_DATABASE['wikitide']
 				),
 			],
-			'deleted' => [
+			'databases-wikiforge' => [
+				'combi' => self::getCombiList(
+					self::GLOBAL_DATABASE['wikiforge']
+				),
+			],
+			'databases-wikitide' => [
+				'combi' => self::getCombiList(
+					self::GLOBAL_DATABASE['wikitide']
+				),
+			],
+			'deleted-wikiforge' => [
 				'deleted' => 'databases',
 				'databases' => self::getDeletedList(
-					self::GLOBAL_DATABASE
+					self::GLOBAL_DATABASE['wikiforge']
+				),
+			],
+			'deleted-wikitide' => [
+				'deleted' => 'databases',
+				'databases' => self::getDeletedList(
+					self::GLOBAL_DATABASE['wikitide']
 				),
 			],
 		];
 
+		$databaseLists['databases-all'] = [
+			'combi' => array_merge(
+				$databaseLists['databases-wikiforge']['combi'],
+				$databaseLists['databases-wikitide']['combi']
+			)
+		];
+
 		foreach ( self::MEDIAWIKI_VERSIONS as $name => $version ) {
 			$databaseLists += [
-				$name . '-wikis' => [
+				$name . '-wikis-wikiforge' => [
 					'combi' => self::getCombiList(
-						self::GLOBAL_DATABASE,
+						self::GLOBAL_DATABASE['wikiforge'],
+						$version
+					),
+				],
+				$name . '-wikis-wikitide' => [
+					'combi' => self::getCombiList(
+						self::GLOBAL_DATABASE['wikitide'],
 						$version
 					),
 				],
 			];
 		}
+	}
+
+	/**
+	 * @param string $wiki
+	 * @param DBConnRef $dbr
+	 * @param array &$jsonArray
+	 */
+	public static function onCreateWikiJsonBuilder( string $wiki, DBConnRef $dbr, array &$jsonArray ) {
+		$row = $dbr->newSelectQueryBuilder()
+			->table( 'cw_wikis' )
+			->fields( [ 'wiki_locked' ] )
+			->where( [ 'wiki_dbname' => $wiki ] )
+			->caller( __METHOD__ )
+			->fetchRow();
+
+		$jsonArray['states']['locked'] = (bool)$row->wiki_locked;
 	}
 
 	/**
@@ -944,6 +1073,7 @@ class WikiForgeFunctions {
 	 * @param array &$formDescriptor
 	 */
 	public static function onManageWikiCoreAddFormFields( $ceMW, $context, $dbName, &$formDescriptor ) {
+		$wikiFarm = self::getWikiFarm();
 		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
 
 		$mwVersion = self::getMediaWikiVersion( $dbName );
@@ -953,29 +1083,31 @@ class WikiForgeFunctions {
 
 		asort( $versions );
 
-		$mwSettings = new ManageWikiSettings( $dbName );
-		$setList = $mwSettings->list();
-		$formDescriptor['article-path'] = [
-			'label-message' => 'wikiforge-label-managewiki-article-path',
-			'type' => 'select',
-			'options-messages' => [
-				'wikiforge-label-managewiki-article-path-wiki' => '/wiki/$1',
-				'wikiforge-label-managewiki-article-path-root' => '/$1',
-			],
-			'default' => $setList['wgArticlePath'] ?? '/wiki/$1',
-			'disabled' => !$ceMW,
-			'cssclass' => 'managewiki-infuse',
-			'section' => 'main',
-		];
+		if ( $wikiFarm !== 'wikitide' ) {
+			$mwSettings = new ManageWikiSettings( $dbName );
+			$setList = $mwSettings->list();
+			$formDescriptor['article-path'] = [
+				'label-message' => 'wikiforge-label-managewiki-article-path',
+				'type' => 'select',
+				'options-messages' => [
+					'wikiforge-label-managewiki-article-path-wiki' => '/wiki/$1',
+					'wikiforge-label-managewiki-article-path-root' => '/$1',
+				],
+				'default' => $setList['wgArticlePath'] ?? '/wiki/$1',
+				'disabled' => !$ceMW,
+				'cssclass' => 'managewiki-infuse',
+				'section' => 'main',
+			];
 
-		$formDescriptor['mainpage-is-domain-root'] = [
-			'label-message' => 'wikiforge-label-managewiki-mainpage-is-domain-root',
-			'type' => 'check',
-			'default' => $setList['wgMainPageIsDomainRoot'] ?? false,
-			'disabled' => !$ceMW,
-			'cssclass' => 'managewiki-infuse',
-			'section' => 'main',
-		];
+			$formDescriptor['mainpage-is-domain-root'] = [
+				'label-message' => 'wikiforge-label-managewiki-mainpage-is-domain-root',
+				'type' => 'check',
+				'default' => $setList['wgMainPageIsDomainRoot'] ?? false,
+				'disabled' => !$ceMW,
+				'cssclass' => 'managewiki-infuse',
+				'section' => 'main',
+			];
+		}
 
 		$formDescriptor['mediawiki-version'] = [
 			'label-message' => 'wikiforge-label-managewiki-mediawiki-version',
@@ -987,9 +1119,11 @@ class WikiForgeFunctions {
 			'section' => 'main',
 		];
 
-		$wiki = new RemoteWiki( $dbName );
-		if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
-			unset( $formDescriptor['category'], $formDescriptor['description'] );
+		if ( $wikiFarm !== 'wikitide' ) {
+			$wiki = new RemoteWiki( $dbName );
+			if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
+				unset( $formDescriptor['category'], $formDescriptor['description'] );
+			}
 		}
 	}
 
@@ -1008,6 +1142,10 @@ class WikiForgeFunctions {
 				'old' => $version,
 				'new' => $formData['mediawiki-version']
 			];
+		}
+
+		if ( self::getWikiFarm() === 'wikitide' ) {
+			return;
 		}
 
 		$mwSettings = new ManageWikiSettings( $dbName );

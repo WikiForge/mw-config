@@ -6,6 +6,7 @@ switch ( $wi->dbname ) {
 		$wgDplSettings['functionalRichness'] = 4;
 		break;
 	case 'metawiki':
+	case 'metawikitide':
 		wfLoadExtensions( [
 			'FileStorageMonitor',
 			'GlobalWatchlist',
