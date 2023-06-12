@@ -506,6 +506,22 @@ $wgConf->settings += [
 	'wgCitizenEnableCJKFonts' => [
 		'default' => false,
 	],
+	
+	// Citoid
+	'wgCitoidFullRestbaseURL' => [
+		'wmgUseCitoid' => "https://{$wi->hostname}/{$wi->hostname}/",
+	],
+	
+	// Collection
+	'wgCommunityCollectionNamespace' => [
+		'wmgUseCollection' => 5,
+	],
+	'wgCollectionMWServeURL' => [
+		'wmgUseCollection' => 'https://restbase-lb.wikiforge.net',
+	],
+	'wgCollectionPODPartners' => [
+		'wmgUseCollection' => [],
+	],
 
 	// Comments
 	'wgCommentsDefaultAvatar' => [
