@@ -2175,6 +2175,20 @@ $wgManageWikiSettings = [
 			],
 		],
 	],
+	'wgCompressRevisions' => [
+		'name' => 'Compress Revisions',
+		'from' => 'mediawiki',
+		'global' => true,
+		'type' => 'check',
+		'overridedefault' => false,
+		'section' => 'restricted',
+		'help' => "Compress new page revisions if possible. Site Reliability Engineering: after enabling this, don't forget to manually run <code>mwscript storage/compressOld.php {$wi->dbname} --type=gzip</code>.",
+		'requires' => [
+			'permissions' => [
+				'managewiki-restricted',
+			],
+		],
+	],
 	'wgExpensiveParserFunctionLimit' => [
 		'name' => 'Expensive Parser Function Limit',
 		'from' => 'mediawiki',
@@ -4364,7 +4378,10 @@ $wgManageWikiSettings = [
 if ( $wi->wikifarm === 'wikitide' ) {
 	unset( $wgManageWikiSettings['wgWikiForgeCommons'] );
 } else {
-	unset( $wgManageWikiSettings['wgWikiTideCommons'] );
+	unset(
+		$wgManageWikiSettings['wgCompressRevisions'],
+		$wgManageWikiSettings['wgWikiTideCommons']
+	);
 }
 
 if ( $wi->isAllOfExtensionsActive( 'Gamepress', 'Theme' ) ) {

@@ -1020,6 +1020,9 @@ $wgConf->settings += [
 	'wgAllowSchemaUpdates' => [
 		'default' => false,
 	],
+	'wgCompressRevisions' => [
+		'default' => false,
+	],
 	'wgDBadminuser' => [
 		'default' => 'wikiadmin',
 	],
