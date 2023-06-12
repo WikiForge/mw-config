@@ -2035,9 +2035,6 @@ $wgConf->settings += [
 			],
 		],
 		'+wikitide' => [
-			'interwiki-admin' => [
-				'interwiki' => true
-			],
 			'steward' => [
 				'userrights' => true,
 			],
@@ -2161,9 +2158,6 @@ $wgConf->settings += [
 			'suppress',
 			'sysadmin',
 			'trustandsafety',
-		],
-		'+wikitide' => [
-			'interwiki-admin',
 		],
 	],
 	'wgManageWikiPermissionsDefaultPrivateGroup' => [
