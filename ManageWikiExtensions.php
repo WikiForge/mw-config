@@ -1176,6 +1176,17 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'section' => 'specialpages',
 	],
+	'collection' => [
+		'name' => 'Collection',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Collection',
+		'conflicts' => false,
+		'requires' => [
+			'visibility' => [
+				'state' => 'public',
+			],
+		],
+		'section' => 'specialpages',
+	],
 	'contactpage' => [
 		'name' => 'ContactPage',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ContactPage',
@@ -2003,7 +2014,7 @@ $wgManageWikiExtensions = [
 	],
 	'citoid' => [
 		'name' => 'Citoid',
-		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Citoid',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Citoid',
 		'conflicts' => false,
 		'requires' => [
 			'extensions' => [
@@ -2013,6 +2024,7 @@ $wgManageWikiExtensions = [
 			'visibility' => [
 				'state' => 'public',
 			],
+		],
 		'section' => 'other',
 	],
 	'cleanchanges' => [
@@ -2109,7 +2121,17 @@ $wgManageWikiExtensions = [
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:EditSubpages',
 		'conflicts' => false,
 		'requires' => [],
-		'install' => [],
+		'section' => 'other',
+	],
+	'electronpdfservice' => [
+		'name' => 'Electron (PDF)',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ElectronPdfService',
+		'conflicts' => false,
+		'requires' => [
+			'visibility' => [
+				'state' => 'public',
+			],
+		],
 		'section' => 'other',
 	],
 	'externaldata' => [
