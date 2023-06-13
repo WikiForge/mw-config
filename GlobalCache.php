@@ -83,7 +83,8 @@ if ( $wi->wikifarm === 'wikitide' ) {
 
 $wgMainCacheType = 'memcached';
 
-$wgMessageCacheType = 'mysql-multiwrite';
+$wgMessageCacheType = CACHE_DB;
+
 $wgParserCacheType = 'mysql-multiwrite';
 
 $wgLanguageConverterCacheType = CACHE_ACCEL;
