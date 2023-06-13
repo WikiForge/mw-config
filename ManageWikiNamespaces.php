@@ -261,7 +261,10 @@ $wgManageWikiNamespacesAdditional = [
 		'main' => true,
 		'talk' => false,
 		'excluded' => [],
-		'overridedefault' => false,
+		'overridedefault' => [
+			4 => true,
+			'default' => false,
+		],
 		'help' => '',
 		'requires' => [],
 	],
@@ -282,7 +285,7 @@ $wgManageWikiNamespacesAdditional = [
 	'wgTemplateStylesNamespaces' => [
 		'name' => 'Can TemplateStyles be used in this namespace?',
 		'from' => 'templatestyles',
-		'type' => 'check',
+		'type' => 'vestyle',
 		'main' => true,
 		'talk' => true,
 		'excluded' => [],
