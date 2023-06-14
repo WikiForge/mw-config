@@ -1697,6 +1697,10 @@ $wgConf->settings += [
 			'wikipedia',
 			'metawikimedia',
 		],
+		'+hkrailwikitide' => [
+			'zhwikipedia',
+			'hkrailfan',
+		],
 	],
 
 	// IPInfo
@@ -1728,6 +1732,7 @@ $wgConf->settings += [
 	// Kartographer
 	'wgKartographerDfltStyle' => [
 		'default' => 'osm-intl',
+		'hkrailwikitide' => '.',
 	],
 	'wgKartographerEnableMapFrame' => [
 		'default' => true,
@@ -1743,12 +1748,16 @@ $wgConf->settings += [
 			2.6,
 			3,
 		],
+		'hkrailwikitide' => [
+			1,
+		],
 	],
 	'wgKartographerStaticMapframe' => [
 		'default' => false,
 	],
 	'wgKartographerSimpleStyleMarkers' => [
 		'default' => true,
+		'hkrailwikitide' => false,
 	],
 	'wgKartographerStyles' => [
 		'default' => [
@@ -2393,9 +2402,15 @@ $wgConf->settings += [
 	],
 	'wgDisabledVariants' => [
 		'default' => [],
+		'hkrailwikitide' => [
+			'zh',
+			'zh-hant',
+			'zh-hans',
+		],
 	],
 	'wgDefaultLanguageVariant' => [
 		'default' => false,
+		'hkrailwikitide' => 'zh-hk',
 	],
 
 	// MobileFrontend
@@ -3405,6 +3420,18 @@ $wgConf->settings += [
 	// Translate
 	'wgTranslateDisabledTargetLanguages' => [
 		'default' => [],
+		'hkrailwikitide' => [
+			'*' => [
+				'zh-hant' => '本站已配置[[Project:繁簡處理|自動繁簡轉換]]功能，請在語言表單選擇翻譯語言為「中文」而非「中文（繁體）」。',
+				'zh-hk' => '本站已配置[[Project:繁簡處理|自動繁簡轉換]]功能，請在語言表單選擇翻譯語言為「中文」而非「中文（香港）」。',
+				'zh-tw' => '本站已配置[[Project:繁簡處理|自動繁簡轉換]]功能，請在語言表單選擇翻譯語言為「中文」而非「中文（台灣）」。',
+				'zh-mo' => '本站已配置[[Project:繁簡處理|自動繁簡轉換]]功能，請在語言表單選擇翻譯語言為「中文」而非「中文（澳門）」。',
+				'zh-hant' => '本站已配置[[Project:繁簡處理|自动简繁转换]]功能，请在语言表单选择翻译语言为「中文」而非「中文（简体）」。',
+				'zh-cn' => '本站已配置[[Project:繁簡處理|自动简繁转换]]功能，请在语言表单选择翻译语言为「中文」而非「中文（中国大陆）」。',
+				'zh-sg' => '本站已配置[[Project:繁簡處理|自动简繁转换]]功能，请在语言表单选择翻译语言为「中文」而非「中文（新加坡）」。',
+				'zh-my' => '本站已配置[[Project:繁簡處理|自动简繁转换]]功能，请在语言表单选择翻译语言为「中文」而非「中文（马来西亚）」。',
+			],
+		],
 		'metawiki' => [
 			'*' => [
 				'en' => 'English is the source language.',
