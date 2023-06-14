@@ -925,6 +925,7 @@ $wgConf->settings += [
 			'Software/Computing' => 'software',
 			'Song Contest' => 'songcontest',
 			'Sports' => 'sport',
+			'Transportation' => 'transportation',
 			'Uncategorized' => 'uncategorized',
 		],
 		'wikitide' => [
@@ -956,6 +957,7 @@ $wgConf->settings += [
 			'Software/Computing' => 'software',
 			'Song Contest' => 'songcontest',
 			'Sports' => 'sport',
+			'Transportation' => 'transportation',
 			'Uncategorized' => 'uncategorized',
 		],
 	],
