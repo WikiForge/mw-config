@@ -254,7 +254,7 @@ $wgManageWikiExtensions = [
 		],
 		'install' => [
 			'mwscript' => [
-				"$IP/extensions/WikiForgeMagic/maintenance/createCargoDB.php" => [],
+				"$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/createCargoDB.php' => [],
 			],
 			'sql' => [
 				'cargo_tables' => "$IP/extensions/Cargo/sql/Cargo.sql",
@@ -3188,7 +3188,7 @@ $wgManageWikiExtensions = [
 				'wb_property_info' => "$IP/extensions/Wikibase/repo/sql/mysql/wb_property_info.sql"
 			],
 			'mwscript' => [
-				"$IP/extensions/WikiForgeMagic/maintenance/populateWikibaseSitesTable.php" => [],
+				"$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/populateWikibaseSitesTable.php' => [],
 			],
 		],
 		'section' => 'other',
