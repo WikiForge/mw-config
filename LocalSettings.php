@@ -1350,10 +1350,20 @@ $wgConf->settings += [
 	],
 
 	// Footers
+	'+wgFooterIcons' => [
+		'wikitide' => [
+			'poweredby' => [
+				'wikitide' => [
+					'src' => 'https://static.wikiforge.net/commonswikitide/8/8a/Hosted_by_WikiTide.svg',
+					'url' => 'https://meta.wikitide.com/wiki/Special:MyLanguage/WikiTide',
+					'alt' => 'Hosted by WikiTide',
+				],
+			],
+		],
+	],
 	'wmgWikiapiaryFooterPageName' => [
 		'default' => '',
 	],
-
 	'wgMaxCredits' => [
 		'default' => 0,
 	],
