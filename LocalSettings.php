@@ -13,7 +13,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 // Configure PHP request timeouts.
 if ( PHP_SAPI === 'cli' ) {
 	$wgRequestTimeLimit = 0;
-} elseif ( ( $_SERVER['HTTP_HOST'] ?? '' ) === 'mw1.wikiforge.net' ) {
+} elseif ( in_array( $_SERVER['HTTP_HOST'] ?? '', [ 'jobrunner1.wikiforge.net', 'jobrunner2.wikiforge.net' ] ) ) {
 	$wgRequestTimeLimit = 1200;
 } elseif ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$wgRequestTimeLimit = 200;
@@ -1838,6 +1838,10 @@ $wgConf->settings += [
 		'ext-Linter' => [
 			/** localhost */
 			'127.0.0.1' => true,
+			/** jobrunner1 */
+			'13.58.205.57' => true,
+			/** jobrunner2 */
+			'3.128.255.135' => true,
 			/** mw1 */
 			'3.145.73.77' => true,
 			/** mw2 */
@@ -1846,6 +1850,10 @@ $wgConf->settings += [
 			'3.145.164.236' => true,
 			/** mw4 */
 			'3.139.80.48' => true,
+			/** mw5 */
+			'3.145.18.108' => true,
+			/** mw6 */
+			'18.118.93.80' => true,
 			/** test1 */
 			'52.14.195.40' => true,
 		],
@@ -1867,7 +1875,7 @@ $wgConf->settings += [
 			'port' => 587,
 			'IDHost' => 'wikiforge.net',
 			'auth' => true,
-			'username' => 'AKIAZEMY5IR4RPZVGLVT',
+			'username' => $wmgSMTPUsername,
 			'password' => $wmgSMTPPassword,
 		],
 	],
