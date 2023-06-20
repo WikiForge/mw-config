@@ -365,7 +365,7 @@ $wgConf->settings += [
 		'wikitide' => 'centralauth_wikitide_',
 	],
 	'wgCentralAuthCreateOnView' => [
-		'default' => true,
+		'default' => false,
 	],
 	'wgCentralAuthDatabase' => [
 		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
@@ -1924,7 +1924,6 @@ $wgConf->settings += [
 	'wgManageWikiPermissionsAdditionalRights' => [
 		'default' => [
 			'*' => [
-				'autocreateaccount' => true,
 				'editmyoptions' => true,
 				'editmyprivateinfo' => true,
 				'editmywatchlist' => true,
