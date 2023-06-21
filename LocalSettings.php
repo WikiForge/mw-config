@@ -1997,6 +1997,9 @@ $wgConf->settings += [
 			],
 		],
 		'+metawikitide' => [
+			'+checkuser' =>
+				'securepoll-view-voter-pii' => true,
+			],
 			'confirmed' => [
 				'mwoauthproposeconsumer' => true,
 				'mwoauthupdateownconsumer' => true,
@@ -2130,6 +2133,7 @@ $wgConf->settings += [
 				'oathauth-view-log',
 				'renameuser',
 				'requestwiki',
+				'securepoll-view-voter-pii',
 				'siteadmin',
 				'smw-admin',
 				'smw-patternedit',
@@ -3138,6 +3142,14 @@ $wgConf->settings += [
 	],
 	'wgScribuntoSlowFunctionThreshold' => [
 		'default' => 0.99,
+	],
+
+	// SecurePoll
+	'wgSecurePollUseLogging' => [
+		'default' => true,
+	],
+	'wgSecurePollUseNamespace' => [
+		'default' => true,
 	],
 
 	// Server
