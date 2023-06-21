@@ -1997,7 +1997,11 @@ $wgConf->settings += [
 			],
 		],
 		'+metawikitide' => [
-			'+checkuser' => [
+			'checkuser' => [
+				'abusefilter-privatedetails' => true,
+				'abusefilter-privatedetails-log' => true,
+				'checkuser' => true,
+				'checkuser-log' => true,
 				'securepoll-view-voter-pii' => true,
 			],
 			'confirmed' => [
