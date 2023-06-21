@@ -8,7 +8,7 @@ if ( $wi->wikifarm !== 'wikitide' ) {
 }
 
 // Extensions
-if ( $wi->wikifarm === 'wikitide' || $wgWikiForgeUseCentralAuth ) {
+if ( $wi->wikifarm === 'wikitide' && $wi->dbname !== 'votewikitide' || $wgWikiForgeUseCentralAuth ) {
 	wfLoadExtensions( [
 		'CentralAuth',
 		'GlobalCssJs',
