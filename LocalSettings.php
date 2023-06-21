@@ -1997,7 +1997,7 @@ $wgConf->settings += [
 			],
 		],
 		'+metawikitide' => [
-			'+checkuser' =>
+			'+checkuser' => [
 				'securepoll-view-voter-pii' => true,
 			],
 			'confirmed' => [
