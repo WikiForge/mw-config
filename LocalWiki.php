@@ -13,11 +13,17 @@ switch ( $wi->dbname ) {
 			'ImportDump',
 			'IncidentReporting',
 			'RemovePII',
+			'SecurePoll',
 		] );
 
 		$wgFileStorageMonitorAWSBucketName = $wgAWSBucketName;
 		$wgFileStorageMonitorAWSRegion = $wgAWSRegion;
 		$wgFileStorageMonitorAWSAccessKey = $wmgAWSAccessKey;
 		$wgFileStorageMonitorAWSSecretKey = $wmgAWSAccessSecretKey;
+		break;
+	case 'votewikitide':
+		wfLoadExtensions( [
+			 'SecurePoll',
+		] );
 		break;
 }
