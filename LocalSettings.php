@@ -1695,6 +1695,8 @@ $wgConf->settings += [
 	],
 	'wgImportDumpUsersNotifiedOnAllRequests' => [
 		'default' => [
+			'Agent Isai',
+			'Reception123',
 			'Universal Omega',
 		],
 	],
