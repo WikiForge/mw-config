@@ -4380,6 +4380,21 @@ $wgManageWikiSettings = [
 if ( $wi->wikifarm === 'wikitide' ) {
 	unset( $wgManageWikiSettings['wgWikiForgeCommons'] );
 } else {
+	$wgManageWikiSettings['wgSVGMetadataCutoff']['requires'] = [];
+	$wgManageWikiSettings['wgSVGMetadataCutoff']['section'] = 'advanced';
+
+	$wgManageWikiSettings['wgMaxArticleSize']['requires'] = [];
+	$wgManageWikiSettings['wgMaxArticleSize']['section'] = 'advanced';
+
+	$wgManageWikiSettings['wgMaxCredits']['requires'] = [];
+	$wgManageWikiSettings['wgMaxCredits']['section'] = 'advanced';
+
+	$wgManageWikiSettings['wgHAWelcomeWelcomeUsername']['requires'] = [];
+	$wgManageWikiSettings['wgHAWelcomeWelcomeUsername']['section'] = 'advanced';
+
+	$wgManageWikiSettings['wgExpensiveParserFunctionLimit']['requires'] = [];
+	$wgManageWikiSettings['wgExpensiveParserFunctionLimit']['section'] = 'advanced';
+
 	unset(
 		$wgManageWikiSettings['wgCompressRevisions'],
 		$wgManageWikiSettings['wgWikiTideCommons']
