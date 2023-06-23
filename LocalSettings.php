@@ -2466,6 +2466,9 @@ $wgConf->settings += [
 	'wgMFNoindexPages' => [
 		'ext-MobileFrontend' => false,
 	],
+	'wgMFStripResponsiveImages' => [
+		'1.39' => false,
+	],
 	'wgMFUseDesktopSpecialHistoryPage' => [
 		'default' => [
 			'base' => false,
