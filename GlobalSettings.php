@@ -252,7 +252,6 @@ if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 
 // DataDump
 $wgDataDumpFileBackend = 'AmazonS3';
-$wgDataDumpDirectory = '';
 
 $wgDataDump = [
 	'xml' => [
