@@ -291,24 +291,11 @@ $wgDataDump = [
 		'file_ending' => '.tar.gz',
 		'useBackendTempStore' => true,
 		'generate' => [
-			'type' => 'script',
-			'script' => '/usr/bin/tar',
+			'type' => 'mwscript',
+			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateS3Backup.php',
 			'options' => [
-				'--exclude',
-				"{$wgUploadDirectory}/archive",
-				'--exclude',
-				"{$wgUploadDirectory}/deleted",
-				'--exclude',
-				"{$wgUploadDirectory}/lockdir",
-				'--exclude',
-				"{$wgUploadDirectory}/temp",
-				'--exclude',
-				"{$wgUploadDirectory}/thumb",
-				'--exclude',
-				"{$wgUploadDirectory}/dumps",
-				'-zcvf',
-				$wgDataDumpDirectory . '${filename}',
-				"{$wgUploadDirectory}/"
+				'--filename',
+				'${filename}'
 			],
 		],
 		'limit' => 1,
