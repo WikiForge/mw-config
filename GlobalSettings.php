@@ -257,6 +257,7 @@ $wgDataDumpDirectory = '';
 $wgDataDump = [
 	'xml' => [
 		'file_ending' => '.xml.gz',
+		'useBackendTempStore' => true,
 		'generate' => [
 			'type' => 'mwscript',
 			'script' => "$IP/maintenance/dumpBackup.php",
@@ -265,7 +266,7 @@ $wgDataDump = [
 				'--logs',
 				'--uploads',
 				'--output',
-				"gzip:{$wgDataDumpDirectory}" . '${filename}',
+				'gzip:/tmp/${filename}',
 			],
 			'arguments' => [
 				'--namespaces'
@@ -288,6 +289,7 @@ $wgDataDump = [
 	],
 	'image' => [
 		'file_ending' => '.tar.gz',
+		'useBackendTempStore' => true,
 		'generate' => [
 			'type' => 'script',
 			'script' => '/usr/bin/tar',
@@ -312,7 +314,7 @@ $wgDataDump = [
 		'limit' => 1,
 		'permissions' => [
 			'view' => 'view-dump',
-			'generate' => 'generate-dump',
+			'generate' => 'managewiki-restricted',
 			'delete' => 'delete-dump',
 		],
 	],
