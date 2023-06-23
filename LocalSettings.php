@@ -3481,11 +3481,20 @@ $wgConf->settings += [
 	'wgTranslateDocumentationLanguageCode' => [
 		'default' => false,
 	],
+	'wgTranslateKeepOutdatedTranslations' => [
+		'default' => true,
+	],
 	'wgTranslatePageTranslationULS' => [
 		'default' => false,
 	],
+	'wgTranslatePermissionUrl' => [
+		'default' => 'Project:Translator',
+	],
 	'wgTranslateTranslationServices' => [
 		'default' => [],
+	],
+	'wgPageTranslationLanguageList' => [
+		'default' => 'tag-only',
 	],
 
 	// Tweeki
