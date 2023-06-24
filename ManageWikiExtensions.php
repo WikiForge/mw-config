@@ -3601,11 +3601,12 @@ $wgManageWikiExtensions = [
 	],
 ];
 
-// No CirrusSearch on WikiTide (yet at least)
+// No CirrusSearch or Score on WikiTide (yet at least)
 if ( $wi->wikifarm === 'wikitide' ) {
 	unset(
 		$wgManageWikiExtensions['advancedsearch'],
 		$wgManageWikiExtensions['cirrussearch'],
-		$wgManageWikiExtensions['relatedarticles']
+		$wgManageWikiExtensions['relatedarticles'],
+		$wgManageWikiExtensions['score']
 	);
 }
