@@ -200,7 +200,6 @@ if ( wfHostname() === 'test1.wikiforge.net' ) {
 	];
 }
 
-
 // AWS
 $wgAWSCredentials = [
 	'key' => $wmgAWSAccessKey,
