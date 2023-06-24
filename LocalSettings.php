@@ -1826,14 +1826,6 @@ $wgConf->settings += [
 		'default' => [],
 	],
 
-	// LiliPond
-	'wgScoreLilyPond' => [
-		'default' => '/dev/null',
-	],
-	'wgScoreDisableExec' => [
-		'default' => true,
-	],
-
 	// Linter
 	'wgLinterSubmitterWhitelist' => [
 		'ext-Linter' => [
@@ -2408,6 +2400,14 @@ $wgConf->settings += [
 	],
 	'wgShellRestrictionMethod' => [
 		'default' => 'firejail',
+	],
+	'wgShellboxUrls' => [
+		'default' => [
+			'default' => null,
+		],
+		'+ext-Score' => [
+			'score' => 'http://localhost:6024/shellbox',
+		],
 	],
 	'wgCrossSiteAJAXdomains' => [
 		'wikiforge' => [
@@ -3134,6 +3134,14 @@ $wgConf->settings += [
 		'ext-RSSfeed' => [
 			'*',
 		],
+	],
+
+	// Score
+	'wgScoreImageMagickConvert' => [
+		'ext-Score' => '/usr/bin/convert',
+	],
+	'wgScoreSafeMode' => [
+		'ext-Score' => true,
 	],
 
 	// ScratchBlocks
