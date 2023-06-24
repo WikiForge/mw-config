@@ -194,13 +194,6 @@ unset( $articlePath );
 
 $wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
-if ( wfHostname() === 'test1.wikiforge.net' ) {
-	$wgShellboxUrls = [
-		'default' => 'http://localhost:81/shellbox',
-	];
-}
-
-
 // AWS
 $wgAWSCredentials = [
 	'key' => $wmgAWSAccessKey,
