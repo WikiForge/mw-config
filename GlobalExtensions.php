@@ -18,6 +18,7 @@ wfLoadExtensions( [
 	'Echo',
 	'GlobalNewFiles',
 	'Interwiki',
+	'InterwikiDispatcher',
 	'IPInfo',
 	'LoginNotify',
 	'ManageWiki',
