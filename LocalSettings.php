@@ -1674,12 +1674,12 @@ $wgConf->settings += [
 
 	// InterwikiDispatcher
 	'wgIWDPrefixes' => [
-		'wikiforge' =>  [
+		'wikiforge' => [
 			'interwiki' => 'wf',
 			'url' => 'https://$2.wikiforge.net/wiki/$1',
 			'dbname' => '$2wiki',
 		],
-		'wikitide' =>  [
+		'wikitide' => [
 			'interwiki' => 'wt',
 			'url' => 'https://$2.wikitide.com/wiki/$1',
 			'dbname' => '$2wikitide',
