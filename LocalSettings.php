@@ -1672,6 +1672,20 @@ $wgConf->settings += [
 		'default' => [],
 	],
 
+	// InterwikiDispatcher
+	'wgIWDPrefixes' => [
+		'wikiforge' =>  [
+			'interwiki' => 'wf',
+			'url' => 'https://$2.wikiforge.net/wiki/$1',
+			'dbname' => '$2wiki',
+		],
+		'wikitide' =>  [
+			'interwiki' => 'wt',
+			'url' => 'https://$2.wikitide.com/wiki/$1',
+			'dbname' => '$2wikitide',
+		],
+	],
+
 	// InterwikiSorting
 	'wgInterwikiSortingSort' => [
 		'ext-InterwikiSorting' => 'code',
