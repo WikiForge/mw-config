@@ -1675,14 +1675,14 @@ $wgConf->settings += [
 	// InterwikiDispatcher
 	'wgIWDPrefixes' => [
 		'default' => [
-			[
+			'fandom' => [
 				/** Fandom */
 				'interwiki' => 'fandom',
 				'url' => 'https://$2.fandom.com/wiki/$1',
 				'urlInt' => 'https://$2.fandom.com/$3/wiki/$1',
 				'baseTransOnly' => true,
 			],
-			[
+			'miraheze' => [
 				/** Miraheze */
 				'interwiki' => 'miraheze',
 				'url' => 'https://$2.miraheze.org/wiki/$1',
@@ -1690,14 +1690,14 @@ $wgConf->settings += [
 			],
 		],
 		'+wikiforge' => [
-			[
+			'wikiforge' => [
 				/** WikiForge */
 				'interwiki' => 'wf',
 				'url' => 'https://$2.wikiforge.net/wiki/$1',
 				'dbname' => '$2wiki',
 				'baseTransOnly' => true,
 			],
-			[
+			'wikitide' => [
 				/** WikiTide */
 				'interwiki' => 'wt',
 				'url' => 'https://$2.wikitide.com/wiki/$1',
@@ -1705,14 +1705,14 @@ $wgConf->settings += [
 			],
 		],
 		'+wikitide' => [
-			[
+			'wikitide' => [
 				/** WikiTide */
 				'interwiki' => 'wt',
 				'url' => 'https://$2.wikitide.com/wiki/$1',
 				'dbname' => '$2wikitide',
 				'baseTransOnly' => true,
 			],
-			[
+			'wikiforge' => [
 				/** WikiForge */
 				'interwiki' => 'wf',
 				'url' => 'https://$2.wikiforge.net/wiki/$1',
