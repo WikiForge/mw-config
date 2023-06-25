@@ -3697,6 +3697,16 @@ $wgConf->settings += [
 		'default' => '1 hour',
 	],
 
+	// WebAuthn
+	'wgWebAuthnRelyingPartyName' => [
+		'wikiforge' => 'WikiForge',
+		'wikitide' => 'WikiTide',
+	],
+	'wgWebAuthnRelyingPartyID' => [
+		'wikiforge' => 'wikiforge.net',
+		'wikitide' => 'wikitide.com',
+	],
+
 	// Wikibase
 	'wmgAllowEntityImport' => [
 		'default' => false,
