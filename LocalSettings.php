@@ -2029,6 +2029,7 @@ $wgConf->settings += [
 				'handle-pii' => true,
 				'managewiki' => true,
 				'managewiki-restricted' => true,
+				'mwoauthmanageconsumer' => true,
 				'noratelimit' => true,
 				'oathauth-disable-for-user' => true,
 				'oathauth-verify-user' => true,
