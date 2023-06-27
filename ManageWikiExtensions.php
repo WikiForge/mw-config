@@ -2120,7 +2120,7 @@ $wgManageWikiExtensions = [
 		'section' => 'other',
 	],
 	'electronpdfservice' => [
-		'name' => 'Electron (PDF)',
+		'name' => 'ElectronPdfService',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ElectronPdfService',
 		'conflicts' => false,
 		'requires' => [
@@ -3639,11 +3639,14 @@ $wgManageWikiExtensions = [
 	],
 ];
 
-// No CirrusSearch or Score on WikiTide (yet at least)
+// No CirrusSearch, Score, or services on WikiTide (yet at least)
 if ( $wi->wikifarm === 'wikitide' ) {
 	unset(
 		$wgManageWikiExtensions['advancedsearch'],
 		$wgManageWikiExtensions['cirrussearch'],
+		$wgManageWikiExtensions['citoid'],
+		$wgManageWikiExtensions['collection'],
+		$wgManageWikiExtensions['electronpdfservice'],
 		$wgManageWikiExtensions['relatedarticles'],
 		$wgManageWikiExtensions['score']
 	);
