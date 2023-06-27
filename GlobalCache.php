@@ -58,10 +58,28 @@ $wgObjectCaches['mysql-multiwrite'] = [
 	'reportDupes' => false
 ];
 
-$wgSessionCacheType = CACHE_DB;
+if ( $wi->wikifarm === 'wikitide' ) {
+	$wgObjectCaches['redis-session'] = [
+		'class' => RedisBagOStuff::class,
+		'servers' => [ 'jobchron1.wikiforge.net' ],
+		'password' => $wmgRedisPassword,
+		'loggroup' => 'redis',
+		'reportDupes' => false,
+	];
 
-// Same as $wgMainStash
-$wgMWOAuthSessionCacheType = 'db-replicated';
+	$wgSessionCacheType = 'redis-session';
+
+	$wgMainWANCache = 'wikitide';
+	$wgWANObjectCaches['wikitide'] = [
+		'class' => WANObjectCache::class,
+		'cacheId' => 'redis-session',
+	];
+} else {
+	$wgSessionCacheType = 'memcached';
+
+	// Same as $wgMainStash
+	$wgMWOAuthSessionCacheType = 'db-replicated';
+}
 
 $wgMainCacheType = 'memcached';
 $wgMessageCacheType = 'memcached';

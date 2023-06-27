@@ -55,6 +55,8 @@
  * permissions: an array. Set to an array of permissions required for the setting to be visible.
  */
 
+$wikiFarmName = $wi->wikifarm === 'wikitide' ? 'WikiTide' : 'WikiForge';
+
 $wgManageWikiSettings = [
 	// Anti-Spam
 	'wgAbuseFilterActions' => [
@@ -563,7 +565,7 @@ $wgManageWikiSettings = [
 		],
 		'overridedefault' => 'cc-by-sa',
 		'section' => 'editing',
-		'help' => 'Each wiki on WikiForge is by default licensed under CC-BY-SA 4.0 although this can be changed to another supported license. If you would like to release the contributions on your wiki under another license, please let us know so that we can make it available to you. Be aware that changing the license on your wiki can have an impact on your community and should not be done lightly.',
+		'help' => 'Each wiki on ' . $wikiFarmName . ' is by default licensed under CC-BY-SA 4.0 although this can be changed to another supported license. If you would like to release the contributions on your wiki under another license, please let us know so that we can make it available to you. Be aware that changing the license on your wiki can have an impact on your community and should not be done lightly.',
 		'requires' => [],
 	],
 	'wgActiveUserDays' => [
@@ -1209,7 +1211,7 @@ $wgManageWikiSettings = [
 		'type' => 'check',
 		'overridedefault' => false,
 		'section' => 'media',
-		'help' => 'By default, WikiForge enables file upload only from a local media but with this option you can upload files remotely from other sites.',
+		'help' => 'By default, ' . $wikiFarmName . ' enables file upload only from a local media but with this option you can upload files remotely from other sites.',
 		'requires' => [],
 	],
 	'wgCopyUploadsFromSpecialUpload' => [
@@ -1240,6 +1242,16 @@ $wgManageWikiSettings = [
 		'overridedefault' => true,
 		'section' => 'media',
 		'help' => 'This option allows you to use the WikiForge Commons file database on your wiki.',
+		'requires' => [],
+	],
+	'wgWikiTideCommons' => [
+		'name' => 'Enable WikiTide Commons (linking to commons.wikitide.com)',
+		'from' => 'mediawiki',
+		'global' => true,
+		'type' => 'check',
+		'overridedefault' => true,
+		'section' => 'media',
+		'help' => 'This option allows you to use the WikiTide Commons file database on your wiki.',
 		'requires' => [],
 	],
 	'wgShowArchiveThumbnails' => [
@@ -1595,7 +1607,7 @@ $wgManageWikiSettings = [
 		'type' => 'text',
 		'overridedefault' => false,
 		'section' => 'media',
-		'help' => 'The domain name for the wiki to use as the file repository. Leave empty unless it is a custom domain. By default will be the WikiForge subdomain of whatever <code>$wmgSharedUploadDBname</code> is set to below. Do not include https:// or any paths.',
+		'help' => 'The domain name for the wiki to use as the file repository. Leave empty unless it is a custom domain. By default will be the ' . $wikiFarmName . ' subdomain of whatever <code>$wmgSharedUploadDBname</code> is set to below. Do not include https:// or any paths.',
 		'requires' => [],
 	],
 	'wmgSharedUploadClientDBname' => [
@@ -1605,7 +1617,7 @@ $wgManageWikiSettings = [
 		'type' => 'text',
 		'overridedefault' => false,
 		'section' => 'media',
-		'help' => 'The database name for the wiki to allow to use this wiki as the file repository for that wiki. This value must be a valid WikiForge-hosted wiki database.',
+		'help' => 'The database name for the wiki to allow to use this wiki as the file repository for that wiki. This value must be a valid ' . $wikiFarmName . '-hosted wiki database.',
 		'requires' => [
 			'visibility' => [
 				'state' => 'public',
@@ -1619,7 +1631,7 @@ $wgManageWikiSettings = [
 		'type' => 'text',
 		'overridedefault' => false,
 		'section' => 'media',
-		'help' => 'The database name for the wiki to use as the file repository. This value must be a valid WikiForge-hosted wiki database. The databse in this field will be used for granting permission from the client database. This <b>can not</b> be a private wiki database.',
+		'help' => 'The database name for the wiki to use as the file repository. This value must be a valid ' . $wikiFarmName . '-hosted wiki database. The databse in this field will be used for granting permission from the client database. This <b>can not</b> be a private wiki database.',
 		'requires' => [],
 	],
 	'wmgEnableSharedUploads' => [
@@ -2165,6 +2177,20 @@ $wgManageWikiSettings = [
 			],
 		],
 	],
+	'wgCompressRevisions' => [
+		'name' => 'Compress Revisions',
+		'from' => 'mediawiki',
+		'global' => true,
+		'type' => 'check',
+		'overridedefault' => false,
+		'section' => 'restricted',
+		'help' => "Compress new page revisions if possible. Site Reliability Engineering: after enabling this, don't forget to manually run <code>mwscript storage/compressOld.php {$wi->dbname} --type=gzip</code>.",
+		'requires' => [
+			'permissions' => [
+				'managewiki-restricted',
+			],
+		],
+	],
 	'wgExpensiveParserFunctionLimit' => [
 		'name' => 'Expensive Parser Function Limit',
 		'from' => 'mediawiki',
@@ -2687,7 +2713,7 @@ $wgManageWikiSettings = [
 		'type' => 'text',
 		'overridedefault' => "https://$wmgUploadHostname/metawiki/8/88/WikiForge_Logo.svg",
 		'section' => 'styling',
-		'help' => 'This will replace WikiForge\'s default logo. Also sets the value of <code>$wgLogos[\'1x\']</code>.',
+		'help' => 'This will replace ' . $wikiFarmName . '\'s default logo. Also sets the value of <code>$wgLogos[\'1x\']</code>.',
 		'requires' => [],
 	],
 	'wgFavicon' => [
@@ -3520,7 +3546,7 @@ $wgManageWikiSettings = [
 		'type' => 'database',
 		'overridedefault' => $wi->dbname,
 		'section' => 'wikibase',
-		'help' => 'Database identifier of the repository being used. This value must be a valid WikiForge-hosted wiki database.',
+		'help' => 'Database identifier of the repository being used. This value must be a valid ' . $wikiFarmName . '-hosted wiki database.',
 		'requires' => [],
 	],
 	'wmgAllowEntityImport' => [
@@ -4350,6 +4376,18 @@ $wgManageWikiSettings = [
 		'requires' => [],
 	],
 ];
+
+if ( $wi->wikifarm === 'wikitide' ) {
+	unset( $wgManageWikiSettings['wgWikiForgeCommons'] );
+} else {
+	unset(
+		$wgManageWikiSettings['wgCompressRevisions'],
+		$wgManageWikiSettings['wgWikiTideCommons']
+	);
+}
+
+// Don't need a global here
+unset( $wikiFarmName );
 
 if ( $wi->isAllOfExtensionsActive( 'Gamepress', 'Theme' ) ) {
 	$wgManageWikiSettings['wgDefaultTheme']['options']['Blue (Gamepress only)'] = 'blue';

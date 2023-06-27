@@ -254,7 +254,7 @@ $wgManageWikiExtensions = [
 		],
 		'install' => [
 			'mwscript' => [
-				"$IP/extensions/WikiForgeMagic/maintenance/createCargoDB.php" => [],
+				"$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/createCargoDB.php' => [],
 			],
 			'sql' => [
 				'cargo_tables' => "$IP/extensions/Cargo/sql/Cargo.sql",
@@ -833,11 +833,7 @@ $wgManageWikiExtensions = [
 		'name' => 'Score',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Score',
 		'conflicts' => false,
-		'requires' => [
-			'permissions' => [
-				'managewiki-restricted',
-			],
-		],
+		'requires' => [],
 		'section' => 'parserhooks',
 	],
 	'scratchblocks' => [
@@ -1987,7 +1983,18 @@ $wgManageWikiExtensions = [
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CirrusSearch',
 		'conflicts' => false,
 		'requires' => [],
-		'install' => [],
+		'install' => [
+			'mwscript' => [
+				"$IP/extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php" => [],
+				"$IP/extensions/CirrusSearch/maintenance/ForceSearchIndex.php" => [
+					'skipLinks' => false,
+					'indexOnSkip' => false,
+					'repeat-with' => [
+						'skipParse' => false,
+					],
+				],
+			],
+		],
 		'section' => 'other',
 	],
 	'cleanchanges' => [
@@ -2823,6 +2830,12 @@ $wgManageWikiExtensions = [
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:StandardDialogs',
 		'conflicts' => false,
 		'requires' => [],
+		'install' => [
+			'sql' => [
+				'mws_title_index' => "$IP/extensions/OOJSPlus/vendor/mwstake/mediawiki-component-commonwebapis/sql/mws_title_index.sql",
+				'mws_user_index' => "$IP/extensions/OOJSPlus/vendor/mwstake/mediawiki-component-commonwebapis/sql/mws_user_index.sql",
+			],
+		],
 		'section' => 'other',
 	],
 	'flow' => [
@@ -3177,7 +3190,7 @@ $wgManageWikiExtensions = [
 				'wb_property_info' => "$IP/extensions/Wikibase/repo/sql/mysql/wb_property_info.sql"
 			],
 			'mwscript' => [
-				"$IP/extensions/WikiForgeMagic/maintenance/populateWikibaseSitesTable.php" => [],
+				"$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/populateWikibaseSitesTable.php' => [],
 			],
 		],
 		'section' => 'other',
@@ -3589,3 +3602,13 @@ $wgManageWikiExtensions = [
 		'section' => 'skins',
 	],
 ];
+
+// No CirrusSearch or Score on WikiTide (yet at least)
+if ( $wi->wikifarm === 'wikitide' ) {
+	unset(
+		$wgManageWikiExtensions['advancedsearch'],
+		$wgManageWikiExtensions['cirrussearch'],
+		$wgManageWikiExtensions['relatedarticles'],
+		$wgManageWikiExtensions['score']
+	);
+}

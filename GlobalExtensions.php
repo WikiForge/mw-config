@@ -21,5 +21,14 @@ wfLoadExtensions( [
 	'Renameuser',
 	'WebAuthn',
 	'WikiDiscover',
-	'WikiForgeMagic',
 ] );
+
+if ( $wi->wikifarm === 'wikitide' ) {
+	wfLoadExtensions( [
+		'CentralNotice',
+		'EventLogging',
+		'WikiTideMagic',
+	] );
+} else {
+	wfLoadExtension( 'WikiForgeMagic' );
+}
