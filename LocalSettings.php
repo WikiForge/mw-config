@@ -509,18 +509,18 @@ $wgConf->settings += [
 	
 	// Citoid
 	'wgCitoidFullRestbaseURL' => [
-		'wmgUseCitoid' => "https://{$wi->hostname}/{$wi->hostname}/",
+		'ext-Citoid' => "https://{$wi->hostname}/{$wi->hostname}/",
 	],
 	
 	// Collection
 	'wgCommunityCollectionNamespace' => [
-		'wmgUseCollection' => 5,
+		'ext-Collection' => 5,
 	],
 	'wgCollectionMWServeURL' => [
-		'wmgUseCollection' => 'https://restbase-lb.wikiforge.net',
+		'ext-Collection' => 'https://restbase.wikiforge.net',
 	],
 	'wgCollectionPODPartners' => [
-		'wmgUseCollection' => [],
+		'ext-Collection' => [],
 	],
 
 	// Comments
