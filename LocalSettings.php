@@ -13,7 +13,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 // Configure PHP request timeouts.
 if ( PHP_SAPI === 'cli' ) {
 	$wgRequestTimeLimit = 0;
-} elseif ( ( $_SERVER['HTTP_HOST'] ?? '' ) === 'mw1.wikiforge.net' ) {
+} elseif ( in_array( $_SERVER['HTTP_HOST'] ?? '', [ 'jobrunner1.wikiforge.net', 'jobrunner2.wikiforge.net' ] ) ) {
 	$wgRequestTimeLimit = 1200;
 } elseif ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$wgRequestTimeLimit = 200;
@@ -365,7 +365,7 @@ $wgConf->settings += [
 		'wikitide' => 'centralauth_wikitide_',
 	],
 	'wgCentralAuthCreateOnView' => [
-		'default' => true,
+		'default' => false,
 	],
 	'wgCentralAuthDatabase' => [
 		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
@@ -941,6 +941,7 @@ $wgConf->settings += [
 			'Software/Computing' => 'software',
 			'Song Contest' => 'songcontest',
 			'Sports' => 'sport',
+			'Transportation' => 'transportation',
 			'Uncategorized' => 'uncategorized',
 		],
 		'wikitide' => [
@@ -972,6 +973,7 @@ $wgConf->settings += [
 			'Software/Computing' => 'software',
 			'Song Contest' => 'songcontest',
 			'Sports' => 'sport',
+			'Transportation' => 'transportation',
 			'Uncategorized' => 'uncategorized',
 		],
 	],
@@ -1034,6 +1036,9 @@ $wgConf->settings += [
 
 	// Database
 	'wgAllowSchemaUpdates' => [
+		'default' => false,
+	],
+	'wgCompressRevisions' => [
 		'default' => false,
 	],
 	'wgDBadminuser' => [
@@ -1361,10 +1366,20 @@ $wgConf->settings += [
 	],
 
 	// Footers
+	'+wgFooterIcons' => [
+		'wikitide' => [
+			'poweredby' => [
+				'wikitide' => [
+					'src' => 'https://static.wikiforge.net/commonswikitide/8/8a/Hosted_by_WikiTide.svg',
+					'url' => 'https://meta.wikitide.com/wiki/Special:MyLanguage/WikiTide',
+					'alt' => 'Hosted by WikiTide',
+				],
+			],
+		],
+	],
 	'wmgWikiapiaryFooterPageName' => [
 		'default' => '',
 	],
-
 	'wgMaxCredits' => [
 		'default' => 0,
 	],
@@ -1643,7 +1658,6 @@ $wgConf->settings += [
 			[ 1024, 768 ],
 			[ 1280, 1024 ],
 			[ 2560, 2048 ],
-			[ 2560, 2048 ],
 		],
 	],
 
@@ -1674,6 +1688,55 @@ $wgConf->settings += [
 		'default' => [],
 	],
 
+	// InterwikiDispatcher
+	'wgIWDPrefixes' => [
+		'default' => [
+			'fandom' => [
+				/** Fandom */
+				'interwiki' => 'fandom',
+				'url' => 'https://$2.fandom.com/wiki/$1',
+				'urlInt' => 'https://$2.fandom.com/$3/wiki/$1',
+				'baseTransOnly' => true,
+			],
+			'miraheze' => [
+				/** Miraheze */
+				'interwiki' => 'miraheze',
+				'url' => 'https://$2.miraheze.org/wiki/$1',
+				'baseTransOnly' => true,
+			],
+		],
+		'+wikiforge' => [
+			'wikiforge' => [
+				/** WikiForge */
+				'interwiki' => 'wf',
+				'url' => 'https://$2.wikiforge.net/wiki/$1',
+				'dbname' => '$2wiki',
+				'baseTransOnly' => true,
+			],
+			'wikitide' => [
+				/** WikiTide */
+				'interwiki' => 'wt',
+				'url' => 'https://$2.wikitide.com/wiki/$1',
+				'baseTransOnly' => true,
+			],
+		],
+		'+wikitide' => [
+			'wikitide' => [
+				/** WikiTide */
+				'interwiki' => 'wt',
+				'url' => 'https://$2.wikitide.com/wiki/$1',
+				'dbname' => '$2wikitide',
+				'baseTransOnly' => true,
+			],
+			'wikiforge' => [
+				/** WikiForge */
+				'interwiki' => 'wf',
+				'url' => 'https://$2.wikiforge.net/wiki/$1',
+				'baseTransOnly' => true,
+			],
+		],
+	],
+
 	// InterwikiSorting
 	'wgInterwikiSortingSort' => [
 		'ext-InterwikiSorting' => 'code',
@@ -1687,15 +1750,17 @@ $wgConf->settings += [
 		'default' => [
 			'fandom.com' => 'fandom',
 			'miraheze.org' => 'miraheze',
-			'wikiforge.net' => 'wiki',
+			'wikiforge.net' => 'wf',
 			'wikitide.com' => 'wt',
 		],
 	],
 	'wgImportDumpScriptCommand' => [
-		'default' => 'screen -d -m bash -c ". /etc/s3-env.sh; aws s3 cp s3://static.wikiforge.net/' . $wi::CENTRAL_WIKI[$wi->wikifarm] . '/{file} /home/$USER/{file}; mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /home/$USER/{file}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y; rm /home/$USER/{file}"',
+		'default' => 'screen -d -m bash -c ". /etc/s3-env.sh; aws s3 cp s3://static.wikiforge.net/' . $wi::CENTRAL_WIKI[$wi->wikifarm] . '/{file-path} /home/$USER/{file-name}; mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /home/$USER/{file-name}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y; rm /home/$USER/{file-name}"',
 	],
 	'wgImportDumpUsersNotifiedOnAllRequests' => [
 		'default' => [
+			'Agent Isai',
+			'Reception123',
 			'Universal Omega',
 		],
 	],
@@ -1707,6 +1772,10 @@ $wgConf->settings += [
 			'mw',
 			'wikipedia',
 			'metawikimedia',
+		],
+		'+hkrailwikitide' => [
+			'zhwikipedia',
+			'hkrailfan',
 		],
 	],
 
@@ -1739,6 +1808,7 @@ $wgConf->settings += [
 	// Kartographer
 	'wgKartographerDfltStyle' => [
 		'default' => 'osm-intl',
+		'hkrailwikitide' => '.',
 	],
 	'wgKartographerEnableMapFrame' => [
 		'default' => true,
@@ -1754,12 +1824,16 @@ $wgConf->settings += [
 			2.6,
 			3,
 		],
+		'hkrailwikitide' => [
+			1,
+		],
 	],
 	'wgKartographerStaticMapframe' => [
 		'default' => false,
 	],
 	'wgKartographerSimpleStyleMarkers' => [
 		'default' => true,
+		'hkrailwikitide' => false,
 	],
 	'wgKartographerStyles' => [
 		'default' => [
@@ -1817,23 +1891,27 @@ $wgConf->settings += [
 		'default' => [],
 	],
 
-	// LiliPond
-	'wgScoreLilyPond' => [
-		'default' => '/dev/null',
-	],
-	'wgScoreDisableExec' => [
-		'default' => true,
-	],
-
 	// Linter
 	'wgLinterSubmitterWhitelist' => [
 		'ext-Linter' => [
 			/** localhost */
 			'127.0.0.1' => true,
+			/** jobrunner1 */
+			'13.58.205.57' => true,
+			/** jobrunner2 */
+			'3.128.255.135' => true,
 			/** mw1 */
-			'3.145.73.77' => true,
+			'18.221.121.203' => true,
 			/** mw2 */
-			'18.224.51.21' => true,
+			'3.137.156.210' => true,
+			/** mw3 */
+			'3.145.164.236' => true,
+			/** mw4 */
+			'3.139.80.48' => true,
+			/** mw5 */
+			'3.145.18.108' => true,
+			/** mw6 */
+			'18.118.93.80' => true,
 			/** test1 */
 			'52.14.195.40' => true,
 		],
@@ -1855,7 +1933,7 @@ $wgConf->settings += [
 			'port' => 587,
 			'IDHost' => 'wikiforge.net',
 			'auth' => true,
-			'username' => 'AKIAZEMY5IR4RPZVGLVT',
+			'username' => $wmgSMTPUsername,
 			'password' => $wmgSMTPPassword,
 		],
 	],
@@ -1896,6 +1974,9 @@ $wgConf->settings += [
 			'cologneblue',
 			'cosmos',
 			'darkmode',
+			'globaluserpage',
+			'minervaneue',
+			'mobilefrontend',
 			'modern',
 			'monobook',
 			'purge',
@@ -1912,7 +1993,6 @@ $wgConf->settings += [
 	'wgManageWikiPermissionsAdditionalRights' => [
 		'default' => [
 			'*' => [
-				'autocreateaccount' => true,
 				'editmyoptions' => true,
 				'editmyprivateinfo' => true,
 				'editmywatchlist' => true,
@@ -1965,6 +2045,7 @@ $wgConf->settings += [
 				'handle-pii' => true,
 				'managewiki' => true,
 				'managewiki-restricted' => true,
+				'mwoauthmanageconsumer' => true,
 				'noratelimit' => true,
 				'oathauth-disable-for-user' => true,
 				'oathauth-verify-user' => true,
@@ -1978,6 +2059,13 @@ $wgConf->settings += [
 			],
 		],
 		'+metawikitide' => [
+			'checkuser' => [
+				'abusefilter-privatedetails' => true,
+				'abusefilter-privatedetails-log' => true,
+				'checkuser' => true,
+				'checkuser-log' => true,
+				'securepoll-view-voter-pii' => true,
+			],
 			'confirmed' => [
 				'mwoauthproposeconsumer' => true,
 				'mwoauthupdateownconsumer' => true,
@@ -2111,6 +2199,7 @@ $wgConf->settings += [
 				'oathauth-view-log',
 				'renameuser',
 				'requestwiki',
+				'securepoll-view-voter-pii',
 				'siteadmin',
 				'smw-admin',
 				'smw-patternedit',
@@ -2378,6 +2467,14 @@ $wgConf->settings += [
 	'wgShellRestrictionMethod' => [
 		'default' => 'firejail',
 	],
+	'wgShellboxUrls' => [
+		'default' => [
+			'default' => null,
+		],
+		'+ext-Score' => [
+			'score' => 'http://localhost:6024/shellbox',
+		],
+	],
 	'wgCrossSiteAJAXdomains' => [
 		'wikiforge' => [
 			'meta.wikiforge.net',
@@ -2400,9 +2497,15 @@ $wgConf->settings += [
 	],
 	'wgDisabledVariants' => [
 		'default' => [],
+		'hkrailwikitide' => [
+			'zh',
+			'zh-hant',
+			'zh-hans',
+		],
 	],
 	'wgDefaultLanguageVariant' => [
 		'default' => false,
+		'hkrailwikitide' => 'zh-hk',
 	],
 
 	// MobileFrontend
@@ -2430,6 +2533,9 @@ $wgConf->settings += [
 	],
 	'wgMFNoindexPages' => [
 		'ext-MobileFrontend' => false,
+	],
+	'wgMFStripResponsiveImages' => [
+		'1.39' => false,
 	],
 	'wgMFUseDesktopSpecialHistoryPage' => [
 		'default' => [
@@ -3096,6 +3202,14 @@ $wgConf->settings += [
 		],
 	],
 
+	// Score
+	'wgScoreImageMagickConvert' => [
+		'ext-Score' => '/usr/bin/convert',
+	],
+	'wgScoreSafeMode' => [
+		'ext-Score' => true,
+	],
+
 	// ScratchBlocks
 	'wgScratchBlocks4BlockVersion' => [
 		'default' => 3,
@@ -3113,6 +3227,14 @@ $wgConf->settings += [
 	],
 	'wgScribuntoSlowFunctionThreshold' => [
 		'default' => 0.99,
+	],
+
+	// SecurePoll
+	'wgSecurePollUseLogging' => [
+		'default' => true,
+	],
+	'wgSecurePollUseNamespace' => [
+		'default' => true,
 	],
 
 	// Server
@@ -3412,6 +3534,18 @@ $wgConf->settings += [
 	// Translate
 	'wgTranslateDisabledTargetLanguages' => [
 		'default' => [],
+		'hkrailwikitide' => [
+			'*' => [
+				'zh-hant' => '本站已配置[[Project:繁簡處理|自動繁簡轉換]]功能，請在語言表單選擇翻譯語言為「中文」而非「中文（繁體）」。',
+				'zh-hk' => '本站已配置[[Project:繁簡處理|自動繁簡轉換]]功能，請在語言表單選擇翻譯語言為「中文」而非「中文（香港）」。',
+				'zh-tw' => '本站已配置[[Project:繁簡處理|自動繁簡轉換]]功能，請在語言表單選擇翻譯語言為「中文」而非「中文（台灣）」。',
+				'zh-mo' => '本站已配置[[Project:繁簡處理|自動繁簡轉換]]功能，請在語言表單選擇翻譯語言為「中文」而非「中文（澳門）」。',
+				'zh-hant' => '本站已配置[[Project:繁簡處理|自动简繁转换]]功能，请在语言表单选择翻译语言为「中文」而非「中文（简体）」。',
+				'zh-cn' => '本站已配置[[Project:繁簡處理|自动简繁转换]]功能，请在语言表单选择翻译语言为「中文」而非「中文（中国大陆）」。',
+				'zh-sg' => '本站已配置[[Project:繁簡處理|自动简繁转换]]功能，请在语言表单选择翻译语言为「中文」而非「中文（新加坡）」。',
+				'zh-my' => '本站已配置[[Project:繁簡處理|自动简繁转换]]功能，请在语言表单选择翻译语言为「中文」而非「中文（马来西亚）」。',
+			],
+		],
 		'metawiki' => [
 			'*' => [
 				'en' => 'English is the source language.',
@@ -3533,7 +3667,11 @@ $wgConf->settings += [
 			/** cp1 */
 			'77.68.52.122:81',
 			/** cp2 */
+			'79.99.42.171:81',
+			/** cp3 */
 			'198.251.65.198:81',
+			/** cp4 */
+			'74.208.107.89:81',
 		],
 	],
 
@@ -3623,6 +3761,16 @@ $wgConf->settings += [
 	],
 	'wgProtectSiteDefaultTimeout' => [
 		'default' => '1 hour',
+	],
+
+	// WebAuthn
+	'wgWebAuthnRelyingPartyName' => [
+		'wikiforge' => 'WikiForge',
+		'wikitide' => 'WikiTide',
+	],
+	'wgWebAuthnRelyingPartyID' => [
+		'wikiforge' => 'wikiforge.net',
+		'wikitide' => 'wikitide.com',
 	],
 
 	// Wikibase

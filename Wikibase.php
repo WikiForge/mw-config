@@ -37,8 +37,10 @@ $wgWBRepoSettings['federatedPropertiesEnabled'] = $wmgFederatedPropertiesEnabled
 $wgWBRepoSettings['formatterUrlProperty'] = $wmgFormatterUrlProperty ?: null;
 $wgWBRepoSettings['canonicalUriProperty'] = $wmgCanonicalUriProperty ?: null;
 
+$siteGroup = $wi->wikifarm === 'wikitide' ? 'wikitide' : 'wikiforge';
+
 $wgWBRepoSettings['siteLinkGroups'] = [
-	'wikiforge'
+	$siteGroup
 ];
 
 $wgWBRepoSettings['specialSiteLinkGroups'] = [];
@@ -64,15 +66,15 @@ $wgWBClientSettings['repositories'] = [
 
 $wgWBClientSettings['siteGlobalID'] = $wi->dbname;
 $wgWBClientSettings['repoScriptPath'] = '/w';
-$wgWBClientSettings['repoArticlePath'] = '/wiki/$1';
-$wgWBClientSettings['siteGroup'] = 'wikiforge';
+$wgWBClientSettings['repoArticlePath'] = $wgArticlePath;
+$wgWBClientSettings['siteGroup'] = $siteGroup;
 $wgWBClientSettings['repoNamespaces'] = [
 	'wikibase-item' => 'Item',
 	'wikibase-property' => 'Property'
 ];
 
 $wgWBClientSettings['siteLinksGroups'] = [
-	'wikiforge'
+	$siteGroup
 ];
 
 $wgWBClientSettings['purgeCacheBatchSize'] = 100;
@@ -80,5 +82,5 @@ $wgWBClientSettings['recentChangesBatchSize'] = 100;
 
 // Per-wiki goes below here
 
-// don't need these to be a global
-unset( $entitySources );
+// don't need these to be globals
+unset( $entitySources, $siteGroup );

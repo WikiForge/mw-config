@@ -75,7 +75,7 @@ if ( $wi->wikifarm === 'wikitide' ) {
 		'cacheId' => 'redis-session',
 	];
 } else {
-	$wgSessionCacheType = CACHE_DB;
+	$wgSessionCacheType = 'memcached';
 
 	// Same as $wgMainStash
 	$wgMWOAuthSessionCacheType = 'db-replicated';

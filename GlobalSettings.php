@@ -8,7 +8,7 @@ if ( $wi->wikifarm !== 'wikitide' ) {
 }
 
 // Extensions
-if ( $wi->wikifarm === 'wikitide' || $wgWikiForgeUseCentralAuth ) {
+if ( $wi->wikifarm === 'wikitide' && $wi->dbname !== 'votewikitide' || ( $wgWikiForgeUseCentralAuth ?? false ) ) {
 	wfLoadExtensions( [
 		'CentralAuth',
 		'GlobalCssJs',
@@ -252,11 +252,11 @@ if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
 
 // DataDump
 $wgDataDumpFileBackend = 'AmazonS3';
-$wgDataDumpDirectory = '';
 
 $wgDataDump = [
 	'xml' => [
 		'file_ending' => '.xml.gz',
+		'useBackendTempStore' => true,
 		'generate' => [
 			'type' => 'mwscript',
 			'script' => "$IP/maintenance/dumpBackup.php",
@@ -265,7 +265,7 @@ $wgDataDump = [
 				'--logs',
 				'--uploads',
 				'--output',
-				"gzip:{$wgDataDumpDirectory}" . '${filename}',
+				'gzip:/tmp/${filename}',
 			],
 			'arguments' => [
 				'--namespaces'
@@ -288,31 +288,19 @@ $wgDataDump = [
 	],
 	'image' => [
 		'file_ending' => '.tar.gz',
+		'useBackendTempStore' => true,
 		'generate' => [
-			'type' => 'script',
-			'script' => '/usr/bin/tar',
+			'type' => 'mwscript',
+			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateS3Backup.php',
 			'options' => [
-				'--exclude',
-				"{$wgUploadDirectory}/archive",
-				'--exclude',
-				"{$wgUploadDirectory}/deleted",
-				'--exclude',
-				"{$wgUploadDirectory}/lockdir",
-				'--exclude',
-				"{$wgUploadDirectory}/temp",
-				'--exclude',
-				"{$wgUploadDirectory}/thumb",
-				'--exclude',
-				"{$wgUploadDirectory}/dumps",
-				'-zcvf',
-				$wgDataDumpDirectory . '${filename}',
-				"{$wgUploadDirectory}/"
+				'--filename',
+				'${filename}'
 			],
 		],
 		'limit' => 1,
 		'permissions' => [
 			'view' => 'view-dump',
-			'generate' => 'generate-dump',
+			'generate' => 'managewiki-restricted',
 			'delete' => 'delete-dump',
 		],
 	],
@@ -334,6 +322,28 @@ $wgDataDump = [
 		],
 	],
 ];
+
+if ( $wi->isExtensionActive( 'Flow' ) ) {
+	$wgDataDump['flow'] = [
+		'file_ending' => '.xml.gz',
+		'useBackendTempStore' => true,
+		'generate' => [
+			'type' => 'mwscript',
+			'script' => "$IP/extensions/Flow/maintenance/dumpBackup.php",
+			'options' => [
+				'--full',
+				'--output',
+				'gzip:/tmp/${filename}',
+			],
+		],
+		'limit' => 1,
+		'permissions' => [
+			'view' => 'view-dump',
+			'generate' => 'generate-dump',
+			'delete' => 'delete-dump',
+		],
+	];
+}
 
 // ContactPage configuration
 if ( $wi->isExtensionActive( 'ContactPage' ) ) {
