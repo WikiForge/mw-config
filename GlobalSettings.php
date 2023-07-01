@@ -456,16 +456,16 @@ if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiFo
 		'initialCapital' => true,
 		'zones' => [
 			'public' => [
-				'container' => 'local-public',
+				'container' => $wgDBname . '-local-public',
 			],
 			'thumb' => [
-				'container' => 'local-thumb',
+				'container' => $wgDBname . '-local-thumb',
 			],
 			'temp' => [
-				'container' => 'local-temp',
+				'container' => $wgDBname . '-local-temp',
 			],
 			'deleted' => [
-				'container' => 'local-deleted',
+				'container' => $wgDBname . '-local-deleted',
 			],
 		],
 		'abbrvThreshold' => 160
@@ -491,16 +491,16 @@ if ( $wi->wikifarm === 'wikitide' && ( $wgDBname !== 'commonswikitide' && $wgWik
 		'initialCapital' => true,
 		'zones' => [
 			'public' => [
-				'container' => 'local-public',
+				'container' => $wgDBname . '-local-public',
 			],
 			'thumb' => [
-				'container' => 'local-thumb',
+				'container' => $wgDBname . '-local-thumb',
 			],
 			'temp' => [
-				'container' => 'local-temp',
+				'container' => $wgDBname . '-local-temp',
 			],
 			'deleted' => [
-				'container' => 'local-deleted',
+				'container' => $wgDBname . '-local-deleted',
 			],
 		],
 		'abbrvThreshold' => 160
