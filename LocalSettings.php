@@ -278,7 +278,7 @@ $wgConf->settings += [
 
 	// Bot passwords
 	'wgBotPasswordsDatabase' => [
-		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
+		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// Cache
