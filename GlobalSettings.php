@@ -396,6 +396,27 @@ if ( (bool)$wmgWikiapiaryFooterPageName ) {
 	];
 }
 
+// $wgLocalFileRepo
+$wgLocalFileRepo = [
+	'class' => LocalRepo::class,
+	'name' => 'local',
+	'backend' => 'AmazonS3',
+	'url' => $wgUploadBaseUrl ? $wgUploadBaseUrl . $wgUploadPath : $wgUploadPath,
+	'scriptDirUrl' => $wgScriptPath,
+	'hashLevels' => 2,
+	'thumbScriptUrl' => $wgThumbnailScriptPath,
+	'transformVia404' => true,
+	'useJsonMetadata'   => true,
+	'useSplitMetadata'  => true,
+	'deletedHashLevels' => 3,
+	'abbrvThreshold' => 160,
+	'isPrivate' => $cwPrivate,
+	'zones' => $cwPrivate
+		? [
+			'thumb' => [ 'url' => "$wgScriptPath/thumb_handler.php" ] ]
+		: [],
+];
+
 // $wgForeignFileRepos
 if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUploadDBname, $wgLocalDatabases ) ) {
 	if ( !$wmgSharedUploadBaseUrl || $wmgSharedUploadBaseUrl === $wmgSharedUploadDBname ) {
