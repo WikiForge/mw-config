@@ -352,10 +352,10 @@ $wgConf->settings += [
 		],
 	],
 	'wgCentralAuthAutoMigrate' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgCentralAuthAutoMigrateNonGlobalAccounts' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgCentralAuthCookies' => [
 		'default' => true,
@@ -371,7 +371,7 @@ $wgConf->settings += [
 		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 	'wgCentralAuthEnableGlobalRenameRequest' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgCentralAuthGlobalBlockInterwikiPrefix' => [
 		'default' => 'meta',
@@ -383,14 +383,13 @@ $wgConf->settings += [
 		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthPreventUnattached' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgGlobalRenameDenylist' => [
-		'wikiforge' => 'https://meta.wikiforge.net/wiki/MediaWiki:Global_rename_denylist?action=raw',
 		'wikitide' => 'https://meta.wikitide.com/wiki/MediaWiki:Global_rename_denylist?action=raw',
 	],
 	'wgGlobalRenameDenylistRegex' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 
 	// CentralNotice
@@ -1077,7 +1076,6 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgDiscordNotificationCentralAuthWikiUrl' => [
-		'wikiforge' => 'https://meta.wikiforge.net/',
 		'wikitide' => 'https://meta.wikitide.com/',
 	],
 	'wgDiscordNotificationBlockedUser' => [
@@ -1088,7 +1086,6 @@ $wgConf->settings += [
 	],
 	'wgDiscordNotificationIncludeAutocreatedUsers' => [
 		'default' => true,
-		'metawiki' => false,
 		'metawikitide' => false,
 	],
 	'wgDiscordAdditionalIncomingWebhookUrls' => [
