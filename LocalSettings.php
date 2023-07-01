@@ -347,7 +347,7 @@ $wgConf->settings += [
 
 	// CentralAuth
 	'wgCentralAuthAutoCreateWikis' => [
-		'default' => [
+		'wikitide' => [
 			$wi::CENTRAL_WIKI[$wi->wikifarm],
 		],
 	],
@@ -358,29 +358,28 @@ $wgConf->settings += [
 		'wikitide' => true,
 	],
 	'wgCentralAuthCookies' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgCentralAuthCookiePrefix' => [
-		'wikiforge' => 'centralauth_wikiforge_',
 		'wikitide' => 'centralauth_wikitide_',
 	],
 	'wgCentralAuthCreateOnView' => [
-		'default' => false,
+		'wikitide' => false,
 	],
 	'wgCentralAuthDatabase' => [
-		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
+		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 	'wgCentralAuthEnableGlobalRenameRequest' => [
 		'wikitide' => true,
 	],
 	'wgCentralAuthGlobalBlockInterwikiPrefix' => [
-		'default' => 'meta',
+		'wikitide' => 'meta',
 	],
 	'wgCentralAuthLoginWiki' => [
-		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthOldNameAntiSpoofWiki' => [
-		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthPreventUnattached' => [
 		'wikitide' => true,
@@ -2013,14 +2012,7 @@ $wgConf->settings += [
 			],
 			'staff' => [
 				'abusefilter-modify-global' => true,
-				'centralauth-lock' => true,
-				'centralauth-suppress' => true,
-				'centralauth-rename' => true,
-				'centralauth-unmerge' => true,
 				'createwiki' => true,
-				'globalblock' => true,
-				'globalgroupmembership' => true,
-				'globalgrouppermissions' => true,
 				'handle-import-dump-interwiki' => true,
 				'handle-import-dump-requests' => true,
 				'handle-pii' => true,
@@ -2870,16 +2862,6 @@ $wgConf->settings += [
 		],
 	],
 	'wgCentralAuthGlobalPasswordPolicies' => [
-		'wikiforge' => [
-			'staff' => [
-				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
-		],
 		'wikitide' => [
 			'global-interwiki-admin' => [
 				'MinimalPasswordLength' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
@@ -3075,29 +3057,20 @@ $wgConf->settings += [
 
 	// RemovePII
 	'wgRemovePIIAllowedWikis' => [
-		'wikiforge' => [
-			'metawiki',
-		],
 		'wikitide' => [
 			'metawikitide',
 		],
 	],
 	'wgRemovePIIAutoPrefix' => [
-		'wikiforge' => 'WikiForgeGDPR_',
 		'wikitide' => 'WikiTideGDPR_',
 	],
 	'wgRemovePIIHashPrefixOptions' => [
-		'wikiforge' => [
-			'GDPR' => 'WikiForgeGDPR_',
-			'Vanishing' => 'Vanished user ',
-		],
 		'wikitide' => [
 			'GDPR' => 'WikiTideGDPR_',
 			'Vanishing' => 'Vanished user ',
 		],
 	],
 	'wgRemovePIIHashPrefix' => [
-		'wikiforge' => 'WikiForgeGDPR_',
 		'wikitide' => 'WikiTideGDPR_',
 	],
 
@@ -3364,7 +3337,7 @@ $wgConf->settings += [
 		'default' => '/apple-touch-icon.png',
 	],
 	'wgCentralAuthLoginIcon' => [
-		'default' => '/srv/mediawiki/favicons/default.ico',
+		'wikitide' => '/srv/mediawiki/favicons/default.ico',
 	],
 	'wgDefaultSkin' => [
 		'default' => 'vector-2022',
@@ -4120,9 +4093,6 @@ $wgConf->settings += [
 	],
 	'wgWikiForgeMagicServicesRepo' => [
 		'wikiforge' => '/srv/services/services',
-	],
-	'wgWikiForgeUseCentralAuth' => [
-		'wikiforge' => true,
 	],
 
 	// WikiTide
