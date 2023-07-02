@@ -60,6 +60,10 @@ if ( $queryString || isset( $queryParameters ) ) {
 	}
 
 	if ( !empty( $queryParameters ) ) {
+		if ( isset( $queryParameters['token'] ) ) {
+			$queryParameters['token'] = urlencode( $queryParameters['token'] );
+		}
+
 		$redirectUrl .= '?' . http_build_query( $queryParameters );
 	}
 }
