@@ -65,6 +65,11 @@ if ( $queryString || isset( $queryParameters ) ) {
 			$queryParameters['token'] = str_replace( '%5C', '\\', $queryParameters['token'] );
 		}
 
+		if ( isset( $queryParameters['title'] ) ) {
+			$queryParameters['title'] = str_replace( '&', '%26', $queryParameters['title'] );
+			$queryParameters['title'] = str_replace( '?', '%3F', $queryParameters['title'] );
+		}
+
 		$redirectUrl .= '?' . http_build_query( $queryParameters );
 	}
 }
