@@ -62,6 +62,7 @@ if ( $queryString || isset( $queryParameters ) ) {
 	if ( !empty( $queryParameters ) ) {
 		if ( isset( $queryParameters['token'] ) ) {
 			$queryParameters['token'] = urlencode( $queryParameters['token'] );
+			$queryParameters['token'] = str_replace( '%5C', '\\', $queryParameters['token'] );
 		}
 
 		$redirectUrl .= '?' . http_build_query( $queryParameters );
