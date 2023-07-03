@@ -1158,6 +1158,19 @@ class WikiForgeFunctions {
 				'old' => $articlePath,
 				'new' => $formData['article-path']
 			];
+
+			$server = self::getServer();
+			$jobQueueGroupFactory = MediaWikiServices::getInstance()->getJobQueueGroupFactory();
+			$jobQueueGroupFactory->makeJobQueueGroup( $dbName )->push(
+				new CdnPurgeJob( [
+					'urls' => [
+						$server . '/wiki/',
+						$server . '/wiki',
+						$server . '/',
+						$server,
+					],
+				] )
+			);
 		}
 
 		$mainPageIsDomainRoot = $mwSettings->list()['wgMainPageIsDomainRoot'] ?? false;
