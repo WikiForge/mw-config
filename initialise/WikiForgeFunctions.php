@@ -1160,7 +1160,8 @@ class WikiForgeFunctions {
 			];
 
 			$server = self::getServer();
-			MediaWikiServices::getInstance()->getJobQueueGroup()->lazyPush(
+			$jobQueueGroupFactory = MediaWikiServices::getInstance()->getJobQueueGroupFactory();
+			$jobQueueGroupFactory->makeJobQueueGroup( $dbName )->push(
 				new CdnPurgeJob( [
 					'urls' => [
 						$server . '/wiki/',
