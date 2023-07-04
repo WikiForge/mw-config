@@ -56,6 +56,10 @@ if ( $queryString || isset( $queryParameters ) ) {
 			$title = '';
 		}
 
+		$title = str_replace( '%', '%25', $title );
+		$title = str_replace( '&', '%26', $title );
+		$title = str_replace( '?', '%3F', $title );
+
 		$redirectUrl = $articlePath . '/' . $title;
 	}
 
@@ -63,11 +67,6 @@ if ( $queryString || isset( $queryParameters ) ) {
 		if ( isset( $queryParameters['token'] ) ) {
 			$queryParameters['token'] = urlencode( $queryParameters['token'] );
 			$queryParameters['token'] = str_replace( '%5C', '\\', $queryParameters['token'] );
-		}
-
-		if ( isset( $queryParameters['title'] ) ) {
-			$queryParameters['title'] = str_replace( '&', '%26', $queryParameters['title'] );
-			$queryParameters['title'] = str_replace( '?', '%3F', $queryParameters['title'] );
 		}
 
 		$redirectUrl .= '?' . http_build_query( $queryParameters );
