@@ -83,4 +83,4 @@ $redirectUrl = str_replace( ' ', '_', $redirectUrl );
 $redirectUrl = str_replace( '\\', '%5C', $redirectUrl );
 header( 'Location: ' . $redirectUrl, true, 301 );
 
-exit;
+exit();
