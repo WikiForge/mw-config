@@ -421,11 +421,6 @@ class WikiForgeFunctions {
 			return getenv( 'WIKIFORGE_WIKI_VERSION' );
 		}
 
-		if ( $database ) {
-			$mwVersion = self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, $database )['v'] ?? null;
-			return $mwVersion ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
-		}
-
 		static $version = null;
 
 		if ( PHP_SAPI === 'cli' ) {
@@ -433,6 +428,11 @@ class WikiForgeFunctions {
 			if ( !in_array( $version, self::MEDIAWIKI_VERSIONS ) ) {
 				$version = null;
 			}
+		}
+
+		if ( $database ) {
+			$mwVersion = self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, $database )['v'] ?? null;
+			return $mwVersion ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 		}
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
