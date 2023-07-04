@@ -8,11 +8,11 @@ require WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
 if ( $wgArticlePath === '/$1' && str_contains( strtoupper( $_SERVER['REQUEST_URI'] ), strtoupper( '/wiki/' ) ) ) {
 	// Redirect to the same page maintaining the path
 	header( 'Location: ' . str_replace( '/wiki/', '/', $_SERVER['REQUEST_URI'] ), true, 301 );
-	exit;
+	exit();
 } elseif ( $wgArticlePath === '/wiki/$1' && !str_contains( $_SERVER['REQUEST_URI'], '/wiki/' ) && !str_contains( $_SERVER['REQUEST_URI'], '/w/' ) && !( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] === '/' ) ) {
 	// Redirect to the same page maintaining the path
 	header( 'Location: /wiki' . $_SERVER['REQUEST_URI'], true, 301 );
-	exit;
+	exit();
 }
 
 // $wgArticlePath === '/$1' ||
@@ -37,7 +37,7 @@ if ( ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
 			$redirectUrl = str_replace( '&useformat=mobile', '', $redirectUrl );
 
 			header( 'Location: ' . $redirectUrl, true, 301 );
-			exit;
+			exit();
 		}
 
 		// Don't need a global here
@@ -61,7 +61,7 @@ if ( ( $wgMainPageIsDomainRoot && $_SERVER['REQUEST_URI'] !== '/' ) ) {
 				$redirectUrl = $decodedUri . '?' . http_build_query( $queryParameters );
 
 				header( 'Location: ' . $redirectUrl, true, 301 );
-				exit;
+				exit();
 			}
 
 			// Don't need a global here
