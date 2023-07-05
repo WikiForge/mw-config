@@ -33,7 +33,7 @@ if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
 		'checkuser-log' => true,
 	];
 
-	$wgGroupsAddToSelf['bureaucrat'][] = 'checkuser';
+	$wgManageWikiPermissionsAdditionalAddGroupsSelf['bureaucrat'][] = 'checkuser';
 }
 
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
