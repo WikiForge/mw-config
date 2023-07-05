@@ -20,6 +20,20 @@ if ( $wi->wikifarm === 'wikitide' && $wi->dbname !== 'votewikitide' ) {
 	$wgOATHAuthDatabase = $wi::GLOBAL_DATABASE[$wi->wikifarm];
 }
 
+if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
+	wfLoadExtensions( [
+		'CheckUser',
+		'IPInfo',
+	] );
+
+	$wgManageWikiPermissionsAdditionalRights['checkuser'] = [
+		'abusefilter-privatedetails' => true,
+		'abusefilter-privatedetails-log' => true,
+		'checkuser' => true,
+		'checkuser-log' => true,
+	];
+}
+
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
 	wfLoadExtension( 'Bootstrap' );
 }
