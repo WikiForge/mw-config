@@ -1208,7 +1208,9 @@ class WikiForgeFunctions {
 	public static function onMediaWikiServices() {
 		if ( isset( $GLOBALS['globals'] ) ) {
 			foreach ( $GLOBALS['globals'] as $global => $value ) {
-				if ( !isset( $GLOBALS['wgConf']->settings["+$global"] ) ) {
+				if ( !isset( $GLOBALS['wgConf']->settings["+$global"] ) &&
+					$global !== 'wgManageWikiPermissionsAdditionalRights'
+				) {
 					$GLOBALS[$global] = $value;
 				}
 			}
