@@ -2215,7 +2215,7 @@ $wgConf->settings += [
 			],
 		],
 		'+wikitide' => [
-			'any' => [	
+			'any' => [
 				'autocreateaccount',
 				'centralauth-createlocal',
 				'centralauth-lock',
@@ -2255,7 +2255,7 @@ $wgConf->settings += [
 			'sysadmin',
 			'trustandsafety',
 		],
-	
+
 	],
 	'wgManageWikiPermissionsDefaultPrivateGroup' => [
 		'default' => 'member',
