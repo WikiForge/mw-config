@@ -1981,12 +1981,6 @@ $wgConf->settings += [
 				'viewmyprivateinfo' => true,
 				'writeapi' => true,
 			],
-			'checkuser' => [
-				'abusefilter-privatedetails' => true,
-				'abusefilter-privatedetails-log' => true,
-				'checkuser' => true,
-				'checkuser-log' => true,
-			],
 			'suppress' => [
 				'abusefilter-hidden-log' => true,
 				'abusefilter-hide-log' => true,
