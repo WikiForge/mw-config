@@ -1107,6 +1107,17 @@ class WikiForgeFunctions {
 				'cssclass' => 'managewiki-infuse',
 				'section' => 'main',
 			];
+
+			if ( $permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ) ) {
+				$formDescriptor['checkuser'] = [
+					'label-message' => 'wikiforge-label-managewiki-checkuser',
+					'type' => 'check',
+					'default' => $setList['wgWikiForgeEnableCheckUser'] ?? false,
+					'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
+					'cssclass' => 'managewiki-infuse',
+					'section' => 'main',
+				];
+			}
 		}
 
 		$formDescriptor['mediawiki-version'] = [
@@ -1180,6 +1191,16 @@ class WikiForgeFunctions {
 			$wiki->changes['mainpage-is-domain-root'] = [
 				'old' => $mainPageIsDomainRoot,
 				'new' => $formData['mainpage-is-domain-root']
+			];
+		}
+
+		$wikiForgeEnableCheckUser = $mwSettings->list()['wgWikiForgeEnableCheckUser'] ?? false;
+		if ( isset( $formData['checkuser'] ) && $formData['checkuser'] !== $wikiForgeEnableCheckUser ) {
+			$mwSettings->modify( [ 'wgWikiForgeEnableCheckUser' => $formData['checkuser'] ] );
+			$mwSettings->commit();
+			$wiki->changes['checkuser'] = [
+				'old' => $wikiForgeEnableCheckUser,
+				'new' => $formData['checkuser']
 			];
 		}
 	}
