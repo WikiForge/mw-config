@@ -445,12 +445,6 @@ $wgConf->settings += [
 		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCheckUserGBtoollink' => [
-		'wikiforge' => [
-			'centralDB' => 'metawiki',
-			'groups' => [
-				'staff',
-			],
-		],
 		'wikitide' => [
 			'centralDB' => 'metawikitide',
 			'groups' => [
@@ -459,12 +453,6 @@ $wgConf->settings += [
 		],
 	],
 	'wgCheckUserCAMultiLock' => [
-		'wikiforge' => [
-			'centralDB' => 'metawiki',
-			'groups' => [
-				'staff',
-			],
-		],
 		'wikitide' => [
 			'centralDB' => 'metawikitide',
 			'groups' => [
@@ -1980,12 +1968,6 @@ $wgConf->settings += [
 				'read' => true,
 				'viewmyprivateinfo' => true,
 				'writeapi' => true,
-			],
-			'checkuser' => [
-				'abusefilter-privatedetails' => true,
-				'abusefilter-privatedetails-log' => true,
-				'checkuser' => true,
-				'checkuser-log' => true,
 			],
 			'suppress' => [
 				'abusefilter-hidden-log' => true,
