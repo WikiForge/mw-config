@@ -34,6 +34,7 @@ if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
 	];
 
 	$wgManageWikiPermissionsAdditionalAddGroupsSelf['bureaucrat'][] = 'checkuser';
+	$wgManageWikiPermissionsAdditionalRemoveGroupsSelf['bureaucrat'][] = 'checkuser';
 }
 
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
