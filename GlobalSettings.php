@@ -26,7 +26,7 @@ if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
 		'IPInfo',
 	] );
 
-	$wgManageWikiPermissionsAdditionalRights['checkuser'] = [
+	$wgGroupPermissions['checkuser'] = [
 		'abusefilter-privatedetails' => true,
 		'abusefilter-privatedetails-log' => true,
 		'checkuser' => true,
