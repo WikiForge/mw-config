@@ -3205,8 +3205,20 @@ $wgConf->settings += [
 	'wgDisableOutputCompression' => [
 		'default' => true,
 	],
+	'wgImgAuthPath' => [
+		'default' => '/w/img_auth.php',
+	],
+	'wgLoadScript' => [
+		'default' => '/w/load.php',
+	],
+	'wgRestPath' => [
+		'default' => '/w/rest.php',
+	],
+	'wgScript' => [
+		'default' => '/w/index.php',
+	],
 	'wgScriptPath' => [
-		'default' => '/w',
+		'default' => '/' . $wi->version,
 	],
 	'wgShowHostnames' => [
 		'default' => true,
