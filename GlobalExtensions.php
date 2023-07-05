@@ -7,7 +7,6 @@ wfLoadExtensions( [
 	'AbuseFilter',
 	'AntiSpoof',
 	'BetaFeatures',
-	'CheckUser',
 	'CreateWiki',
 	'CookieWarning',
 	'ConfirmEdit',
@@ -19,7 +18,6 @@ wfLoadExtensions( [
 	'GlobalNewFiles',
 	'Interwiki',
 	'InterwikiDispatcher',
-	'IPInfo',
 	'LoginNotify',
 	'ManageWiki',
 	'MobileDetect',
@@ -45,7 +43,9 @@ wfLoadExtensions( [
 if ( $wi->wikifarm === 'wikitide' ) {
 	wfLoadExtensions( [
 		'CentralNotice',
+		'CheckUser',
 		'EventLogging',
+		'IPInfo',
 		'WikiTideMagic',
 	] );
 } else {
