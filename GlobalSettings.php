@@ -129,6 +129,13 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 	}
 }
 
+// Temporary to fix issue with uploading these
+$wgHooks['MimeMagicInit'][] = function ( MimeAnalyzer $mime ) {
+	$mime->addExtraTypes( 'font/sfnt ttf' );
+	$mime->addExtraTypes( 'font/woff woff' );
+	$mime->addExtraTypes( 'font/woff2 woff2' );
+};
+
 // Action and article paths
 $articlePath = str_replace( '$1', '', $wgArticlePath );
 
