@@ -1970,7 +1970,7 @@ $wgConf->settings += [
 	'wgManageWikiPermissionsAdditionalAddGroups' => [
 		'default' => [],
 	],
-	'wgManageWikiPermissionsAdditionalRights' => [
+	'+wgManageWikiPermissionsAdditionalRights' => [
 		'default' => [
 			'*' => [
 				'editmyoptions' => true,
@@ -4354,15 +4354,6 @@ if ( wfHostname() === 'test1.wikiforge.net' ) {
 // CookieWarning exempt ElectronPdfService (services1)
 if ( in_array( $_SERVER['REMOTE_ADDR'] ?? '', [ '74.208.104.183' ] ) ) {
 	$wgConf->settings['wgCookieWarningEnabled']['default'] = false;
-}
-
-if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
-	$wgConf->settings['wgManageWikiPermissionsAdditionalRights']['+wikiforge']['checkuser'] = [
-		'abusefilter-privatedetails' => true,
-		'abusefilter-privatedetails-log' => true,
-		'checkuser' => true,
-		'checkuser-log' => true,
-	];
 }
 
 // ManageWiki settings
