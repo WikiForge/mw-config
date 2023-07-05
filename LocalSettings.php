@@ -1970,7 +1970,7 @@ $wgConf->settings += [
 	'wgManageWikiPermissionsAdditionalAddGroups' => [
 		'default' => [],
 	],
-	'+wgManageWikiPermissionsAdditionalRights' => [
+	'wgManageWikiPermissionsAdditionalRights' => [
 		'default' => [
 			'*' => [
 				'editmyoptions' => true,
