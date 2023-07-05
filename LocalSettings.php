@@ -4356,6 +4356,15 @@ if ( in_array( $_SERVER['REMOTE_ADDR'] ?? '', [ '74.208.104.183' ] ) ) {
 	$wgConf->settings['wgCookieWarningEnabled']['default'] = false;
 }
 
+if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
+	$wgConf->settings['wgManageWikiPermissionsAdditionalRights']['+wikiforge']['checkuser'] = [
+		'abusefilter-privatedetails' => true,
+		'abusefilter-privatedetails-log' => true,
+		'checkuser' => true,
+		'checkuser-log' => true,
+	];
+}
+
 // ManageWiki settings
 require_once __DIR__ . '/ManageWikiExtensions.php';
 $wi::$disabledExtensions = [
