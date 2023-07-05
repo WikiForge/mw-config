@@ -445,12 +445,6 @@ $wgConf->settings += [
 		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCheckUserGBtoollink' => [
-		'wikiforge' => [
-			'centralDB' => 'metawiki',
-			'groups' => [
-				'staff',
-			],
-		],
 		'wikitide' => [
 			'centralDB' => 'metawikitide',
 			'groups' => [
@@ -459,12 +453,6 @@ $wgConf->settings += [
 		],
 	],
 	'wgCheckUserCAMultiLock' => [
-		'wikiforge' => [
-			'centralDB' => 'metawiki',
-			'groups' => [
-				'staff',
-			],
-		],
 		'wikitide' => [
 			'centralDB' => 'metawikitide',
 			'groups' => [
