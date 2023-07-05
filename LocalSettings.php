@@ -2255,7 +2255,6 @@ $wgConf->settings += [
 			'sysadmin',
 			'trustandsafety',
 		],
-
 	],
 	'wgManageWikiPermissionsDefaultPrivateGroup' => [
 		'default' => 'member',
