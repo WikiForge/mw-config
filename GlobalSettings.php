@@ -182,10 +182,10 @@ $wgDiscordNotificationWikiUrlEndingUserRights = 'Special:UserRights?user=';
  * Add to ManageWiki (core)
  * Add rewrites to decode.php and index.php
  */
+$wgActionPaths['view'] = $wgArticlePath;
 if ( ( $wgWikiForgeActionPathsFormat ?? 'default' ) !== 'default' ) {
 	switch ( $wgWikiForgeActionPathsFormat ) {
 		case 'specialpages':
-			$wgActionPaths['view'] = $wgArticlePath;
 			$wgActionPaths['edit'] = $articlePath . 'Special:EditPage/$1';
 			$wgActionPaths['submit'] = $wgActionPaths['edit'];
 			$wgActionPaths['delete'] = $articlePath . 'Special:DeletePage/$1';
@@ -218,8 +218,6 @@ if ( ( $wgWikiForgeActionPathsFormat ?? 'default' ) !== 'default' ) {
 			foreach ( $actions as $action ) {
 				$wgActionPaths[$action] = $articlePath . str_replace( 'action', $action, $wgWikiForgeActionPathsFormat );
 			}
-
-			$wgActionPaths['view'] = $wgArticlePath;
 
 			// Don't need a global here
 			unset( $actions );
