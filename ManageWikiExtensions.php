@@ -2015,7 +2015,7 @@ $wgManageWikiExtensions = [
 		'requires' => [
 			'extensions' => [
 				'cite',
-				'viusaleditor',
+				'visualeditor',
 			],
 			'visibility' => [
 				'state' => 'public',
