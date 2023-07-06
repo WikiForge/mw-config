@@ -31,7 +31,20 @@ if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
 		'abusefilter-privatedetails-log' => true,
 		'checkuser' => true,
 		'checkuser-log' => true,
+		'checkuser-temporary-account' => true,
 	];
+
+	if ( $wi->isExtensionActive( 'Moderation' ) ) {
+		$wgManageWikiPermissionsAdditionalRights['checkuser'] += [ 'moderation-checkuser' => true ];
+	}
+
+	if ( $wi->isExtensionActive( 'SocialProfile' ) ) {
+		$wgManageWikiPermissionsAdditionalRights['checkuser'] += [ 'editothersprofiles-private' => true ];
+	}
+
+	if ( $wi->isExtensionActive( 'SecurePoll' ) ) {
+		$wgManageWikiPermissionsAdditionalRights['checkuser'] += [ 'securepoll-view-voter-pii' => true ];
+	}
 
 	$wgManageWikiPermissionsAdditionalAddGroupsSelf['bureaucrat'][] = 'checkuser';
 	$wgManageWikiPermissionsAdditionalRemoveGroupsSelf['bureaucrat'][] = 'checkuser';
