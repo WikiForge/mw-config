@@ -1172,6 +1172,17 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'section' => 'specialpages',
 	],
+	'collection' => [
+		'name' => 'Collection',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Collection',
+		'conflicts' => false,
+		'requires' => [
+			'visibility' => [
+				'state' => 'public',
+			],
+		],
+		'section' => 'specialpages',
+	],
 	'contactpage' => [
 		'name' => 'ContactPage',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ContactPage',
@@ -1997,6 +2008,21 @@ $wgManageWikiExtensions = [
 		],
 		'section' => 'other',
 	],
+	'citoid' => [
+		'name' => 'Citoid',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Citoid',
+		'conflicts' => false,
+		'requires' => [
+			'extensions' => [
+				'cite',
+				'visualeditor',
+			],
+			'visibility' => [
+				'state' => 'public',
+			],
+		],
+		'section' => 'other',
+	],
 	'cleanchanges' => [
 		'name' => 'Clean Changes',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CleanChanges',
@@ -2091,7 +2117,17 @@ $wgManageWikiExtensions = [
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:EditSubpages',
 		'conflicts' => false,
 		'requires' => [],
-		'install' => [],
+		'section' => 'other',
+	],
+	'electronpdfservice' => [
+		'name' => 'ElectronPdfService',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ElectronPdfService',
+		'conflicts' => false,
+		'requires' => [
+			'visibility' => [
+				'state' => 'public',
+			],
+		],
 		'section' => 'other',
 	],
 	'externaldata' => [
@@ -3603,11 +3639,14 @@ $wgManageWikiExtensions = [
 	],
 ];
 
-// No CirrusSearch or Score on WikiTide (yet at least)
+// No CirrusSearch, Score, or services on WikiTide (yet at least)
 if ( $wi->wikifarm === 'wikitide' ) {
 	unset(
 		$wgManageWikiExtensions['advancedsearch'],
 		$wgManageWikiExtensions['cirrussearch'],
+		$wgManageWikiExtensions['citoid'],
+		$wgManageWikiExtensions['collection'],
+		$wgManageWikiExtensions['electronpdfservice'],
 		$wgManageWikiExtensions['relatedarticles'],
 		$wgManageWikiExtensions['score']
 	);
