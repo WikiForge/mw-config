@@ -32,6 +32,7 @@ if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
 		'checkuser' => true,
 		'checkuser-log' => true,
 		'checkuser-temporary-account' => true,
+		'checkuser-temporary-account-log' => true,
 	];
 
 	if ( $wi->isExtensionActive( 'Moderation' ) ) {
