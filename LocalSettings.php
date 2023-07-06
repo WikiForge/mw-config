@@ -2157,7 +2157,6 @@ $wgConf->settings += [
 				'smw-admin',
 				'smw-viewjobqueuewatchlist',
 				'themedesigner',
-				'userrights',
 				'userrights-interwiki',
 				'viewglobalprivatefiles',
 				'viewsuppressed',
@@ -2215,6 +2214,7 @@ $wgConf->settings += [
 				'suppressrevision',
 				'titleblacklistlog',
 				'updatepoints',
+				'userrights',
 				'viewpmlog',
 			],
 			'user' => [
@@ -2236,6 +2236,7 @@ $wgConf->settings += [
 				'suppressrevision',
 				'titleblacklistlog',
 				'updatepoints',
+				'userrights',
 				'viewpmlog',
 			],
 		],
@@ -2269,6 +2270,7 @@ $wgConf->settings += [
 				'suppressrevision',
 				'titleblacklistlog',
 				'updatepoints',
+				'userrights',
 				'viewpmlog',
 			],
 			'*' => [
