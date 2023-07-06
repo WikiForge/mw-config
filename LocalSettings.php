@@ -2159,7 +2159,6 @@ $wgConf->settings += [
 				'themedesigner',
 				'userrights-interwiki',
 				'viewglobalprivatefiles',
-				'viewsuppressed',
 				'writeapi',
 			],
 			'*' => [
@@ -2216,6 +2215,7 @@ $wgConf->settings += [
 				'updatepoints',
 				'userrights',
 				'viewpmlog',
+				'viewsuppressed',
 			],
 			'user' => [
 				'abusefilter-hide-log',
@@ -2238,6 +2238,7 @@ $wgConf->settings += [
 				'updatepoints',
 				'userrights',
 				'viewpmlog',
+				'viewsuppressed',
 			],
 		],
 		'+wikitide' => [
@@ -2272,6 +2273,7 @@ $wgConf->settings += [
 				'updatepoints',
 				'userrights',
 				'viewpmlog',
+				'viewsuppressed',
 			],
 			'*' => [
 				'centralauth-merge',
