@@ -56,10 +56,25 @@ if ( $queryString || isset( $queryParameters ) ) {
 			$title = '';
 		}
 
+		// These cause issues if they aren't encoded.
+		// There is still an issue with & becoming ?
+		// and the first ?action= becoming &action=
+		// which breaks it.
+		$title = str_replace( '%', '%25', $title );
+		$title = str_replace( '&', '%26', $title );
+		$title = str_replace( '?', '%3F', $title );
+
 		$redirectUrl = $articlePath . '/' . $title;
 	}
 
 	if ( !empty( $queryParameters ) ) {
+		if ( isset( $queryParameters['token'] ) ) {
+			// This can not be decoded or it breaks the edit token for
+			// things such as the Moderation extension
+			$queryParameters['token'] = urlencode( $queryParameters['token'] );
+			$queryParameters['token'] = str_replace( '%5C', '\\', $queryParameters['token'] );
+		}
+
 		$redirectUrl .= '?' . http_build_query( $queryParameters );
 	}
 }
@@ -68,4 +83,4 @@ $redirectUrl = str_replace( ' ', '_', $redirectUrl );
 $redirectUrl = str_replace( '\\', '%5C', $redirectUrl );
 header( 'Location: ' . $redirectUrl, true, 301 );
 
-exit;
+exit();

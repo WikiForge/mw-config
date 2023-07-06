@@ -421,19 +421,19 @@ class WikiForgeFunctions {
 			return getenv( 'WIKIFORGE_WIKI_VERSION' );
 		}
 
+		if ( PHP_SAPI === 'cli' ) {
+			$version = explode( '/', $_SERVER['SCRIPT_NAME'] )[3] ?? null;
+			if ( $version && in_array( $version, self::MEDIAWIKI_VERSIONS ) ) {
+				return $version;
+			}
+		}
+
 		if ( $database ) {
 			$mwVersion = self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, $database )['v'] ?? null;
 			return $mwVersion ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 		}
 
 		static $version = null;
-
-		if ( PHP_SAPI === 'cli' ) {
-			$version ??= explode( '/', $_SERVER['SCRIPT_NAME'] )[3] ?? null;
-			if ( !in_array( $version, self::MEDIAWIKI_VERSIONS ) ) {
-				$version = null;
-			}
-		}
 
 		self::$currentDatabase ??= self::getCurrentDatabase();
 		$version ??= self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, self::$currentDatabase )['v'] ?? null;
@@ -1107,6 +1107,17 @@ class WikiForgeFunctions {
 				'cssclass' => 'managewiki-infuse',
 				'section' => 'main',
 			];
+
+			if ( $permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ) ) {
+				$formDescriptor['checkuser'] = [
+					'label-message' => 'wikiforge-label-managewiki-checkuser',
+					'type' => 'check',
+					'default' => $setList['wgWikiForgeEnableCheckUser'] ?? false,
+					'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
+					'cssclass' => 'managewiki-infuse',
+					'section' => 'main',
+				];
+			}
 		}
 
 		$formDescriptor['mediawiki-version'] = [
@@ -1158,6 +1169,19 @@ class WikiForgeFunctions {
 				'old' => $articlePath,
 				'new' => $formData['article-path']
 			];
+
+			$server = self::getServer();
+			$jobQueueGroupFactory = MediaWikiServices::getInstance()->getJobQueueGroupFactory();
+			$jobQueueGroupFactory->makeJobQueueGroup( $dbName )->push(
+				new CdnPurgeJob( [
+					'urls' => [
+						$server . '/wiki/',
+						$server . '/wiki',
+						$server . '/',
+						$server,
+					],
+				] )
+			);
 		}
 
 		$mainPageIsDomainRoot = $mwSettings->list()['wgMainPageIsDomainRoot'] ?? false;
@@ -1169,12 +1193,24 @@ class WikiForgeFunctions {
 				'new' => $formData['mainpage-is-domain-root']
 			];
 		}
+
+		$wikiForgeEnableCheckUser = $mwSettings->list()['wgWikiForgeEnableCheckUser'] ?? false;
+		if ( isset( $formData['checkuser'] ) && $formData['checkuser'] !== $wikiForgeEnableCheckUser ) {
+			$mwSettings->modify( [ 'wgWikiForgeEnableCheckUser' => $formData['checkuser'] ] );
+			$mwSettings->commit();
+			$wiki->changes['checkuser'] = [
+				'old' => $wikiForgeEnableCheckUser,
+				'new' => $formData['checkuser']
+			];
+		}
 	}
 
 	public static function onMediaWikiServices() {
 		if ( isset( $GLOBALS['globals'] ) ) {
 			foreach ( $GLOBALS['globals'] as $global => $value ) {
-				if ( !isset( $GLOBALS['wgConf']->settings["+$global"] ) ) {
+				if ( !isset( $GLOBALS['wgConf']->settings["+$global"] ) &&
+					$global !== 'wgManageWikiPermissionsAdditionalRights'
+				) {
 					$GLOBALS[$global] = $value;
 				}
 			}

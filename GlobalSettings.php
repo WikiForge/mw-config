@@ -8,7 +8,7 @@ if ( $wi->wikifarm !== 'wikitide' ) {
 }
 
 // Extensions
-if ( $wi->wikifarm === 'wikitide' && $wi->dbname !== 'votewikitide' || ( $wgWikiForgeUseCentralAuth ?? false ) ) {
+if ( $wi->wikifarm === 'wikitide' && $wi->dbname !== 'votewikitide' ) {
 	wfLoadExtensions( [
 		'CentralAuth',
 		'GlobalCssJs',
@@ -18,6 +18,23 @@ if ( $wi->wikifarm === 'wikitide' && $wi->dbname !== 'votewikitide' || ( $wgWiki
 
 	$wgMWOAuthSharedUserSource = 'CentralAuth';
 	$wgOATHAuthDatabase = $wi::GLOBAL_DATABASE[$wi->wikifarm];
+}
+
+if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
+	wfLoadExtensions( [
+		'CheckUser',
+		'IPInfo',
+	] );
+
+	$wgManageWikiPermissionsAdditionalRights['checkuser'] = [
+		'abusefilter-privatedetails' => true,
+		'abusefilter-privatedetails-log' => true,
+		'checkuser' => true,
+		'checkuser-log' => true,
+	];
+
+	$wgManageWikiPermissionsAdditionalAddGroupsSelf['bureaucrat'][] = 'checkuser';
+	$wgManageWikiPermissionsAdditionalRemoveGroupsSelf['bureaucrat'][] = 'checkuser';
 }
 
 if ( $wi->isExtensionActive( 'chameleon' ) ) {
@@ -128,6 +145,13 @@ if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 		$wgFlowParsoidForwardCookies = (bool)$cwPrivate;
 	}
 }
+
+// Temporary to fix issue with uploading these
+$wgHooks['MimeMagicInit'][] = static function ( MimeAnalyzer $mime ) {
+	$mime->addExtraTypes( 'font/sfnt ttf' );
+	$mime->addExtraTypes( 'font/woff woff' );
+	$mime->addExtraTypes( 'font/woff2 woff2' );
+};
 
 // Action and article paths
 $articlePath = str_replace( '$1', '', $wgArticlePath );
@@ -395,6 +419,27 @@ if ( (bool)$wmgWikiapiaryFooterPageName ) {
 		'alt' => 'Monitored by WikiApiary'
 	];
 }
+
+// $wgLocalFileRepo
+$wgLocalFileRepo = [
+	'class' => LocalRepo::class,
+	'name' => 'local',
+	'backend' => 'AmazonS3',
+	'url' => $wgUploadBaseUrl ? $wgUploadBaseUrl . $wgUploadPath : $wgUploadPath,
+	'scriptDirUrl' => $wgScriptPath,
+	'hashLevels' => 2,
+	'thumbScriptUrl' => $wgThumbnailScriptPath,
+	'transformVia404' => true,
+	'useJsonMetadata'   => true,
+	'useSplitMetadata'  => true,
+	'deletedHashLevels' => 3,
+	'abbrvThreshold' => 160,
+	'isPrivate' => $cwPrivate,
+	'zones' => $cwPrivate
+		? [
+			'thumb' => [ 'url' => "$wgScriptPath/thumb_handler.php" ] ]
+		: [],
+];
 
 // $wgForeignFileRepos
 if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUploadDBname, $wgLocalDatabases ) ) {

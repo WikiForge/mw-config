@@ -1,7 +1,7 @@
 <?php
 
 /**
- * LocalSettings.php for WikiForge.
+ * LocalSettings.php for WikiForge and WikiTide.
  * Authors of initial version: Universal Omega, Miraheze contributors
  */
 
@@ -278,7 +278,7 @@ $wgConf->settings += [
 
 	// Bot passwords
 	'wgBotPasswordsDatabase' => [
-		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
+		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// Cache
@@ -347,50 +347,48 @@ $wgConf->settings += [
 
 	// CentralAuth
 	'wgCentralAuthAutoCreateWikis' => [
-		'default' => [
+		'wikitide' => [
 			$wi::CENTRAL_WIKI[$wi->wikifarm],
 		],
 	],
 	'wgCentralAuthAutoMigrate' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgCentralAuthAutoMigrateNonGlobalAccounts' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgCentralAuthCookies' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgCentralAuthCookiePrefix' => [
-		'wikiforge' => 'centralauth_wikiforge_',
 		'wikitide' => 'centralauth_wikitide_',
 	],
 	'wgCentralAuthCreateOnView' => [
-		'default' => false,
+		'wikitide' => false,
 	],
 	'wgCentralAuthDatabase' => [
-		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
+		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 	'wgCentralAuthEnableGlobalRenameRequest' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgCentralAuthGlobalBlockInterwikiPrefix' => [
-		'default' => 'meta',
+		'wikitide' => 'meta',
 	],
 	'wgCentralAuthLoginWiki' => [
-		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthOldNameAntiSpoofWiki' => [
-		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthPreventUnattached' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 	'wgGlobalRenameDenylist' => [
-		'wikiforge' => 'https://meta.wikiforge.net/wiki/MediaWiki:Global_rename_denylist?action=raw',
 		'wikitide' => 'https://meta.wikitide.com/wiki/MediaWiki:Global_rename_denylist?action=raw',
 	],
 	'wgGlobalRenameDenylistRegex' => [
-		'default' => true,
+		'wikitide' => true,
 	],
 
 	// CentralNotice
@@ -447,12 +445,6 @@ $wgConf->settings += [
 		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCheckUserGBtoollink' => [
-		'wikiforge' => [
-			'centralDB' => 'metawiki',
-			'groups' => [
-				'staff',
-			],
-		],
 		'wikitide' => [
 			'centralDB' => 'metawikitide',
 			'groups' => [
@@ -461,12 +453,6 @@ $wgConf->settings += [
 		],
 	],
 	'wgCheckUserCAMultiLock' => [
-		'wikiforge' => [
-			'centralDB' => 'metawiki',
-			'groups' => [
-				'staff',
-			],
-		],
 		'wikitide' => [
 			'centralDB' => 'metawikitide',
 			'groups' => [
@@ -1093,7 +1079,6 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgDiscordNotificationCentralAuthWikiUrl' => [
-		'wikiforge' => 'https://meta.wikiforge.net/',
 		'wikitide' => 'https://meta.wikitide.com/',
 	],
 	'wgDiscordNotificationBlockedUser' => [
@@ -1104,7 +1089,6 @@ $wgConf->settings += [
 	],
 	'wgDiscordNotificationIncludeAutocreatedUsers' => [
 		'default' => true,
-		'metawiki' => false,
 		'metawikitide' => false,
 	],
 	'wgDiscordAdditionalIncomingWebhookUrls' => [
@@ -2001,12 +1985,6 @@ $wgConf->settings += [
 				'viewmyprivateinfo' => true,
 				'writeapi' => true,
 			],
-			'checkuser' => [
-				'abusefilter-privatedetails' => true,
-				'abusefilter-privatedetails-log' => true,
-				'checkuser' => true,
-				'checkuser-log' => true,
-			],
 			'suppress' => [
 				'abusefilter-hidden-log' => true,
 				'abusefilter-hide-log' => true,
@@ -2032,14 +2010,7 @@ $wgConf->settings += [
 			],
 			'staff' => [
 				'abusefilter-modify-global' => true,
-				'centralauth-lock' => true,
-				'centralauth-suppress' => true,
-				'centralauth-rename' => true,
-				'centralauth-unmerge' => true,
 				'createwiki' => true,
-				'globalblock' => true,
-				'globalgroupmembership' => true,
-				'globalgrouppermissions' => true,
 				'handle-import-dump-interwiki' => true,
 				'handle-import-dump-requests' => true,
 				'handle-pii' => true,
@@ -2155,35 +2126,13 @@ $wgConf->settings += [
 	'wgManageWikiPermissionsDisallowedRights' => [
 		'default' => [
 			'any' => [
-				'abusefilter-hide-log',
-				'abusefilter-hidden-log',
-				'abusefilter-modify-global',
-				'abusefilter-private',
-				'abusefilter-private-log',
-				'abusefilter-privatedetails',
-				'abusefilter-privatedetails-log',
-				'autocreateaccount',
 				'bigdelete',
-				'centralauth-createlocal',
-				'centralauth-lock',
-				'centralauth-rename',
-				'centralauth-suppress',
-				'centralauth-unmerge',
 				'checkuser',
 				'checkuser-log',
+				'checkuser-temporary-account',
 				'createwiki',
 				'editothersprofiles-private',
-				'flow-suppress',
-				'globalblock',
-				'globalblock-exempt',
-				'globalgroupmembership',
-				'globalgrouppermissions',
-				'hideuser',
 				'investigate',
-				'ipinfo',
-				'ipinfo-view-basic',
-				'ipinfo-view-full',
-				'ipinfo-view-log',
 				'managewiki-editdefault',
 				'managewiki-restricted',
 				'moderation-checkuser',
@@ -2197,30 +2146,20 @@ $wgConf->settings += [
 				'oathauth-disable-for-user',
 				'oathauth-verify-user',
 				'oathauth-view-log',
-				'renameuser',
 				'requestwiki',
 				'securepoll-view-voter-pii',
 				'siteadmin',
 				'smw-admin',
-				'smw-patternedit',
 				'smw-viewjobqueuewatchlist',
-				'stopforumspam',
-				'suppressionlog',
-				'suppressrevision',
 				'themedesigner',
-				'titleblacklistlog',
-				'updatepoints',
 				'userrights',
 				'userrights-interwiki',
-				'view-private-import-dump-requests',
 				'viewglobalprivatefiles',
-				'viewpmlog',
 				'viewsuppressed',
 				'writeapi',
 			],
 			'*' => [
 				'autoconfirmed',
-				'centralauth-merge',
 				'editmyoptions',
 				'editmyprivateinfo',
 				'editmywatchlist',
@@ -2231,30 +2170,117 @@ $wgConf->settings += [
 				'edituserjs',
 				'edituserjson',
 				'generate-dump',
-				'globalblock-whitelist',
 				'interwiki',
 				'ipblock-exempt',
 				'managewiki',
 				'noratelimit',
 				'read',
 				'skipcaptcha',
+				'stopforumspam',
 				'torunblocked',
 				'viewmyprivateinfo',
 				'viewmywatchlist',
 			],
 			'user' => [
 				'autoconfirmed',
-				'globalblock-whitelist',
 				'interwiki',
 				'ipblock-exempt',
-				'noratelimit',
 				'managewiki',
+				'noratelimit',
 				'skipcaptcha',
+			],
+		],
+		'+wikiforge' => [
+			'*' => [
+				'abusefilter-hide-log',
+				'abusefilter-hidden-log',
+				'abusefilter-modify-global',
+				'abusefilter-private',
+				'abusefilter-private-log',
+				'abusefilter-privatedetails',
+				'abusefilter-privatedetails-log',
+				'flow-suppress',
+				'ipinfo',
+				'ipinfo-view-basic',
+				'ipinfo-view-full',
+				'ipinfo-view-log',
+				'renameuser',
+				'smw-patternedit',
+				'suppressionlog',
+				'suppressrevision',
+				'titleblacklistlog',
+				'updatepoints',
+				'viewpmlog',
+			],
+			'user' => [
+				'abusefilter-hide-log',
+				'abusefilter-hidden-log',
+				'abusefilter-modify-global',
+				'abusefilter-private',
+				'abusefilter-private-log',
+				'abusefilter-privatedetails',
+				'abusefilter-privatedetails-log',
+				'flow-suppress',
+				'ipinfo',
+				'ipinfo-view-basic',
+				'ipinfo-view-full',
+				'ipinfo-view-log',
+				'renameuser',
+				'smw-patternedit',
+				'suppressionlog',
+				'suppressrevision',
+				'titleblacklistlog',
+				'updatepoints',
+				'viewpmlog',
+			],
+		],
+		'+wikitide' => [
+			'any' => [
+				'abusefilter-hide-log',
+				'abusefilter-hidden-log',
+				'abusefilter-modify-global',
+				'abusefilter-private',
+				'abusefilter-private-log',
+				'abusefilter-privatedetails',
+				'abusefilter-privatedetails-log',
+				'autocreateaccount',
+				'centralauth-createlocal',
+				'centralauth-lock',
+				'centralauth-rename',
+				'centralauth-suppress',
+				'centralauth-unmerge',
+				'flow-suppress',
+				'globalblock',
+				'globalblock-exempt',
+				'globalgroupmembership',
+				'globalgrouppermissions',
+				'ipinfo',
+				'ipinfo-view-basic',
+				'ipinfo-view-full',
+				'ipinfo-view-log',
+				'renameuser',
+				'smw-patternedit',
+				'suppressionlog',
+				'suppressrevision',
+				'titleblacklistlog',
+				'updatepoints',
+				'viewpmlog',
+			],
+			'*' => [
+				'centralauth-merge',
+				'globalblock-whitelist',
+			],
+			'user' => [
+				'globalblock-whitelist',
 			],
 		],
 	],
 	'wgManageWikiPermissionsDisallowedGroups' => [
-		'default' => [
+		'wikiforge' => [
+			'checkuser',
+			'smwadministrator',
+		],
+		'wikitide' => [
 			'checkuser',
 			'oversight',
 			'smwadministrator',
@@ -2889,16 +2915,6 @@ $wgConf->settings += [
 		],
 	],
 	'wgCentralAuthGlobalPasswordPolicies' => [
-		'wikiforge' => [
-			'staff' => [
-				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
-		],
 		'wikitide' => [
 			'global-interwiki-admin' => [
 				'MinimalPasswordLength' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
@@ -3094,29 +3110,20 @@ $wgConf->settings += [
 
 	// RemovePII
 	'wgRemovePIIAllowedWikis' => [
-		'wikiforge' => [
-			'metawiki',
-		],
 		'wikitide' => [
 			'metawikitide',
 		],
 	],
 	'wgRemovePIIAutoPrefix' => [
-		'wikiforge' => 'WikiForgeGDPR_',
 		'wikitide' => 'WikiTideGDPR_',
 	],
 	'wgRemovePIIHashPrefixOptions' => [
-		'wikiforge' => [
-			'GDPR' => 'WikiForgeGDPR_',
-			'Vanishing' => 'Vanished user ',
-		],
 		'wikitide' => [
 			'GDPR' => 'WikiTideGDPR_',
 			'Vanishing' => 'Vanished user ',
 		],
 	],
 	'wgRemovePIIHashPrefix' => [
-		'wikiforge' => 'WikiForgeGDPR_',
 		'wikitide' => 'WikiTideGDPR_',
 	],
 
@@ -3244,8 +3251,20 @@ $wgConf->settings += [
 	'wgDisableOutputCompression' => [
 		'default' => true,
 	],
+	'wgImgAuthPath' => [
+		'default' => '/w/img_auth.php',
+	],
+	'wgLoadScript' => [
+		'default' => '/w/load.php',
+	],
+	'wgRestPath' => [
+		'default' => '/w/rest.php',
+	],
+	'wgScript' => [
+		'default' => '/w/index.php',
+	],
 	'wgScriptPath' => [
-		'default' => '/w',
+		'default' => '/' . $wi->version,
 	],
 	'wgShowHostnames' => [
 		'default' => true,
@@ -3383,7 +3402,7 @@ $wgConf->settings += [
 		'default' => '/apple-touch-icon.png',
 	],
 	'wgCentralAuthLoginIcon' => [
-		'default' => '/srv/mediawiki/favicons/default.ico',
+		'wikitide' => '/srv/mediawiki/favicons/default.ico',
 	],
 	'wgDefaultSkin' => [
 		'default' => 'vector-2022',
@@ -3395,7 +3414,8 @@ $wgConf->settings += [
 		'default' => '/favicon.ico',
 	],
 	'wgLogo' => [
-		'default' => "https://$wmgUploadHostname/metawiki/8/88/WikiForge_Logo.svg",
+		'wikiforge' => "https://$wmgUploadHostname/commonswikitide/e/ea/WikiForge_icon.png",
+		'wikitide' => "https://$wmgUploadHostname/commonswikitide/f/fb/WikiTide_icon.png",
 	],
 	'wgIcon' => [
 		'default' => false,
@@ -4139,9 +4159,6 @@ $wgConf->settings += [
 	'wgWikiForgeMagicServicesRepo' => [
 		'wikiforge' => '/srv/services/services',
 	],
-	'wgWikiForgeUseCentralAuth' => [
-		'wikiforge' => true,
-	],
 
 	// WikiTide
 	'wgWikiTideMagicServicesRepo' => [
@@ -4361,6 +4378,15 @@ require_once __DIR__ . '/ManageWikiSettings.php';
 
 $wgUploadPath = "//$wmgUploadHostname/$wgDBname";
 $wgUploadDirectory = false;
+
+if ( $wi->version >= 1.40 ) {
+	// These are not loaded by mergeMessageFileList.php on MediaWiki 1.40+ due to not being on ExtensionRegistry
+	$wgMessagesDirs['SocialProfile'] = $IP . '/extensions/SocialProfile/i18n';
+	$wgExtensionMessagesFiles['SocialProfileAlias'] = $IP . '/extensions/SocialProfile/SocialProfile.alias.php';
+	$wgMessagesDirs['SocialProfileUserProfile'] = $IP . '/extensions/SocialProfile/UserProfile/i18n';
+	$wgExtensionMessagesFiles['SocialProfileNamespaces'] = $IP . '/extensions/SocialProfile/SocialProfile.namespaces.php';
+	$wgExtensionMessagesFiles['AvatarMagic'] = $IP . '/extensions/SocialProfile/UserProfile/includes/avatar/Avatar.i18n.magic.php';
+}
 
 $wgLocalisationCacheConf['storeClass'] = LCStoreCDB::class;
 $wgLocalisationCacheConf['storeDirectory'] = '/srv/mediawiki/cache/' . $wi->version . '/l10n';
