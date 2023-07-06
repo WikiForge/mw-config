@@ -1238,7 +1238,7 @@ $wgConf->settings += [
 
 	// ElectronPdfService
 	'wgElectronPdfServiceRESTbaseURL' => [
-		'default' => "https://restbase.wikiforge.net/{$wi->hostname}/v1/page/pdf/",
+		'ext-ElectronPdfService' => "https://restbase.wikiforge.net/{$wi->hostname}/v1/page/pdf/",
 	],
 
 	// EmbedVideo
