@@ -492,12 +492,12 @@ $wgConf->settings += [
 	'wgCitizenEnableCJKFonts' => [
 		'default' => false,
 	],
-	
+
 	// Citoid
 	'wgCitoidFullRestbaseURL' => [
 		'ext-Citoid' => "https://{$wi->hostname}/{$wi->hostname}/",
 	],
-	
+
 	// Collection
 	'wgCommunityCollectionNamespace' => [
 		'ext-Collection' => 5,
