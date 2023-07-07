@@ -1,8 +1,8 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
-use Miraheze\CreateWiki\RemoteWiki;
-use Miraheze\ManageWiki\Helpers\ManageWikiSettings;
+use WikiForge\CreateWiki\RemoteWiki;
+use WikiForge\ManageWiki\Helpers\ManageWikiSettings;
 use Wikimedia\Rdbms\DBConnRef;
 
 class WikiForgeFunctions {
