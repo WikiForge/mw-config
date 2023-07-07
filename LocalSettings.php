@@ -1365,6 +1365,34 @@ $wgConf->settings += [
 				],
 			],
 		],
+		'hsckwikitide' => [
+			'poweredby' => [
+				'songnguxyz' => [
+					'src' => 'https://static.wikiforge.net/lhmnwikitide/5/58/Footer.SN.xyz.svg',
+					'url' => 'https://songngu.xyz',
+					'alt' => 'Dự án được bảo quản bởi SongNgư.xyz',
+				],
+				'wikitide' => [
+					'src' => 'https://static.wikiforge.net/commonswikitide/8/8a/Hosted_by_WikiTide.svg',
+					'url' => 'https://meta.wikitide.com/wiki/Special:MyLanguage/WikiTide',
+					'alt' => 'Hosted by WikiTide',
+				],
+			],
+		],
+		'lhmnwikitide' => [
+			'poweredby' => [
+				'songnguxyz' => [
+					'src' => 'https://static.wikiforge.net/lhmnwikitide/5/58/Footer.SN.xyz.svg',
+					'url' => 'https://songngu.xyz',
+					'alt' => 'Dự án được bảo quản bởi SongNgư.xyz',
+				],
+				'wikitide' => [
+					'src' => 'https://static.wikiforge.net/commonswikitide/8/8a/Hosted_by_WikiTide.svg',
+					'url' => 'https://meta.wikitide.com/wiki/Special:MyLanguage/WikiTide',
+					'alt' => 'Hosted by WikiTide',
+				],
+			],
+		],
 	],
 	'wmgWikiapiaryFooterPageName' => [
 		'default' => '',
@@ -1485,6 +1513,15 @@ $wgConf->settings += [
 			'showDimensions' => true,
 			'mode' => 'packed',
 		],
+		'theunnamedwikiwikitide' => [
+			'imagesPerRow' => 0,
+			'imageWidth' => 120,
+			'imageHeight' => 120,
+			'captionLength' => true,
+			'showBytes' => true,
+			'showDimensions' => true,
+			'mode' => 'packed',
+		],
 		'valiantcinematicuniversewiki' => [
 			'imagesPerRow' => 0,
 			'imageWidth' => 120,
@@ -1503,28 +1540,21 @@ $wgConf->settings += [
 
 	// GlobalBlocking
 	'wgApplyGlobalBlocks' => [
-		'default' => true,
-		'metawiki' => false,
+		'wikitide' => true,
 		'metawikitide' => false,
 	],
 	'wgGlobalBlockingDatabase' => [
-		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
+		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// GlobalCssJs
 	'wgGlobalCssJsConfig' => [
-		'default' => [
+		'wikitide' => [
 			'wiki' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 			'source' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 		],
 	],
 	'+wgResourceLoaderSources' => [
-		'wikiforge' => [
-			'metawiki' => [
-				'apiScript' => '//meta.wikiforge.net/w/api.php',
-				'loadScript' => '//meta.wikiforge.net/w/load.php',
-			],
-		],
 		'wikitide' => [
 			'metawikitide' => [
 				'apiScript' => '//meta.wikitide.com/w/api.php',
@@ -1533,12 +1563,12 @@ $wgConf->settings += [
 		],
 	],
 	'wgUseGlobalSiteCssJs' => [
-		'default' => false,
+		'wikitide' => false,
 	],
 
 	// GlobalPreferences
 	'wgGlobalPreferencesDB' => [
-		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
+		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// GlobalUsage
