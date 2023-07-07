@@ -1030,7 +1030,7 @@ $wgManageWikiExtensions = [
 	],
 	'youtube' => [
 		'name' => 'YouTube',
-		'linkPage' => 'https://github.com/miraheze/YouTube',
+		'linkPage' => 'https://github.com/WikiForge/YouTube',
 		'conflicts' => false,
 		'requires' => [],
 		'section' => 'parserhooks',
