@@ -84,6 +84,10 @@ if ( ( ( $wgWikiTideCommons ?? false ) || ( $wgWikiForgeCommons ?? false ) ) && 
 	wfLoadExtension( 'GlobalUsage' );
 }
 
+if ( $wi->wikifarm !== 'wikitide' && $wi->isAnyOfExtensionsActive( 'SearchVue', 'UploadWizard' ) ) {
+	wfLoadExtension( 'EventLogging' );
+}
+
 if ( $wi->isExtensionActive( 'InterwikiSorting' ) ) {
 	$wgInterwikiSortingInterwikiSortOrders = include __DIR__ . '/InterwikiSortOrders.php';
 }
