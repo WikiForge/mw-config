@@ -20,7 +20,7 @@ if ( $wi->wikifarm === 'wikitide' && $wi->dbname !== 'votewikitide' ) {
 	$wgOATHAuthDatabase = $wi::GLOBAL_DATABASE[$wi->wikifarm];
 }
 
-if ( $wi->wikifarm === 'wikiforge' && $wgWikiForgeEnableCheckUser ?? false ) {
+if ( $wi->wikifarm === 'wikiforge' && ( $wgWikiForgeEnableCheckUser ?? false ) ) {
 	wfLoadExtensions( [
 		'CheckUser',
 		'IPInfo',
