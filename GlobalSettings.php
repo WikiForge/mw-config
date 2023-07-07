@@ -84,7 +84,7 @@ if ( ( ( $wgWikiTideCommons ?? false ) || ( $wgWikiForgeCommons ?? false ) ) && 
 	wfLoadExtension( 'GlobalUsage' );
 }
 
-if ( $wi->wikifarm !== 'wikitide' && $wi->isAnyOfExtensionsActive( 'SearchVue', 'UploadWizard' ) ) {
+if ( $wi->wikifarm !== 'wikitide' && $wi->isAnyOfExtensionsActive( 'SearchVue', 'Upload Wizard' ) ) {
 	wfLoadExtension( 'EventLogging' );
 }
 
