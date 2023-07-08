@@ -421,16 +421,16 @@ class WikiForgeFunctions {
 			return getenv( 'WIKIFORGE_WIKI_VERSION' );
 		}
 
+		if ( $database ) {
+			$mwVersion = self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, $database )['v'] ?? null;
+			return $mwVersion ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
+		}
+
 		if ( PHP_SAPI === 'cli' ) {
 			$version = explode( '/', $_SERVER['SCRIPT_NAME'] )[3] ?? null;
 			if ( $version && in_array( $version, self::MEDIAWIKI_VERSIONS ) ) {
 				return $version;
 			}
-		}
-
-		if ( $database ) {
-			$mwVersion = self::readDbListFile( 'databases-' . self::LISTS[self::getWikiFarm()], false, $database )['v'] ?? null;
-			return $mwVersion ?? self::MEDIAWIKI_VERSIONS[self::getDefaultMediaWikiVersion()];
 		}
 
 		static $version = null;
