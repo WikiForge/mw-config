@@ -130,7 +130,7 @@ if ( $wi->isAnyOfExtensionsActive( 'WikibaseClient', 'WikibaseRepository' ) ) {
 }
 
 // If Flow, VisualEditor, or Linter is used, use the Parsoid php extension
-if ( $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
+if ( $wi->version >= 1.40 || $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor', 'Linter' ) ) {
 	wfLoadExtension( 'Parsoid', "$IP/vendor/wikimedia/parsoid/extension.json" );
 
 	if ( $wi->isExtensionActive( 'VisualEditor' ) ) {
