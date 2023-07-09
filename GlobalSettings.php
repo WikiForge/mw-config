@@ -211,6 +211,10 @@ foreach ( $actions as $action ) {
 	$wgActionPaths[$action] = $wgArticlePath . '?action=' . $action;
 }
 
+if ( $wi->isExtensionActive( 'DiscussionTools' ) ) {
+	$wgActionPaths['dtunsubscribe'] = $wgArticlePath . '?action=dtunsubscribe';
+}
+
 if ( ( $wgWikiForgeActionPathsFormat ?? 'default' ) !== 'default' ) {
 	switch ( $wgWikiForgeActionPathsFormat ) {
 		case 'specialpages':
