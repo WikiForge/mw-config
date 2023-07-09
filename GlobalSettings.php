@@ -187,6 +187,30 @@ $wgDiscordNotificationWikiUrlEndingUserRights = 'Special:UserRights?user=';
  * Add rewrites to decode.php and index.php
  */
 $wgActionPaths['view'] = $wgArticlePath;
+
+// ?action=raw is not supported by this
+// according to documentation
+$actions = [
+	'delete',
+	'edit',
+	'history',
+	'info',
+	'markpatrolled',
+	'protect',
+	'purge',
+	'render',
+	'revert',
+	'rollback',
+	'submit',
+	'unprotect',
+	'unwatch',
+	'watch',
+];
+
+foreach ( $actions as $action ) {
+	$wgActionPaths[$action] = $wgArticlePath . '?action=' . $action;
+}
+
 if ( ( $wgWikiForgeActionPathsFormat ?? 'default' ) !== 'default' ) {
 	switch ( $wgWikiForgeActionPathsFormat ) {
 		case 'specialpages':
@@ -200,37 +224,16 @@ if ( ( $wgWikiForgeActionPathsFormat ?? 'default' ) !== 'default' ) {
 			break;
 		case '$1/action':
 		case 'action/$1':
-			// ?action=raw is not supported by this
-			// according to documentation
-			$actions = [
-				'delete',
-				'edit',
-				'history',
-				'info',
-				'markpatrolled',
-				'protect',
-				'purge',
-				'render',
-				'revert',
-				'rollback',
-				'submit',
-				'unprotect',
-				'unwatch',
-				'watch',
-			];
-
 			foreach ( $actions as $action ) {
 				$wgActionPaths[$action] = $articlePath . str_replace( 'action', $action, $wgWikiForgeActionPathsFormat );
 			}
 
-			// Don't need a global here
-			unset( $actions );
 			break;
 	}
 }
 
-// Don't need a global here
-unset( $articlePath );
+// Don't need globals here
+unset( $actions, $articlePath );
 
 $wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
