@@ -34,7 +34,10 @@ if ( $decodedUri && !str_contains( $queryString, 'title' ) ) {
 
 if ( $queryString || isset( $queryParameters ) ) {
 	if ( !isset( $queryParameters ) ) {
-		$decodedQueryString = urldecode( $queryString );
+		$decodedQueryString = preg_replace_callback( '/%((?!26)[0-9A-F]{2})/i', static function ( array $matches ): string {
+			return urldecode( $matches[0] );
+		}, $queryString );
+
 		parse_str( $decodedQueryString, $queryParameters );
 	}
 
