@@ -1662,7 +1662,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgImageMagickConvertCommand' => [
-		'default' => '/usr/local/bin/mediawiki-firejail-convert',
+		'default' => '/usr/bin/convert',
 	],
 	'wgImageMagickTempDir' => [
 		'default' => '/tmp/magick-tmp',
