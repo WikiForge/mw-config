@@ -29,9 +29,15 @@ if ( $decodedUri && !str_contains( $queryString, 'title' ) ) {
 if ( $queryString || isset( $queryParameters ) ) {
 	if ( !isset( $queryParameters ) ) {
 		// We don't want to decode %26 into & or it breaks things such as search functionality
-		$decodedQueryString = preg_replace_callback( '/%((?!26)[0-9A-F]{2})/i', static function ( array $matches ): string {
-			return urldecode( $matches[0] );
-		}, $queryString );
+		
+		// Replace %26 with a temporary placeholder
+		$queryString = str_replace( '%26', '##TEMP##', $queryString );
+
+		// Decode the URL
+		$decodedQueryString = urldecode( $queryString );
+
+		// Restore the original %26
+		$decodedQueryString = str_replace( '##TEMP##', '%26', $decodedQueryString );
 
 		parse_str( $decodedQueryString, $queryParameters );
 	}
