@@ -8,7 +8,10 @@ use MediaWiki\MediaWikiServices;
 $uri = strtok( $_SERVER['REQUEST_URI'], '?' );
 $queryString = $_SERVER['QUERY_STRING'] ?? '';
 
-$decodedUri = urldecode( $uri );
+$decodedUri = preg_replace_callback( '/%((?!26)[0-9A-F]{2})/i', static function( array $matches ): string {
+    return urldecode( $matches[0] );
+}, $uri );
+
 $decodedUri = str_replace( '/w/index.php', '', $decodedUri );
 $decodedUri = str_replace( '/index.php', '', $decodedUri );
 
