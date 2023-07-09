@@ -20,7 +20,10 @@ if ( $decodedUri && !str_contains( $queryString, 'title' ) ) {
 	$segments = explode( '/', $path );
 	$title = end( $segments );
 
-	$decodedQueryString = urldecode( $queryString );
+	$decodedQueryString = preg_replace_callback( '/%((?!26)[0-9A-F]{2})/i', static function( array $matches ): string {
+		return urldecode( $matches[0] );
+	}, $queryString );
+	
 	parse_str( $decodedQueryString, $queryParameters );
 
 	$queryParameters['title'] = $title;
@@ -73,11 +76,6 @@ if ( $queryString || isset( $queryParameters ) ) {
 			// things such as the Moderation extension
 			$queryParameters['token'] = urlencode( $queryParameters['token'] );
 			$queryParameters['token'] = str_replace( '%5C', '\\', $queryParameters['token'] );
-		}
-
-		if ( isset( $queryParameters['search'] ) ) {
-			// This can not be decoded or it breaks things
-			$queryParameters['search'] = str_replace( '&', '%26', $queryParameters['search'] );
 		}
 
 		$redirectUrl .= '?' . http_build_query( $queryParameters );
