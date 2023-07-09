@@ -68,12 +68,6 @@ if ( $wi->wikifarm === 'wikitide' ) {
 	];
 
 	$wgSessionCacheType = 'redis-session';
-
-	$wgMainWANCache = 'wikitide';
-	$wgWANObjectCaches['wikitide'] = [
-		'class' => WANObjectCache::class,
-		'cacheId' => 'redis-session',
-	];
 } else {
 	$wgSessionCacheType = 'memcached';
 
