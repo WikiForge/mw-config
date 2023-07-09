@@ -20,10 +20,7 @@ if ( $decodedUri && !str_contains( $queryString, 'title' ) ) {
 	$segments = explode( '/', $path );
 	$title = end( $segments );
 
-	$decodedQueryString = preg_replace_callback( '/%((?!26)[0-9A-F]{2})/i', static function( array $matches ): string {
-		return urldecode( $matches[0] );
-	}, $queryString );
-	
+	$decodedQueryString = urldecode( $queryString );
 	parse_str( $decodedQueryString, $queryParameters );
 
 	$queryParameters['title'] = $title;
