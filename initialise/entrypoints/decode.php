@@ -29,7 +29,7 @@ if ( $decodedUri && !str_contains( $queryString, 'title' ) ) {
 if ( $queryString || isset( $queryParameters ) ) {
 	if ( !isset( $queryParameters ) ) {
 		// We don't want to decode %26 into & or it breaks things such as search functionality
-		
+
 		// Replace %26 with a temporary placeholder
 		$queryString = str_replace( '%26', '##TEMP##', $queryString );
 
