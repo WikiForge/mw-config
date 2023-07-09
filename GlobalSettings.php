@@ -198,7 +198,6 @@ $actions = [
 	'markpatrolled',
 	'protect',
 	'purge',
-	'render',
 	'revert',
 	'rollback',
 	'submit',
