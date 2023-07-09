@@ -75,6 +75,11 @@ if ( $queryString || isset( $queryParameters ) ) {
 			$queryParameters['token'] = str_replace( '%5C', '\\', $queryParameters['token'] );
 		}
 
+		if ( isset( $queryParameters['search'] ) ) {
+			// This can not be decoded or it breaks things
+			$queryParameters['search'] = str_replace( '&', '%26', $queryParameters['search'] );
+		}
+
 		$redirectUrl .= '?' . http_build_query( $queryParameters );
 	}
 }
