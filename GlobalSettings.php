@@ -440,6 +440,19 @@ if ( (bool)$wmgWikiapiaryFooterPageName ) {
 }
 
 // $wgLocalFileRepo
+$wgGenerateThumbnailOnParse = false;
+
+$wgThumbnailBuckets = [ 1920 ];
+$wgThumbnailMinimumBucketDistance = 100;
+
+// Thumbnail prerendering at upload time
+$wgUploadThumbnailRenderMap = [ 320, 640, 800, 1024, 1280, 1920 ];
+
+if ( $cwPrivate ) {
+	$wgUploadThumbnailRenderMap = [];
+	$wgUploadPath = '/w/img_auth.php';
+}
+
 $wgLocalFileRepo = [
 	'class' => LocalRepo::class,
 	'name' => 'local',
@@ -456,7 +469,7 @@ $wgLocalFileRepo = [
 	'isPrivate' => $cwPrivate,
 	'zones' => $cwPrivate
 		? [
-			'thumb' => [ 'url' => "$wgScriptPath/thumb_handler.php" ] ]
+			'thumb' => [ 'url' => '/w/thumb_handler.php' ] ]
 		: [],
 ];
 
