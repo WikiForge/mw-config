@@ -83,7 +83,10 @@ $wgParsoidCacheConfig = [
 	'StashType' => null,
 	'StashDuration' => 24 * 60 * 60,
 	'CacheThresholdTime' => 0.0,
-	'WarmParsoidParserCache' => true,
+	// This created over 50,000 parsoidCachePrewarm jobs on a single wiki,
+	// and creates jobs faster than the queues can run them.
+	// Do not enable yet.
+	'WarmParsoidParserCache' => false,
 ];
 
 $wgLanguageConverterCacheType = CACHE_ACCEL;
