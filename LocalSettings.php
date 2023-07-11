@@ -1918,7 +1918,7 @@ $wgConf->settings += [
 			/** jobrunner1 */
 			'13.58.205.57' => true,
 			/** jobrunner2 */
-			'3.128.255.135' => true,
+			'3.15.17.20' => true,
 			/** mw1 */
 			'18.221.121.203' => true,
 			/** mw2 */
