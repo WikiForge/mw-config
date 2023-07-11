@@ -472,10 +472,11 @@ $wgLocalFileRepo = [
 	'deletedHashLevels' => 3,
 	'abbrvThreshold' => 160,
 	'isPrivate' => $cwPrivate,
-	'zones' => $cwPrivate
-		? [
-			'thumb' => [ 'url' => '/w/thumb_handler.php' ] ]
-		: [],
+	'zones' => [
+		'thumb' => [
+			'url' => '/w/thumb_handler.php',
+		]
+	],
 ];
 
 // $wgForeignFileRepos

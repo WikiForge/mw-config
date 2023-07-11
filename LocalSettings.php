@@ -3333,9 +3333,6 @@ $wgConf->settings += [
 	'wgShowHostnames' => [
 		'default' => true,
 	],
-	'wgThumbnailScriptPath' => [
-		'default' => '/w/thumb.php',
-	],
 	'wgThumbPath' => [
 		'default' => '/w/thumb_handler.php',
 	],
