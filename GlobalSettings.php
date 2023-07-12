@@ -466,17 +466,18 @@ $wgLocalFileRepo = [
 	'scriptDirUrl' => $wgScriptPath,
 	'hashLevels' => 2,
 	'thumbScriptUrl' => $wgThumbnailScriptPath,
+	'thumbProxyUrl' => 'http://127.0.0.1/thumb_proxy/',
 	'transformVia404' => true,
+	'disableLocalTransform' => true,
 	'useJsonMetadata'   => true,
 	'useSplitMetadata'  => true,
 	'deletedHashLevels' => 3,
 	'abbrvThreshold' => 160,
 	'isPrivate' => $cwPrivate,
-	'zones' => [
-		'thumb' => [
-			'url' => '/w/thumb_handler.php',
-		]
-	],
+	'zones' => $cwPrivate
+		? [
+			'thumb' => [ 'url' => '/w/thumb_handler.php' ] ]
+		: [],
 ];
 
 // $wgForeignFileRepos
