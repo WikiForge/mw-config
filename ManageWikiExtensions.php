@@ -3470,8 +3470,8 @@ $wgManageWikiExtensions = [
 		'section' => 'skins',
 	],
 	'cologneblue' => [
-		'name' => 'CologneBlue',
-		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:CologneBlue',
+		'name' => 'Cologne Blue',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Cologne_Blue',
 		'conflicts' => false,
 		'requires' => [],
 		'section' => 'skins',
