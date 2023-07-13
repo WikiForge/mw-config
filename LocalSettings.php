@@ -3322,7 +3322,7 @@ $wgConf->settings += [
 		'default' => '/w/load.php',
 	],
 	'wgRestPath' => [
-		'default' => '/w/rest.php',
+		'default' => '/' . $wi->version . '/rest.php',
 	],
 	'wgScript' => [
 		'default' => '/w/index.php',
