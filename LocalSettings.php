@@ -1657,17 +1657,6 @@ $wgConf->settings += [
 		'default' => [],
 	],
 
-	// ImageMagick
-	'wgUseImageMagick' => [
-		'default' => true,
-	],
-	'wgImageMagickConvertCommand' => [
-		'default' => '/usr/bin/convert',
-	],
-	'wgImageMagickTempDir' => [
-		'default' => '/tmp/magick-tmp',
-	],
-
 	// Image Limits
 	'wgImageLimits' => [
 		'default' => [
@@ -1678,6 +1667,11 @@ $wgConf->settings += [
 			[ 1280, 1024 ],
 			[ 2560, 2048 ],
 		],
+	],
+
+	// Image Scaling
+	'wgCustomConvertCommand' => [
+		'default' => 'gm convert %s -resize %wx%h %d',
 	],
 
 	// IncidentReporting
