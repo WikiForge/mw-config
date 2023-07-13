@@ -2819,7 +2819,7 @@ $wgConf->settings += [
 	],
 	// OAuth
 	'wgMWOAuthCentralWiki' => [
-		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgOAuth2GrantExpirationInterval' => [
 		'default' => 'PT4H',
