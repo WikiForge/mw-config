@@ -2840,6 +2840,7 @@ $wgConf->settings += [
 		'metawiki' => [
 			'checkuser',
 			'staff',
+			'suppress',
 		],
 		'wikiforge' => [
 			'checkuser',
