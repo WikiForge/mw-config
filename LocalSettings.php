@@ -2032,6 +2032,28 @@ $wgConf->settings += [
 				'user' => true,
 			],
 		],
+		'americanrailswiki' => [
+			'*' => [
+				'editmyoptions' => true,
+				'editmyprivateinfo' => true,
+				'editmywatchlist' => true,
+				'oathauth-enable' => true,
+				'read' => true,
+				'viewmyprivateinfo' => true,
+				'writeapi' => true,
+			],
+			'bureaucrat' => [
+				'userrights' => false,
+			],
+			'steward' => [
+				'userrights' => true,
+			],
+			'suppress' => [],
+			'user' => [
+				'mwoauthmanagemygrants' => true,
+				'user' => true,
+			],
+		],
 		'+metawiki' => [
 			'confirmed' => [
 				'mwoauthproposeconsumer' => true,
