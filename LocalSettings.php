@@ -2048,7 +2048,6 @@ $wgConf->settings += [
 			'steward' => [
 				'userrights' => true,
 			],
-			'suppress' => [],
 			'user' => [
 				'mwoauthmanagemygrants' => true,
 				'user' => true,
