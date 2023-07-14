@@ -141,7 +141,7 @@ if ( $wi->version >= 1.40 || $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor
 		'paths' => [],
 		'modules' => [
 			'parsoid' => [
-				'url' => 'https://mw-lb.wikiforge.net/w/rest.php',
+				'url' => 'https://mw-lb.wikiforge.net' . $wgRestPath,
 				'domain' => $wi->server,
 				'prefix' => $wi->dbname,
 				'forwardCookies' => (bool)$cwPrivate,
@@ -157,7 +157,7 @@ if ( $wi->version >= 1.40 || $wi->isAnyOfExtensionsActive( 'Flow', 'VisualEditor
 	];
 
 	if ( $wi->isExtensionActive( 'Flow' ) ) {
-		$wgFlowParsoidURL = 'https://mw-lb.wikiforge.net/w/rest.php';
+		$wgFlowParsoidURL = 'https://mw-lb.wikiforge.net' . $wgRestPath;
 		$wgFlowParsoidPrefix = $wi->dbname;
 		$wgFlowParsoidTimeout = 30;
 		$wgFlowParsoidForwardCookies = (bool)$cwPrivate;
