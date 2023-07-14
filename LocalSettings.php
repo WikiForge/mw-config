@@ -2827,7 +2827,6 @@ $wgConf->settings += [
 	'wgOATHRequiredForGroups' => [
 		'default' => [
 			'checkuser',
-			'staff',
 			'steward',
 			'suppress',
 		],
@@ -2836,6 +2835,14 @@ $wgConf->settings += [
 			'interface-admin',
 			'sysadmin',
 			'trustandsafety'
+		],
+		'metawiki' => [
+			'checkuser',
+			'staff',
+			'suppress',
+		],
+		'wikiforge' => [
+			'checkuser',
 		],
 	],
 	// OAuth
