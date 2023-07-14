@@ -62,11 +62,11 @@ class WikiForgeFunctions {
 
 	public const MEDIAWIKI_VERSIONS = [
 		'alpha' => '1.41',
-		'beta' => '1.40',
+		// 'beta' => '',
 		// 'legacy' => '',
 		// 'legacy-lts' => '',
 		'lts' => '1.39',
-		'stable' => '1.39',
+		'stable' => '1.40',
 	];
 
 	public const SUFFIXES = [
@@ -409,7 +409,7 @@ class WikiForgeFunctions {
 	 * @return string
 	 */
 	public static function getDefaultMediaWikiVersion(): string {
-		return php_uname( 'n' ) === 'test1.wikiforge.net' ? 'beta' : 'stable';
+		return ( php_uname( 'n' ) === 'test1.wikiforge.net' && isset( self::MEDIAWIKI_VERSIONS['beta'] ) ) ? 'beta' : 'stable';
 	}
 
 	/**
