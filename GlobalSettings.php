@@ -682,10 +682,12 @@ unset( $vectorVersion );
 
 $version = $wi->version;
 
-// Alpha is only available on the test server, use beta
+// Alpha is only available on the test server,
+// use beta (or stable if there currently is no beta)
 // for foreign metawiki links if the version is alpha.
 if ( $wi->version === WikiForgeFunctions::MEDIAWIKI_VERSIONS['alpha'] ) {
-	$version = WikiForgeFunctions::MEDIAWIKI_VERSIONS['beta'];
+	$version = WikiForgeFunctions::MEDIAWIKI_VERSIONS['beta'] ??
+		WikiForgeFunctions::MEDIAWIKI_VERSIONS['stable'];
 }
 
 /**
