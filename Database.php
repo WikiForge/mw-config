@@ -34,7 +34,7 @@ $wgLBFactoryConf = [
 		'sslCAFile' => '/etc/ssl/certs/ca-certificates.crt',
 	],
 	'hostsByName' => [
-		'db1' => 'db1.wikiforge.net',
+		'db1' => 'db1-private.wikiforge.net',
 	],
 	'externalLoads' => [
 		'echo' => [
