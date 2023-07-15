@@ -2847,6 +2847,7 @@ $wgConf->settings += [
 	],
 	// OAuth
 	'wgMWOAuthCentralWiki' => [
+		'wikiforge' => $wi->dbname,
 		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgOAuth2GrantExpirationInterval' => [
