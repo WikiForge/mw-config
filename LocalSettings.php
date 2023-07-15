@@ -1671,7 +1671,7 @@ $wgConf->settings += [
 
 	// Image Scaling
 	'wgCustomConvertCommand' => [
-		'default' => 'nice -n 19 ionice -c2 -n7 gm convert %s -resize %wx%h %d',
+		'default' => 'nice -n 19 ionice -c2 -n7 gm convert %s -resize %wx%h %d -sharpen 0x0.8',
 	],
 
 	// IncidentReporting
