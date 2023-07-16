@@ -3650,7 +3650,7 @@ if ( $wi->wikifarm === 'wikitide' ) {
 		$wgManageWikiExtensions['relatedarticles'],
 		$wgManageWikiExtensions['score']
 	);
-} elseif ( $wi->wikifarm === 'wikitide' ) {
+} elseif ( $wi->wikifarm === 'wikiforge' ) {
 	// WikiForge is not global so we don't use GlobalUserPage
 	unset( $wgManageWikiExtensions['globaluserpage'] );
 }
