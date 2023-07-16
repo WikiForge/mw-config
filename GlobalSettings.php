@@ -13,6 +13,7 @@ if ( $wi->wikifarm === 'wikitide' && $wi->dbname !== 'votewikitide' ) {
 		'CentralAuth',
 		'GlobalCssJs',
 		'GlobalBlocking',
+		'GlobalNewFiles',
 		'GlobalPreferences',
 	] );
 
