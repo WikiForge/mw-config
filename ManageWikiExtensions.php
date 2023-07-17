@@ -3639,8 +3639,8 @@ $wgManageWikiExtensions = [
 	],
 ];
 
-// No CirrusSearch, Score, or services on WikiTide (yet at least)
 if ( $wi->wikifarm === 'wikitide' ) {
+	// No CirrusSearch, Score, or services on WikiTide (yet at least)
 	unset(
 		$wgManageWikiExtensions['advancedsearch'],
 		$wgManageWikiExtensions['cirrussearch'],
@@ -3650,4 +3650,7 @@ if ( $wi->wikifarm === 'wikitide' ) {
 		$wgManageWikiExtensions['relatedarticles'],
 		$wgManageWikiExtensions['score']
 	);
+} elseif ( $wi->wikifarm === 'wikiforge' ) {
+	// WikiForge is not global so we don't use GlobalUserPage
+	unset( $wgManageWikiExtensions['globaluserpage'] );
 }

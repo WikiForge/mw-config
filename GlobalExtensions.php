@@ -15,7 +15,6 @@ wfLoadExtensions( [
 	'DiscordNotifications',
 	'DismissableSiteNotice',
 	'Echo',
-	'GlobalNewFiles',
 	'Interwiki',
 	'InterwikiDispatcher',
 	'LoginNotify',

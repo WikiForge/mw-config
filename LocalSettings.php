@@ -1540,8 +1540,8 @@ $wgConf->settings += [
 
 	// GlobalBlocking
 	'wgApplyGlobalBlocks' => [
-		'wikitide' => true,
 		'metawikitide' => false,
+		'wikitide' => true,
 	],
 	'wgGlobalBlockingDatabase' => [
 		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
@@ -1585,11 +1585,10 @@ $wgConf->settings += [
 
 	// GlobalUserPage
 	'wgGlobalUserPageAPIUrl' => [
-		'wikiforge' => 'https://meta.wikiforge.net/w/api.php',
 		'wikitide' => 'https://meta.wikitide.com/w/api.php',
 	],
 	'wgGlobalUserPageDBname' => [
-		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 
 	// Grant Permissions for BotPasswords and OAuth
@@ -2065,6 +2064,7 @@ $wgConf->settings += [
 				'handle-import-dump-requests' => true,
 				'handle-pii' => true,
 				'managewiki' => true,
+				'managewiki-editdefault' => true,
 				'managewiki-restricted' => true,
 				'mwoauthmanageconsumer' => true,
 				'noratelimit' => true,
@@ -2121,26 +2121,19 @@ $wgConf->settings += [
 				'globalgrouppermissions' => true,
 			],
 			'sysadmin' => [
+				'centralauth-lock' => true,
+				'centralauth-rename' => true,
+				'globalblock' => true,
 				'globalgroupmembership' => true,
 				'globalgrouppermissions' => true,
 				'handle-import-dump-interwiki' => true,
 				'handle-import-dump-requests' => true,
-				'oathauth-verify-user' => true,
-				'oathauth-disable-for-user' => true,
-				'view-private-import-dump-requests' => true,
-			],
-			'trustandsafety' => [
-				'userrights' => true,
-				'globalblock' => true,
-				'globalgroupmembership' => true,
-				'globalgrouppermissions' => true,
-				'userrights-interwiki' => true,
-				'centralauth-lock' => true,
-				'centralauth-rename' => true,
 				'handle-pii' => true,
-				'oathauth-disable-for-user' => true,
 				'oathauth-verify-user' => true,
+				'oathauth-disable-for-user' => true,
 				'view-private-import-dump-requests' => true,
+				'userrights' => true,
+				'userrights-interwiki' => true,
 			],
 			'sysop' => [
 				'interwiki' => true,
@@ -2184,6 +2177,7 @@ $wgConf->settings += [
 	'wgManageWikiPermissionsDisallowedRights' => [
 		'default' => [
 			'any' => [
+				'abusefilter-modify-global',
 				'bigdelete',
 				'checkuser',
 				'checkuser-log',
@@ -2202,7 +2196,6 @@ $wgConf->settings += [
 				'themedesigner',
 				'userrights',
 				'userrights-interwiki',
-				'viewglobalprivatefiles',
 				'writeapi',
 			],
 			'*' => [
@@ -2241,7 +2234,6 @@ $wgConf->settings += [
 			'*' => [
 				'abusefilter-hide-log',
 				'abusefilter-hidden-log',
-				'abusefilter-modify-global',
 				'abusefilter-private',
 				'abusefilter-private-log',
 				'abusefilter-privatedetails',
@@ -2272,7 +2264,6 @@ $wgConf->settings += [
 			'user' => [
 				'abusefilter-hide-log',
 				'abusefilter-hidden-log',
-				'abusefilter-modify-global',
 				'abusefilter-private',
 				'abusefilter-private-log',
 				'abusefilter-privatedetails',
@@ -2305,7 +2296,6 @@ $wgConf->settings += [
 			'any' => [
 				'abusefilter-hide-log',
 				'abusefilter-hidden-log',
-				'abusefilter-modify-global',
 				'abusefilter-private',
 				'abusefilter-private-log',
 				'abusefilter-privatedetails',
@@ -2342,6 +2332,7 @@ $wgConf->settings += [
 				'suppressrevision',
 				'titleblacklistlog',
 				'updatepoints',
+				'viewglobalprivatefiles',
 				'viewpmlog',
 				'viewsuppressed',
 			],
@@ -2367,7 +2358,6 @@ $wgConf->settings += [
 			'staff',
 			'suppress',
 			'sysadmin',
-			'trustandsafety',
 		],
 	],
 	'wgManageWikiPermissionsDefaultPrivateGroup' => [
@@ -2391,7 +2381,7 @@ $wgConf->settings += [
 	// MassMessage
 	'wgAllowGlobalMessaging' => [
 		'default' => false,
-		'metawiki' => true,
+		'metawikitide' => true,
 	],
 
 	// MediaWikiChat settings
@@ -2802,14 +2792,8 @@ $wgConf->settings += [
 		'default' => [
 			'abusefilter-privatedetails',
 			'abusefilter-privatedetails-log',
-			'centralauth-lock',
-			'centralauth-rename',
-			'centralauth-suppress',
 			'checkuser',
 			'checkuser-log',
-			'globalblock',
-			'globalgroupmembership',
-			'globalgrouppermissions',
 			'suppressionlog',
 			'suppressrevision',
 			'userrights',
@@ -2823,18 +2807,23 @@ $wgConf->settings += [
 			'editsitejs',
 			'edituserjs',
 		],
+		'+wikitide' => [
+			'centralauth-lock',
+			'centralauth-rename',
+			'centralauth-suppress',
+			'globalblock',
+			'globalgroupmembership',
+			'globalgrouppermissions',
+		],
 	],
 	'wgOATHRequiredForGroups' => [
-		'default' => [
+		'metawikitide' => [
 			'checkuser',
-			'steward',
-			'suppress',
-		],
-		'+metawikitide' => [
 			'global-sysop',
 			'interface-admin',
+			'steward',
 			'sysadmin',
-			'trustandsafety'
+			'suppress',
 		],
 		'metawiki' => [
 			'checkuser',
@@ -2843,6 +2832,11 @@ $wgConf->settings += [
 		],
 		'wikiforge' => [
 			'checkuser',
+		],
+		'wikitide' => [
+			'checkuser',
+			'steward',
+			'suppress',
 		],
 	],
 	// OAuth
@@ -3003,14 +2997,6 @@ $wgConf->settings += [
 	],
 	'wgCentralAuthGlobalPasswordPolicies' => [
 		'wikitide' => [
-			'global-interwiki-admin' => [
-				'MinimalPasswordLength' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 6, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
 			'global-sysop' => [
 				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
 				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
@@ -3028,14 +3014,6 @@ $wgConf->settings += [
 				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
 			],
 			'sysadmin' => [
-				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
-				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
-				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
-			],
-			'trustandsafety' => [
 				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
 				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
 				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
@@ -3608,10 +3586,6 @@ $wgConf->settings += [
 	// TitleBlacklist
 	'wgTitleBlacklistSources' => [
 		'wikiforge' => [
-			'global' => [
-				'type' => 'url',
-				'src' => 'https://meta.wikiforge.net/wiki/Title_blacklist?action=raw',
-			],
 			'local' => [
 				'type' => 'localpage',
 				'src' => 'MediaWiki:Titleblacklist',
@@ -3620,7 +3594,7 @@ $wgConf->settings += [
 		'wikitide' => [
 			'global' => [
 				'type' => 'url',
-				'src' => 'https://meta.wikitide.com/wiki/Title_blacklist?action=raw',
+				'src' => 'https://meta.wikitide.com/wiki/Title_blacklist?action=raw&tb_ver=1',
 			],
 			'local' => [
 				'type' => 'localpage',
@@ -3897,22 +3871,22 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wmgWikibaseRepoDatabase' => [
-		'default' => $wi->dbname
+		'default' => $wi->dbname,
 	],
 	'wmgWikibaseRepoUrl' => [
-		'default' => 'https://wikidata.org'
+		'default' => 'https://wikidata.org',
 	],
 	'wmgWikibaseItemNamespaceID' => [
-		'default' => 0
+		'default' => 0,
 	],
 	'wmgWikibasePropertyNamespaceID' => [
-		'default' => 120
+		'default' => 120,
 	],
 	'wmgWikibaseRepoItemNamespaceID' => [
-		'default' => 860
+		'default' => 860,
 	],
 	'wmgWikibaseRepoPropertyNamespaceID' => [
-		'default' => 862
+		'default' => 862,
 	],
 
 	// WikibaseLexeme
@@ -4251,13 +4225,6 @@ $wgConf->settings += [
 	'wgWikiTideMagicServicesRepo' => [
 		'wikitide' => '/srv/services/services',
 	],
-	/**
-	 * Only SRE are allowed access
-	 * DO NOT ADD UNAUTHORIZED USERS
-	 */
-	'wgWikiTideMagicSREAccessIds' => [
-		'default' => [],
-	],
 	'wgWikiTideMagicSurveyEnabled' => [
 		'default' => false,
 	],
@@ -4269,50 +4236,50 @@ $wgConf->settings += [
 				'name' => 'Wikipedia',
 				'dbsuffix' => 'wiki',
 				'wikitag' => 'wikipedia',
-				'sister' => false
+				'sister' => false,
 			],
 			'b' => [
 				'name' => 'Wikibooks',
 				'dbsuffix' => 'wikibooks',
 				'wikitag' => 'wikibooks',
-				'sister' => false
+				'sister' => false,
 			],
 			't' => [
 				'name' => 'Wiktionary',
 				'dbsuffix' => 'wiktionary',
 				'wikitag' => 'wiktionary',
-				'sister' => false
+				'sister' => false,
 			],
 			'q' => [
 				'name' => 'Wikiquote',
 				'dbsuffix' => 'wikiquote',
 				'wikitag' => 'wikiquote',
-				'sister' => false
+				'sister' => false,
 			],
 			'n' => [
 				'name' => 'Wikinews',
 				'dbsuffix' => 'wikinews',
 				'wikitag' => 'wikinews',
-				'sister' => false
+				'sister' => false,
 			],
 			'y' => [
 				'name' => 'Wikivoyage',
 				'dbsuffix' => 'wikivoyage',
 				'wikitag' => 'wikivoyage',
-				'sister' => false
+				'sister' => false,
 			],
 			's' => [
 				'name' => 'Wikisource',
 				'dbsuffix' => 'wikisource',
 				'wikitag' => 'wikisource',
-				'sister' => false
+				'sister' => false,
 			],
 			'v' => [
 				'name' => 'Wikiversity',
 				'dbsuffix' => 'wikiversity',
 				'wikitag' => 'wikiversity',
-				'sister' => false
-			]
+				'sister' => false,
+			],
 		],
 	],
 	'wmincProjectSite' => [
