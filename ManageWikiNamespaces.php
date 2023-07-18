@@ -371,6 +371,4 @@ $wgManageWikiNamespacesAdditional = [
 		'help' => '',
 		'requires' => [],
 	],
-
-	],
 ];
