@@ -699,6 +699,15 @@ $wgManageWikiSettings = [
 		'help' => 'Whether to maintain a log of new page creations, which can be viewed at Special:Log/create.',
 		'requires' => [],
 	],
+	'wgPageImagesLeadSectionOnly' => [
+		'name' => 'Only get page images from section 0 (PageImages)',
+		'from' => 'pageimages',
+		'type' => 'check',
+		'overridedefault' => true,
+		'section' => 'editing',
+		'help' => 'Whether page images should be restricted to those in section 0.',
+		'requires' => [],
+	],
 	'wgWatchlistExpiry' => [
 		'name' => 'Allow Watchlist Expiry Time',
 		'from' => 'mediawiki',
