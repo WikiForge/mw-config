@@ -1213,14 +1213,20 @@ $wgConf->settings += [
 	'wgEchoSharedTrackingDB' => [
 		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
-	'wgEchoUseCrossWikiBetaFeature' => [
-		'default' => true,
-	],
 	'wgEchoMentionStatusNotifications' => [
 		'default' => true,
 	],
 	'wgEchoMaxMentionsInEditSummary' => [
 		'default' => 0,
+	],
+	'wgEchoPerUserBlacklist' => [
+		'default' => true,
+	],
+	'wgEchoWatchlistNotifications' => [
+		'default' => false,
+	],
+	'wgEchoWatchlistEmailOncePerPage' => [
+		'default' => true,
 	],
 
 	// Editing
@@ -1964,6 +1970,12 @@ $wgConf->settings += [
 	'wgAllowHTMLEmail' => [
 		'default' => true,
 	],
+	'wgEnableSpecialMute' => [
+		'default' => true,
+	],
+	'wgEnableUserEmailMuteList' => [
+		'default' => true,
+	],
 
 	// ManageWiki
 	'wgManageWiki' => [
@@ -2142,7 +2154,7 @@ $wgConf->settings += [
 				'request-import-dump' => true,
 				'requestwiki' => true,
 			],
-			'wiki-creator' => [
+			'wiki-request-reviewer' => [
 				'createwiki' => true,
 			],
 		],
@@ -2764,6 +2776,11 @@ $wgConf->settings += [
 		'default' => true,
 	],
 
+	// NearbyPages
+	'wgNearbyPagesUrl' => [
+		'default' => '/w/api.php',
+	],
+
 	// New User Email Notification
 	'wgNewUserNotifEmailTargets' => [
 		'default' => [],
@@ -2877,6 +2894,9 @@ $wgConf->settings += [
 	],
 	'wgPageImagesExpandOpenSearchXml' => [
 		'default' => false,
+	],
+	'wgPageImagesLeadSectionOnly' => [
+		'default' => true,
 	],
 
 	// Pagelang
@@ -3058,6 +3078,9 @@ $wgConf->settings += [
 		'+ext-CleanChanges' => [
 			'usenewrc' => 1,
 		],
+	],
+	'wgCleanSignatures' => [
+		'default' => true,
 	],
 
 	// Preloader
@@ -3732,6 +3755,9 @@ $wgConf->settings += [
 			'nickname',
 			'username',
 		],
+	],
+	'wgUFAllowedNamespaces' => [
+		'default' => '8',
 	],
 
 	// UserPageEditProtection
