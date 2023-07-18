@@ -300,16 +300,6 @@ $wgManageWikiSettings = [
 	],
 
 	// Beta Feature related stuff
-	'wgEchoUseCrossWikiBetaFeature' => [
-		'name' => 'Enable Echo Cross Wiki Beta Feature',
-		'from' => 'echo',
-		'global' => true,
-		'type' => 'check',
-		'overridedefault' => true,
-		'section' => 'beta',
-		'help' => 'Feature flag for the cross-wiki notifications beta feature.',
-		'requires' => [],
-	],
 	'wgMediaViewerIsInBeta' => [
 		'name' => 'Enable Media Viewer Beta Mode',
 		'from' => 'multimediaviewer',
@@ -1701,13 +1691,13 @@ $wgManageWikiSettings = [
 		'requires' => [],
 	],
 	'wgEchoCrossWikiNotifications' => [
-		'name' => 'Echo Cross Wiki Notifications',
+		'name' => 'Echo Cross-wiki Notifications',
 		'from' => 'echo',
 		'global' => true,
 		'type' => 'check',
 		'overridedefault' => true,
 		'section' => 'notifications',
-		'help' => 'Whether to enable the cross-wiki notifications feature.',
+		'help' => 'Enable cross-wiki notifications.',
 		'requires' => [],
 	],
 	'wgEchoMentionStatusNotifications' => [
@@ -1730,6 +1720,26 @@ $wgManageWikiSettings = [
 		'overridedefault' => 0,
 		'section' => 'notifications',
 		'help' => 'Maximum number of users that will be notified that they were linked from an edit summary or 0 for no notifications.',
+		'requires' => [],
+	],
+	'wgEchoWatchlistNotifications' => [
+		'name' => 'Echo Watchlist Notifications',
+		'from' => 'echo',
+		'global' => true,
+		'type' => 'check',
+		'overridedefault' => true,
+		'section' => 'notifications',
+		'help' => 'Enable watchlist notifications.',
+		'requires' => [],
+	],
+	'wgEchoWatchlistEmailOncePerPage' => [
+		'name' => 'Echo Watchlist Email Once Per Page',
+		'from' => 'echo',
+		'global' => true,
+		'type' => 'check',
+		'overridedefault' => true,
+		'section' => 'notifications',
+		'help' => 'Whether to send email notifications each time a watched page is edited (if disabled) or only the first time the page is changed before being visited again by the user.',
 		'requires' => [],
 	],
 	'wgMinervaEnableSiteNotice' => [
@@ -4378,7 +4388,10 @@ $wgManageWikiSettings = [
 ];
 
 if ( $wi->wikifarm === 'wikitide' ) {
-	unset( $wgManageWikiSettings['wgWikiForgeCommons'] );
+	unset(
+		$wgManageWikiSettings['wgWikiForgeCommons'],
+		$wgManageWikiSettings['wgEchoCrossWikiNotifications']
+	);
 } else {
 	$wgManageWikiSettings['wgSVGMetadataCutoff']['requires'] = [];
 	$wgManageWikiSettings['wgSVGMetadataCutoff']['section'] = 'advanced';
