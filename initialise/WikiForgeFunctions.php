@@ -28,6 +28,9 @@ class WikiForgeFunctions {
 	/** @var array */
 	public $wikiDBClusters;
 
+	/** @var string */
+	public $wikifarm;
+
 	/** @var array */
 	public static $disabledExtensions = [];
 
