@@ -1213,9 +1213,6 @@ $wgConf->settings += [
 	'wgEchoSharedTrackingDB' => [
 		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
-	'wgEchoUseCrossWikiBetaFeature' => [
-		'default' => true,
-	],
 	'wgEchoMentionStatusNotifications' => [
 		'default' => true,
 	],
