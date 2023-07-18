@@ -281,14 +281,14 @@ if ( $wi->wikifarm === 'wikitide' && $cwClosed ) {
 
 // Public Wikis
 if ( !$cwPrivate ) {
-	if ( $wi->wikifarm === 'wikitide' ) {
+	/* if ( $wi->wikifarm === 'wikitide' ) {
 		$wgRCFeeds['irc'] = [
 			'formatter' => WikiTideIRCRCFeedFormatter::class,
 			'uri' => 'udp://jobrunner1-private.wikiforge.net:5070',
 			'add_interwiki_prefix' => false,
 			'omit_bots' => true,
 		];
-	}
+	}*/
 
 	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
 	$wgDiscordExperimentalWebhook = $wmgDiscordExperimentalWebhook;
