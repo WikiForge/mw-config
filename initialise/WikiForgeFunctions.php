@@ -54,7 +54,7 @@ class WikiForgeFunctions {
 	];
 
 	public const GLOBAL_DATABASE = [
-		'wikiforge' => 'prodglobal',
+		'wikiforge' => 'wfglobal',
 		'wikitide' => 'wtglobal',
 	];
 
