@@ -40,7 +40,7 @@ class WikiForgeFunctionsTest extends TestCase {
 	 */
 	public function testGetLocalDatabasesReturnsArrayOrNull(): void {
 		// Test when there are local databases available
-		$mockedLocalDatabases = ['db1', 'db2', 'db3'];
+		$mockedLocalDatabases = ['db1wiki', 'db2wiki', 'db3wiki'];
 		$this->expectsMockedLocalDatabases($mockedLocalDatabases);
 
 		$localDatabases = WikiForgeFunctions::getLocalDatabases();
