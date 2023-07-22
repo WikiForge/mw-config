@@ -17,6 +17,8 @@ class WikiForgeFunctionsTest extends TestCase {
 	use PHPMock;
 
 	protected function setUp(): void {
+		define( 'PHPUNIT_TEST', true );
+
 		// Set $_SERVER['HTTP_HOST']
 		$_SERVER['HTTP_HOST'] = 'example.com';
 
@@ -134,11 +136,6 @@ class WikiForgeFunctionsTest extends TestCase {
 	}
 
 	private function expectsMockedGetCurrentDatabase($returnValue): void {
-		$mockedObject = $this->getMockBuilder(WikiForgeFunctions::class)
-			->onlyMethods(['getCurrentDatabase'])
-			->getMock();
-
-		$mockedObject->method('getCurrentDatabase')
-			->willReturn($returnValue);
+		putenv( 'PHPUNIT_WIKI=' . $returnValue );
 	}
 }
