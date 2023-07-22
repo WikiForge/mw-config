@@ -34,7 +34,7 @@ class WikiForgeFunctions {
 	/** @var array */
 	public static $disabledExtensions = [];
 
-	public const CACHE_DIRECTORY = '/srv/mediawiki/cache';
+	private const CACHE_DIRECTORY = '/srv/mediawiki/cache';
 
 	private const DEFAULT_SERVER = [
 		'wikiforge' => 'wikiforge.net',
