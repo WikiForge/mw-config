@@ -122,9 +122,13 @@ class WikiForgeFunctionsTest extends TestCase {
 			->onlyMethods(['readDbListFile'])
 			->getMock();
 
-		$mockedObject->method('readDbListFile')
-			->with($dblist)
-		->willReturn($returnValue);
+		$mockedObject->expects($this->once())
+			->method('readDbListFile')
+			->with($dblist, true, null, false)
+			->willReturn($returnValue);
+
+		$wikiForgeFunctions = new WikiForgeFunctions();
+		$wikiForgeFunctions->setInstance($mockedObject);
 	}
 
 	private function expectsMockedGetCurrentDatabase($returnValue): void {
