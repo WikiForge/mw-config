@@ -126,7 +126,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		return $mockedObject;
 	}
 
-	private function expectsMockedReadDbListFile($dblist, $returnValue): void {
+	private function expectsMockedReadDbListFile($dblist, $returnValue) {
 		$mockedObject = $this->getMockBuilder(WikiForgeFunctions::class)
 			->onlyMethods(['readDbListFile'])
 			->getMock();
@@ -137,6 +137,8 @@ class WikiForgeFunctionsTest extends TestCase {
 			->willReturnCallback(function ($dblist, $onlyDBs, $database, $fromServer) use ($mockedData) {
 				return $mockedData[$dblist];
 			});
+
+		return $mockedObject;
 	}
 
 	private function expectsMockedGetCurrentDatabase($returnValue): void {
