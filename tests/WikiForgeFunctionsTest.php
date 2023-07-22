@@ -73,7 +73,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		$mockedDatabaseList = ['db1' => 'data1', 'db2' => 'data2'];
 		$this->expectsMockedReadDbListFile('databases-wikiforge', $mockedDatabaseList);
 
-		$databases = $this->expectsMockedReadDbListFile( 'databases-wikiforge', $mockedDatabaseList )::readDbListFile('databases-wikiforge');
+		$databases = $this->expectsMockedReadDbListFile( 'databases-wikiforge', $mockedDatabaseList )->readDbListFile('databases-wikiforge');
 		$this->assertIsArray($databases, "readDbListFile should return an array when the database list file exists and contains valid data");
 		$this->assertEquals($mockedDatabaseList, $databases, "readDbListFile should return the correct array of databases");
 
