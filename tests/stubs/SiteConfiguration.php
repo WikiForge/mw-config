@@ -20,6 +20,11 @@ class SiteConfiguration {
 	 * @return mixed
 	 */
 	public function get( string $setting, string $wiki ) {
-		return $this->settings[$setting][$wiki];
+		if ( isset( $this->settings[$setting] ) ) {
+			return $this->settings[$setting][$wiki] ??
+				$this->settings[$setting]['default'] ?? null;
+		}
+
+		return $GLOBALS[$setting] ?? null;
 	}
 }
