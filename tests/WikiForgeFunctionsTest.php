@@ -98,17 +98,17 @@ class WikiForgeFunctionsTest extends TestCase {
 	 */
 	public function testGetWikiFarmReturnsString(): void {
 		// Test when the current database is from 'wikiforge'
-		$this->expectsMockedGetCurrentDatabase('https://wikiforge.net');
+		$this->expectsMockedGetCurrentDatabase('testwiki');
 		$wikiFarm = WikiForgeFunctions::getWikiFarm();
 		$this->assertEquals('wikiforge', $wikiFarm, "getWikiFarm should return 'wikiforge' when the current database is from 'wikiforge'");
 
 		// Test when the current database is from 'wikitide'
-		$this->expectsMockedGetCurrentDatabase('https://wikitide.com');
+		$this->expectsMockedGetCurrentDatabase('testwikitide');
 		$wikiFarm = WikiForgeFunctions::getWikiFarm();
 		$this->assertEquals('wikitide', $wikiFarm, "getWikiFarm should return 'wikitide' when the current database is from 'wikitide'");
 
 		// Test when the current database is not recognized
-		$this->expectsMockedGetCurrentDatabase('https://example.com');
+		$this->expectsMockedGetCurrentDatabase('wikitest');
 		$wikiFarm = WikiForgeFunctions::getWikiFarm();
 		$this->assertNotEquals('wikitide', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
 		$this->assertNotEquals('wikiforge', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
