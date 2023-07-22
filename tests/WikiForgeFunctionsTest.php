@@ -17,6 +17,9 @@ class WikiForgeFunctionsTest extends TestCase {
 	use PHPMock;
 
 	protected function setUp(): void {
+		// Set $_SERVER['HTTP_HOST']
+		$_SERVER['HTTP_HOST'] = 'example.com';
+
 		// Mock the getInstance method of MediaWikiServices using php-mock
 		$this->getFunctionMock(MediaWikiServices::class, 'getInstance')
 			->expects($this->any())
