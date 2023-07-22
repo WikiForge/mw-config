@@ -23,7 +23,10 @@ class WikiForgeFunctionsTest extends TestCase {
 			define( 'PHPUNIT_TEST', true );
 		}
 
-		define('WikiForgeFunctions::CACHE_DIRECTORY', __DIR__ );
+		$reflectionClass = new ReflectionClass(WikiForgeFunctions::class);
+		$constantProperty = $reflectionClass->getProperty($constantName);
+		$constantProperty->setAccessible(true);
+		$constantProperty->setValue( __DIR__ )
 
 		// Set $_SERVER['HTTP_HOST']
 		$_SERVER['HTTP_HOST'] = 'example.com';
