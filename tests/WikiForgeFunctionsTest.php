@@ -37,7 +37,7 @@ class WikiForgeFunctionsTest extends TestCase {
 				});
 
 		// Mock the behavior of WikiForgeFunctions::CACHE_DIRECTORY constant
-		$this->getFunctionMock(WikiForgeFunctions::clasz, 'defined')
+		$this->getFunctionMock(WikiForgeFunctions::class, 'defined')
 			->expects($this->any())
 			->willReturn(true);
 
