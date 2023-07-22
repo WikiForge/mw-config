@@ -52,7 +52,7 @@ class WikiForgeFunctionsTest extends TestCase {
 
 		$localDatabases = WikiForgeFunctions::getLocalDatabases();
 		$this->assertIsArray($localDatabases, "getLocalDatabases should return an array when there are local databases available");
-		$this->assertEquals($mockedLocalDatabases, $localDatabases, "getLocalDatabases should return the correct array of local databases");
+		$this->assertEquals($mockedLocalDatabases, WikiForgeFunctions::CACHE_DIRECTORY, "getLocalDatabases should return the correct array of local databases");
 
 		// Test when there are no local databases available
 		$this->expectsMockedLocalDatabases([]);
