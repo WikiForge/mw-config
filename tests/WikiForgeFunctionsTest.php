@@ -15,13 +15,15 @@ require_once __DIR__ . '/../initialise/WikiForgeFunctions.php';
 class WikiForgeFunctionsTest extends TestCase {
 
 	protected function setUp(): void {
-		// Mock MediaWikiServices
+		// Mock MediaWikiServices and replace getInstance with the mocked instance
 		$mockMediaWikiServices = $this->getMockBuilder(MediaWikiServices::class)
-			->disableOriginalConstructor()
 			->getMock();
 
-		// Replace the actual MediaWikiServices instance with a mocked instance
-		$this->replaceInstance(MediaWikiServices::class, $mockMediaWikiServices);
+		// Replace the getInstance method with the mocked instance
+		$reflectionClass = new ReflectionClass(MediaWikiServices::class);
+		$method = $reflectionClass->getMethod('getInstance');
+		$method->setAccessible(true);
+		$method->invoke(null, $mockMediaWikiServices);
 	}
 
 	/**
@@ -129,12 +131,5 @@ class WikiForgeFunctionsTest extends TestCase {
 			->willReturn($returnValue);
 
 		$this->replaceInstance(WikiForgeFunctions::class, $mockedObject);
-	}
-
-	private function replaceInstance($class, $instance) {
-		$reflectionClass = new ReflectionClass($class);
-		$property = $reflectionClass->getProperty('instance');
-		$property->setAccessible(true);
-		$property->setValue($instance);
 	}
 }
