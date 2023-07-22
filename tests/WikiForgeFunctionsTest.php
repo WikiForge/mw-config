@@ -18,7 +18,7 @@ class WikiForgeFunctionsTest extends TestCase {
 
 	protected function setUp(): void {
 		// Mock the getInstance method of MediaWikiServices using php-mock
-		$this->functionMock(MediaWikiServices::class, 'getInstance')
+		$this->getFunctionMock(MediaWikiServices::class, 'getInstance')
 			->expects($this->any())
 			->willReturnCallback(function () {
 				 $mockMediaWikiServices = $this->getMockBuilder(MediaWikiServices::class)
