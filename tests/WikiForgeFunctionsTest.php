@@ -38,7 +38,7 @@ class WikiForgeFunctionsTest extends TestCase {
 
 		$this->getFunctionMock('WikiForgeFunctions', 'constant')
             ->expects($this->any())
-            ->withConsecutive(['WikiForgeFunctions::CACHE_DIRECTORY'])
+            ->with('WikiForgeFunctions::CACHE_DIRECTORY')
             ->willReturn(__DIR__ . '/stubs' );
 	}
 
@@ -73,7 +73,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		$mockedDatabaseList = ['db1' => 'data1', 'db2' => 'data2'];
 		$this->expectsMockedReadDbListFile('databases-wikiforge', $mockedDatabaseList);
 
-		$databases = WikiForgeFunctions::readDbListFile('databases-wikiforge');
+		$databases = $this->expectsMockedReadDbListFile::readDbListFile('databases-wikiforge');
 		$this->assertIsArray($databases, "readDbListFile should return an array when the database list file exists and contains valid data");
 		$this->assertEquals($mockedDatabaseList, $databases, "readDbListFile should return the correct array of databases");
 
@@ -114,7 +114,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		$this->assertEquals('wikitide', $wikiFarm, "getWikiFarm should return 'wikitide' when the current database is not recognized");
 	}
 
-	private function expectsMockedLocalDatabases($returnValue): void {
+	private function expectsMockedLocalDatabases($returnValue) {
 		$this->expectsMockedReadDbListFile( 'databases-wikiforge', $returnValue );
 		$mockedObject = $this->getMockBuilder(WikiForgeFunctions::class)
 			->onlyMethods(['getLocalDatabases'])
@@ -122,9 +122,11 @@ class WikiForgeFunctionsTest extends TestCase {
 
 		$mockedObject->method('getLocalDatabases')
 			->willReturn($returnValue);
+
+		return $mockedObject;
 	}
 
-	private function expectsMockedReadDbListFile($dblist, $returnValue): void {
+	private function expectMockedReadDbListFile($dblist, $returnValue): void {
 		$mockedObject = $this->getMockBuilder(WikiForgeFunctions::class)
 			->onlyMethods(['readDbListFile'])
 			->getMock();
