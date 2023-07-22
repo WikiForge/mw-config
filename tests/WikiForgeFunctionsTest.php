@@ -72,7 +72,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		// Test when the database list file exists but is empty or contains invalid data
 		$this->expectsMockedReadDbListFile('databases-wikiforge', []);
 		$databases = WikiForgeFunctions::readDbListFile('databases-wikiforge');
-		$this->assertEmpty($databases, "readDbListFile should return an empty array when the database list file is empty or contains invalid data");
+		$this->assertEquals($databases, [], "readDbListFile should return an empty array when the database list file is empty or contains invalid data");
 
 		// Test when the database list file does not exist
 		$this->expectsMockedReadDbListFile('non_existent_db_list', null);
