@@ -20,7 +20,7 @@ class WikiForgeFunctionsTest extends TestCase {
 			->getMockForAbstractClass();
 
 		// Replace the getInstance method with the mocked instance
-		$mockMediaWikiServices->method('getInstance')->willReturn($mockMediaWikiServices)
+		$mockMediaWikiServices->method('getInstance')->willReturn($mockMediaWikiServices);
 	}
 
 	/**
