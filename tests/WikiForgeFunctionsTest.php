@@ -45,7 +45,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		$mockWgLocalDatabases = ['db1', 'db2'];
 
 		// Ensure that $wgLocalDatabases is initially not set
-		$this->assertNull($GLOBALS['wgLocalDatabases']);
+		$this->assertNull($GLOBALS['wgLocalDatabases'] ?? null);
 
 		// Set the global variable for testing purposes
 		$GLOBALS['wgLocalDatabases'] = $mockWgLocalDatabases;
@@ -59,7 +59,7 @@ class WikiForgeFunctionsTest extends TestCase {
 	 */
 	public function testGetLocalDatabasesWhenWgLocalDatabasesIsNotSet() {
 		// Ensure that $wgLocalDatabases is initially not set
-		$this->assertNull($GLOBALS['wgLocalDatabases']);
+		$this->assertNull($GLOBALS['wgLocalDatabases'] ?? null);
 
 		$result = WikiForgeFunctions::getLocalDatabases();
 		$this->assertNull($result);
@@ -108,17 +108,7 @@ class WikiForgeFunctionsTest extends TestCase {
 				->willReturn($returnValue);
 		}
 
-		// Replace the real method with the mock
-		$this->replaceMethodWithMock($mock);
-
 		return $mock;
-	}
-
-	private function replaceMethodWithMock($mock) {
-		$reflectionClass = new ReflectionClass(WikiForgeFunctions::class);
-		$method = $reflectionClass->getMethod('readDbListFile');
-		$method->setAccessible(true);
-		$method->setValue($mock, $mock->readDbListFile);
 	}
 
 	/**
