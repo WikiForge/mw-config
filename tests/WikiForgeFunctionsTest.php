@@ -102,17 +102,17 @@ class WikiForgeFunctionsTest extends TestCase {
 	 */
 	public function testGetWikiFarmReturnsString(): void {
 		// Test when the current database is from 'wikiforge'
-		$this->expectsMockedGetCurrentDatabase('testwiki');
+		putenv( 'PHPUNIT_WIKI=testwiki');
 		$wikiFarm = WikiForgeFunctions::getWikiFarm();
 		$this->assertEquals('wikiforge', $wikiFarm, "getWikiFarm should return 'wikiforge' when the current database is from 'wikiforge'");
 
 		// Test when the current database is from 'wikitide'
-		$this->expectsMockedGetCurrentDatabase('testwikitide');
+		putenv( 'PHPUNIT_WIKI=testwikitide');
 		$wikiFarm = WikiForgeFunctions::getWikiFarm();
 		$this->assertEquals('wikitide', $wikiFarm, "getWikiFarm should return 'wikitide' when the current database is from 'wikitide'");
 
 		// Test when the current database is not recognized
-		$this->expectsMockedGetCurrentDatabase('wikitest');
+		putenv( 'PHPUNIT_WIKI=wikitest');
 		$wikiFarm = WikiForgeFunctions::getWikiFarm();
 		$this->assertNotEquals('wikitide', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
 		$this->assertNotEquals('wikiforge', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
@@ -135,9 +135,5 @@ class WikiForgeFunctionsTest extends TestCase {
 		$mockedObject->method('readDbListFile')
 			->with($dblist)
 			->willReturn($returnValue);
-	}
-
-	private function expectsMockedGetCurrentDatabase($returnValue): void {
-		putenv( 'PHPUNIT_WIKI=' . $returnValue );
 	}
 }
