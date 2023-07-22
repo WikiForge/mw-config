@@ -26,7 +26,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		$reflectionClass = new ReflectionClass(WikiForgeFunctions::class);
 		$constantProperty = $reflectionClass->getProperty('CACHE_DIRECTORY');
 		$constantProperty->setAccessible(true);
-		$constantProperty->setValue( __DIR__ )
+		$constantProperty->setValue( __DIR__ );
 
 		// Set $_SERVER['HTTP_HOST']
 		$_SERVER['HTTP_HOST'] = 'example.com';
