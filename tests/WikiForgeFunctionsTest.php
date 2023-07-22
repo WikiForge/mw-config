@@ -30,7 +30,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		$this->getFunctionMock( MediaWikiServices::class, 'getInstance' )
 			->expects( $this->any() )
 			->willReturnCallback( function () {
-				 $mockMediaWikiServices = $this->getMockBuilder( MediaWikiServices::class )
+				$mockMediaWikiServices = $this->getMockBuilder( MediaWikiServices::class )
 					->getMock();
 
 					return $mockMediaWikiServices;
