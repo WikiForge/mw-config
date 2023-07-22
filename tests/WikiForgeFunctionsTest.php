@@ -38,7 +38,7 @@ class WikiForgeFunctionsTest extends TestCase {
 
 		$this->getFunctionMock('WikiForgeFunctions', 'constant')
             ->expects($this->any())
-            ->with('WikiForgeFunctions::CACHE_DIRECTORY')
+            ->withConsecutive(['WikiForgeFunctions::CACHE_DIRECTORY'])
             ->willReturn(__DIR__ . '/stubs' );
 	}
 
