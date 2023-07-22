@@ -24,7 +24,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		}
 
 		$reflectionClass = new ReflectionClass(WikiForgeFunctions::class);
-		$constantProperty = $reflectionClass->getProperty($constantName);
+		$constantProperty = $reflectionClass->getProperty('CACHE_DIRECTORY');
 		$constantProperty->setAccessible(true);
 		$constantProperty->setValue( __DIR__ )
 
