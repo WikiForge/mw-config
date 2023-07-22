@@ -17,7 +17,9 @@ class WikiForgeFunctionsTest extends TestCase {
 	use PHPMock;
 
 	protected function setUp(): void {
-		define( 'PHPUNIT_TEST', true );
+		if ( !defined( 'PHPUNIT_TEST' ) ) {
+			define( 'PHPUNIT_TEST', true );
+		}
 
 		// Set $_SERVER['HTTP_HOST']
 		$_SERVER['HTTP_HOST'] = 'example.com';
