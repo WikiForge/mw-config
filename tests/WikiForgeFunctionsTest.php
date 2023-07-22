@@ -49,6 +49,8 @@ class WikiForgeFunctionsTest extends TestCase {
 
 		// Set the global variable for testing purposes
 		$GLOBALS['wgLocalDatabases'] = $mockWgLocalDatabases;
+		
+		$this->mockReadDbListFile(['databases-farm', 'deleted-farm'], $mockWgLocalDatabases);
 
 		$result = WikiForgeFunctions::getLocalDatabases();
 		$this->assertEquals($mockWgLocalDatabases, $result);
