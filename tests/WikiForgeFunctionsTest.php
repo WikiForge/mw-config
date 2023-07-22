@@ -10,6 +10,9 @@ use Wikimedia\Rdbms\DBConnRef;
 
 require_once __DIR__ . '/../initialise/WikiForgeFunctions.php';
 
+/**
+ * @coversDefaultClass \WikiForgeFunctions
+ */
 class WikiForgeFunctionsTest extends TestCase {
 
 	protected function setUp(): void {
@@ -31,6 +34,9 @@ class WikiForgeFunctionsTest extends TestCase {
 		$this->replaceInstance(DBConnRef::class, $mockDBConnRef);
 	}
 
+	/**
+	 * @covers ::getLocalDatabases
+	 */
 	public function testGetLocalDatabasesReturnsArrayOrNull(): void {
 		// Test when there are local databases available
 		$mockedLocalDatabases = ['db1', 'db2', 'db3'];
@@ -51,6 +57,9 @@ class WikiForgeFunctionsTest extends TestCase {
 		$this->assertNull($localDatabases, "getLocalDatabases should return null when an error occurs while fetching local databases");
 	}
 
+	/**
+	 * @covers ::readDbListFile
+	 */
 	public function testReadDbListFileReturnsArrayOrString(): void {
 		// Test when the database list file exists and contains valid data
 		$mockedDatabaseList = ['db1' => 'data1', 'db2' => 'data2'];
@@ -77,6 +86,9 @@ class WikiForgeFunctionsTest extends TestCase {
 		$this->assertEquals('data2', $result, "readDbListFile should return the correct database when fetching a specific database from the list");
 	}
 
+	/**
+	 * @covers ::getWikiFarm
+	 */
 	public function testGetWikiFarmReturnsString(): void {
 		// Test when the current database is from 'wikiforge'
 		$this->expectsMockedGetCurrentDatabase('https://wikiforge.net');
@@ -94,8 +106,6 @@ class WikiForgeFunctionsTest extends TestCase {
 		$this->assertNotEquals('wikitide', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
 		$this->assertNotEquals('wikiforge', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
 	}
-
-	// Add more test methods for other public methods in the class...
 
 	private function expectsMockedLocalDatabases($returnValue): void {
 		$mockedObject = $this->getMockBuilder(WikiForgeFunctions::class)
