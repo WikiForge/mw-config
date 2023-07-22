@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 use MediaWiki\MediaWikiServices;
 use ReflectionClass;
 use WikiForgeFunctions;
-use Wikimedia\Rdbms\DBConnRef;
 
 require_once __DIR__ . '/../initialise/WikiForgeFunctions.php';
 
@@ -21,17 +20,8 @@ class WikiForgeFunctionsTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		// Mock DBConnRef
-		$mockDBConnRef = $this->getMockBuilder(DBConnRef::class)
-			->disableOriginalConstructor()
-			->getMock();
-
-		// Set up the necessary methods and return values for DBConnRef
-		$mockDBConnRef->method('getDomainID')->willReturn('db1');
-
-		// Replace the actual MediaWikiServices and DBConnRef instances with mocked instances
+		// Replace the actual MediaWikiServices instance with a mocked instance
 		$this->replaceInstance(MediaWikiServices::class, $mockMediaWikiServices);
-		$this->replaceInstance(DBConnRef::class, $mockDBConnRef);
 	}
 
 	/**
