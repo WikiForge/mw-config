@@ -35,6 +35,18 @@ class WikiForgeFunctionsTest extends TestCase {
 
 					return $mockMediaWikiServices;
 			} );
+
+		// Create a temporary JSON file for testing
+		$tempDatabaseListFile = '/srv/mediawiki/cache/databases-wikiforge.json';
+
+		$data = [
+			'db1wiki',
+			'db2wiki',
+		];
+
+		file_put_contents($tempDatabaseListFile, json_encode($data));
+
+		putenv( 'PHPUNIT_WIKI=db1wiki' );
 	}
 
 	/**
