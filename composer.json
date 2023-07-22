@@ -13,7 +13,10 @@
 	"autoload": {
 		"psr-4": {
 			"WikiForge\\Config\\Tests\\": "tests/"
-		}
+		},
+		"classmap": [
+			"tests/stubs/"
+		]
 	},
 	"scripts": {
 		"fix": [
