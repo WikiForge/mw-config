@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use phpmock\phpunit\PHPMock;
 use MediaWiki\MediaWikiServices;
 use ReflectionClass;
-use WikiForgeFunctions;
+use WikiForgeFunctionsWrapper as WikiForgeFunctions;
 
 require_once __DIR__ . '/../initialise/WikiForgeFunctions.php';
 
@@ -23,11 +23,6 @@ class WikiForgeFunctionsTest extends TestCase {
 			define( 'PHPUNIT_TEST', true );
 		}
 
-		$reflectionClass = new ReflectionClass(WikiForgeFunctions::class);
-		$constantProperty = $reflectionClass->getProperty('CACHE_DIRECTORY');
-		$constantProperty->setAccessible(true);
-		$constantProperty->setValue( __DIR__ );
-
 		// Set $_SERVER['HTTP_HOST']
 		$_SERVER['HTTP_HOST'] = 'example.com';
 
@@ -40,16 +35,6 @@ class WikiForgeFunctionsTest extends TestCase {
 
 					return $mockMediaWikiServices;
 				});
-
-		// Mock the behavior of WikiForgeFunctions::CACHE_DIRECTORY constant
-		$this->getFunctionMock(WikiForgeFunctions::class, 'defined')
-			->expects($this->any())
-			->willReturn(true);
-
-		$this->getFunctionMock(WikiForgeFunctions::class, 'constant')
-			->expects($this->any())
-			->with('WikiForgeFunctions::CACHE_DIRECTORY')
-			->willReturn(__DIR__);
 	}
 
 	/**
