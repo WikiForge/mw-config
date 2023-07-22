@@ -76,7 +76,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		$mockDatabases = ['db3', 'db4'];
 		$this->mockReadDbListFile(['databases-farm', 'deleted-farm'], $mockDatabases);
 
-		$result = YourClassName::getLocalDatabases();
+		$result = WikiForgeFunctions::getLocalDatabases();
 		$expectedResult = array_merge($mockDatabases, $mockDatabases);
 		$this->assertEquals($expectedResult, $result);
 	}
@@ -115,7 +115,7 @@ class WikiForgeFunctionsTest extends TestCase {
 	}
 
 	private function replaceMethodWithMock($mock) {
-		$reflectionClass = new ReflectionClass(YourClassName::class);
+		$reflectionClass = new ReflectionClass(WikiForgeFunctions::class);
 		$method = $reflectionClass->getMethod('readDbListFile');
 		$method->setAccessible(true);
 		$method->setValue($mock, $mock->readDbListFile);
