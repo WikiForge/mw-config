@@ -16,10 +16,11 @@ class WikiForgeFunctionsTest extends TestCase {
 
 	protected function setUp(): void {
 		// Mock MediaWikiServices and replace getInstance with the mocked instance
-		$mockMediaWikiServices = $this->getMockBuilder(MediaWikiServices::class)
-			->getMockForAbstractClass();
+		$mockMediaWikiServices = $this->getMockBuilder('MediaWikiServices')
+			->disableOriginalConstructor()
+			->getMock();
 
-		// Replace the getInstance method with the mocked instance
+		// Replace the getInstance method with the mocked method
 		$mockMediaWikiServices->method('getInstance')->willReturn($mockMediaWikiServices);
 	}
 
@@ -103,8 +104,6 @@ class WikiForgeFunctionsTest extends TestCase {
 
 		$mockedObject->method('getLocalDatabases')
 			->willReturn($returnValue);
-
-		$this->replaceInstance(WikiForgeFunctions::class, $mockedObject);
 	}
 
 	private function expectsMockedReadDbListFile($dblist, $returnValue): void {
@@ -115,8 +114,6 @@ class WikiForgeFunctionsTest extends TestCase {
 		$mockedObject->method('readDbListFile')
 			->with($dblist)
 			->willReturn($returnValue);
-
-		$this->replaceInstance(WikiForgeFunctions::class, $mockedObject);
 	}
 
 	private function expectsMockedGetCurrentDatabase($returnValue): void {
@@ -126,7 +123,5 @@ class WikiForgeFunctionsTest extends TestCase {
 
 		$mockedObject->method('getCurrentDatabase')
 			->willReturn($returnValue);
-
-		$this->replaceInstance(WikiForgeFunctions::class, $mockedObject);
 	}
 }
