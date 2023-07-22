@@ -37,10 +37,15 @@ class WikiForgeFunctionsTest extends TestCase {
 			} );
 	}
 
+	/**
+	 * @covers ::getLocalDatabases
+	 */
 	public function testGetLocalDatabasesWhenWgLocalDatabasesIsSet() {
 		// Mock $wgLocalDatabases
 		$mockWgLocalDatabases = ['db1', 'db2'];
-		$this->assertNull($GLOBALS['wgLocalDatabases']); // Ensure that $wgLocalDatabases is initially not set
+
+		// Ensure that $wgLocalDatabases is initially not set
+		$this->assertNull($GLOBALS['wgLocalDatabases']);
 
 		// Set the global variable for testing purposes
 		$GLOBALS['wgLocalDatabases'] = $mockWgLocalDatabases;
