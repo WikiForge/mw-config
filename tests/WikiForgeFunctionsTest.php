@@ -37,6 +37,77 @@ class WikiForgeFunctionsTest extends TestCase {
 			} );
 	}
 
+	public function testGetLocalDatabasesWhenWgLocalDatabasesIsSet() {
+		// Mock $wgLocalDatabases
+		$mockWgLocalDatabases = ['db1', 'db2'];
+		$this->assertNull($GLOBALS['wgLocalDatabases']); // Ensure that $wgLocalDatabases is initially not set
+
+		// Set the global variable for testing purposes
+		$GLOBALS['wgLocalDatabases'] = $mockWgLocalDatabases;
+
+		$result = WikiForgeFunctions::getLocalDatabases();
+		$this->assertEquals($mockWgLocalDatabases, $result);
+	}
+
+	public function testGetLocalDatabasesWhenWgLocalDatabasesIsNotSet() {
+		// Ensure that $wgLocalDatabases is initially not set
+		$this->assertNull($GLOBALS['wgLocalDatabases']);
+
+		$result = WikiForgeFunctions::getLocalDatabases();
+		$this->assertNull($result);
+	}
+
+	public function testGetLocalDatabasesInCliMode() {
+		// Simulate being in CLI mode
+		$_SERVER['PHP_SAPI'] = 'cli';
+
+		// Mock the readDbListFile method to return specific values
+		$mockDatabases = ['db3', 'db4'];
+		$this->mockReadDbListFile(['databases-farm', 'deleted-farm'], $mockDatabases);
+
+		$result = YourClassName::getLocalDatabases();
+		$expectedResult = array_merge($mockDatabases, $mockDatabases);
+		$this->assertEquals($expectedResult, $result);
+	}
+
+	public function testGetLocalDatabasesNotInCliMode() {
+		// Simulate not being in CLI mode
+		$_SERVER['PHP_SAPI'] = 'fpm';
+
+		// Mock the readDbListFile method to return specific values
+		$mockDatabases = ['db5', 'db6'];
+		$this->mockReadDbListFile(['databases-farm'], $mockDatabases);
+
+		$result = WikiForgeFunctions::getLocalDatabases();
+		$this->assertEquals($mockDatabases, $result);
+	}
+
+
+	private function mockReadDbListFile($fileNames, $returnValue) {
+		$mock = $this->getMockBuilder(YourClassName::class)
+			->setMethods(['readDbListFile'])
+			->getMock();
+
+		foreach ($fileNames as $index => $fileName) {
+			$mock->expects($this->at($index))
+				->method('readDbListFile')
+				->with($fileName)
+				->willReturn($returnValue);
+		}
+
+		// Replace the real method with the mock
+		$this->replaceMethodWithMock($mock);
+
+		return $mock;
+	}
+
+	private function replaceMethodWithMock($mock) {
+		$reflectionClass = new ReflectionClass(YourClassName::class);
+		$method = $reflectionClass->getMethod('readDbListFile');
+		$method->setAccessible(true);
+		$method->setValue($mock, $mock->readDbListFile);
+	}
+
 	/**
 	 * @covers ::getWikiFarm
 	 */
