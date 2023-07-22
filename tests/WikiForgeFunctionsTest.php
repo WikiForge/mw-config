@@ -127,8 +127,8 @@ class WikiForgeFunctionsTest extends TestCase {
 			->with($dblist, true, null, false)
 			->willReturn($returnValue);
 
-		$wikiForgeFunctions = new WikiForgeFunctions();
-		$wikiForgeFunctions->setInstance($mockedObject);
+		// $wikiForgeFunctions = new WikiForgeFunctions();
+		// $wikiForgeFunctions->setInstance($mockedObject);
 	}
 
 	private function expectsMockedGetCurrentDatabase($returnValue): void {
