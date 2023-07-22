@@ -49,6 +49,9 @@ class WikiForgeFunctionsTest extends TestCase {
 		$this->assertEquals($mockWgLocalDatabases, $result);
 	}
 
+	/**
+	 * @covers ::getLocalDatabases
+	 */
 	public function testGetLocalDatabasesWhenWgLocalDatabasesIsNotSet() {
 		// Ensure that $wgLocalDatabases is initially not set
 		$this->assertNull($GLOBALS['wgLocalDatabases']);
@@ -57,6 +60,9 @@ class WikiForgeFunctionsTest extends TestCase {
 		$this->assertNull($result);
 	}
 
+	/**
+	 * @covers ::getLocalDatabases
+	 */
 	public function testGetLocalDatabasesInCliMode() {
 		// Simulate being in CLI mode
 		$_SERVER['PHP_SAPI'] = 'cli';
@@ -70,6 +76,9 @@ class WikiForgeFunctionsTest extends TestCase {
 		$this->assertEquals($expectedResult, $result);
 	}
 
+	/**
+	 * @covers ::getLocalDatabases
+	 */
 	public function testGetLocalDatabasesNotInCliMode() {
 		// Simulate not being in CLI mode
 		$_SERVER['PHP_SAPI'] = 'fpm';
@@ -81,7 +90,6 @@ class WikiForgeFunctionsTest extends TestCase {
 		$result = WikiForgeFunctions::getLocalDatabases();
 		$this->assertEquals($mockDatabases, $result);
 	}
-
 
 	private function mockReadDbListFile($fileNames, $returnValue) {
 		$mock = $this->getMockBuilder(YourClassName::class)
