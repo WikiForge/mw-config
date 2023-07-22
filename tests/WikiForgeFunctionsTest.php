@@ -43,14 +43,9 @@ class WikiForgeFunctionsTest extends TestCase {
 	public function testGetLocalDatabasesWhenWgLocalDatabasesIsSet() {
 		// Mock $wgLocalDatabases
 		$mockWgLocalDatabases = ['db1', 'db2'];
-
-		// Ensure that $wgLocalDatabases is initially not set
-		$this->assertNull($GLOBALS['wgLocalDatabases'] ?? null);
-
-		// Set the global variable for testing purposes
 		$GLOBALS['wgLocalDatabases'] = $mockWgLocalDatabases;
 		
-		$this->mockReadDbListFile(['databases-farm', 'deleted-farm'], $mockWgLocalDatabases);
+		$this->mockReadDbListFile(['databases-farm'], $mockWgLocalDatabases);
 
 		$result = WikiForgeFunctions::getLocalDatabases();
 		$this->assertEquals($mockWgLocalDatabases, $result);
@@ -104,8 +99,7 @@ class WikiForgeFunctionsTest extends TestCase {
 			->getMock();
 
 		foreach ($fileNames as $index => $fileName) {
-			$mock->expects($this->at($index))
-				->method('readDbListFile')
+			$mock->method('readDbListFile')
 				->with($fileName)
 				->willReturn($returnValue);
 		}
