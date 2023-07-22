@@ -108,6 +108,7 @@ class WikiForgeFunctionsTest extends TestCase {
 	}
 
 	private function expectsMockedLocalDatabases($returnValue): void {
+		$this->expectsMockedReadDbListFile( 'databases-wikiforge', $returnValue );
 		$mockedObject = $this->getMockBuilder(WikiForgeFunctions::class)
 			->onlyMethods(['getLocalDatabases'])
 			->getMock();
