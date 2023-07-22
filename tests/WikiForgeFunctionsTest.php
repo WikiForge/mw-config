@@ -17,6 +17,8 @@ class WikiForgeFunctionsTest extends TestCase {
 	use PHPMock;
 
 	protected function setUp(): void {
+		parent::setUp();
+
 		if ( !defined( 'PHPUNIT_TEST' ) ) {
 			define( 'PHPUNIT_TEST', true );
 		}
@@ -33,6 +35,16 @@ class WikiForgeFunctionsTest extends TestCase {
 
 					return $mockMediaWikiServices;
 				});
+
+		// Mock the behavior of WikiForgeFunctions::CACHE_DIRECTORY constant
+		$this->getFunctionMock(WikiForgeFunctions::clasz, 'defined')
+			->expects($this->any())
+			->willReturn(true);
+
+		$this->getFunctionMock(WikiForgeFunctions::class, 'constant')
+			->expects($this->any())
+			->with('WikiForgeFunctions::CACHE_DIRECTORY')
+			->willReturn(__DIR__);
 	}
 
 	/**
