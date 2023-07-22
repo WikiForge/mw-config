@@ -122,7 +122,7 @@ class WikiForgeFunctionsTest extends TestCase {
 			->onlyMethods(['readDbListFile'])
 			->getMock();
 
-		$mockedData = json_decode(file_get_contents('mocked_databases.json'), true);
+		$mockedData = json_decode(file_get_contents(__DIR__ . '/mocked_databases.json'), true);
 
 		$mockedObject->method('readDbListFile')
 			->willReturnCallback(function ($dblist, $onlyDBs, $database, $fromServer) use ($mockedData) {
