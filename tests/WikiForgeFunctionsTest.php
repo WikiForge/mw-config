@@ -97,7 +97,7 @@ class WikiForgeFunctionsTest extends TestCase {
 	}
 
 	private function mockReadDbListFile($fileNames, $returnValue) {
-		$mock = $this->getMockBuilder(YourClassName::class)
+		$mock = $this->getMockBuilder(WikiForgeFunctions::class)
 			->setMethods(['readDbListFile'])
 			->getMock();
 
