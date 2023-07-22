@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use phpmock\phpunit\PHPMock;
 use MediaWiki\MediaWikiServices;
 use ReflectionClass;
-use WikiForgeFunctionsWrapper as WikiForgeFunctions;
+use WikiForgeFunctions;
 
 require_once __DIR__ . '/../initialise/WikiForgeFunctions.php';
 
@@ -35,6 +35,11 @@ class WikiForgeFunctionsTest extends TestCase {
 
 					return $mockMediaWikiServices;
 				});
+
+		$this->getFunctionMock('WikiForgeFunctions', 'constant')
+            ->expects($this->any())
+            ->with('WikiForgeFunctions::CACHE_DIRECTORY')
+            ->willReturn(__DIR__ . '/stubs' );
 	}
 
 	/**
