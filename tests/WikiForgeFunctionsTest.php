@@ -5,6 +5,7 @@ namespace WikiForge\Config\Tests;
 use PHPUnit\Framework\TestCase;
 use phpmock\phpunit\PHPMock;
 use MediaWiki\MediaWikiServices;
+use ReflectionClass;
 use WikiForgeFunctions;
 
 require_once __DIR__ . '/../initialise/WikiForgeFunctions.php';
@@ -39,17 +40,17 @@ class WikiForgeFunctionsTest extends TestCase {
 	 */
 	public function testGetWikiFarmReturnsString(): void {
 		// Test when the current database is from 'wikiforge'
-		putenv( 'PHPUNIT_WIKI=testwiki');
+		$this->expectsMockedGetCurrentDatabase( 'testwiki' );
 		$wikiFarm = WikiForgeFunctions::getWikiFarm();
 		$this->assertEquals('wikiforge', $wikiFarm, "getWikiFarm should return 'wikiforge' when the current database is from 'wikiforge'");
 
 		// Test when the current database is from 'wikitide'
-		putenv( 'PHPUNIT_WIKI=testwikitide');
+		$this->expectsMockedGetCurrentDatabase( 'testwikitide' );
 		$wikiFarm = WikiForgeFunctions::getWikiFarm();
 		$this->assertEquals('wikitide', $wikiFarm, "getWikiFarm should return 'wikitide' when the current database is from 'wikitide'");
 
 		// Test when the current database is not recognized
-		putenv( 'PHPUNIT_WIKI=wikitest');
+		$this->expectsMockedGetCurrentDatabase( 'wikitest' );
 		$wikiFarm = WikiForgeFunctions::getWikiFarm();
 		$this->assertNotEquals('wikitide', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
 		$this->assertNotEquals('wikiforge', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
@@ -123,6 +124,14 @@ class WikiForgeFunctionsTest extends TestCase {
 
 		$mockedObject->method('readDbListFile')
 			->with($dblist)
-			->willReturn($returnValue);
+		->willReturn($returnValue);
+	}
+
+	private function expectsMockedGetCurrentDatabase($returnValue): void {
+		$reflectionClass = new ReflectionClass(WikiForgeFunctions::class);
+		$currentDatabaseProperty = $reflectionClass->getProperty('currentDatabase');
+		$currentDatabaseProperty->setAccessible(true);
+		$currentDatabaseProperty->setValue(null);
+		putenv( 'PHPUNIT_WIKI=' . $returnValue);
 	}
 }
