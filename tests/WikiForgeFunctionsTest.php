@@ -5,7 +5,7 @@ namespace WikiForge\Config\Tests;
 use PHPUnit\Framework\TestCase;
 use phpmock\phpunit\PHPMock;
 use MediaWiki\MediaWikiServices;
-use ReflectionClass;
+use SiteConfiguration;
 use WikiForgeFunctions;
 
 require_once __DIR__ . '/../initialise/WikiForgeFunctions.php';
@@ -28,6 +28,16 @@ class WikiForgeFunctionsTest extends TestCase {
 					->getMock();
 
 					return $mockMediaWikiServices;
+				});
+
+		// Mock the SiteConfiguration class using php-mock
+		$this->getFunctionMock(SiteConfiguration::class, '__construct')
+			->expects($this->any())
+			->willReturnCallback(function () {
+				 $mockSiteConfiguration = $this->getMockBuilder(SiteConfiguration::class)
+					->getMock();
+
+					return $mockSiteConfiguration;
 				});
 	}
 
