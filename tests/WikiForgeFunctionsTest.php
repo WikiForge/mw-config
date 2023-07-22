@@ -5,7 +5,6 @@ namespace WikiForge\Config\Tests;
 use PHPUnit\Framework\TestCase;
 use phpmock\phpunit\PHPMock;
 use MediaWiki\MediaWikiServices;
-use SiteConfiguration;
 use WikiForgeFunctions;
 
 require_once __DIR__ . '/../initialise/WikiForgeFunctions.php';
@@ -33,16 +32,27 @@ class WikiForgeFunctionsTest extends TestCase {
 
 					return $mockMediaWikiServices;
 				});
+	}
 
-		// Mock the SiteConfiguration class using php-mock
-		$this->getFunctionMock(SiteConfiguration::class, '__construct')
-			->expects($this->any())
-			->willReturnCallback(function () {
-				 $mockSiteConfiguration = $this->getMockBuilder(SiteConfiguration::class)
-					->getMock();
+	/**
+	 * @covers ::getWikiFarm
+	 */
+	public function testGetWikiFarmReturnsString(): void {
+		// Test when the current database is from 'wikiforge'
+		putenv( 'PHPUNIT_WIKI=testwiki');
+		$wikiFarm = WikiForgeFunctions::getWikiFarm();
+		$this->assertEquals('wikiforge', $wikiFarm, "getWikiFarm should return 'wikiforge' when the current database is from 'wikiforge'");
 
-					return $mockSiteConfiguration;
-				});
+		// Test when the current database is from 'wikitide'
+		putenv( 'PHPUNIT_WIKI=testwikitide');
+		$wikiFarm = WikiForgeFunctions::getWikiFarm();
+		$this->assertEquals('wikitide', $wikiFarm, "getWikiFarm should return 'wikitide' when the current database is from 'wikitide'");
+
+		// Test when the current database is not recognized
+		putenv( 'PHPUNIT_WIKI=wikitest');
+		$wikiFarm = WikiForgeFunctions::getWikiFarm();
+		$this->assertNotEquals('wikitide', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
+		$this->assertNotEquals('wikiforge', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
 	}
 
 	/**
@@ -95,27 +105,6 @@ class WikiForgeFunctionsTest extends TestCase {
 		$database = 'db2';
 		$result = WikiForgeFunctions::readDbListFile('databases-wikiforge', true, $database);
 		$this->assertEquals('data2', $result, "readDbListFile should return the correct database when fetching a specific database from the list");
-	}
-
-	/**
-	 * @covers ::getWikiFarm
-	 */
-	public function testGetWikiFarmReturnsString(): void {
-		// Test when the current database is from 'wikiforge'
-		putenv( 'PHPUNIT_WIKI=testwiki');
-		$wikiFarm = WikiForgeFunctions::getWikiFarm();
-		$this->assertEquals('wikiforge', $wikiFarm, "getWikiFarm should return 'wikiforge' when the current database is from 'wikiforge'");
-
-		// Test when the current database is from 'wikitide'
-		putenv( 'PHPUNIT_WIKI=testwikitide');
-		$wikiFarm = WikiForgeFunctions::getWikiFarm();
-		$this->assertEquals('wikitide', $wikiFarm, "getWikiFarm should return 'wikitide' when the current database is from 'wikitide'");
-
-		// Test when the current database is not recognized
-		putenv( 'PHPUNIT_WIKI=wikitest');
-		$wikiFarm = WikiForgeFunctions::getWikiFarm();
-		$this->assertNotEquals('wikitide', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
-		$this->assertNotEquals('wikiforge', $wikiFarm, "getWikiFarm should return an unrecognized database when the current database is not recognized");
 	}
 
 	private function expectsMockedLocalDatabases($returnValue): void {
