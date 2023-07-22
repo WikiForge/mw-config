@@ -17,13 +17,10 @@ class WikiForgeFunctionsTest extends TestCase {
 	protected function setUp(): void {
 		// Mock MediaWikiServices and replace getInstance with the mocked instance
 		$mockMediaWikiServices = $this->getMockBuilder(MediaWikiServices::class)
-			->getMock();
+			->getMockForAbstractClass();
 
 		// Replace the getInstance method with the mocked instance
-		$reflectionClass = new ReflectionClass(MediaWikiServices::class);
-		$method = $reflectionClass->getMethod('getInstance');
-		$method->setAccessible(true);
-		$method->invoke(null, $mockMediaWikiServices);
+		$mockMediaWikiServices->method('getInstance')->willReturn($mockMediaWikiServices)
 	}
 
 	/**
