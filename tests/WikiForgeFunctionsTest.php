@@ -126,7 +126,7 @@ class WikiForgeFunctionsTest extends TestCase {
 		return $mockedObject;
 	}
 
-	private function expectMockedReadDbListFile($dblist, $returnValue): void {
+	private function expectsMockedReadDbListFile($dblist, $returnValue): void {
 		$mockedObject = $this->getMockBuilder(WikiForgeFunctions::class)
 			->onlyMethods(['readDbListFile'])
 			->getMock();
