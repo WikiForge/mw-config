@@ -26,7 +26,7 @@ jobs:
         composer install --prefer-dist --no-progress
 
     - name: Create cache directory
-      run: mkdir -p /srv/mediawiki/cache
+      run: sudo mkdir -p /srv/mediawiki/cache
 
     - name: Check PHP
       run: |
