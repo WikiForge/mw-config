@@ -37,7 +37,6 @@ class WikiForgeFunctionsTest extends TestCase {
 			} );
 
 		// Create a temporary JSON file for testing
-		mkdir( '/srv/mediawiki/cache', 0777, true );
 		$tempDatabaseListFile = '/srv/mediawiki/cache/databases-wikiforge.json';
 
 		$data = [
