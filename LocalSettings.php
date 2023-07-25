@@ -3502,8 +3502,8 @@ $wgConf->settings += [
 		'default' => '/favicon.ico',
 	],
 	'wgLogo' => [
-		'wikiforge' => "https://$wmgUploadHostname/commonswikitide/e/ea/WikiForge_icon.png",
-		'wikitide' => "https://$wmgUploadHostname/commonswikitide/f/fb/WikiTide_icon.png",
+		'wikiforge' => "https://$wmgUploadHostname/commonswikitide/8/80/WikiForge_logo_135px.png",
+		'wikitide' => "https://$wmgUploadHostname/commonswikitide/6/64/WikiTide_logo_135px.png",
 	],
 	'wgIcon' => [
 		'default' => false,
