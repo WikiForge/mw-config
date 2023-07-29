@@ -301,6 +301,10 @@ class WikiForgeFunctions {
 	 * @return string
 	 */
 	public static function getCurrentDatabase(): string {
+		if ( defined( 'PHPUNIT_TEST' ) && getenv( 'PHPUNIT_WIKI' ) ) {
+			return getenv( 'PHPUNIT_WIKI' );
+		}
+
 		if ( defined( 'MW_DB' ) ) {
 			return MW_DB;
 		}
