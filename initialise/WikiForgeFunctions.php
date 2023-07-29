@@ -801,13 +801,30 @@ class WikiForgeFunctions {
 			array_diff( $allExtensions, static::$disabledExtensions )
 		);
 
-		return array_keys( array_intersect_key(
+		$additionalExtensions = [];
+		foreach ( $enabledExtensions as $enabledExtension ) {
+			if ( !isset( $cacheArray['extensions'][$enabledExtension] ) ) {
+				continue;
+			}
+
+			if ( isset( $wgManageWikiExtensions[ $allExtensions[ $enabledExtension ] ]['dependencies'] ) ) {
+				$dependencies = $wgManageWikiExtensions[ $allExtensions[ $enabledExtension ] ]['dependencies'];
+
+				foreach ( $dependencies as $dependency ) {
+					if ( !in_array( $dependency, $additionalExtensions ) ) {
+						$additionalExtensions[] = $dependency;
+					}
+				}
+			}
+		}
+
+		return array_merge( array_keys( array_intersect_key(
 			$allExtensions,
 			array_intersect(
 				array_flip( $cacheArray['extensions'] ?? [] ),
 				array_flip( $enabledExtensions )
 			)
-		) );
+		) ), $additionalExtensions );
 	}
 
 	/**
