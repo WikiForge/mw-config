@@ -1546,7 +1546,6 @@ $wgConf->settings += [
 
 	// GlobalBlocking
 	'wgApplyGlobalBlocks' => [
-		'metawikitide' => false,
 		'wikitide' => true,
 	],
 	'wgGlobalBlockingDatabase' => [
