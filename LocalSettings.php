@@ -2013,6 +2013,11 @@ $wgConf->settings += [
 	],
 	'wgManageWikiPermissionsAdditionalAddGroups' => [
 		'default' => [],
+		'+americanrailswiki' => [
+			'sysop' =< [
+				'templateeditor',
+			],
+		],
 	],
 	'wgManageWikiPermissionsAdditionalRights' => [
 		'default' => [
@@ -2045,13 +2050,7 @@ $wgConf->settings += [
 		],
 		'americanrailswiki' => [
 			'*' => [
-				'editmyoptions' => true,
-				'editmyprivateinfo' => true,
-				'editmywatchlist' => true,
-				'oathauth-enable' => true,
 				'read' => true,
-				'viewmyprivateinfo' => true,
-				'writeapi' => true,
 			],
 			'bureaucrat' => [
 				'userrights' => false,
@@ -2059,9 +2058,8 @@ $wgConf->settings += [
 			'steward' => [
 				'userrights' => true,
 			],
-			'user' => [
-				'mwoauthmanagemygrants' => true,
-				'user' => true,
+			'templateeditor' =<
+				'templateeditor' => true,
 			],
 		],
 		'+metawiki' => [
@@ -2185,6 +2183,11 @@ $wgConf->settings += [
 	],
 	'wgManageWikiPermissionsAdditionalRemoveGroups' => [
 		'default' => [],
+		'+americanrailswiki' => [
+			'sysop' =< [
+				'templateeditor',
+			],
+		],
 	],
 	'wgManageWikiPermissionsDisallowedRights' => [
 		'default' => [
