@@ -3229,6 +3229,11 @@ $wgConf->settings += [
 		'+ext-AuthorProtect' => [
 			'author',
 		],
+		'americanrailswiki' =< [
+			'',
+			'autoconfirmed',
+			'sysop',
+		],
 	],
 	'wgRestrictionTypes' => [
 		'default' => [
