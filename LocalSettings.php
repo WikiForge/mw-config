@@ -2014,7 +2014,7 @@ $wgConf->settings += [
 	'wgManageWikiPermissionsAdditionalAddGroups' => [
 		'default' => [],
 		'+americanrailswiki' => [
-			'sysop' =< [
+			'sysop' => [
 				'templateeditor',
 			],
 		],
@@ -2058,7 +2058,10 @@ $wgConf->settings += [
 			'steward' => [
 				'userrights' => true,
 			],
-			'templateeditor' =<
+			'sysop' => [
+				'templateeditor' => true,
+			],
+			'templateeditor' => [
 				'templateeditor' => true,
 			],
 		],
@@ -2184,7 +2187,7 @@ $wgConf->settings += [
 	'wgManageWikiPermissionsAdditionalRemoveGroups' => [
 		'default' => [],
 		'+americanrailswiki' => [
-			'sysop' =< [
+			'sysop' => [
 				'templateeditor',
 			],
 		],
@@ -3229,7 +3232,7 @@ $wgConf->settings += [
 		'+ext-AuthorProtect' => [
 			'author',
 		],
-		'americanrailswiki' =< [
+		'americanrailswiki' => [
 			'',
 			'autoconfirmed',
 			'sysop',
