@@ -57,7 +57,7 @@ $wmgUploadHostname = 'static.wikiforge.net';
 
 $runner = '';
 if ( $wi->version >= 1.40 ) {
-	$runner = "/srv/mediawiki/{$wi->version}/maintenance/run.php ";
+	$runner = "$IP/maintenance/run.php ";
 }
 
 $wgConf->settings += [
