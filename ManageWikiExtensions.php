@@ -254,7 +254,7 @@ $wgManageWikiExtensions = [
 		],
 		'install' => [
 			'mwscript' => [
-				"$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/createCargoDB.php' => [],
+				"$runner$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/createCargoDB.php' => [],
 			],
 			'sql' => [
 				'cargo_tables' => "$IP/extensions/Cargo/sql/Cargo.sql",
@@ -426,8 +426,8 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'install' => [
 			'mwscript' => [
-				"$IP/extensions/DynamicPageList3/maintenance/createTemplate.php" => [],
-				"$IP/extensions/DynamicPageList3/maintenance/createView.php" => [],
+				"$runner$IP/extensions/DynamicPageList3/maintenance/createTemplate.php" => [],
+				"$runner$IP/extensions/DynamicPageList3/maintenance/createView.php" => [],
 			],
 		],
 		'section' => 'parserhooks',
@@ -1207,7 +1207,7 @@ $wgManageWikiExtensions = [
 				'createdpageslist' => "$IP/extensions/CreatedPagesList/sql/patch-createdpageslist.sql",
 			],
 			'mwscript' => [
-				"$IP/extensions/CreatedPagesList/maintenance/recalculateTable.php" => [],
+				"$runner$IP/extensions/CreatedPagesList/maintenance/recalculateTable.php" => [],
 			],
 		],
 		'section' => 'specialpages',
@@ -1996,8 +1996,8 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'install' => [
 			'mwscript' => [
-				"$IP/extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php" => [],
-				"$IP/extensions/CirrusSearch/maintenance/ForceSearchIndex.php" => [
+				"$runner$IP/extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php" => [],
+				"$runner$IP/extensions/CirrusSearch/maintenance/ForceSearchIndex.php" => [
 					'skipLinks' => false,
 					'indexOnSkip' => false,
 					'repeat-with' => [
@@ -2921,7 +2921,7 @@ $wgManageWikiExtensions = [
 				],
 			],
 			'mwscript' => [
-				"$IP/extensions/Flow/maintenance/FlowCreateTemplates.php" => [],
+				"$runner$IP/extensions/Flow/maintenance/FlowCreateTemplates.php" => [],
 			],
 		],
 		'section' => 'other',
@@ -2938,7 +2938,7 @@ $wgManageWikiExtensions = [
 		],
 		'install' => [
 			'mwscript' => [
-				"$IP/extensions/SemanticMediaWiki/maintenance/setupStore.php" => [],
+				"$runner$IP/extensions/SemanticMediaWiki/maintenance/setupStore.php" => [],
 			],
 			'namespaces' => [
 				'Property' => [
@@ -3045,7 +3045,7 @@ $wgManageWikiExtensions = [
 		],
 		'remove' => [
 			'mwscript' => [
-				"$IP/extensions/SemanticMediaWiki/maintenance/setupStore.php" => [
+				"$runner$IP/extensions/SemanticMediaWiki/maintenance/setupStore.php" => [
 					'delete' => false,
 					'nochecks' => false,
 				],
@@ -3146,7 +3146,7 @@ $wgManageWikiExtensions = [
 				'titlekey' => "$IP/extensions/TitleKey/sql/titlekey.sql"
 			],
 			'mwscript' => [
-				"$IP/extensions/TitleKey/maintenance/rebuildTitleKeys.php" => []
+				"$runner$IP/extensions/TitleKey/maintenance/rebuildTitleKeys.php" => []
 			],
 		],
 		'section' => 'other',
@@ -3226,7 +3226,7 @@ $wgManageWikiExtensions = [
 				'wb_property_info' => "$IP/extensions/Wikibase/repo/sql/mysql/wb_property_info.sql"
 			],
 			'mwscript' => [
-				"$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/populateWikibaseSitesTable.php' => [],
+				"$runner$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/populateWikibaseSitesTable.php' => [],
 			],
 		],
 		'section' => 'other',
