@@ -873,7 +873,7 @@ $wgManageWikiSettings = [
 		'help' => 'Method used to determine if a page in a content namespace should be counted as a valid content page (article).',
 		'requires' => [],
 		'script' => [
-			"$runner$IP/maintenance/updateArticleCount.php" => [
+			"{$runner}$IP/maintenance/updateArticleCount.php" => [
 				'update' => false,
 			],
 		],
