@@ -164,11 +164,10 @@ class ExtensionsTest extends ManageWikiTestCase {
 
 	/** @covers $wgManageWikiExtensions */
 	public function testManageWikiExtensions() {
-		global $wgManageWikiExtensions, $wi, $runner, $IP;
+		global $wgManageWikiExtensions, $wi, $IP;
 		define( 'MW_VERSION', null );
 
 		$IP = '';
-		$runner = '';
 		$wi = $this->mockWikiForgeFunctions();
 
 		require_once __DIR__ . '/../../ManageWikiExtensions.php';

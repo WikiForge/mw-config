@@ -55,11 +55,6 @@ require_once '/srv/mediawiki/config/GlobalExtensions.php';
 $wgPasswordSender = 'noreply@wikiforge.net';
 $wmgUploadHostname = 'static.wikiforge.net';
 
-$runner = '';
-if ( $wi->version >= 1.40 ) {
-	$runner = "$IP/maintenance/run.php ";
-}
-
 $wgConf->settings += [
 	// invalidates user sessions - do not change unless it is an emergency.
 	'wgAuthenticationTokenVersion' => [
@@ -4525,5 +4520,5 @@ if (
 	require_once __DIR__ . '/ExtensionMessageFiles-' . $wi->version . '.php';
 }
 
-// Don't need globals here
-unset( $wi, $runner );
+// Don't need a global here
+unset( $wi );

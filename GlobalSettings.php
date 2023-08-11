@@ -317,7 +317,7 @@ $wgDataDump = [
 		'useBackendTempStore' => true,
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => "{$runner}$IP/maintenance/dumpBackup.php",
+			'script' => "$IP/maintenance/dumpBackup.php",
 			'options' => [
 				'--full',
 				'--logs',
@@ -349,7 +349,7 @@ $wgDataDump = [
 		'useBackendTempStore' => true,
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => "{$runner}$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateS3Backup.php',
+			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateS3Backup.php',
 			'options' => [
 				'--filename',
 				'${filename}'
@@ -366,7 +366,7 @@ $wgDataDump = [
 		'file_ending' => '.json',
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => "{$runner}$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateManageWikiBackup.php',
+			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateManageWikiBackup.php',
 			'options' => [
 				'--filename',
 				'${filename}'
@@ -387,7 +387,7 @@ if ( $wi->isExtensionActive( 'Flow' ) ) {
 		'useBackendTempStore' => true,
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => "{$runner}$IP/extensions/Flow/maintenance/dumpBackup.php",
+			'script' => "$IP/extensions/Flow/maintenance/dumpBackup.php",
 			'options' => [
 				'--full',
 				'--output',
