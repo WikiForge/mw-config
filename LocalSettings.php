@@ -3326,7 +3326,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgScribuntoDefaultEngine' => [
-		'default' => 'luastandalone',
+		'default' => 'luasandbox',
 	],
 	'wgScribuntoUseCodeEditor' => [
 		'default' => true,
