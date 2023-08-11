@@ -250,11 +250,12 @@ class SettingsTest extends ManageWikiTestCase {
 
 	/** @covers $wgManageWikiSettings */
 	public function testManageWikiSettings() {
-		global $wgManageWikiSettings, $IP, $wgPasswordSender, $wmgSharedUploadDBname, $wmgUploadHostname, $wi;
+		global $wgManageWikiSettings, $IP, $wgPasswordSender, $wmgSharedUploadDBname, $wmgUploadHostname, $wi, $runner;
 		$IP = '';
 		$wgPasswordSender = '';
 		$wmgSharedUploadDBname = '';
 		$wmgUploadHostname = '';
+		$runner = '';
 		$wi = $this->mockWikiForgeFunctions();
 
 		require_once __DIR__ . '/../../ManageWikiSettings.php';
