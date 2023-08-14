@@ -618,8 +618,8 @@ if ( $wgIcon ) {
 if ( $wgWordmark ) {
 	$wgLogos['wordmark'] = [
 		'src' => $wgWordmark,
-		'width' => $wgWordmarkWidth,
-		'height' => $wgWordmarkHeight,
+		'width' => (int)$wgWordmarkWidth,
+		'height' => (int)$wgWordmarkHeight,
 	];
 }
 
