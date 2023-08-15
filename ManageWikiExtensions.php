@@ -1147,6 +1147,14 @@ $wgManageWikiExtensions = [
 		],
 		'section' => 'antispam',
 	],
+	'stopforumspam' => [
+		'name' => 'StopForumSpam',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:StopForumSpam',
+		'var' => 'wmgUseStopForumSpam',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'antispam',
+	],
 
 	// Special pages
 	'adminlinks' => [
