@@ -21,7 +21,7 @@ $string_8 = $string_7 . ' and then some';
 $string_9 = 'quotes\'are "fun" to use\'. Most of the time. \\ ya';
 
 $array_1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' => 1, 'i' => 2, 'j' => 0];
-$array_2 = array['coffee', 'brown', 'caffeine'];
+$array_2 = ['coffee', 'brown', 'caffeine'];
 
 $time_1 = '12/29/2011 10:15:37pm';
 
