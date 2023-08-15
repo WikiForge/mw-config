@@ -500,7 +500,10 @@ class BenchmarkTimer {
 		$this->startTime = ((float) $usec + (float) $string_ec);
 	}
 
-	public function stop($time_itle) {
+	/**
+	 * @param string $time_itle
+	 */
+	public function stop(string $time_itle) {
 
 		list($usec, $string_ec) = explode(" ", microtime());
 
