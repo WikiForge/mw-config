@@ -19,7 +19,6 @@ wfLoadExtensions( [
 	'InterwikiDispatcher',
 	'LoginNotify',
 	'ManageWiki',
-	'MobileDetect',
 	'NativeSvgHandler',
 	'Nuke',
 	'OATHAuth',
@@ -27,7 +26,6 @@ wfLoadExtensions( [
 	'ParserFunctions',
 	'QuickInstantCommons',
 	'Renameuser',
-	'RottenLinks',
 	'Scribunto',
 	'TorBlock',
 	'WebAuthn',
@@ -41,7 +39,7 @@ if ( $wi->wikifarm === 'wikitide' ) {
 		'CentralNotice',
 		'CheckUser',
 		'EventLogging',
-		'IPInfo',
+		//'IPInfo',
 		'WikiTideMagic',
 	] );
 } else {
