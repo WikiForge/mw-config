@@ -1703,7 +1703,7 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'install' => [
 			'sql' => [
-				'createdpageslist' => "$IP/extensions/RottenLinks/sql/rottenlinks.sql",
+				'rottenlinks' => "$IP/extensions/RottenLinks/sql/rottenlinks.sql",
 			],
 		],
 		'section' => 'specialpages',
