@@ -54,6 +54,8 @@ require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
 $wgPasswordSender = 'noreply@wikiforge.net';
 $wmgUploadHostname = 'static.wikiforge.net';
+$wmgDBHostname = wfHostname() === 'mw3.wikiforge.net' ? 'db1.wikiforge.net' : 'db1-private.wikiforge.net';
+$wmgRedisHostname = wfHostname() === 'mw3.wikiforge.net' ? 'db1.wikiforge.net' : 'db1-private.wikiforge.net';
 
 $wgConf->settings += [
 	// invalidates user sessions - do not change unless it is an emergency.
