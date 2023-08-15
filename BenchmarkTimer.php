@@ -414,8 +414,11 @@ $timer->stop( 'array_merge' );
 
 $timer->start();
 
+$ar1 = ["color" => ["favorite" => "red"], 5];
+$ar2 = [10, "color" => ["favorite" => "green", "blue"]];
+
 for ( $i = 0; $i < $run_times; $i++ ) {
-	$merged_recursive_array = array_merge_recursive( $array_1, $array_2 );
+	$merged_recursive_array = array_merge_recursive( $ar1, $ar2 );
 }
 
 $timer->stop( 'array_merge_recursive' );
