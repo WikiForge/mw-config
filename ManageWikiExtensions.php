@@ -669,6 +669,14 @@ $wgManageWikiExtensions = [
 		'install' => [],
 		'section' => 'parserhooks',
 	],
+	'mobiledetect' => [
+		'name' => 'MobileDetect',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:MobileDetect',
+		'conflicts' => false,
+		'requires' => [],
+		'install' => [],
+		'section' => 'parserhooks',
+	],
 	'mscalendar' => [
 		'name' => 'MsCalendar',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:MsCalendar',
@@ -1684,6 +1692,18 @@ $wgManageWikiExtensions = [
 						'handle-reports',
 					],
 				],
+			],
+		],
+		'section' => 'specialpages',
+	],
+	'rottenlinks' => [
+		'name' => 'RottenLinks',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:RottenLinks',
+		'conflicts' => false,
+		'requires' => [],
+		'install' => [
+			'sql' => [
+				'createdpageslist' => "$IP/extensions/RottenLinks/sql/rottenlinks.sql",
 			],
 		],
 		'section' => 'specialpages',
