@@ -30,7 +30,7 @@ $wgObjectCaches['mysql-multiwrite'] = [
 			'servers' => [
 				'parsercache' => [
 					'type'      => 'mysql',
-					'host'      => 'db1-private.wikiforge.net',
+					'host'      => $wmgDBHostname,
 					'dbname'    => 'parsercache',
 					'user'      => $wgDBuser,
 					'password'  => $wgDBpassword,
@@ -61,7 +61,7 @@ $wgObjectCaches['mysql-multiwrite'] = [
 if ( $wi->wikifarm === 'wikitide' ) {
 	$wgObjectCaches['redis-session'] = [
 		'class' => RedisBagOStuff::class,
-		'servers' => [ 'jobchron1-private.wikiforge.net' ],
+		'servers' => [ $wmgRedisHostname ],
 		'password' => $wmgRedisPassword,
 		'loggroup' => 'redis',
 		'reportDupes' => false,
@@ -110,7 +110,7 @@ $wgInvalidateCacheOnLocalSettingsChange = false;
 
 $wgJobTypeConf['default'] = [
 	'class' => JobQueueRedis::class,
-	'redisServer' => 'jobchron1-private.wikiforge.net',
+	'redisServer' => $wmgRedisHostname,
 	'redisConfig' => [
 		'connectTimeout' => 2,
 		'password' => $wmgRedisPassword,
