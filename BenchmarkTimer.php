@@ -1,6 +1,6 @@
 <?php
 
-$timer = new benchmarkTimer();
+$timer = new BenchmarkTimer();
 
 
 $head = str_pad("#", 36, "#");
@@ -448,8 +448,9 @@ $string_9e = addslashes($string_9);
 
 $timer->start();
 
-for ($i = 0; $i < $run_times; $i++)
+for ($i = 0; $i < $run_times; $i++) {
 	stripslashes($string_9e);
+}
 
 $timer->stop('stripslashes');
 
@@ -481,24 +482,25 @@ $timer->stop('array_merge_recursive');
 
 echo $head . "\n" . str_pad("Total", 23) . " : " . number_format($timer->totalTime, 3) . " sec</pre>\n";
 
-exit; // all done
+// all done
+exit();
 
-class benchmarkTimer
-{
+class BenchmarkTimer {
 
-	var $startTime;
-	var $totalTime = 0;
+	/** @var int */
+	private $startTime;
 
-	function start()
-	{
+	/** @var int */
+	public $totalTime = 0;
+
+	public function start() {
 		// use this method, because old php 4.x branches do not support the parameter to return a float
 		list($usec, $string_ec) = explode(" ", microtime());
 
 		$this->startTime = ((float) $usec + (float) $string_ec);
 	}
 
-	function stop($time_itle)
-	{
+	public function stop($time_itle) {
 
 		list($usec, $string_ec) = explode(" ", microtime());
 
@@ -510,7 +512,6 @@ class benchmarkTimer
 
 		$this->totalTime += $time;
 	}
-
 }
 
 ?>
