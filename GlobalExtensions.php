@@ -39,7 +39,7 @@ if ( $wi->wikifarm === 'wikitide' ) {
 		'CentralNotice',
 		'CheckUser',
 		'EventLogging',
-		//'IPInfo',
+		// 'IPInfo',
 		'WikiTideMagic',
 	] );
 } else {
