@@ -30,7 +30,6 @@ wfLoadExtensions( [
 	'RottenLinks',
 	'Scribunto',
 	'SpamBlacklist',
-	'StopForumSpam',
 	'TitleBlacklist',
 	'TorBlock',
 	'WebAuthn',
