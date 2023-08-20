@@ -4253,6 +4253,12 @@ $wgConf->settings += [
 	'wgWikiForgeMagicServicesRepo' => [
 		'wikiforge' => '/srv/services/services',
 	],
+	'wgWikiForgeMagicUsersNotifiedOnAllPremiumWikiRequests' => [
+		'wikiforge' => [
+			'Agent Isai',
+			'Universal Omega'
+		],
+	],
 
 	// WikiTide
 	'wgWikiTideMagicServicesRepo' => [
