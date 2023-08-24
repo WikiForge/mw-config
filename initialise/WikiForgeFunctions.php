@@ -49,7 +49,7 @@ class WikiForgeFunctions {
 	];
 
 	public const CENTRAL_WIKI = [
-		'wikiforge' => 'metawiki',
+		'wikiforge' => 'hubwiki',
 		'wikitide' => 'metawikitide',
 	];
 
