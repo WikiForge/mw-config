@@ -1890,13 +1890,13 @@ $wgConf->settings += [
 	// LinkTarget
 	'wgLinkTargetParentClasses' => [
 		'default' => [],
-		'scruffywiki' => [
+		'scruffywikitide' => [
 			'extiw'
 		],
-		'sdiywiki' => [
+		'sdiywikitide' => [
 			'extiw'
 		],
-		'simpleelectronicswiki' => [
+		'simpleelectronicswikitide' => [
 			'extiw'
 		],
 	],
