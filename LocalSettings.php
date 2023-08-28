@@ -92,7 +92,7 @@ $wgConf->settings += [
 	],
 	'wgAbuseFilterIsCentral' => [
 		'default' => false,
-		'metawiki' => true,
+		'hubwiki' => true,
 		'metawikitide' => true,
 	],
 	'wgAbuseFilterBlockDuration' => [
@@ -1125,7 +1125,7 @@ $wgConf->settings += [
 				'FuzzyBot',
 			],
 		],
-		'+metawiki' => [
+		'+hubwiki' => [
 			'article_inserted' => [
 				'groups' => [
 					'bot',
@@ -2061,7 +2061,7 @@ $wgConf->settings += [
 				'templateeditor' => true,
 			],
 		],
-		'+metawiki' => [
+		'+hubwiki' => [
 			'confirmed' => [
 				'mwoauthproposeconsumer' => true,
 				'mwoauthupdateownconsumer' => true,
@@ -2818,7 +2818,7 @@ $wgConf->settings += [
 			'userrights',
 			'userrights-interwiki',
 		],
-		'+metawiki' => [
+		'+hubwiki' => [
 			'editsitejs',
 			'edituserjs',
 		],
@@ -2844,7 +2844,7 @@ $wgConf->settings += [
 			'sysadmin',
 			'suppress',
 		],
-		'metawiki' => [
+		'hubwiki' => [
 			'checkuser',
 			'staff',
 			'suppress',
@@ -3657,7 +3657,7 @@ $wgConf->settings += [
 				'zh-my' => '本站已配置[[Project:繁簡處理|自动简繁转换]]功能，请在语言表单选择翻译语言为「中文」而非「中文（马来西亚）」。',
 			],
 		],
-		'metawiki' => [
+		'hubwiki' => [
 			'*' => [
 				'en' => 'English is the source language.',
 			],
