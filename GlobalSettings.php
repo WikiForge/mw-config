@@ -2,6 +2,9 @@
 
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 
+// Determines what farm a wiki is on
+header( 'X-Wiki-Farm: ' . $wi->wikifarm );
+
 if ( $wi->wikifarm !== 'wikitide' ) {
 	$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
 	$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
