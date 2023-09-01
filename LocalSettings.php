@@ -1904,7 +1904,7 @@ $wgConf->settings += [
 	],
 	'wgLDAPProxyAgent' => [
 		'accountsinternalwiki' => [
-			'wikiforge' => 'cn=write-user,dc=wikiforge,dc=net',
+			'wikiforge' => 'cn=admin,dc=wikiforge,dc=net',
 		],
 	],
 	'wgLDAPProxyAgentPassword' => [
@@ -1914,7 +1914,7 @@ $wgConf->settings += [
 	],
 	'wgLDAPWriterDN' => [
 		'accountsinternalwiki' => [
-			'wikiforge' => 'cn=write-user,dc=wikiforge,dc=net',
+			'wikiforge' => 'cn=admin,dc=wikiforge,dc=net',
 		],
 	],
 	'wgLDAPWriterPassword' => [
