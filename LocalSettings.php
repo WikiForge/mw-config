@@ -2079,8 +2079,7 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgEmergencyContact' => [
-		'wikiforge' => 'noreply@wikiforge.net',
-		'wikitide' => 'noreply@wikitide.com',
+		'default' => 'noreply@wikiforge.net',
 	],
 	'wgAllowHTMLEmail' => [
 		'default' => true,
