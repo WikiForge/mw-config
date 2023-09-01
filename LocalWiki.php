@@ -5,7 +5,7 @@ switch ( $wi->dbname ) {
 	case 'betatestwiki':
 		$wgDplSettings['functionalRichness'] = 4;
 		break;
-	case 'metawiki':
+	case 'hubwiki':
 	case 'metawikitide':
 		wfLoadExtensions( [
 			'FileStorageMonitor',
@@ -21,9 +21,20 @@ switch ( $wi->dbname ) {
 		$wgFileStorageMonitorAWSAccessKey = $wmgAWSAccessKey;
 		$wgFileStorageMonitorAWSSecretKey = $wmgAWSAccessSecretKey;
 		break;
-	case 'votewikitide':
-		wfLoadExtensions( [
-			 'SecurePoll',
-		] );
+	case 'accountsinternalwiki':
+		wfLoadExtension( 'LdapAuthentication' );
+
+		$wgAuthManagerAutoConfig['primaryauth'] += [
+			LdapPrimaryAuthenticationProvider::class => [
+				'class' => LdapPrimaryAuthenticationProvider::class,
+				'args' => [ [
+					// don't allow local non-LDAP accounts
+					'authoritative' => true,
+				] ],
+				// must be smaller than local pw provider
+				'sort' => 50,
+			],
+		];
+
 		break;
 }
