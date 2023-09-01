@@ -1716,9 +1716,9 @@ $wgConf->settings += [
 				'urlInt' => 'https://$2.fandom.com/$3/wiki/$1',
 				'baseTransOnly' => true,
 			],
-			'miraheze' => [
+			'wikiforge' => [
 				/** Miraheze */
-				'interwiki' => 'miraheze',
+				'interwiki' => 'wikiforge',
 				'url' => 'https://$2.miraheze.org/wiki/$1',
 				'baseTransOnly' => true,
 			],
@@ -1767,7 +1767,7 @@ $wgConf->settings += [
 	'wgImportDumpInterwikiMap' => [
 		'default' => [
 			'fandom.com' => 'fandom',
-			'miraheze.org' => 'miraheze',
+			'miraheze.org' => 'wikiforge',
 			'wikiforge.net' => 'wf',
 			'wikitide.com' => 'wt',
 		],
@@ -1869,6 +1869,113 @@ $wgConf->settings += [
 	// Language
 	'wgLanguageCode' => [
 		'default' => 'en',
+	],
+
+	// LDAP
+	'wgLDAPDomainNames' => [
+		'accountsinternalwiki' => [
+			'wikiforge',
+		],
+	],
+	'wgLDAPServerNames' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => 'ldap.wikiforge.net',
+		],
+	],
+	'wgLDAPEncryptionType' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => 'ssl',
+		],
+	],
+	'wgLDAPSearchAttributes' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => 'uid',
+		],
+	],
+	'wgLDAPBaseDNs' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => 'dc=wikiforge,dc=net',
+		],
+	],
+	'wgLDAPUserBaseDNs' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => 'ou=people,dc=wikiforge,dc=net',
+		],
+	],
+	'wgLDAPProxyAgent' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => 'cn=write-user,dc=wikiforge,dc=net',
+		],
+	],
+	'wgLDAPProxyAgentPassword' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => $wmgLdapPassword,
+		],
+	],
+	'wgLDAPWriterDN' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => 'cn=write-user,dc=wikiforge,dc=net',
+		],
+	],
+	'wgLDAPWriterPassword' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => $wmgLdapPassword,
+		],
+	],
+	'wgLDAPWriteLocation' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => 'ou=people,dc=wikiforge,dc=net',
+		],
+	],
+	'wgLDAPAddLDAPUsers' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => true,
+		],
+	],
+	'wgLDAPUpdateLDAP' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => true,
+		],
+	],
+	'wgLDAPPasswordHash' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => 'ssha',
+		],
+	],
+	'wgLDAPPreferences' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => [
+				'email' => 'mail',
+				'realname' => 'givenName',
+			],
+		],
+	],
+	'wgLDAPUseFetchedUsername' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => true,
+		],
+	],
+	'wgLDAPLowerCaseUsernameScheme' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => false,
+			'invaliddomain' => false,
+		],
+	],
+	'wgLDAPLowerCaseUsername' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => false,
+			'invaliddomain' => false,
+		],
+	],
+	'wgLDAPOptions' => [
+		'accountsinternalwiki' => [
+			'wikiforge' => [
+				'LDAP_OPT_X_TLS_CACERTFILE' => '/etc/ssl/certs/ISRG_Root_X1.pem',
+			],
+		],
+	],
+	'wgLDAPDebug' => [
+		'accountsinternalwiki' => 1,
 	],
 
 	// License
