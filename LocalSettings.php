@@ -2061,11 +2061,11 @@ $wgConf->settings += [
 	],
 	'wgSMTP' => [
 		'default' => [
-			'host' => 'email-smtp.us-east-1.amazonaws.com',
+			'host' => 'mail.wikiforge.net',
 			'port' => 587,
 			'IDHost' => 'wikiforge.net',
 			'auth' => true,
-			'username' => $wmgSMTPUsername,
+			'username' => 'noreply',
 			'password' => $wmgSMTPPassword,
 		],
 	],
@@ -2079,7 +2079,8 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgEmergencyContact' => [
-		'default' => 'noreply@wikiforge.net',
+		'wikiforge' => 'noreply@wikiforge.net',
+		'wikitide' => 'noreply@wikitide.com',
 	],
 	'wgAllowHTMLEmail' => [
 		'default' => true,
