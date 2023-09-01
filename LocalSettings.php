@@ -52,7 +52,6 @@ require_once '/srv/mediawiki/config/PrivateSettings.php';
 // Load global extensions
 require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
-$wgPasswordSender = 'noreply@wikiforge.net';
 $wmgUploadHostname = 'static.wikiforge.net';
 $wmgDBHostname = wfHostname() === 'mw3.wikiforge.net' || 'mw5.wikiforge.net' ? 'db1.wikiforge.net' : 'db1-private.wikiforge.net';
 $wmgRedisHostname = wfHostname() === 'mw3.wikiforge.net' || 'mw5.wikiforge.net' ? 'jobchron1.wikiforge.net' : 'jobchron1-private.wikiforge.net';
@@ -2056,6 +2055,9 @@ $wgConf->settings += [
 	],
 
 	// Mail
+	'wgAllowHTMLEmail' => [
+		'default' => true,
+	],
 	'wgEnableEmail' => [
 		'default' => true,
 	],
@@ -2079,10 +2081,8 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgEmergencyContact' => [
-		'default' => 'noreply@wikiforge.net',
-	],
-	'wgAllowHTMLEmail' => [
-		'default' => true,
+		'wikiforge' => 'noreply@wikiforge.net',
+  		'wikitide' => 'noreply@wikitide.com',
 	],
 	'wgEnableSpecialMute' => [
 		'default' => true,
@@ -2090,7 +2090,11 @@ $wgConf->settings += [
 	'wgEnableUserEmailMuteList' => [
 		'default' => true,
 	],
-
+	'wgPasswordSender' => [
+		'wikiforge' => 'noreply@wikiforge.net',
+  		'wikitide' => 'noreply@wikitide.com',
+	],
+ 
 	// ManageWiki
 	'wgManageWiki' => [
 		'default' => [
