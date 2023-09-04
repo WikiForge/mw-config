@@ -479,6 +479,7 @@ $wgLocalFileRepo = [
 	'scriptDirUrl' => $wgScriptPath,
 	'hashLevels' => 2,
 	'thumbScriptUrl' => $wgThumbnailScriptPath,
+	'thumbProxyUrl' => 'https://thumb-lb.wikiforge.net/',
 	'transformVia404' => true,
 	'useJsonMetadata'   => true,
 	'useSplitMetadata'  => true,
