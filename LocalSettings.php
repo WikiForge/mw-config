@@ -3480,7 +3480,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgThumbnailScriptPath' => [
-		'default' => '$wgScriptPath/thumb.php',
+		'default' => '/w/thumb.php',
 	],
 	'wgThumbPath' => [
 		'default' => '/w/thumb_handler.php',
