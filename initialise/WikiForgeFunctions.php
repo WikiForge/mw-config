@@ -38,7 +38,7 @@ class WikiForgeFunctions {
 
 	private const DEFAULT_SERVER = [
 		'wikiforge' => 'wikiforge.net',
-		'wikitide' => 'wikitide.org',
+		'wikitide' => 'wikitide.com',
 	];
 
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
@@ -74,7 +74,7 @@ class WikiForgeFunctions {
 
 	public const SUFFIXES = [
 		'wiki' => 'wikiforge.net',
-		'wikitide' => 'wikitide.org',
+		'wikitide' => 'wikitide.com',
 	];
 
 	public function __construct() {
