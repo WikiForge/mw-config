@@ -3907,9 +3907,7 @@ $wgConf->settings += [
 		],
 	],
 	'wgCdnServersNoPurge' => [
-		/** KEEP REGULARLY UPDATED, CloudFlare IP ranges */
-		/** Only set for WikiTide for now, not WikiForge */
-		'wikitide' => [
+		'default' => [
 			'103.21.244.0/22',
 			'103.22.200.0/22',
 			'103.31.4.0/22',
