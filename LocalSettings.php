@@ -177,7 +177,7 @@ $wgConf->settings += [
 		'wikitide' => [
 			'spam' => [
 				'files' => [
-					'https://meta.wikitide.com/wiki/Spam_blacklist?action=raw&sb_ver=1',
+					'https://meta.wikitide.org/wiki/Spam_blacklist?action=raw&sb_ver=1',
 				],
 			],
 		],
@@ -386,7 +386,7 @@ $wgConf->settings += [
 		'wikitide' => true,
 	],
 	'wgGlobalRenameDenylist' => [
-		'wikitide' => 'https://meta.wikitide.com/wiki/MediaWiki:Global_rename_denylist?action=raw',
+		'wikitide' => 'https://meta.wikitide.org/wiki/MediaWiki:Global_rename_denylist?action=raw',
 	],
 	'wgGlobalRenameDenylistRegex' => [
 		'wikitide' => true,
@@ -397,16 +397,16 @@ $wgConf->settings += [
 		'metawikitide' => true,
 	],
 	'wgCentralSelectedBannerDispatcher' => [
-		'wikitide' => 'https://meta.wikitide.com/wiki/Special:BannerLoader',
+		'wikitide' => 'https://meta.wikitide.org/wiki/Special:BannerLoader',
 	],
 	'wgCentralBannerRecorder' => [
-		'wikitide' => 'https://meta.wikitide.com/wiki/Special:RecordImpression',
+		'wikitide' => 'https://meta.wikitide.org/wiki/Special:RecordImpression',
 	],
 	'wgCentralDBname' => [
 		'wikitide' => 'metawikitide',
 	],
 	'wgCentralHost' => [
-		'wikitide' => 'https://meta.wikitide.com',
+		'wikitide' => 'https://meta.wikitide.org',
 	],
 	'wgNoticeProjects' => [
 		'wikitide' => [
@@ -968,7 +968,7 @@ $wgConf->settings += [
 	],
 	'wgCreateWikiSubdomain' => [
 		'wikiforge' => 'wikiforge.net',
-		'wikitide' => 'wikitide.com',
+		'wikitide' => 'wikitide.org',
 	],
 	'wgCreateWikiUseClosedWikis' => [
 		'wikitide' => true,
@@ -1079,7 +1079,7 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgDiscordNotificationCentralAuthWikiUrl' => [
-		'wikitide' => 'https://meta.wikitide.com/',
+		'wikitide' => 'https://meta.wikitide.org/',
 	],
 	'wgDiscordNotificationBlockedUser' => [
 		'default' => true,
@@ -1366,7 +1366,7 @@ $wgConf->settings += [
 			'poweredby' => [
 				'wikitide' => [
 					'src' => 'https://static.wikiforge.net/commonswikitide/8/8a/Hosted_by_WikiTide.svg',
-					'url' => 'https://meta.wikitide.com/wiki/Special:MyLanguage/WikiTide',
+					'url' => 'https://meta.wikitide.org/wiki/Special:MyLanguage/WikiTide',
 					'alt' => 'Hosted by WikiTide',
 				],
 			],
@@ -1380,7 +1380,7 @@ $wgConf->settings += [
 				],
 				'wikitide' => [
 					'src' => 'https://static.wikiforge.net/commonswikitide/8/8a/Hosted_by_WikiTide.svg',
-					'url' => 'https://meta.wikitide.com/wiki/Special:MyLanguage/WikiTide',
+					'url' => 'https://meta.wikitide.org/wiki/Special:MyLanguage/WikiTide',
 					'alt' => 'Hosted by WikiTide',
 				],
 			],
@@ -1394,7 +1394,7 @@ $wgConf->settings += [
 				],
 				'wikitide' => [
 					'src' => 'https://static.wikiforge.net/commonswikitide/8/8a/Hosted_by_WikiTide.svg',
-					'url' => 'https://meta.wikitide.com/wiki/Special:MyLanguage/WikiTide',
+					'url' => 'https://meta.wikitide.org/wiki/Special:MyLanguage/WikiTide',
 					'alt' => 'Hosted by WikiTide',
 				],
 			],
@@ -1562,8 +1562,8 @@ $wgConf->settings += [
 	'+wgResourceLoaderSources' => [
 		'wikitide' => [
 			'metawikitide' => [
-				'apiScript' => '//meta.wikitide.com/w/api.php',
-				'loadScript' => '//meta.wikitide.com/w/load.php',
+				'apiScript' => '//meta.wikitide.org/w/api.php',
+				'loadScript' => '//meta.wikitide.org/w/load.php',
 			],
 		],
 	],
@@ -1590,7 +1590,7 @@ $wgConf->settings += [
 
 	// GlobalUserPage
 	'wgGlobalUserPageAPIUrl' => [
-		'wikitide' => 'https://meta.wikitide.com/w/api.php',
+		'wikitide' => 'https://meta.wikitide.org/w/api.php',
 	],
 	'wgGlobalUserPageDBname' => [
 		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
@@ -1717,7 +1717,7 @@ $wgConf->settings += [
 			],
 			'wikiforge' => [
 				/** Miraheze */
-				'interwiki' => 'wikiforge',
+				'interwiki' => 'miraheze',
 				'url' => 'https://$2.miraheze.org/wiki/$1',
 				'baseTransOnly' => true,
 			],
@@ -1733,7 +1733,7 @@ $wgConf->settings += [
 			'wikitide' => [
 				/** WikiTide */
 				'interwiki' => 'wt',
-				'url' => 'https://$2.wikitide.com/wiki/$1',
+				'url' => 'https://$2.wikitide.org/wiki/$1',
 				'baseTransOnly' => true,
 			],
 		],
@@ -1741,7 +1741,7 @@ $wgConf->settings += [
 			'wikitide' => [
 				/** WikiTide */
 				'interwiki' => 'wt',
-				'url' => 'https://$2.wikitide.com/wiki/$1',
+				'url' => 'https://$2.wikitide.org/wiki/$1',
 				'dbname' => '$2wikitide',
 				'baseTransOnly' => true,
 			],
@@ -1768,7 +1768,7 @@ $wgConf->settings += [
 			'fandom.com' => 'fandom',
 			'miraheze.org' => 'wikiforge',
 			'wikiforge.net' => 'wf',
-			'wikitide.com' => 'wt',
+			'wikitide.org' => 'wt',
 		],
 	],
 	'wgImportDumpScriptCommand' => [
@@ -2493,7 +2493,7 @@ $wgConf->settings += [
 		'default' => 'member',
 	],
 	'wgManageWikiHelpUrl' => [
-		'default' => '//meta.wikitide.com/wiki/Special:MyLanguage/ManageWiki',
+		'default' => '//meta.wikitide.org/wiki/Special:MyLanguage/ManageWiki',
 	],
 	'wgManageWikiForceSidebarLinks' => [
 		'default' => false,
@@ -2704,7 +2704,7 @@ $wgConf->settings += [
 			'meta.wikiforge.net',
 		],
 		'wikitide' => [
-			'meta.wikitide.com',
+			'meta.wikitide.org',
 		],
 	],
 	'wgTidyConfig' => [
@@ -3742,7 +3742,7 @@ $wgConf->settings += [
 		'wikitide' => [
 			'global' => [
 				'type' => 'url',
-				'src' => 'https://meta.wikitide.com/wiki/Title_blacklist?action=raw&tb_ver=1',
+				'src' => 'https://meta.wikitide.org/wiki/Title_blacklist?action=raw&tb_ver=1',
 			],
 			'local' => [
 				'type' => 'localpage',
@@ -4023,7 +4023,7 @@ $wgConf->settings += [
 	],
 	'wgWebAuthnRelyingPartyID' => [
 		'wikiforge' => 'wikiforge.net',
-		'wikitide' => 'wikitide.com',
+		'wikitide' => 'wikitide.org',
 	],
 
 	// Wikibase
