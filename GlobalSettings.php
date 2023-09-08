@@ -8,7 +8,7 @@ if ( $wi->wikifarm !== 'wikitide' ) {
 }
 
 // Extensions
-if ( $wi->wikifarm === 'wikitide' && $wi->dbname !== 'votewikitide' ) {
+if ( $wi->wikifarm === 'wikitide' ) {
 	wfLoadExtensions( [
 		'CentralAuth',
 		'GlobalCssJs',
@@ -705,7 +705,7 @@ if ( $wi->version === WikiForgeFunctions::MEDIAWIKI_VERSIONS['alpha'] ) {
  * We can not set these in LocalSettings.php, to prevent them
  * from causing absolute overrides.
  */
-$wgRightsIcon = 'https://meta.wikiforge.net/' . $version . '/resources/assets/licenses/cc-by-sa.png';
+$wgRightsIcon = 'https://hub.wikiforge.net/' . $version . '/resources/assets/licenses/cc-by-sa.png';
 $wgRightsText = 'Creative Commons Attribution Share Alike';
 $wgRightsUrl = 'https://creativecommons.org/licenses/by-sa/4.0/';
 
