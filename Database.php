@@ -34,7 +34,7 @@ $wgLBFactoryConf = [
 		'sslCAFile' => '/etc/ssl/certs/ca-certificates.crt',
 	],
 	'hostsByName' => [
-		'db1' => $wmgDBHostname,
+		'db11' => $wmgDBHostname,
 	],
 	'externalLoads' => [
 		'echo' => [
