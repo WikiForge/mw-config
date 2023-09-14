@@ -53,8 +53,8 @@ require_once '/srv/mediawiki/config/PrivateSettings.php';
 require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
 $wmgUploadHostname = 'static.wikiforge.net';
-$wmgDBHostname = wfHostname() === 'mw3.wikiforge.net' || 'mw5.wikiforge.net' || 'mw11.wikiforge.net' || 'jobrunner2.wikiforge.net' ? 'db1.wikiforge.net' : 'db1-private.wikiforge.net';
-$wmgRedisHostname = wfHostname() === 'mw3.wikiforge.net' || 'mw5.wikiforge.net' || 'mw11.wikiforge.net' || 'jobrunner2.wikiforge.net' ? 'jobchron1.wikiforge.net' : 'jobchron1-private.wikiforge.net';
+$wmgDBHostname = wfHostname() === 'mw11.wikiforge.net' || 'jobrunner2.wikiforge.net' ? 'db11.wikiforge.net' : 'db1.wikiforge.net';
+$wmgRedisHostname = wfHostname() === 'mw11.wikiforge.net' || 'jobrunner2.wikiforge.net' ? 'jobchron11.wikiforge.net' : 'jobchron1.wikiforge.net';
 
 $wgConf->settings += [
 	// invalidates user sessions - do not change unless it is an emergency.
