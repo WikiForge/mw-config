@@ -250,8 +250,8 @@ $wgAWSCredentials = [
 	'token' => false,
 ];
 
-$wgAWSRegion = 'us-east-2';
-$wgAWSBucketName = 'static.wikiforge.net';
+$wgAWSRegion = 'us-east-1';
+$wgAWSBucketName = 'wikiforgestatic';
 $wgAWSBucketDomain = 'static.wikiforge.net';
 
 $wgAWSRepoHashLevels = 2;
