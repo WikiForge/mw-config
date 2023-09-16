@@ -807,7 +807,3 @@ $wgSVGConverters['inkscape'] = '$path/inkscape -w $width -o $output $input';
 /** 50MB */
 $wgScribuntoEngineConf['luasandbox']['memoryLimit'] = 50 * 1024 * 1024;
 $wgScribuntoEngineConf['luasandbox']['cpuLimit'] = 10;
-
-// Disable file uploads
-$wgUploadMaintenance = true;
-$wgEnableUploads = false;
