@@ -250,9 +250,15 @@ $wgAWSCredentials = [
 	'token' => false,
 ];
 
+// Without this, AWS SDK tries to direct requests to amazonaws.com
+$wgFileBackends['s3']['endpoint'] = '506ef7707567ae07d19f7be565c8515d.r2.cloudflarestorage.com';
+
+// Without this, AWS SDK appends wgBucketName
+$wgFileBackends['s3']['use_path_style_endpoint'] = true;
+
 $wgAWSRegion = 'us-east-1';
 $wgAWSBucketName = 'wikiforgestatic';
-$wgAWSBucketDomain = '506ef7707567ae07d19f7be565c8515d.r2.cloudflarestorage.com';
+$wgAWSBucketDomain = 'static.wikiforge.net';
 
 $wgAWSRepoHashLevels = 2;
 $wgAWSRepoDeletedHashLevels = 3;
