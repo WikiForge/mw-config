@@ -252,7 +252,7 @@ $wgAWSCredentials = [
 
 $wgAWSRegion = 'us-east-1';
 $wgAWSBucketName = 'wikiforgestatic';
-$wgAWSBucketDomain = 'static.wikiforge.net';
+$wgAWSBucketDomain = '506ef7707567ae07d19f7be565c8515d.r2.cloudflarestorage.com';
 
 $wgAWSRepoHashLevels = 2;
 $wgAWSRepoDeletedHashLevels = 3;
