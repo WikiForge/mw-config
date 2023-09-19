@@ -3,6 +3,7 @@
 // Per-wiki settings that are incompatible with LocalSettings.php
 switch ( $wi->dbname ) {
 	case 'accountsinternalwiki':
+	case 'techwiki':
 		wfLoadExtension( 'LdapAuthentication' );
 
 		$wgAuthManagerAutoConfig['primaryauth'] += [
