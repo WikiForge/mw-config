@@ -1875,9 +1875,15 @@ $wgConf->settings += [
 		'accountsinternalwiki' => [
 			'wikiforge',
 		],
+		'techwiki' => [
+			'wikiforge',
+		],
 	],
 	'wgLDAPServerNames' => [
 		'accountsinternalwiki' => [
+			'wikiforge' => 'ldap.wikiforge.net',
+		],
+		'techwiki' => [
 			'wikiforge' => 'ldap.wikiforge.net',
 		],
 	],
@@ -1885,9 +1891,15 @@ $wgConf->settings += [
 		'accountsinternalwiki' => [
 			'wikiforge' => 'ssl',
 		],
+		'techwiki' => [
+			'wikiforge' => 'ssl',
+		],
 	],
 	'wgLDAPSearchAttributes' => [
 		'accountsinternalwiki' => [
+			'wikiforge' => 'uid',
+		],
+		'techwiki' => [
 			'wikiforge' => 'uid',
 		],
 	],
@@ -1895,9 +1907,15 @@ $wgConf->settings += [
 		'accountsinternalwiki' => [
 			'wikiforge' => 'dc=wikiforge,dc=net',
 		],
+		'techwiki' => [
+			'wikiforge' => 'dc=wikiforge,dc=net',
+		],
 	],
 	'wgLDAPUserBaseDNs' => [
 		'accountsinternalwiki' => [
+			'wikiforge' => 'ou=people,dc=wikiforge,dc=net',
+		],
+		'techwiki' => [
 			'wikiforge' => 'ou=people,dc=wikiforge,dc=net',
 		],
 	],
@@ -1905,9 +1923,15 @@ $wgConf->settings += [
 		'accountsinternalwiki' => [
 			'wikiforge' => 'cn=admin,dc=wikiforge,dc=net',
 		],
+		'techwiki' => [
+			'wikiforge' => 'cn=admin,dc=wikiforge,dc=net',
+		],
 	],
 	'wgLDAPProxyAgentPassword' => [
 		'accountsinternalwiki' => [
+			'wikiforge' => $wmgLdapPassword,
+		],
+		'techwiki' => [
 			'wikiforge' => $wmgLdapPassword,
 		],
 	],
@@ -1915,9 +1939,15 @@ $wgConf->settings += [
 		'accountsinternalwiki' => [
 			'wikiforge' => 'cn=admin,dc=wikiforge,dc=net',
 		],
+		'techwiki' => [
+			'wikiforge' => 'cn=admin,dc=wikiforge,dc=net',
+		],
 	],
 	'wgLDAPWriterPassword' => [
 		'accountsinternalwiki' => [
+			'wikiforge' => $wmgLdapPassword,
+		],
+		'techwiki' => [
 			'wikiforge' => $wmgLdapPassword,
 		],
 	],
@@ -1925,9 +1955,15 @@ $wgConf->settings += [
 		'accountsinternalwiki' => [
 			'wikiforge' => 'ou=people,dc=wikiforge,dc=net',
 		],
+		'techwiki' => [
+			'wikiforge' => 'ou=people,dc=wikiforge,dc=net',
+		],
 	],
 	'wgLDAPAddLDAPUsers' => [
 		'accountsinternalwiki' => [
+			'wikiforge' => true,
+		],
+		'techwiki' => [
 			'wikiforge' => true,
 		],
 	],
@@ -1935,9 +1971,15 @@ $wgConf->settings += [
 		'accountsinternalwiki' => [
 			'wikiforge' => true,
 		],
+		'techwiki' => [
+			'wikiforge' => true,
+		],
 	],
 	'wgLDAPPasswordHash' => [
 		'accountsinternalwiki' => [
+			'wikiforge' => 'ssha',
+		],
+		'techwiki' => [
 			'wikiforge' => 'ssha',
 		],
 	],
@@ -1948,9 +1990,18 @@ $wgConf->settings += [
 				'realname' => 'givenName',
 			],
 		],
+		'techwiki' => [
+			'wikiforge' => [
+				'email' => 'mail',
+				'realname' => 'givenName',
+			],
+		],
 	],
 	'wgLDAPUseFetchedUsername' => [
 		'accountsinternalwiki' => [
+			'wikiforge' => true,
+		],
+		'techwiki' => [
 			'wikiforge' => true,
 		],
 	],
@@ -1959,9 +2010,17 @@ $wgConf->settings += [
 			'wikiforge' => false,
 			'invaliddomain' => false,
 		],
+		'techwiki' => [
+			'wikiforge' => false,
+			'invaliddomain' => false,
+		],
 	],
 	'wgLDAPLowerCaseUsername' => [
 		'accountsinternalwiki' => [
+			'wikiforge' => false,
+			'invaliddomain' => false,
+		],
+		'techwiki' => [
 			'wikiforge' => false,
 			'invaliddomain' => false,
 		],
@@ -1972,9 +2031,15 @@ $wgConf->settings += [
 				'LDAP_OPT_X_TLS_CACERTFILE' => '/etc/ssl/certs/ISRG_Root_X1.pem',
 			],
 		],
+		'techwiki' => [
+			'wikiforge' => [
+				'LDAP_OPT_X_TLS_CACERTFILE' => '/etc/ssl/certs/ISRG_Root_X1.pem',
+			],
+		],
 	],
 	'wgLDAPDebug' => [
 		'accountsinternalwiki' => 1,
+		'techwiki' => 1,
 	],
 
 	// License
