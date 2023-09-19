@@ -1996,17 +1996,11 @@ $wgConf->settings += [
 	// LinkTarget
 	'wgLinkTargetParentClasses' => [
 		'default' => [],
-		'scruffywikitide' => [
-			'extiw'
-		],
-		'sdiywikitide' => [
-			'extiw'
-		],
-		'simpleelectronicswikitide' => [
-			'extiw'
-		],
+		'sdiywiki' => ['_blank' => [ 'extiw' ]],
+		'scruffywiki' => ['_blank' => [ 'extiw' ]],
+		'simpleelectronicswiki' => ['_blank' => [ 'extiw' ]]
 	],
-
+	
 	// LinkTitles
 	'wgLinkTitlesFirstOnly' => [
 		'default' => true,
