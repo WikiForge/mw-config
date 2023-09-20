@@ -2141,7 +2141,7 @@ $wgConf->settings += [
 	],
 	'wgEmergencyContact' => [
 		'wikiforge' => 'noreply@wikiforge.net',
-  		'wikitide' => 'noreply@wikitide.com',
+  		'wikitide' => 'noreply@wikitide.org',
 	],
 	'wgEnableSpecialMute' => [
 		'default' => true,
@@ -2151,7 +2151,7 @@ $wgConf->settings += [
 	],
 	'wgPasswordSender' => [
 		'wikiforge' => 'noreply@wikiforge.net',
-  		'wikitide' => 'noreply@wikitide.com',
+  		'wikitide' => 'noreply@wikitide.org',
 	],
  
 	// ManageWiki
