@@ -873,7 +873,7 @@ class WikiForgeFunctions {
 
 			file_put_contents( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json', json_encode( $list ), LOCK_EX );
 		} else {
-			$extensionListFile = file_get_contents( self::CACHE_DIRECTORY . '/extension-list.json' );
+			$extensionListFile = file_get_contents( self::CACHE_DIRECTORY . '/' . $this->version . '/extension-list.json' );
 			$list = json_decode( $extensionListFile, true );
 		}
 
