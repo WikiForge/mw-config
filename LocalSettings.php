@@ -4650,7 +4650,7 @@ $wgConf->settings += [
 
 // Start settings requiring external dependency checks/functions
 
-if ( wfHostname() === 'test1.wikiforge.net' ) {
+if ( wfHostname() === 'test11.wikiforge.net' ) {
 	// Prevent cache (better be safe than sorry)
 	$wgConf->settings['wgUseCdn']['default'] = false;
 }
