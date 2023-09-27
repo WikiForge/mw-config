@@ -997,6 +997,15 @@ $wgConf->settings += [
 			'timeline-render',
 		],
 	],
+	'wgRequestWikiDisablePrivateRequests' => [
+		'wikitide' => false,
+	],
+	'wgRequestWikiMinimumLength' => [
+		'wikitide' => 250,
+	],
+	'wgRequestWikiMigrationInquire' => [
+		'wikitide' => true,
+	],
 
 	// CookieWarning
 	'wgCookieWarningMoreUrl' => [
@@ -2329,7 +2338,7 @@ $wgConf->settings += [
 				'createwiki' => true,
 			],
 		],
-		'+test1wiki' => [
+		'+testwikitide' => [
 			'sysop' => [
 				'createwiki' => true,
 				'requestwiki' => true,
