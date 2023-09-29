@@ -1006,6 +1006,9 @@ $wgConf->settings += [
 	'wgRequestWikiMigrationInquire' => [
 		'wikitide' => true,
 	],
+	'wgRequestWikiUseDescriptions' =>
+		'wikitide' => true,
+	],
 
 	// CookieWarning
 	'wgCookieWarningMoreUrl' => [
