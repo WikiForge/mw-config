@@ -1006,7 +1006,7 @@ $wgConf->settings += [
 	'wgRequestWikiMigrationInquire' => [
 		'wikitide' => true,
 	],
-	'wgRequestWikiUseDescriptions' =>
+	'wgRequestWikiUseDescriptions' => [
 		'wikitide' => true,
 	],
 
