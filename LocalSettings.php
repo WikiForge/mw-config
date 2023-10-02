@@ -4530,12 +4530,30 @@ $wgConf->settings += [
 				'sister' => false,
 			],
 		],
+		'snxyzincubatorwikitide' => [
+			'k' => [
+				'name' => 'Cookie Run: Kingdom Wiki',
+				'dbsuffix' => 'crk',
+				'wikitag' => 'cookierunkingdom',
+				'sister' => false,
+			],
+			'c' => [
+				'name' => 'Cookie Run Wiki',
+				'dbsuffix' => 'cr',
+				'wikitag' => 'cookierun',
+				'sister' => false,
+			],
+		],
 	],
 	'wmincProjectSite' => [
 		'default' => [
 			'name' => 'Incubator Plus 2.0',
 			'short' => 'incplus',
 		],
+		'snxyzincubatorwikitide' => [
+			'name' => 'PI',
+			'short' => 'pi',
+		]
 	],
 	'wmincExistingWikis' => [
 		'default' => null,
