@@ -3016,6 +3016,9 @@ $wgConf->settings += [
 			'centralauth-lock',
 			'centralauth-rename',
 			'centralauth-suppress',
+			'editsitejs',
+			'editusercss',
+			'edituserjs',
 			'globalblock',
 			'globalgroupmembership',
 			'globalgrouppermissions',
@@ -3040,6 +3043,7 @@ $wgConf->settings += [
 		],
 		'wikitide' => [
 			'checkuser',
+			'interface-admin',
 			'steward',
 			'suppress',
 		],
