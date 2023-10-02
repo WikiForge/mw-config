@@ -32,7 +32,7 @@ $wgDebugLogGroups = [
 	'VisualEditor' => "$wmgLogDir/debuglogs/VisualEditor.log",
 ];
 
-if ( wfHostname() === 'test1.wikiforge.net' ) {
+if ( wfHostname() === 'test11.wikiforge.net' ) {
 	$wgShowExceptionDetails = true;
 	$wgDebugDumpSql = true;
 }
