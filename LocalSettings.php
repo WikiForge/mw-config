@@ -4568,7 +4568,7 @@ $wgConf->settings += [
 			'short' => 'incplus',
 		],
 		'snxyzincubatorwikitide' => [
-			'name' => 'PI',
+			'name' => "Pisces's Incubator",
 			'short' => 'pi',
 		]
 	],
