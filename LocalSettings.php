@@ -1411,7 +1411,7 @@ $wgConf->settings += [
 				],
 			],
 		],
-		snxyzincubatorwikitide' => [
+		'snxyzincubatorwikitide' => [
 			'poweredby' => [
 				'songnguxyz' => [
 					'src' => 'https://static.wikiforge.net/lhmnwikitide/5/58/Footer.SN.xyz.svg',
