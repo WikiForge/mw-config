@@ -413,7 +413,7 @@ class WikiForgeFunctions {
 	 * @return string
 	 */
 	public static function getDefaultMediaWikiVersion(): string {
-		return ( php_uname( 'n' ) === 'test1.wikiforge.net' && isset( self::MEDIAWIKI_VERSIONS['beta'] ) ) ? 'beta' : 'stable';
+		return ( php_uname( 'n' ) === 'test11.wikiforge.net' && isset( self::MEDIAWIKI_VERSIONS['beta'] ) ) ? 'beta' : 'stable';
 	}
 
 	/**

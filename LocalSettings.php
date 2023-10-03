@@ -2100,22 +2100,14 @@ $wgConf->settings += [
 		'ext-Linter' => [
 			/** localhost */
 			'127.0.0.1' => true,
-			/** jobrunner1 */
-			'13.58.205.57' => true,
-			/** jobrunner2 */
-			'3.15.17.20' => true,
-			/** mw1 */
-			'18.191.12.113' => true,
-			/** mw2 */
-			'18.222.166.40' => true,
-			/** mw3 */
-			'198.251.65.198' => true,
-			/** mw4 */
-			'18.191.239.166' => true,
-			/** mw5 */
-			'23.142.24.117' => true,
-			/** test1 */
-			'52.14.195.40' => true,
+			/** jobrunner11 */
+			'10.0.0.104' => true,
+			/** mw11 */
+			'10.0.0.100' => true,
+			/** mw12 */
+			'10.0.0.106' => true,
+			/** test11 */
+			'10.0.0.108' => true,
 		],
 	],
 
@@ -3016,6 +3008,9 @@ $wgConf->settings += [
 			'centralauth-lock',
 			'centralauth-rename',
 			'centralauth-suppress',
+			'editsitejs',
+			'editusercss',
+			'edituserjs',
 			'globalblock',
 			'globalgroupmembership',
 			'globalgrouppermissions',
@@ -3040,6 +3035,7 @@ $wgConf->settings += [
 		],
 		'wikitide' => [
 			'checkuser',
+			'interface-admin',
 			'steward',
 			'suppress',
 		],
@@ -3980,7 +3976,7 @@ $wgConf->settings += [
 	'wgCdnServersNoPurge' => [
 		/** KEEP REGULARLY UPDATED, CloudFlare IP ranges */
 		/** Only set for WikiTide for now, not WikiForge */
-		'wikitide' => [
+		'default' => [
 			'103.21.244.0/22',
 			'103.22.200.0/22',
 			'103.31.4.0/22',
@@ -3996,6 +3992,13 @@ $wgConf->settings += [
 			'190.93.240.0/20',
 			'197.234.240.0/22',
 			'198.41.128.0/17',
+			'2400:cb00::/32',
+			'2606:4700::/32',
+			'2803:f800::/32',
+			'2405:b500::/32',
+			'2405:8100::/32',
+			'2a06:98c0::/29',
+			'2c0f:f248::/32',
 		],
 	],
 
@@ -4530,12 +4533,30 @@ $wgConf->settings += [
 				'sister' => false,
 			],
 		],
+		'snxyzincubatorwikitide' => [
+			'k' => [
+				'name' => 'Cookie Run: Kingdom Wiki',
+				'dbsuffix' => 'crk',
+				'wikitag' => 'cookierunkingdom',
+				'sister' => false,
+			],
+			'c' => [
+				'name' => 'Cookie Run Wiki',
+				'dbsuffix' => 'cr',
+				'wikitag' => 'cookierun',
+				'sister' => false,
+			],
+		],
 	],
 	'wmincProjectSite' => [
 		'default' => [
 			'name' => 'Incubator Plus 2.0',
 			'short' => 'incplus',
 		],
+		'snxyzincubatorwikitide' => [
+			'name' => 'PI',
+			'short' => 'pi',
+		]
 	],
 	'wmincExistingWikis' => [
 		'default' => null,
