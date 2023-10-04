@@ -1411,6 +1411,20 @@ $wgConf->settings += [
 				],
 			],
 		],
+		'snxyzincubatorwikitide' => [
+			'poweredby' => [
+				'songnguxyz' => [
+					'src' => 'https://static.wikiforge.net/lhmnwikitide/5/58/Footer.SN.xyz.svg',
+					'url' => 'https://songngu.xyz',
+					'alt' => 'This project is a part of SongNgu.xyz',
+				],
+				'wikitide' => [
+					'src' => 'https://static.wikiforge.net/commonswikitide/8/8a/Hosted_by_WikiTide.svg',
+					'url' => 'https://meta.wikitide.org/wiki/Special:MyLanguage/WikiTide',
+					'alt' => 'Hosted by WikiTide',
+				],
+			],
+		],
 	],
 	'wmgWikiapiaryFooterPageName' => [
 		'default' => '',
@@ -4554,7 +4568,7 @@ $wgConf->settings += [
 			'short' => 'incplus',
 		],
 		'snxyzincubatorwikitide' => [
-			'name' => 'PI',
+			'name' => "Pisces's Incubator",
 			'short' => 'pi',
 		]
 	],
