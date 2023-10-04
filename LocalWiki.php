@@ -45,7 +45,7 @@ switch ( $wi->dbname ) {
 			'SecurePoll',
 		] );
 		break;
-	case 'snxyzincubator':
+	case 'snxyzincubatorwikitide':
 		$wgLogos = [
 			'1x' => "https://static.wikiforge.net/snxyzincubatorwikitide/2/2e/Incubator_Logo.2023.svg",
 			'svg' => "https://static.wikiforge.net/snxyzincubatorwikitide/2/2e/Incubator_Logo.2023.svg",
