@@ -51,8 +51,8 @@ switch ( $wi->dbname ) {
 			'svg' => "https://static.wikiforge.net/snxyzincubatorwikitide/2/2e/Incubator_Logo.2023.svg",
 			'icon' => "https://static.wikiforge.net/snxyzincubatorwikitide/2/2e/Incubator_Logo.2023.svg",
 			'wordmark' => [
-				'src' => "https://static.wikiforge.net/snxyzincubatorwikitide/b/b1/Wordmark_EN.svg",
-				'1x' => "https://static.wikiforge.net/snxyzincubatorwikitide/b/b1/Wordmark_EN.svg",
+				'src' => "https://static.wikiforge.net/snxyzincubatorwikitide/d/d5/Wordmark_EN.svg",
+				'1x' => "https://static.wikiforge.net/snxyzincubatorwikitide/d/d5/Wordmark_EN.svg",
 				'width' => 135,
 				'height' => 20,
 			],
@@ -64,8 +64,8 @@ switch ( $wi->dbname ) {
 			'variants' => [
 				'vi' => [
 					'wordmark' => [
-						'src' => "https://static.wikiforge.net/snxyzincubatorwikitide/4/4b/Wordmark_VI.svg",
-						'1x' => "https://static.wikiforge.net/snxyzincubatorwikitide/4/4b/Wordmark_VI.svg",
+						'src' => "https://static.wikiforge.net/snxyzincubatorwikitide/4/41/Wordmark_VI.svg",
+						'1x' => "https://static.wikiforge.net/snxyzincubatorwikitide/4/41/Wordmark_VI.svg",
 						'width' => 135,
 						'height' => 20,
 					],
