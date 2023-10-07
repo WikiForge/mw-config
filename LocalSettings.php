@@ -2131,7 +2131,7 @@ $wgConf->settings += [
 			'suppress' => 'supressionlog',
    		],
      		'+hubwiki' => [
-       			'createwiki' => 'createwiki',
+       			'createwiki' => 'farmer',
 	  		'managewiki' => 'managewiki',
      		],
 	],
