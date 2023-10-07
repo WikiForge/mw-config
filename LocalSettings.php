@@ -2125,6 +2125,17 @@ $wgConf->settings += [
 		],
 	],
 
+	// Logs
+	'wgLogRestrictions' = [
+		'default' => [
+			'suppress' => 'supressionlog',
+   		],
+     		'+hubwiki' => [
+       			'createwiki' => 'createwiki',
+	  		'managewiki' => 'managewiki',
+     		],
+	],
+
 	// Loops
 	'egLoopsCountLimit' => [
 		// DO NOT RAISE FOR ANY WIKI -- Universal Omega
