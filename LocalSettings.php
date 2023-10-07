@@ -2128,11 +2128,18 @@ $wgConf->settings += [
 	// Logs
 	'wgLogRestrictions' => [
 		'default' => [
-			'suppress' => 'supressionlog',
+			'suppress' => 'suppressionlog',
    		],
      		'+hubwiki' => [
-       			'createwiki' => 'farmer',
+			'block' => 'block',
+			'delete' => 'delete',
+       			'farmer' => 'createwiki',
+			'import' => 'import',
+			'importdump' => 'createwiki',
+			'incidentreporting' => 'createwiki',
+			'interwiki' => 'interwiki',
 	  		'managewiki' => 'managewiki',
+			'newusers' => 'createwiki',
      		],
 	],
 
