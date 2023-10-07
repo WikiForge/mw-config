@@ -2140,6 +2140,8 @@ $wgConf->settings += [
 			'interwiki' => 'interwiki',
 	  		'managewiki' => 'managewiki',
 			'newusers' => 'createwiki',
+			'rights' => 'createwiki',
+			'renameuser' => 'renameuser',
      		],
 	],
 
