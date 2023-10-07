@@ -2126,7 +2126,7 @@ $wgConf->settings += [
 	],
 
 	// Logs
-	'wgLogRestrictions' = [
+	'wgLogRestrictions' => [
 		'default' => [
 			'suppress' => 'supressionlog',
    		],
