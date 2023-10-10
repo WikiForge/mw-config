@@ -3692,14 +3692,16 @@ $wgManageWikiExtensions = [
 ];
 
 if ( $wi->wikifarm === 'wikitide' ) {
-	// No CirrusSearch, Score, or services on WikiTide (yet at least)
+	// Only SRE/Stewards can enable, for now
+	$wgManageWikiExtensions['advancedsearch']['requires']['permissions'] = 'managewiki-restricted';
+	$wgManageWikiExtensions['cirrussearch']['requires']['permissions'] = 'managewiki-restricted';
+	$wgManageWikiExtensions['relatedarticles']['requires']['permissions'] = 'managewiki-restricted';
+
+	// No Score or services on WikiTide (yet at least)
 	unset(
-		$wgManageWikiExtensions['advancedsearch'],
-		$wgManageWikiExtensions['cirrussearch'],
 		$wgManageWikiExtensions['citoid'],
 		$wgManageWikiExtensions['collection'],
 		$wgManageWikiExtensions['electronpdfservice'],
-		$wgManageWikiExtensions['relatedarticles'],
 		$wgManageWikiExtensions['score']
 	);
 } elseif ( $wi->wikifarm === 'wikiforge' ) {
