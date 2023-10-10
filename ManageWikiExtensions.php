@@ -3693,9 +3693,9 @@ $wgManageWikiExtensions = [
 
 if ( $wi->wikifarm === 'wikitide' ) {
 	// Only SRE/Stewards can enable, for now
-	$wgManageWikiExtensions['advancedsearch']['requires']['permissions'] = 'managewiki-restricted',
-	$wgManageWikiExtensions['cirrussearch']['requires']['permissions'] = 'managewiki-restricted',
-	$wgManageWikiExtensions['relatedarticles']['requires']['permissions'] = 'managewiki-restricted',
+	$wgManageWikiExtensions['advancedsearch']['requires']['permissions'] = 'managewiki-restricted';
+	$wgManageWikiExtensions['cirrussearch']['requires']['permissions'] = 'managewiki-restricted';
+	$wgManageWikiExtensions['relatedarticles']['requires']['permissions'] = 'managewiki-restricted';
 
 	// No Score or services on WikiTide (yet at least)
 	unset(
