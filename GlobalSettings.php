@@ -62,8 +62,9 @@ if ( $wi->isExtensionActive( 'CirrusSearch' ) ) {
 	$wgCirrusSearchClusters = [
 		'default' => [
 			[
-				'host' => 'search-elasticsearch-jtuqyxjkhmon354q2p2w2rvdwa.us-east-2.es.amazonaws.com',
-				'port' => 80,
+				'host' => 'os11.wikiforge.net',
+				'port' => 9200,
+				'transport' => 'Elastica\Transport\Https',
 			],
 		],
 	];
