@@ -2127,10 +2127,7 @@ $wgConf->settings += [
 
 	// Logs
 	'wgLogRestrictions' => [
-		'default' => [
-			'suppress' => 'suppressionlog',
-   		],
-     		'+hubwiki' => [
+     		'hubwiki' => [
 			'block' => 'block',
 			'delete' => 'delete',
        			'farmer' => 'createwiki',
@@ -2142,6 +2139,7 @@ $wgConf->settings += [
 			'newusers' => 'createwiki',
 			'rights' => 'createwiki',
 			'renameuser' => 'renameuser',
+			'suppress' => 'suppressionlog',
      		],
 	],
 
