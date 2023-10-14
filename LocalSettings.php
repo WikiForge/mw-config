@@ -997,8 +997,11 @@ $wgConf->settings += [
 			'timeline-render',
 		],
 	],
+	'wgRequestWikiConfirmAgreement' => [
+		'wikitide' => true,
+	],
 	'wgRequestWikiDisablePrivateRequests' => [
-		'wikitide' => false,
+		'wikitide' => true,
 	],
 	'wgRequestWikiMinimumLength' => [
 		'wikitide' => 250,
