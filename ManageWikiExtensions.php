@@ -1092,6 +1092,13 @@ $wgManageWikiExtensions = [
 		],
 		'section' => 'antispam',
 	],
+	'confirmaccount' => [
+		'name' => 'ConfirmAccount',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ConfirmAccount',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'antispam',
+	],
 	'lockauthor' => [
 		'name' => 'LockAuthor',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:LockAuthor',
@@ -1814,6 +1821,13 @@ $wgManageWikiExtensions = [
 				],
 			],
 		],
+		'section' => 'specialpages',
+	],
+	'usermerge' => [
+		'name' => 'UserMerge',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:UserMerge',
+		'conflicts' => false,
+		'requires' => [],
 		'section' => 'specialpages',
 	],
 	'video' => [
@@ -3701,8 +3715,12 @@ if ( $wi->wikifarm === 'wikitide' ) {
 	unset(
 		$wgManageWikiExtensions['citoid'],
 		$wgManageWikiExtensions['collection'],
+		// Incompatible with CentralAuth
+		$wgManageWikiExtensions['confirmaccount'],
 		$wgManageWikiExtensions['electronpdfservice'],
-		$wgManageWikiExtensions['score']
+		$wgManageWikiExtensions['score'],
+		// Incompatible with CentralAuth
+		$wgManageWikiExtensions['usermerge']
 	);
 } elseif ( $wi->wikifarm === 'wikiforge' ) {
 	// WikiForge is not global so we don't use GlobalUserPage
