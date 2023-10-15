@@ -2586,7 +2586,7 @@ $wgManageWikiSettings = [
 		'help' => 'Whether to display a Share via Twitter button on the sidebar.',
 		'requires' => [],
 	],
-//	'wgRandomGameDisplay' => [
+// 'wgRandomGameDisplay' => [
 //		'name' => 'Random Game Display',
 //		'from' => 'randomgameunit',
 //		'type' => 'list-multi-bool',
@@ -2636,7 +2636,7 @@ $wgManageWikiSettings = [
 		'help' => 'Displays UserBoard-related things on social profile pages.',
 		'requires' => [],
 	],
-//	'wgUserProfileDisplay' => [
+// 'wgUserProfileDisplay' => [
 //		'name' => 'User Profile Display',
 //		'from' => 'socialprofile',
 //		'type' => 'list-multi-bool',
@@ -3520,7 +3520,7 @@ $wgManageWikiSettings = [
 		'help' => 'Whether or not to show the normal MediaWiki external link icon when using the Chameleon skin.',
 		'requires' => [],
 	],
-//	'wgPivotFeatures' => [
+// 'wgPivotFeatures' => [
 //		'name' => 'Pivot features',
 //		'from' => 'pivot',
 //		'global' => true,

@@ -2115,11 +2115,11 @@ $wgConf->settings += [
 	// LinkTarget
 	'wgLinkTargetParentClasses' => [
 		'default' => [],
-		'sdiywiki' => ['_blank' => [ 'extiw' ]],
-		'scruffywiki' => ['_blank' => [ 'extiw' ]],
-		'simpleelectronicswiki' => ['_blank' => [ 'extiw' ]]
+		'sdiywiki' => [ '_blank' => [ 'extiw' ] ],
+		'scruffywiki' => [ '_blank' => [ 'extiw' ] ],
+		'simpleelectronicswiki' => [ '_blank' => [ 'extiw' ] ]
 	],
-	
+
 	// LinkTitles
 	'wgLinkTitlesFirstOnly' => [
 		'default' => true,
@@ -2155,20 +2155,20 @@ $wgConf->settings += [
 
 	// Logs
 	'wgLogRestrictions' => [
-     		'hubwiki' => [
+			'hubwiki' => [
 			'block' => 'block',
 			'delete' => 'delete',
-       			'farmer' => 'createwiki',
+				'farmer' => 'createwiki',
 			'import' => 'import',
 			'importdump' => 'createwiki',
 			'incidentreporting' => 'createwiki',
 			'interwiki' => 'interwiki',
-	  		'managewiki' => 'managewiki',
+			'managewiki' => 'managewiki',
 			'newusers' => 'createwiki',
 			'rights' => 'createwiki',
 			'renameuser' => 'renameuser',
 			'suppress' => 'suppressionlog',
-     		],
+			],
 	],
 
 	// Loops
@@ -2205,7 +2205,7 @@ $wgConf->settings += [
 	],
 	'wgEmergencyContact' => [
 		'wikiforge' => 'noreply@wikiforge.net',
-  		'wikitide' => 'noreply@wikitide.org',
+		'wikitide' => 'noreply@wikitide.org',
 		'nexttide' => 'noreply@wikitide.org',
 	],
 	'wgEnableSpecialMute' => [
@@ -2216,10 +2216,10 @@ $wgConf->settings += [
 	],
 	'wgPasswordSender' => [
 		'wikiforge' => 'noreply@wikiforge.net',
-  		'wikitide' => 'noreply@wikitide.org',
+		'wikitide' => 'noreply@wikitide.org',
 		'nexttide' => 'noreply@wikitide.org',
 	],
- 
+
 	// ManageWiki
 	'wgManageWiki' => [
 		'default' => [
