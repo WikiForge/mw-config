@@ -3,7 +3,9 @@
 $wgMemCachedServers = [];
 $wgMemCachedPersistent = false;
 
-// mem1
+$beta = preg_match( '/^(.*)\.nexttide\.org$/', $wi->server );
+
+// mem11
 $wgObjectCaches['memcached'] = [
 	'class'                => MemcachedPeclBagOStuff::class,
 	'serializer'           => 'php',
