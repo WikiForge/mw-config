@@ -93,6 +93,7 @@ $wgConf->settings += [
 		'default' => false,
 		'hubwiki' => true,
 		'metawikitide' => true,
+		'metanexttide' => true,
 	],
 	'wgAbuseFilterBlockDuration' => [
 		'default' => 'indefinite',
@@ -354,36 +355,47 @@ $wgConf->settings += [
 	],
 	'wgCentralAuthAutoMigrate' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgCentralAuthAutoMigrateNonGlobalAccounts' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgCentralAuthCookies' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgCentralAuthCookiePrefix' => [
 		'wikitide' => 'centralauth_wikitide_',
+		'nexttide' => 'centralauth_nexttide_',
 	],
 	'wgCentralAuthCreateOnView' => [
 		'wikitide' => false,
+		'nexttide' => false,
 	],
 	'wgCentralAuthDatabase' => [
 		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
+		'nexttide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 	'wgCentralAuthEnableGlobalRenameRequest' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgCentralAuthGlobalBlockInterwikiPrefix' => [
 		'wikitide' => 'meta',
+		'nexttide' => 'meta',
 	],
 	'wgCentralAuthLoginWiki' => [
 		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'nexttide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthOldNameAntiSpoofWiki' => [
 		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'nexttide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgCentralAuthPreventUnattached' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgGlobalRenameDenylist' => [
 		'wikitide' => 'https://meta.wikitide.org/wiki/MediaWiki:Global_rename_denylist?action=raw',
@@ -395,6 +407,7 @@ $wgConf->settings += [
 	// CentralNotice
 	'wgNoticeInfrastructure' => [
 		'metawikitide' => true,
+		'metanexttide' => true,
 	],
 	'wgCentralSelectedBannerDispatcher' => [
 		'wikitide' => 'https://meta.wikitide.org/wiki/Special:BannerLoader',
@@ -404,9 +417,11 @@ $wgConf->settings += [
 	],
 	'wgCentralDBname' => [
 		'wikitide' => 'metawikitide',
+		'nexttide' => 'metanexttide',
 	],
 	'wgCentralHost' => [
 		'wikitide' => 'https://meta.wikitide.org',
+		'nexttide' => 'https://meta.nexttide.org',
 	],
 	'wgNoticeProjects' => [
 		'wikitide' => [
@@ -831,6 +846,7 @@ $wgConf->settings += [
 	'wgCreateWikiDatabaseSuffix' => [
 		'wikiforge' => 'wiki',
 		'wikitide' => 'wikitide',
+		'nexttide' => 'nexttide',
 	],
 	'wgCreateWikiEnableManageInactiveWikis' => [
 		'wikitide' => true,
@@ -969,9 +985,11 @@ $wgConf->settings += [
 	'wgCreateWikiSubdomain' => [
 		'wikiforge' => 'wikiforge.net',
 		'wikitide' => 'wikitide.org',
+		'nexttide' => 'nexttide.org',
 	],
 	'wgCreateWikiUseClosedWikis' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgCreateWikiUseCustomDomains' => [
 		'default' => true,
@@ -981,12 +999,15 @@ $wgConf->settings += [
 	],
 	'wgCreateWikiUseExperimental' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgCreateWikiUseInactiveWikis' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgCreateWikiUsePrivateWikis' => [
 		'default' => true,
+		'nexttide' => true,
 	],
 	'wgCreateWikiUseSecureContainers' => [
 		'default' => true,
@@ -999,18 +1020,22 @@ $wgConf->settings += [
 	],
 	'wgRequestWikiConfirmAgreement' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgRequestWikiDisablePrivateRequests' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgRequestWikiMinimumLength' => [
 		'wikitide' => 250,
 	],
 	'wgRequestWikiMigrationInquire' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 	'wgRequestWikiUseDescriptions' => [
 		'wikitide' => true,
+		'nexttide' => true,
 	],
 
 	// CookieWarning
@@ -2181,6 +2206,7 @@ $wgConf->settings += [
 	'wgEmergencyContact' => [
 		'wikiforge' => 'noreply@wikiforge.net',
   		'wikitide' => 'noreply@wikitide.org',
+		'nexttide' => 'noreply@wikitide.org',
 	],
 	'wgEnableSpecialMute' => [
 		'default' => true,
@@ -2191,6 +2217,7 @@ $wgConf->settings += [
 	'wgPasswordSender' => [
 		'wikiforge' => 'noreply@wikiforge.net',
   		'wikitide' => 'noreply@wikitide.org',
+		'nexttide' => 'noreply@wikitide.org',
 	],
  
 	// ManageWiki
@@ -2368,6 +2395,73 @@ $wgConf->settings += [
 				'createwiki' => true,
 			],
 		],
+		'+metanexttide' => [
+			'checkuser' => [
+				'abusefilter-privatedetails' => true,
+				'abusefilter-privatedetails-log' => true,
+				'checkuser' => true,
+				'checkuser-log' => true,
+				'securepoll-view-voter-pii' => true,
+			],
+			'confirmed' => [
+				'mwoauthproposeconsumer' => true,
+				'mwoauthupdateownconsumer' => true,
+			],
+			'global-renamer' => [
+				'centralauth-rename' => true,
+			],
+			'global-sysop' => [
+				'abusefilter-modify-global' => true,
+				'centralauth-lock' => true,
+				'globalblock' => true,
+			],
+			'proxybot' => [
+				'globalblock' => true,
+				'centralauth-lock' => true,
+			],
+			'steward' => [
+				'abusefilter-modify-global' => true,
+				'centralauth-lock' => true,
+				'centralauth-suppress' => true,
+				'centralauth-rename' => true,
+				'centralauth-unmerge' => true,
+				'createwiki' => true,
+				'globalblock' => true,
+				'managewiki' => true,
+				'managewiki-restricted' => true,
+				'noratelimit' => true,
+				'oathauth-verify-user' => true,
+				'userrights' => true,
+				'userrights-interwiki' => true,
+				'globalgroupmembership' => true,
+				'globalgrouppermissions' => true,
+			],
+			'sysadmin' => [
+				'centralauth-lock' => true,
+				'centralauth-rename' => true,
+				'globalblock' => true,
+				'globalgroupmembership' => true,
+				'globalgrouppermissions' => true,
+				'handle-import-dump-interwiki' => true,
+				'handle-import-dump-requests' => true,
+				'handle-pii' => true,
+				'oathauth-verify-user' => true,
+				'oathauth-disable-for-user' => true,
+				'view-private-import-dump-requests' => true,
+				'userrights' => true,
+				'userrights-interwiki' => true,
+			],
+			'sysop' => [
+				'interwiki' => true,
+			],
+			'user' => [
+				'request-import-dump' => true,
+				'requestwiki' => true,
+			],
+			'wiki-request-reviewer' => [
+				'createwiki' => true,
+			],
+		],
 		'+testwikitide' => [
 			'sysop' => [
 				'createwiki' => true,
@@ -2375,6 +2469,19 @@ $wgConf->settings += [
 			],
 		],
 		'+wikitide' => [
+			'checkuser' => [
+				'abusefilter-privatedetails' => true,
+				'abusefilter-privatedetails-log' => true,
+				'checkuser' => true,
+				'checkuser-log' => true,
+				'checkuser-temporary-account' => true,
+				'checkuser-temporary-account-log' => true,
+			],
+			'steward' => [
+				'userrights' => true,
+			],
+		],
+		'+nexttide' => [
 			'checkuser' => [
 				'abusefilter-privatedetails' => true,
 				'abusefilter-privatedetails-log' => true,
@@ -2563,6 +2670,50 @@ $wgConf->settings += [
 				'viewpmlog',
 				'viewsuppressed',
 			],
+		'+nexttide' => [
+			'any' => [
+				'abusefilter-hide-log',
+				'abusefilter-hidden-log',
+				'abusefilter-private',
+				'abusefilter-private-log',
+				'abusefilter-privatedetails',
+				'abusefilter-privatedetails-log',
+				'autocreateaccount',
+				'centralauth-createlocal',
+				'centralauth-lock',
+				'centralauth-rename',
+				'centralauth-suppress',
+				'centralauth-unmerge',
+				'flow-suppress',
+				'globalblock',
+				'globalblock-exempt',
+				'globalgroupmembership',
+				'globalgrouppermissions',
+				'hideuser',
+				'ipinfo',
+				'ipinfo-view-basic',
+				'ipinfo-view-full',
+				'ipinfo-view-log',
+				'mwoauthmanageconsumer',
+				'mwoauthmanagemygrants',
+				'mwoauthsuppress',
+				'mwoauthviewprivate',
+				'mwoauthviewsuppressed',
+				'oathauth-api-all',
+				'oathauth-enable',
+				'oathauth-disable-for-user',
+				'oathauth-verify-user',
+				'oathauth-view-log',
+				'renameuser',
+				'smw-patternedit',
+				'suppressionlog',
+				'suppressrevision',
+				'titleblacklistlog',
+				'updatepoints',
+				'viewglobalprivatefiles',
+				'viewpmlog',
+				'viewsuppressed',
+			],
 			'*' => [
 				'centralauth-merge',
 				'globalblock-whitelist',
@@ -2578,6 +2729,15 @@ $wgConf->settings += [
 			'smwadministrator',
 		],
 		'wikitide' => [
+			'checkuser',
+			'oversight',
+			'smwadministrator',
+			'steward',
+			'staff',
+			'suppress',
+			'sysadmin',
+		],
+		'nexttide' => [
 			'checkuser',
 			'oversight',
 			'smwadministrator',
@@ -2802,6 +2962,9 @@ $wgConf->settings += [
 			'meta.wikiforge.net',
 		],
 		'wikitide' => [
+			'meta.wikitide.org',
+		],
+		'nexttide' => [
 			'meta.wikitide.org',
 		],
 	],
@@ -3060,6 +3223,14 @@ $wgConf->settings += [
 			'sysadmin',
 			'suppress',
 		],
+		'metanexttide' => [
+			'checkuser',
+			'global-sysop',
+			'interface-admin',
+			'steward',
+			'sysadmin',
+			'suppress',
+		],
 		'hubwiki' => [
 			'checkuser',
 			'staff',
@@ -3074,11 +3245,18 @@ $wgConf->settings += [
 			'steward',
 			'suppress',
 		],
+		'nexttide' => [
+			'checkuser',
+			'interface-admin',
+			'steward',
+			'suppress',
+		],
 	],
 	// OAuth
 	'wgMWOAuthCentralWiki' => [
 		'wikiforge' => $wi->dbname,
 		'wikitide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'nexttide' => $wi::CENTRAL_WIKI[$wi->wikifarm],
 	],
 	'wgOAuth2GrantExpirationInterval' => [
 		'default' => 'PT4H',
@@ -3236,6 +3414,32 @@ $wgConf->settings += [
 	],
 	'wgCentralAuthGlobalPasswordPolicies' => [
 		'wikitide' => [
+			'global-sysop' => [
+				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
+				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
+				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+			],
+			'steward' => [
+				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
+				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
+				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+			],
+			'sysadmin' => [
+				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
+				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotBeSubstringInUsername' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'PasswordCannotMatchDefaults' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+				'MaximalPasswordLength' => [ 'value' => 4096, 'suggestChangeOnLogin' => true ],
+				'PasswordNotInCommonList' => [ 'value' => true, 'suggestChangeOnLogin' => true ],
+			],
+		],
+		'nexttide' => [
 			'global-sysop' => [
 				'MinimalPasswordLength' => [ 'value' => 12, 'suggestChangeOnLogin' => true ],
 				'MinimumPasswordLengthToLogin' => [ 'value' => 8, 'suggestChangeOnLogin' => true ],
@@ -3718,6 +3922,7 @@ $wgConf->settings += [
 	],
 	'wgCentralAuthLoginIcon' => [
 		'wikitide' => '/srv/mediawiki/favicons/default.ico',
+		'nexttide' => '/srv/mediawiki/favicons/default.ico',
 	],
 	'wgDefaultSkin' => [
 		'default' => 'vector-2022',
@@ -3731,6 +3936,7 @@ $wgConf->settings += [
 	'wgLogo' => [
 		'wikiforge' => "https://$wmgUploadHostname/commonswikitide/8/80/WikiForge_logo_135px.png",
 		'wikitide' => "https://$wmgUploadHostname/commonswikitide/6/64/WikiTide_logo_135px.png",
+		'nexttide' => "https://$wmgUploadHostname/commonswikitide/6/64/WikiTide_logo_135px.png",
 	],
 	'wgIcon' => [
 		'default' => false,
@@ -4129,10 +4335,12 @@ $wgConf->settings += [
 	'wgWebAuthnRelyingPartyName' => [
 		'wikiforge' => 'WikiForge',
 		'wikitide' => 'WikiTide',
+		'wikitide' => 'NextTide',
 	],
 	'wgWebAuthnRelyingPartyID' => [
 		'wikiforge' => 'wikiforge.net',
 		'wikitide' => 'wikitide.org',
+		'nexttide' => 'nexttide.org',
 	],
 
 	// Wikibase
