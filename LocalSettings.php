@@ -2670,6 +2670,7 @@ $wgConf->settings += [
 				'viewpmlog',
 				'viewsuppressed',
 			],
+		],
 		'+nexttide' => [
 			'any' => [
 				'abusefilter-hide-log',
