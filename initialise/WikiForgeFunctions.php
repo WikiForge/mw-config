@@ -39,6 +39,7 @@ class WikiForgeFunctions {
 	private const DEFAULT_SERVER = [
 		'wikiforge' => 'wikiforge.net',
 		'wikitide' => 'wikitide.org',
+		'nexttide' => 'nexttide.org',
 	];
 
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
@@ -46,26 +47,30 @@ class WikiForgeFunctions {
 	private const TAGS = [
 		'wikiforge' => 'wikiforge',
 		'wikitide' => 'wikitide',
+		'nexttide' => 'nexttide',
 	];
 
 	public const CENTRAL_WIKI = [
 		'wikiforge' => 'hubwiki',
 		'wikitide' => 'metawikitide',
+		'nexttide' => 'metanexttide',
 	];
 
 	public const GLOBAL_DATABASE = [
 		'wikiforge' => 'wfglobal',
 		'wikitide' => 'wtglobal',
+		'nexttide' => 'ntglobal',
 	];
 
 	public const LISTS = [
 		'wikiforge' => 'wikiforge',
 		'wikitide' => 'wikitide',
+		'nexttide' => 'nexttide',
 	];
 
 	public const MEDIAWIKI_VERSIONS = [
-		'alpha' => '1.41',
-		// 'beta' => '',
+		// 'alpha' => '1.42',
+		'beta' => '1.41',
 		// 'legacy' => '',
 		// 'legacy-lts' => '',
 		'lts' => '1.39',
