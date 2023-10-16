@@ -1,14 +1,15 @@
 <?php
 
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
+header( 'X-Wiki-Farm: ' . $wi->wikifarm );
 
-if ( $wi->wikifarm !== 'wikitide' ) {
+if ( $wi->wikifarm !== 'wikitide' || $wi->wikifarm !== 'nexttide' ) {
 	$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
 	$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
 }
 
 // Extensions
-if ( $wi->wikifarm === 'wikitide' ) {
+if ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ) {
 	wfLoadExtensions( [
 		'CentralAuth',
 		'GlobalCssJs',
@@ -86,7 +87,7 @@ if ( ( ( $wgWikiTideCommons ?? false ) || ( $wgWikiForgeCommons ?? false ) ) && 
 	wfLoadExtension( 'GlobalUsage' );
 }
 
-if ( $wi->wikifarm !== 'wikitide' && $wi->isAnyOfExtensionsActive( 'SearchVue', 'Upload Wizard' ) ) {
+if ( ( $wi->wikifarm !== 'wikitide' || $wi->wikifarm !== 'nexttide' ) && $wi->isAnyOfExtensionsActive( 'SearchVue', 'Upload Wizard' ) ) {
 	wfLoadExtension( 'EventLogging' );
 }
 
@@ -267,7 +268,7 @@ $wgAWSRepoDeletedHashLevels = 3;
 $wgAWSBucketTopSubdirectory = '/' . $wgDBname;
 
 // Closed Wikis
-if ( $wi->wikifarm === 'wikitide' && $cwClosed ) {
+if ( ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ) && $cwClosed ) {
 	$wgRevokePermissions = [
 		'*' => [
 			'block' => true,
@@ -288,7 +289,7 @@ if ( $wi->wikifarm === 'wikitide' && $cwClosed ) {
 
 // Public Wikis
 if ( !$cwPrivate ) {
-	if ( $wi->wikifarm === 'wikitide' ) {
+	if ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ) {
 		$wgRCFeeds['irc'] = [
 			'formatter' => WikiTideIRCRCFeedFormatter::class,
 			'uri' => 'udp://jobrunner11.wikiforge.net:5070',
@@ -356,7 +357,7 @@ $wgDataDump = [
 		'useBackendTempStore' => true,
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateS3Backup.php',
+			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateS3Backup.php',
 			'options' => [
 				'--filename',
 				'${filename}'
@@ -373,7 +374,7 @@ $wgDataDump = [
 		'file_ending' => '.json',
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateManageWikiBackup.php',
+			'script' => "$IP/extensions/" . ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/generateManageWikiBackup.php',
 			'options' => [
 				'--filename',
 				'${filename}'
@@ -416,7 +417,7 @@ if ( $wi->isExtensionActive( 'ContactPage' ) ) {
 		'default' => [
 			'RecipientUser' => $wmgContactPageRecipientUser ?? null,
 			'SenderEmail' => $wgPasswordSender,
-			'SenderName' => ( $wi->wikifarm === 'wikitide' ? 'WikiTide' : 'WikiForge' ) . ' No Reply',
+			'SenderName' => ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ? 'WikiTide' : 'WikiForge' ) . ' No Reply',
 			'RequireDetails' => true,
 			// Should never be set to true
 			'IncludeIP' => false,
@@ -574,7 +575,7 @@ if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiFo
 }
 
 // WikiTide Commons
-if ( $wi->wikifarm === 'wikitide' && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ?? false ) ) {
+if ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ?? false ) ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => 'wikitidecommons',
@@ -677,7 +678,7 @@ if ( $wi->isExtensionActive( 'JsonConfig' ) ) {
 		];
 	}
 
-	if ( $wi->wikifarm === 'wikitide' && $wgDBname !== 'commonswikitide' ) {
+	if ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' && $wgDBname !== 'commonswikitide' ) {
 		$wgJsonConfigs['Map.JsonConfig']['remote'] = [
 			'url' => 'https://commons.wikitide.com/w/api.php'
 		];
