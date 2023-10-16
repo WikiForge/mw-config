@@ -208,7 +208,7 @@ class WikiForgeFunctions {
 		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
 		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 
-		if ( self::getWikiFarm() === 'wikitide' ) {
+		if ( self::getWikiFarm() === 'wikitide' || self::getWikiFarm() === 'nexttide' ) {
 			$wgHooks['CreateWikiJsonBuilder'][] = 'WikiForgeFunctions::onCreateWikiJsonBuilder';
 		}
 
@@ -230,8 +230,8 @@ class WikiForgeFunctions {
 	public static function getWikiFarm(): string {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		return ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ?
-			self::TAGS['wikiforge'] : self::TAGS['wikitide'];
+		return ( substr( self::$currentDatabase, -9 ) === 'nexttide' ) ? self::TAGS['nexttide'] :
+			( ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ? self::TAGS['wikiforge'] : self::TAGS['wikitide'] );
 	}
 
 	/**
@@ -316,6 +316,7 @@ class WikiForgeFunctions {
 
 		static $database = null;
 		$database ??= self::readDbListFile( 'databases-wikiforge', true, 'https://' . $hostname, true ) ?:
+			self::readDbListFile( 'databases-nexttide', true, 'https://' . $hostname, true ) ?:
 			self::readDbListFile( 'databases-wikitide', true, 'https://' . $hostname, true );
 
 		if ( $database ) {
@@ -401,7 +402,7 @@ class WikiForgeFunctions {
 		$siteNameColumn = array_column( $databases, 's' );
 
 		$siteNames = array_combine( array_keys( $databases ), $siteNameColumn );
-		$siteNames['default'] = 'No sitename set.';
+		$siteNames['default'] = 'No sitename set! Misconfigured?';
 
 		return $siteNames;
 	}
@@ -662,7 +663,7 @@ class WikiForgeFunctions {
 		// Assign states
 		$settings['cwPrivate']['default'] = (bool)$cacheArray['states']['private'];
 
-		if ( self::getWikiFarm() === 'wikitide' ) {
+		if ( self::getWikiFarm() === 'wikitide' || self::getWikiFarm() === 'nexttide' ) {
 			$settings['cwClosed']['default'] = (bool)$cacheArray['states']['closed'];
 			$settings['cwLocked']['default'] = (bool)$cacheArray['states']['locked'] ?? false;
 			$settings['cwInactive']['default'] = ( $cacheArray['states']['inactive'] === 'exempt' ) ? 'exempt' : (bool)$cacheArray['states']['inactive'];
@@ -1012,6 +1013,11 @@ class WikiForgeFunctions {
 					self::GLOBAL_DATABASE['wikitide']
 				),
 			],
+			'active-nexttide' => [
+				'combi' => self::getActiveList(
+					self::GLOBAL_DATABASE['nexttide']
+				),
+			],
 			'databases-wikiforge' => [
 				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE['wikiforge']
@@ -1020,6 +1026,11 @@ class WikiForgeFunctions {
 			'databases-wikitide' => [
 				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE['wikitide']
+				),
+			],
+			'databases-nexttide' => [
+				'combi' => self::getCombiList(
+					self::GLOBAL_DATABASE['nexttide']
 				),
 			],
 			'deleted-wikiforge' => [
@@ -1034,12 +1045,19 @@ class WikiForgeFunctions {
 					self::GLOBAL_DATABASE['wikitide']
 				),
 			],
+			'deleted-nexttide' => [
+				'deleted' => 'databases',
+				'databases' => self::getDeletedList(
+					self::GLOBAL_DATABASE['nexttide']
+				),
+			],
 		];
 
 		$databaseLists['databases-all'] = [
 			'combi' => array_merge(
 				$databaseLists['databases-wikiforge']['combi'],
-				$databaseLists['databases-wikitide']['combi']
+				$databaseLists['databases-wikitide']['combi'],
+				$databaseLists['databases-nexttide']['combi']
 			)
 		];
 
@@ -1054,6 +1072,12 @@ class WikiForgeFunctions {
 				$name . '-wikis-wikitide' => [
 					'combi' => self::getCombiList(
 						self::GLOBAL_DATABASE['wikitide'],
+						$version
+					),
+				],
+				$name . '-wikis-nexttide' => [
+					'combi' => self::getCombiList(
+						self::GLOBAL_DATABASE['nexttide'],
 						$version
 					),
 				],
@@ -1094,7 +1118,7 @@ class WikiForgeFunctions {
 
 		asort( $versions );
 
-		if ( $wikiFarm !== 'wikitide' ) {
+		if ( $wikiFarm !== 'wikitide' || $wikiFarm !== 'nexttide' ) {
 			$mwSettings = new ManageWikiSettings( $dbName );
 			$setList = $mwSettings->list();
 			$formDescriptor['article-path'] = [
@@ -1141,7 +1165,7 @@ class WikiForgeFunctions {
 			'section' => 'main',
 		];
 
-		if ( $wikiFarm !== 'wikitide' ) {
+		if ( $wikiFarm !== 'wikitide' || $wikiFarm !== 'nexttide' ) {
 			$wiki = new RemoteWiki( $dbName );
 			if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
 				unset( $formDescriptor['category'], $formDescriptor['description'] );
@@ -1166,7 +1190,7 @@ class WikiForgeFunctions {
 			];
 		}
 
-		if ( self::getWikiFarm() === 'wikitide' ) {
+		if ( self::getWikiFarm() === 'wikitide' | self::getWikiFarm() === 'nexttide' ) {
 			return;
 		}
 
