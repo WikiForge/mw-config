@@ -230,8 +230,8 @@ class WikiForgeFunctions {
 	public static function getWikiFarm(): string {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		return (substr(self::$currentDatabase, -9) === 'nexttide') ? self::TAGS['nexttide'] :
-			((substr(self::$currentDatabase, -4) === 'wiki') ? self::TAGS['wikiforge'] : self::TAGS['wikitide']);
+		return ( substr( self::$currentDatabase, -9 ) === 'nexttide' ) ? self::TAGS['nexttide'] :
+			( ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ? self::TAGS['wikiforge'] : self::TAGS['wikitide'] );
 	}
 
 	/**
@@ -316,7 +316,7 @@ class WikiForgeFunctions {
 
 		static $database = null;
 		$database ??= self::readDbListFile( 'databases-wikiforge', true, 'https://' . $hostname, true ) ?:
-			self::readDbListFile('databases-nexttide', true, 'https://' . $hostname, true) ?:
+			self::readDbListFile( 'databases-nexttide', true, 'https://' . $hostname, true ) ?:
 			self::readDbListFile( 'databases-wikitide', true, 'https://' . $hostname, true );
 
 		if ( $database ) {
