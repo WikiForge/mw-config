@@ -1123,7 +1123,7 @@ class WikiForgeFunctions {
 
 		asort( $versions );
 
-		if ( $wikiFarm !== 'wikitide' || $wikiFarm !== 'nexttide' ) {
+		if ( $wikiFarm !== 'wikitide' ) {
 			$mwSettings = new ManageWikiSettings( $dbName );
 			$setList = $mwSettings->list();
 			$formDescriptor['article-path'] = [
@@ -1170,7 +1170,7 @@ class WikiForgeFunctions {
 			'section' => 'main',
 		];
 
-		if ( $wikiFarm !== 'wikitide' || $wikiFarm !== 'nexttide' ) {
+		if ( $wikiFarm !== 'wikitide' ) {
 			$wiki = new RemoteWiki( $dbName );
 			if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
 				unset( $formDescriptor['category'], $formDescriptor['description'] );
@@ -1195,7 +1195,7 @@ class WikiForgeFunctions {
 			];
 		}
 
-		if ( self::getWikiFarm() === 'wikitide' || self::getWikiFarm() === 'nexttide' ) {
+		if ( self::getWikiFarm() === 'wikitide' ) {
 			return;
 		}
 
