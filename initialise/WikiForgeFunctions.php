@@ -69,7 +69,7 @@ class WikiForgeFunctions {
 	];
 
 	public const MEDIAWIKI_VERSIONS = [
-		// 'alpha' => '1.42',
+		'alpha' => '1.42',
 		'beta' => '1.41',
 		// 'legacy' => '',
 		// 'legacy-lts' => '',
@@ -1195,7 +1195,7 @@ class WikiForgeFunctions {
 			];
 		}
 
-		if ( self::getWikiFarm() === 'wikitide' | self::getWikiFarm() === 'nexttide' ) {
+		if ( self::getWikiFarm() === 'wikitide' || self::getWikiFarm() === 'nexttide' ) {
 			return;
 		}
 
