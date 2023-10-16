@@ -232,10 +232,11 @@ class WikiForgeFunctions {
 
 		if ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ) {
 			return self::TAGS['wikiforge'];
-		} elseif ( substr( self::$currentDatabase, -9 ) === 'nexttide' ) ) {
+		} elseif ( substr( self::$currentDatabase, -8 ) === 'nexttide' ) ) {
 			return self::TAGS['nexttide'] ;
 		} else {
 			return self::TAGS['wikitide'];
+		}
 		}
 	}
 
