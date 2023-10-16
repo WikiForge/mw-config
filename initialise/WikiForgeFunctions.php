@@ -230,9 +230,8 @@ class WikiForgeFunctions {
 	public static function getWikiFarm(): string {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		return ( substr(self::$currentDatabase, -9) === 'nexttide' ) ? self::TAGS['nexttide'] :
-			( substr(self::$currentDatabase, -4) === 'wiki' ) ? self::TAGS['wikiforge'] :
-       			self::TAGS['wikitide'];
+		return (substr(self::$currentDatabase, -9) === 'nexttide') ? self::TAGS['nexttide'] :
+			((substr(self::$currentDatabase, -4) === 'wiki') ? self::TAGS['wikiforge'] : self::TAGS['wikitide']);
 	}
 
 	/**
