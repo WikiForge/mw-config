@@ -1603,7 +1603,7 @@ $wgConf->settings += [
 		'wikitide' => true,
 	],
 	'wgGlobalBlockingDatabase' => [
-		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
+		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
 	],
 
 	// GlobalCssJs
