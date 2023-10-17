@@ -1019,7 +1019,7 @@ $wgConf->settings += [
 		],
 	],
 	'wgRequestWikiConfirmAgreement' => [
-		'wikitide' => true,
+		'wikitide' => false,
 		'nexttide' => true,
 	],
 	'wgRequestWikiDisablePrivateRequests' => [
