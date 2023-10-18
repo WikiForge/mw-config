@@ -39,7 +39,6 @@ class WikiForgeFunctions {
 	private const DEFAULT_SERVER = [
 		'wikiforge' => 'wikiforge.net',
 		'wikitide' => 'wikitide.org',
-		'nexttide' => 'nexttide.org',
 	];
 
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
@@ -47,30 +46,26 @@ class WikiForgeFunctions {
 	private const TAGS = [
 		'wikiforge' => 'wikiforge',
 		'wikitide' => 'wikitide',
-		'nexttide' => 'nexttide',
 	];
 
 	public const CENTRAL_WIKI = [
 		'wikiforge' => 'hubwiki',
 		'wikitide' => 'metawikitide',
-		'nexttide' => 'metanexttide',
 	];
 
 	public const GLOBAL_DATABASE = [
 		'wikiforge' => 'wfglobal',
 		'wikitide' => 'wtglobal',
-		'nexttide' => 'ntglobal',
 	];
 
 	public const LISTS = [
 		'wikiforge' => 'wikiforge',
 		'wikitide' => 'wikitide',
-		'nexttide' => 'nexttide',
 	];
 
 	public const MEDIAWIKI_VERSIONS = [
-		'alpha' => '1.42',
-		'beta' => '1.41',
+		'alpha' => '1.41',
+		// 'beta' => '',
 		// 'legacy' => '',
 		// 'legacy-lts' => '',
 		'lts' => '1.39',
@@ -80,7 +75,6 @@ class WikiForgeFunctions {
 	public const SUFFIXES = [
 		'wiki' => 'wikiforge.net',
 		'wikitide' => 'wikitide.org',
-		'nexttide' => 'nexttide.org',
 	];
 
 	public function __construct() {
@@ -208,7 +202,7 @@ class WikiForgeFunctions {
 		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
 		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 
-		if ( self::getWikiFarm() === 'wikitide' || self::getWikiFarm() === 'nexttide' ) {
+		if ( self::getWikiFarm() === 'wikitide' ) {
 			$wgHooks['CreateWikiJsonBuilder'][] = 'WikiForgeFunctions::onCreateWikiJsonBuilder';
 		}
 
@@ -230,13 +224,8 @@ class WikiForgeFunctions {
 	public static function getWikiFarm(): string {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		if ( substr( self::$currentDatabase, -4 ) === 'wiki' ) {
-			return self::TAGS['wikiforge'];
-		} elseif ( substr( self::$currentDatabase, -8 ) === 'nexttide' ) {
-			return self::TAGS['nexttide'] ;
-		} else {
-			return self::TAGS['wikitide'];
-		}
+		return ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ?
+			self::TAGS['wikiforge'] : self::TAGS['wikitide'];
 	}
 
 	/**
@@ -321,7 +310,6 @@ class WikiForgeFunctions {
 
 		static $database = null;
 		$database ??= self::readDbListFile( 'databases-wikiforge', true, 'https://' . $hostname, true ) ?:
-			self::readDbListFile( 'databases-nexttide', true, 'https://' . $hostname, true ) ?:
 			self::readDbListFile( 'databases-wikitide', true, 'https://' . $hostname, true );
 
 		if ( $database ) {
@@ -407,7 +395,7 @@ class WikiForgeFunctions {
 		$siteNameColumn = array_column( $databases, 's' );
 
 		$siteNames = array_combine( array_keys( $databases ), $siteNameColumn );
-		$siteNames['default'] = 'No sitename set! Misconfigured?';
+		$siteNames['default'] = 'No sitename set.';
 
 		return $siteNames;
 	}
@@ -668,7 +656,7 @@ class WikiForgeFunctions {
 		// Assign states
 		$settings['cwPrivate']['default'] = (bool)$cacheArray['states']['private'];
 
-		if ( self::getWikiFarm() === 'wikitide' || self::getWikiFarm() === 'nexttide' ) {
+		if ( self::getWikiFarm() === 'wikitide' ) {
 			$settings['cwClosed']['default'] = (bool)$cacheArray['states']['closed'];
 			$settings['cwLocked']['default'] = (bool)$cacheArray['states']['locked'] ?? false;
 			$settings['cwInactive']['default'] = ( $cacheArray['states']['inactive'] === 'exempt' ) ? 'exempt' : (bool)$cacheArray['states']['inactive'];
@@ -1018,11 +1006,6 @@ class WikiForgeFunctions {
 					self::GLOBAL_DATABASE['wikitide']
 				),
 			],
-			'active-nexttide' => [
-				'combi' => self::getActiveList(
-					self::GLOBAL_DATABASE['nexttide']
-				),
-			],
 			'databases-wikiforge' => [
 				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE['wikiforge']
@@ -1031,11 +1014,6 @@ class WikiForgeFunctions {
 			'databases-wikitide' => [
 				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE['wikitide']
-				),
-			],
-			'databases-nexttide' => [
-				'combi' => self::getCombiList(
-					self::GLOBAL_DATABASE['nexttide']
 				),
 			],
 			'deleted-wikiforge' => [
@@ -1050,19 +1028,12 @@ class WikiForgeFunctions {
 					self::GLOBAL_DATABASE['wikitide']
 				),
 			],
-			'deleted-nexttide' => [
-				'deleted' => 'databases',
-				'databases' => self::getDeletedList(
-					self::GLOBAL_DATABASE['nexttide']
-				),
-			],
 		];
 
 		$databaseLists['databases-all'] = [
 			'combi' => array_merge(
 				$databaseLists['databases-wikiforge']['combi'],
-				$databaseLists['databases-wikitide']['combi'],
-				$databaseLists['databases-nexttide']['combi']
+				$databaseLists['databases-wikitide']['combi']
 			)
 		];
 
@@ -1077,12 +1048,6 @@ class WikiForgeFunctions {
 				$name . '-wikis-wikitide' => [
 					'combi' => self::getCombiList(
 						self::GLOBAL_DATABASE['wikitide'],
-						$version
-					),
-				],
-				$name . '-wikis-nexttide' => [
-					'combi' => self::getCombiList(
-						self::GLOBAL_DATABASE['nexttide'],
 						$version
 					),
 				],
