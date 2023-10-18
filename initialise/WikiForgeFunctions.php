@@ -64,8 +64,8 @@ class WikiForgeFunctions {
 	];
 
 	public const MEDIAWIKI_VERSIONS = [
-		'alpha' => '1.41',
-		// 'beta' => '',
+		'alpha' => '1.42',
+		'beta' => '1.41',
 		// 'legacy' => '',
 		// 'legacy-lts' => '',
 		'lts' => '1.39',
