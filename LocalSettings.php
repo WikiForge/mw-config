@@ -4204,21 +4204,27 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCdnServers' => [
-		'default' => [
-			/** cp1 */
-			'77.68.52.122:81',
-			/** cp2 */
-			'79.99.42.171:81',
-			/** cp3 */
-			'198.251.65.198:81',
-			/** cp4 */
-			'74.208.107.89:81',
+		/** ONLY WIKITIDE USES VARNISH! */
+		/** WikiForge uses CloudFlare */
+		'wikitide' => [
+			/** cp1 (US) */
+			'208.110.84.235:81',
+			/** cp2 (CAN) */
+			'51.79.55.151:81',
+			/** cp3 (UK) */
+			'51.75.170.66:81',
+			/** cp4 (PL) */
+			'146.59.44.171:81',
+			/** cp5 (SGP) */
+			'15.235.167.159:81',
+			/** cp6 (AU) */
+			'139.99.236.151:81',
 		],
 	],
 	'wgCdnServersNoPurge' => [
 		/** KEEP REGULARLY UPDATED, CloudFlare IP ranges */
-		/** Only set for WikiTide for now, not WikiForge */
-		'default' => [
+		/** Only WikiForge uses CloudFlare, */
+		'wikiforge' => [
 			'103.21.244.0/22',
 			'103.22.200.0/22',
 			'103.31.4.0/22',
