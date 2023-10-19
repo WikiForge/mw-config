@@ -1191,6 +1191,15 @@ $wgManageWikiSettings = [
 		'help' => 'Enables short descritption in site tagline',
 		'requires' => [],
 	],
+	'wgShortDescriptionExtendOpenSearchXml' => [
+		'name' => 'ShortDescription Enable OpenSearch API',
+		'from' => 'shortdescription',
+		'type' => 'check',
+		'overridedefault' => false,
+		'section' => 'parserfunctions',
+		'help' => 'Provide short description to the Opensearch API module',
+		'requires' => [],
+	],
 
 	// Media/File
 	'wgEnableUploads' => [
