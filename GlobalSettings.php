@@ -3,7 +3,7 @@
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 header( 'X-Wiki-Farm: ' . $wi->wikifarm );
 
-if ( $wi->wikifarm !== 'wikitide' || $wi->wikifarm !== 'nexttide' ) {
+if ( $wi->wikifarm !== 'wikitide' ) {
 	$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
 	$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
 }
