@@ -126,6 +126,12 @@ $wgConf->settings += [
 		'default' => '•',
 	],
 
+	// AdvancedSearch => [
+	// We don't have SPARQL installed which is required
+	'wgAdvancedSearchDeepcatEnabled' => [
+		'default' => false,
+	],
+
 	// Anti-spam
 	'wgAccountCreationThrottle' => [
 		'default' => [
