@@ -1,9 +1,8 @@
 <?php
 
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
-header( 'X-Wiki-Farm: ' . $wi->wikifarm );
 
-if ( $wi->wikifarm !== 'wikitide' ) {
+if ( $wi->wikifarm !== 'wikitide' && $wi->wikifarm !== 'nexttide' ) {
 	$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
 	$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
 }
@@ -305,12 +304,12 @@ if ( !$cwPrivate ) {
 }
 
 // Dynamic cookie settings dependant on $wgServer
-if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
-	$wgCentralAuthCookieDomain = '.wikiforge.net';
-	$wgMFStopRedirectCookieHost = '.wikiforge.net';
-} elseif ( preg_match( '/wikitide\.com$/', $wi->server ) ) {
-	$wgCentralAuthCookieDomain = '.wikitide.com';
-	$wgMFStopRedirectCookieHost = '.wikitide.com';
+if ( preg_match( '/wikitide\.org/', $wi->server ) ) {
+	$wgCentralAuthCookieDomain = '.wikitide.org';
+	$wgMFStopRedirectCookieHost = '.wikitide.org';
+} elseif ( preg_match( '/nexttide\.org$/', $wi->server ) ) {
+	$wgCentralAuthCookieDomain = '.nexttide.org';
+	$wgMFStopRedirectCookieHost = '.nexttide.org';
 } else {
 	$wgCentralAuthCookieDomain = $wi->hostname;
 	$wgMFStopRedirectCookieHost = $wi->hostname;
@@ -575,7 +574,7 @@ if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiFo
 }
 
 // WikiTide Commons
-if ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ?? false ) ) {
+if ( ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ) && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ?? false ) ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => 'wikitidecommons',
@@ -634,12 +633,12 @@ if ( $wgWordmark ) {
 // $wgUrlShortenerAllowedDomains
 $wgUrlShortenerAllowedDomains = [
 	'(.*\.)?wikiforge\.net',
-	'(.*\.)?wikitide\.com',
+	'(.*\.)?wikitide\.org',
 ];
 
 if (
 	!preg_match( '/^(.*).wikiforge.net$/', $wi->hostname ) &&
-	!preg_match( '/^(.*).wikitide.com$/', $wi->hostname )
+	!preg_match( '/^(.*).wikitide.org$/', $wi->hostname )
 ) {
 	$wgUrlShortenerAllowedDomains = array_merge(
 		$wgUrlShortenerAllowedDomains,
