@@ -2,7 +2,7 @@
 
 header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
 
-if ( $wi->wikifarm !== 'wikitide' && $wi->wikifarm !== 'nexttide' ) {
+if ( $wi->wikifarm !== 'wikitide' ) {
 	$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
 	$wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
 }
@@ -304,12 +304,11 @@ if ( !$cwPrivate ) {
 }
 
 // Dynamic cookie settings dependant on $wgServer
-if ( preg_match( '/wikitide\.org/', $wi->server ) ) {
+if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
+	$wgMFStopRedirectCookieHost = '.wikiforge.net';
+} elseif ( preg_match( '/wikitide\.org$/', $wi->server ) ) {
 	$wgCentralAuthCookieDomain = '.wikitide.org';
 	$wgMFStopRedirectCookieHost = '.wikitide.org';
-} elseif ( preg_match( '/nexttide\.org$/', $wi->server ) ) {
-	$wgCentralAuthCookieDomain = '.nexttide.org';
-	$wgMFStopRedirectCookieHost = '.nexttide.org';
 } else {
 	$wgCentralAuthCookieDomain = $wi->hostname;
 	$wgMFStopRedirectCookieHost = $wi->hostname;
@@ -574,7 +573,7 @@ if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiFo
 }
 
 // WikiTide Commons
-if ( ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ) && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ?? false ) ) {
+if ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' && ( $wgDBname !== 'commonswikitide' && $wgWikiTideCommons ?? false ) ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => 'wikitidecommons',
@@ -584,8 +583,8 @@ if ( ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ) && ( $wgDB
 		'thumbScriptUrl' => false,
 		'transformVia404' => true,
 		'hasSharedCache' => true,
-		'descBaseUrl' => 'https://commons.wikitide.com/wiki/File:',
-		'scriptDirUrl' => 'https://commons.wikitide.com/w',
+		'descBaseUrl' => 'https://commons.wikitide.org/wiki/File:',
+		'scriptDirUrl' => 'https://commons.wikitide.org/w',
 		'fetchDescription' => true,
 		'descriptionCacheExpiry' => 86400 * 7,
 		'wiki' => 'commonswikitide',
@@ -679,11 +678,11 @@ if ( $wi->isExtensionActive( 'JsonConfig' ) ) {
 
 	if ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' && $wgDBname !== 'commonswikitide' ) {
 		$wgJsonConfigs['Map.JsonConfig']['remote'] = [
-			'url' => 'https://commons.wikitide.com/w/api.php'
+			'url' => 'https://commons.wikitide.org/w/api.php'
 		];
 
 		$wgJsonConfigs['Tabular.JsonConfig']['remote'] = [
-			'url' => 'https://commons.wikitide.com/w/api.php'
+			'url' => 'https://commons.wikitide.org/w/api.php'
 		];
 	}
 }
