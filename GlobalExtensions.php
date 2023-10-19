@@ -34,7 +34,7 @@ wfLoadExtensions( [
 	'cldr',
 ] );
 
-if ( $wi->wikifarm === 'wikitide' ) {
+if ( $wi->wikifarm === 'wikitide' || self::getWikiFarm() === 'nexttide' ) {
 	wfLoadExtensions( [
 		'CentralNotice',
 		'CheckUser',
