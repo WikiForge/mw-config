@@ -816,13 +816,6 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'section' => 'parserhooks',
 	],
-	'realme' => [
-		'name' => 'RealMe',
-		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:RealMe',
-		'conflicts' => false,
-		'requires' => [],
-		'section' => 'parserhooks',
-	],
 	'regexfunctions' => [
 		'name' => 'RegexFunctions',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:RegexFunctions',
