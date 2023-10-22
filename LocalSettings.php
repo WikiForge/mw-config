@@ -4212,9 +4212,9 @@ $wgConf->settings += [
 	'wgCdnServers' => [
 		/** ONLY WIKITIDE USES VARNISH! */
 		/** WikiForge uses CloudFlare */
-		'wikitide' => [
+		'default' => [
 			/** cp1 (US) */
-			'[2604:4300:a:37:0:0:0:118]:81',
+			'[2604:4300:A:37:0:0:0:118]:81',
 			/** cp2 (CAN) */
 			'[2607:5300:205:200::2aa8]:81',
 			/** cp3 (UK) */
