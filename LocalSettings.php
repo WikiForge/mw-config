@@ -2164,7 +2164,7 @@ $wgConf->settings += [
 			'hubwiki' => [
 			'block' => 'block',
 			'delete' => 'delete',
-				'farmer' => 'createwiki',
+			'farmer' => 'createwiki',
 			'import' => 'import',
 			'importdump' => 'createwiki',
 			'incidentreporting' => 'createwiki',
@@ -4254,6 +4254,20 @@ $wgConf->settings += [
 			'2a06:98c0::/29',
 			'2c0f:f248::/32',
 		],
+		/** WikiTide's Varnish uses IPv6 to communicate backend */
+		'wikitide' => [
+			/** cp1 (US) */
+			'2604:4300:a:37::118',
+			/** cp2 (CAN) */
+			'2607:5300:205:200::2aa8',
+			/** cp3 (UK) */
+			'2001:41d0:801:2000::4089',
+			/** cp4 (PL) */
+			'2001:41d0:601:1100::4062',
+			/** cp5 (SGP) */
+			'2402:1f00:8000:800::1b3d',
+			/** cp6 (AU) */
+			'2402:1f00:8100:400::1d23',
 	],
 
 	// Vector
