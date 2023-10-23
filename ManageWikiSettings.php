@@ -3266,15 +3266,6 @@ $wgManageWikiSettings = [
 		'help' => 'The color defined in the <code>theme-color</code> meta tag.',
 		'requires' => [],
 	],
-	'wgCitizenEnableSearch' => [
-		'name' => 'Citizen Enable Search',
-		'from' => 'citizen',
-		'type' => 'check',
-		'overridedefault' => true,
-		'section' => 'styling',
-		'help' => 'Enable or disable rich search suggestions',
-		'requires' => [],
-	],
 	'wgCitizenSearchGateway' => [
 		'name' => 'Citizen Search Gateway',
 		'from' => 'citizen',
@@ -3286,11 +3277,7 @@ $wgManageWikiSettings = [
 		'overridedefault' => 'mwActionApi',
 		'section' => 'styling',
 		'help' => 'Which gateway to use for fetching search suggestion',
-		'requires' => [
-			'settings' => [
-				'setting' => 'wgCitizenEnableSearch',
-				'value' => true,
-			],
+		'requires' => [],
 		],
 	],
 	'wgCitizenSearchDescriptionSource' => [
@@ -3321,11 +3308,7 @@ $wgManageWikiSettings = [
 		'overridedefault' => 6,
 		'section' => 'styling',
 		'help' => 'Max number of search suggestions',
-		'requires' => [
-			'settings' => [
-				'setting' => 'wgCitizenEnableSearch',
-				'value' => true,
-			],
+		'requires' => [],
 		],
 	],
 	'wgCitizenEnableCJKFonts' => [
