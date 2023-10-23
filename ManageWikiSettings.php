@@ -3278,7 +3278,6 @@ $wgManageWikiSettings = [
 		'section' => 'styling',
 		'help' => 'Which gateway to use for fetching search suggestion',
 		'requires' => [],
-		],
 	],
 	'wgCitizenSearchDescriptionSource' => [
 		'name' => 'Citizen Search Description Source',
@@ -3309,7 +3308,6 @@ $wgManageWikiSettings = [
 		'section' => 'styling',
 		'help' => 'Max number of search suggestions',
 		'requires' => [],
-		],
 	],
 	'wgCitizenEnableCJKFonts' => [
 		'name' => 'Citizen Enable CJK fonts',
