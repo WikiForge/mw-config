@@ -1349,6 +1349,13 @@ $wgConf->settings += [
 				'verbose' => true,
 			],
 		],
+		'+cslmodswikitide' => [
+			'api.steampowered.com/*' => [
+				'replacements' => [
+					'STEAM_API_KEY' => $wmgExternalDataCredsCslmodswikitide,
+				],
+			],
+		],
 	],
 
 	// HTTP
