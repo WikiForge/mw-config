@@ -1349,6 +1349,13 @@ $wgConf->settings += [
 				'verbose' => true,
 			],
 		],
+		'+cslmodswikitide' => [
+			'api.steampowered.com/*' => [
+				'replacements' => [
+					'STEAM_API_KEY' => $wmgExternalDataCredsCslmodswikitide,
+				],
+			],
+		],
 	],
 
 	// HTTP
@@ -4212,19 +4219,20 @@ $wgConf->settings += [
 	'wgCdnServers' => [
 		/** ONLY WIKITIDE USES VARNISH! */
 		/** WikiForge uses CloudFlare */
-		'wikitide' => [
+		'default' => [
 			/** cp1 (US) */
-			'208.110.84.235:81',
+			'[2604:4300:A:37:0:0:0:118]:81',
 			/** cp2 (CAN) */
-			'51.79.55.151:81',
+			'[2607:5300:205:200::2aa8]:81',
 			/** cp3 (UK) */
-			'51.75.170.66:81',
+			'[2001:41d0:801:2000::4089]:81',
 			/** cp4 (PL) */
-			'146.59.44.171:81',
+			'[2001:41d0:601:1100::4062]:81',
 			/** cp5 (SGP) */
-			'15.235.167.159:81',
+			'[2402:1f00:8000:800::1b3d]:81',
 			/** cp6 (AU) */
-			'139.99.236.151:81',
+			'[2402:1f00:8100:400::1d23]:81',
+
 		],
 	],
 	'wgCdnServersNoPurge' => [
@@ -4254,8 +4262,8 @@ $wgConf->settings += [
 			'2a06:98c0::/29',
 			'2c0f:f248::/32',
 		],
-		/** WikiTide's Varnish uses IPv6 to communicate backend */
 		'wikitide' => [
+			'127.0.0.1',
 			/** cp1 (US) */
 			'2604:4300:a:37::118',
 			/** cp2 (CAN) */
