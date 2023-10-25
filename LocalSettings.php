@@ -2128,20 +2128,20 @@ $wgConf->settings += [
 	// LinkTarget
 	'wgLinkTargetParentClasses' => [
 		'default' => [],
-		'sdiywikitide' => [ 
-			'_blank' => [ 'extiw' 
-			] 
-		],
-		'scruffywikitide' => [ 
-  			'_blank' => [ 
-				'extiw' 
-			] 
-		],
-		'simpleelectronicswikitide' => [ 
-			'_blank' => 
-				[ 'extiw' 
-			] 
-		],
+		'sdiywikitide' => [
+			'_blank' => [ 'extiw'
+ ]
+ ],
+		'scruffywikitide' => [
+			'_blank' => [
+				'extiw'
+ ]
+ ],
+		'simpleelectronicswikitide' => [
+			'_blank' =>
+				[ 'extiw'
+ ]
+ ],
 	],
 
 	// LinkTitles
