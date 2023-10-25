@@ -110,7 +110,7 @@ $wgEnableSidebarCache = true;
 $wgUseLocalMessageCache = true;
 $wgInvalidateCacheOnLocalSettingsChange = false;
 
-//* if ( $beta ) {
+/** if ( $beta ) {
 	// test11 - No production traffic may use test11
 	$wgObjectCaches['memcached-test11'] = [
 		'class'                => MemcachedPeclBagOStuff::class,
