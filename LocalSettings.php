@@ -2928,7 +2928,7 @@ $wgConf->settings += [
 		'default' => 30,
 	],
 	'wgEnableCanonicalServerLink' => [
-		'default' => false,
+		'default' => true,
 	],
 	'wgPageCreationLog' => [
 		'default' => true,
