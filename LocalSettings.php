@@ -2128,9 +2128,21 @@ $wgConf->settings += [
 	// LinkTarget
 	'wgLinkTargetParentClasses' => [
 		'default' => [],
-		'sdiywiki' => [ '_blank' => [ 'extiw' ] ],
-		'scruffywiki' => [ '_blank' => [ 'extiw' ] ],
-		'simpleelectronicswiki' => [ '_blank' => [ 'extiw' ] ]
+		'sdiywikitide' => [
+			'_blank' => [ 
+				''
+ 			]
+		 ],
+		'scruffywikitide' => [
+			'_blank' => [
+				''
+ 			]
+		 ],
+		'simpleelectronicswikitide' => [
+			'_blank' => [ 
+				''
+ 			]
+		 ],
 	],
 
 	// LinkTitles
@@ -2916,7 +2928,7 @@ $wgConf->settings += [
 		'default' => 30,
 	],
 	'wgEnableCanonicalServerLink' => [
-		'default' => false,
+		'default' => true,
 	],
 	'wgPageCreationLog' => [
 		'default' => true,

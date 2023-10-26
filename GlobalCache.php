@@ -3,7 +3,7 @@
 $wgMemCachedServers = [];
 $wgMemCachedPersistent = false;
 
-$beta = preg_match( '/^(.*)\.nexttide\.org$/', $wi->server );
+// $beta = preg_match( '/^(.*)\.nexttide\.org$/', $wi->server );
 
 // mem11
 $wgObjectCaches['memcached'] = [
@@ -110,7 +110,7 @@ $wgEnableSidebarCache = true;
 $wgUseLocalMessageCache = true;
 $wgInvalidateCacheOnLocalSettingsChange = false;
 
-if ( $beta ) {
+/** if ( $beta ) {
 	// test11 - No production traffic may use test11
 	$wgObjectCaches['memcached-test11'] = [
 		'class'                => MemcachedPeclBagOStuff::class,
@@ -133,7 +133,7 @@ if ( $beta ) {
 
 	$wgSessionCacheType = 'memcached-test11';
 	$wgMWOAuthSessionCacheType = 'memcached-test11';
-}
+}*/
 
 $wgJobTypeConf['default'] = [
 	'class' => JobQueueRedis::class,
