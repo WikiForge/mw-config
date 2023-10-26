@@ -3165,9 +3165,6 @@ $wgConf->settings += [
 	],
 
 	// MultiBoilerplate
-	'wgMultiBoilerplateDisplaySpecialPage' => [
-		'ext-MultiBoilerplate' => false,
-	],
 	'wgMultiBoilerplateOptions' => [
 		'ext-MultiBoilerplate' => false,
 	],
@@ -3861,7 +3858,9 @@ $wgConf->settings += [
 	'wgShortDescriptionEnableTagline' => [
 		'default' => true,
 	],
-
+	'wgShortDescriptionExtendOpenSearchXml' => [
+		'default' => false,
+	],
 	// Skins
 	'wgSkipSkins' => [
 		'default' => [],

@@ -1191,6 +1191,15 @@ $wgManageWikiSettings = [
 		'help' => 'Enables short descritption in site tagline',
 		'requires' => [],
 	],
+	'wgShortDescriptionExtendOpenSearchXml' => [
+		'name' => 'ShortDescription Enable OpenSearch API',
+		'from' => 'shortdescription',
+		'type' => 'check',
+		'overridedefault' => false,
+		'section' => 'parserfunctions',
+		'help' => 'Provide short description to the Opensearch API module',
+		'requires' => [],
+	],
 
 	// Media/File
 	'wgEnableUploads' => [
@@ -3332,15 +3341,6 @@ $wgManageWikiSettings = [
 		],
 		'section' => 'styling',
 		'help' => 'Skins where related articles will be shown in the footer.',
-		'requires' => [],
-	],
-	'wgMultiBoilerplateDiplaySpecialPage' => [
-		'name' => 'MultiBoilerplate Diplay SpecialPage',
-		'from' => 'multiboilerplate',
-		'type' => 'check',
-		'overridedefault' => false,
-		'section' => 'styling',
-		'help' => 'if set, will add to the wiki a page named Special:Boilerplates that shows the currently configured boilerplates.',
 		'requires' => [],
 	],
 	'wgAllowUserCss' => [
