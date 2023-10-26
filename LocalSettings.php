@@ -3861,7 +3861,9 @@ $wgConf->settings += [
 	'wgShortDescriptionEnableTagline' => [
 		'default' => true,
 	],
-
+	'wgShortDescriptionExtendOpenSearchXml' => [
+		'default' => false,
+	],
 	// Skins
 	'wgSkipSkins' => [
 		'default' => [],
