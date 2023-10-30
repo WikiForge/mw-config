@@ -38,29 +38,24 @@ class WikiForgeFunctions {
 
 	private const DEFAULT_SERVER = [
 		'wikiforge' => 'wikiforge.net',
-		'wikitide' => 'wikitide.org',
 	];
 
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
 
 	private const TAGS = [
 		'wikiforge' => 'wikiforge',
-		'wikitide' => 'wikitide',
 	];
 
 	public const CENTRAL_WIKI = [
 		'wikiforge' => 'hubwiki',
-		'wikitide' => 'metawikitide',
 	];
 
 	public const GLOBAL_DATABASE = [
 		'wikiforge' => 'wfglobal',
-		'wikitide' => 'wtglobal',
 	];
 
 	public const LISTS = [
 		'wikiforge' => 'wikiforge',
-		'wikitide' => 'wikitide',
 	];
 
 	public const MEDIAWIKI_VERSIONS = [
@@ -74,7 +69,6 @@ class WikiForgeFunctions {
 
 	public const SUFFIXES = [
 		'wiki' => 'wikiforge.net',
-		'wikitide' => 'wikitide.org',
 	];
 
 	public function __construct() {
@@ -202,10 +196,6 @@ class WikiForgeFunctions {
 		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
 		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 
-		if ( self::getWikiFarm() === 'wikitide' ) {
-			$wgHooks['CreateWikiJsonBuilder'][] = 'WikiForgeFunctions::onCreateWikiJsonBuilder';
-		}
-
 		$wgExtensionFunctions[] = 'WikiForgeFunctions::onExtensionFunctions';
 	}
 
@@ -309,8 +299,7 @@ class WikiForgeFunctions {
 		$hostname = $_SERVER['HTTP_HOST'] ?? 'undefined';
 
 		static $database = null;
-		$database ??= self::readDbListFile( 'databases-wikiforge', true, 'https://' . $hostname, true ) ?:
-			self::readDbListFile( 'databases-wikitide', true, 'https://' . $hostname, true );
+		$database ??= self::readDbListFile( 'databases-wikiforge', true, 'https://' . $hostname, true );
 
 		if ( $database ) {
 			return $database;
@@ -656,13 +645,6 @@ class WikiForgeFunctions {
 		// Assign states
 		$settings['cwPrivate']['default'] = (bool)$cacheArray['states']['private'];
 
-		if ( self::getWikiFarm() === 'wikitide' ) {
-			$settings['cwClosed']['default'] = (bool)$cacheArray['states']['closed'];
-			$settings['cwLocked']['default'] = (bool)$cacheArray['states']['locked'] ?? false;
-			$settings['cwInactive']['default'] = ( $cacheArray['states']['inactive'] === 'exempt' ) ? 'exempt' : (bool)$cacheArray['states']['inactive'];
-			$settings['cwExperimental']['default'] = (bool)( $cacheArray['states']['experimental'] ?? false );
-		}
-
 		// Assign settings
 		if ( isset( $cacheArray['settings'] ) ) {
 			foreach ( $cacheArray['settings'] as $var => $val ) {
@@ -1001,19 +983,9 @@ class WikiForgeFunctions {
 	 */
 	public static function onGenerateDatabaseLists( array &$databaseLists ) {
 		$databaseLists = [
-			'active-wikitide' => [
-				'combi' => self::getActiveList(
-					self::GLOBAL_DATABASE['wikitide']
-				),
-			],
 			'databases-wikiforge' => [
 				'combi' => self::getCombiList(
 					self::GLOBAL_DATABASE['wikiforge']
-				),
-			],
-			'databases-wikitide' => [
-				'combi' => self::getCombiList(
-					self::GLOBAL_DATABASE['wikitide']
 				),
 			],
 			'deleted-wikiforge' => [
@@ -1022,18 +994,11 @@ class WikiForgeFunctions {
 					self::GLOBAL_DATABASE['wikiforge']
 				),
 			],
-			'deleted-wikitide' => [
-				'deleted' => 'databases',
-				'databases' => self::getDeletedList(
-					self::GLOBAL_DATABASE['wikitide']
-				),
-			],
 		];
 
 		$databaseLists['databases-all'] = [
 			'combi' => array_merge(
-				$databaseLists['databases-wikiforge']['combi'],
-				$databaseLists['databases-wikitide']['combi']
+				$databaseLists['databases-wikiforge']['combi']
 			)
 		];
 
@@ -1042,12 +1007,6 @@ class WikiForgeFunctions {
 				$name . '-wikis-wikiforge' => [
 					'combi' => self::getCombiList(
 						self::GLOBAL_DATABASE['wikiforge'],
-						$version
-					),
-				],
-				$name . '-wikis-wikitide' => [
-					'combi' => self::getCombiList(
-						self::GLOBAL_DATABASE['wikitide'],
 						$version
 					),
 				],
@@ -1158,10 +1117,6 @@ class WikiForgeFunctions {
 				'old' => $version,
 				'new' => $formData['mediawiki-version']
 			];
-		}
-
-		if ( self::getWikiFarm() === 'wikitide' ) {
-			return;
 		}
 
 		$mwSettings = new ManageWikiSettings( $dbName );
