@@ -1,6 +1,8 @@
 <?php
 
-header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
+if ( !( $wi->missing && $wgCommandLineMode ) ) {
+	header( 'X-Wiki-Visibility: ' . ( $cwPrivate ? 'Private' : 'Public' ) );
+}
 
 if ( $wi->wikifarm !== 'wikitide' ) {
 	$wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
