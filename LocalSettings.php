@@ -2337,7 +2337,6 @@ $wgConf->settings += [
 				'handle-import-dump-interwiki' => true,
 				'handle-import-dump-requests' => true,
 				'handle-pii' => true,
-				'managewiki' => true,
 				'managewiki-editdefault' => true,
 				'managewiki-restricted' => true,
 				'mwoauthmanageconsumer' => true,
