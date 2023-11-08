@@ -2120,6 +2120,17 @@ $wgConf->settings += [
 		'default' => 'cc-by-sa',
 	],
 
+	// Lingo
+	wgexLingoPage => [
+		'default' => 'Terminology',
+	],
+	wgexLingoDisplayOnce => [
+		'default' => false,
+	],
+	wgexLingoEnableApprovedRevs => [
+		'default' => false,
+	],
+
 	// Links?
 	'+wgUrlProtocols' => [
 		'default' => [],

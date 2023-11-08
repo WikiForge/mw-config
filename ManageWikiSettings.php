@@ -3529,6 +3529,33 @@ $wgManageWikiSettings = [
 //		'help' => 'Enable and disable some features of the Pivot skin',
 //		'requires' => [],
 //	],
+	'wgexLingoPage' => [
+		'name' => 'Terminology Page Name',
+		'from' => 'lingo',
+		'type' => 'text',
+		'overridedefault' => 'Terminology',
+		'section' => 'styling',
+		'help' => 'Specify a different name for the terminology page for Lingo.',
+		'requires' => [],
+	],
+	'wgexLingoPage' => [
+		'name' => 'Terminology Annotated Only Once',
+		'from' => 'lingo',
+		'type' => 'check',
+		'overridedefault' => 'false',
+		'section' => 'styling',
+		'help' => 'Specify that each term should be annotated only once per page.',
+		'requires' => [],
+	],
+	'wgexLingoPage' => [
+		'name' => 'ApprovedRevs Support For Terminology Page',
+		'from' => 'lingo',
+		'type' => 'check',
+		'overridedefault' => 'false',
+		'section' => 'styling',
+		'help' => 'Use ApprovedRevs extension on the Terminology page.',
+		'requires' => [],
+	],
 
 	// Wikibase
 	'wmgWikibaseRepoUrl' => [
