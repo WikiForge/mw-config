@@ -2121,13 +2121,13 @@ $wgConf->settings += [
 	],
 
 	// Lingo
-	wgexLingoPage => [
+	'wgexLingoPage' => [
 		'default' => 'Terminology',
 	],
-	wgexLingoDisplayOnce => [
+	'wgexLingoDisplayOnce' => [
 		'default' => false,
 	],
-	wgexLingoEnableApprovedRevs => [
+	'wgexLingoEnableApprovedRevs' => [
 		'default' => false,
 	],
 
