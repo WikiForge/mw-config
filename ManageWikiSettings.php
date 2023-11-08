@@ -3538,7 +3538,7 @@ $wgManageWikiSettings = [
 		'help' => 'Specify a different name for the terminology page for Lingo.',
 		'requires' => [],
 	],
-	'wgexLingoPage' => [
+	'wgexLingoDisplayOnce' => [
 		'name' => 'Terminology Annotated Only Once',
 		'from' => 'lingo',
 		'type' => 'check',
@@ -3547,7 +3547,7 @@ $wgManageWikiSettings = [
 		'help' => 'Specify that each term should be annotated only once per page.',
 		'requires' => [],
 	],
-	'wgexLingoPage' => [
+	'wgexLingoEnableApprovedRevs' => [
 		'name' => 'ApprovedRevs Support For Terminology Page',
 		'from' => 'lingo',
 		'type' => 'check',
