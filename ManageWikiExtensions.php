@@ -1104,6 +1104,15 @@ $wgManageWikiExtensions = [
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ConfirmAccount',
 		'conflicts' => false,
 		'requires' => [],
+		'install' => [
+			'permissions' => [
+				'bureaucrat' => [
+					'permissions' => [
+						'confirmaccount',
+					],
+				],
+			],
+		],
 		'section' => 'antispam',
 	],
 	'lockauthor' => [
