@@ -1100,7 +1100,7 @@ $wgManageWikiExtensions = [
 		'section' => 'antispam',
 	],
 	'confirmaccount' => [
-		'name' => 'ConfirmAccount',
+		'name' => 'Confirm User Accounts',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ConfirmAccount',
 		'conflicts' => false,
 		'requires' => [],
