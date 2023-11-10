@@ -3,7 +3,7 @@
 /**
  * ManageWiki extensions and skins are added using the variable below.
  *
- * name: MUST match the name in extension.json, skin.json, or $wgExtensionCredits.
+ * name: *MUST* match the name in extension.json, skin.json, or $wgExtensionCredits.
  * displayname: the plain text display name, or a localised message key to be displayed.
  * linkPage: full url for an information page for the extension.
  * description: the plain text description, or a localised message key to be displayed.
@@ -1105,6 +1105,9 @@ $wgManageWikiExtensions = [
 		'conflicts' => false,
 		'requires' => [],
 		'install' => [
+			'sql' => [
+				'account_requests' => "$IP/extensions/ConfirmAccount/includes/backend/schema/mysql/ConfirmAccount.sql"
+			],
 			'permissions' => [
 				'bureaucrat' => [
 					'permissions' => [
