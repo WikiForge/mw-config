@@ -4758,6 +4758,7 @@ $wgConf->settings += [
 	'wgWikiForgeMagicUsersNotifiedOnAllPremiumWikiRequests' => [
 		'wikiforge' => [
 			'Agent Isai',
+			'Reception123',
 			'Universal Omega'
 		],
 	],
