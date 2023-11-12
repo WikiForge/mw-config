@@ -53,7 +53,7 @@ require_once '/srv/mediawiki/config/PrivateSettings.php';
 require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
 $wmgUploadHostname = 'static.wikiforge.net';
-$wmgDBHostname = 'db11.wikiforge.net';
+$wmgDBHostname = 'db11.int.wikiforge.work';
 $wmgRedisHostname = 'jobchron11.wikiforge.net';
 
 $wgConf->settings += [
