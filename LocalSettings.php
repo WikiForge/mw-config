@@ -13,7 +13,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 // Configure PHP request timeouts.
 if ( PHP_SAPI === 'cli' ) {
 	$wgRequestTimeLimit = 0;
-} elseif ( in_array( $_SERVER['HTTP_HOST'] ?? '', [ 'jobrunner11.wikiforge.net' ] ) ) {
+} elseif ( in_array( $_SERVER['HTTP_HOST'] ?? '', [ 'jobrunner1.inside.wf' ] ) ) {
 	$wgRequestTimeLimit = 1200;
 } elseif ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$wgRequestTimeLimit = 200;
@@ -53,8 +53,8 @@ require_once '/srv/mediawiki/config/PrivateSettings.php';
 require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
 $wmgUploadHostname = 'static.wikiforge.net';
-$wmgDBHostname = 'db11.int.wikiforge.work';
-$wmgRedisHostname = 'jobchron11.wikiforge.net';
+$wmgDBHostname = 'db1.inside.wf';
+$wmgRedisHostname = 'jobchron1.inside.wf';
 
 $wgConf->settings += [
 	// invalidates user sessions - do not change unless it is an emergency.
