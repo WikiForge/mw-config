@@ -2129,19 +2129,19 @@ $wgConf->settings += [
 	'wgLinkTargetParentClasses' => [
 		'default' => [],
 		'sdiywikitide' => [
-			'_blank' => [ 
+			'_blank' => [
 				''
- 			]
+			]
 		 ],
 		'scruffywikitide' => [
 			'_blank' => [
 				''
- 			]
+			]
 		 ],
 		'simpleelectronicswikitide' => [
-			'_blank' => [ 
+			'_blank' => [
 				''
- 			]
+			]
 		 ],
 	],
 

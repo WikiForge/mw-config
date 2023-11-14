@@ -111,29 +111,30 @@ $wgUseLocalMessageCache = true;
 $wgInvalidateCacheOnLocalSettingsChange = false;
 
 /** if ( $beta ) {
-	// test11 - No production traffic may use test11
-	$wgObjectCaches['memcached-test11'] = [
-		'class'                => MemcachedPeclBagOStuff::class,
-		'serializer'           => 'php',
-		'persistent'           => false,
-		'servers'              => [ '127.0.0.1:11215' ],
-		// Effectively disable the failure limit (0 is invalid)
-		'server_failure_limit' => 1e9,
-		// Effectively disable the retry timeout
-		'retry_timeout'        => -1,
-		'loggroup'             => 'memcached',
-		// 500ms, in microseconds
-		'timeout'              => 1 * 1e6,
-	];
-
-	$redisServerIP = '127.0.0.1:6379';
-
-	$wgMainCacheType = 'memcached-test11';
-	$wgMessageCacheType = 'memcached-test11';
-
-	$wgSessionCacheType = 'memcached-test11';
-	$wgMWOAuthSessionCacheType = 'memcached-test11';
-}*/
+ * // test11 - No production traffic may use test11
+ * $wgObjectCaches['memcached-test11'] = [
+ * 'class'                => MemcachedPeclBagOStuff::class,
+ * 'serializer'           => 'php',
+ * 'persistent'           => false,
+ * 'servers'              => [ '127.0.0.1:11215' ],
+ * // Effectively disable the failure limit (0 is invalid)
+ * 'server_failure_limit' => 1e9,
+ * // Effectively disable the retry timeout
+ * 'retry_timeout'        => -1,
+ * 'loggroup'             => 'memcached',
+ * // 500ms, in microseconds
+ * 'timeout'              => 1 * 1e6,
+ * ];
+ *
+ * $redisServerIP = '127.0.0.1:6379';
+ *
+ * $wgMainCacheType = 'memcached-test11';
+ * $wgMessageCacheType = 'memcached-test11';
+ *
+ * $wgSessionCacheType = 'memcached-test11';
+ * $wgMWOAuthSessionCacheType = 'memcached-test11';
+ * }
+ */
 
 $wgJobTypeConf['default'] = [
 	'class' => JobQueueRedis::class,
