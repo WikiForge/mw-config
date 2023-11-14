@@ -64,7 +64,7 @@ if ( $wi->isExtensionActive( 'CirrusSearch' ) ) {
 	$wgCirrusSearchClusters = [
 		'default' => [
 			[
-				'host' => 'os11.wikiforge.net',
+				'host' => 'opensearch.inside.wf',
 				'port' => 9200,
 				'transport' => 'Elastica\Transport\Https',
 			],
@@ -293,7 +293,7 @@ if ( !$cwPrivate ) {
 	if ( $wi->wikifarm === 'wikitide' || $wi->wikifarm === 'nexttide' ) {
 		$wgRCFeeds['irc'] = [
 			'formatter' => WikiTideIRCRCFeedFormatter::class,
-			'uri' => 'udp://jobrunner11.wikiforge.net:5070',
+			'uri' => 'udp://jobrunner1.inside.wf:5070',
 			'add_interwiki_prefix' => false,
 			'omit_bots' => true,
 		];
@@ -306,11 +306,8 @@ if ( !$cwPrivate ) {
 }
 
 // Dynamic cookie settings dependant on $wgServer
-if ( preg_match( '/wikiforge\.net$/', $wi->server ) ) {
-	$wgMFStopRedirectCookieHost = '.wikiforge.net';
-} elseif ( preg_match( '/wikitide\.org$/', $wi->server ) ) {
-	$wgCentralAuthCookieDomain = '.wikitide.org';
-	$wgMFStopRedirectCookieHost = '.wikitide.org';
+if ( preg_match( '/your\.wf$/', $wi->server ) ) {
+	$wgMFStopRedirectCookieHost = '.your.wf';
 } else {
 	$wgCentralAuthCookieDomain = $wi->hostname;
 	$wgMFStopRedirectCookieHost = $wi->hostname;
