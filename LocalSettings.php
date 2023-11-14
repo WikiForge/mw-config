@@ -989,9 +989,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCreateWikiSubdomain' => [
-		'wikiforge' => 'wikiforge.net',
-		'wikitide' => 'wikitide.org',
-		'nexttide' => 'nexttide.org',
+		'wikiforge' => 'inside.wf',
 	],
 	'wgCreateWikiUseClosedWikis' => [
 		'wikitide' => true,
@@ -1834,7 +1832,7 @@ $wgConf->settings += [
 		'default' => [
 			'fandom.com' => 'fandom',
 			'miraheze.org' => 'wikiforge',
-			'wikiforge.net' => 'wf',
+			'your.wf' => 'wf',
 			'wikitide.org' => 'wt',
 		],
 	],
@@ -2984,13 +2982,7 @@ $wgConf->settings += [
 	],
 	'wgCrossSiteAJAXdomains' => [
 		'wikiforge' => [
-			'meta.wikiforge.net',
-		],
-		'wikitide' => [
-			'meta.wikitide.org',
-		],
-		'nexttide' => [
-			'meta.wikitide.org',
+			'hub.try.wf',
 		],
 	],
 	'wgTidyConfig' => [
@@ -4384,9 +4376,7 @@ $wgConf->settings += [
 		'wikitide' => 'NextTide',
 	],
 	'wgWebAuthnRelyingPartyID' => [
-		'wikiforge' => 'wikiforge.net',
-		'wikitide' => 'wikitide.org',
-		'nexttide' => 'nexttide.org',
+		'wikiforge' => 'your.wf',
 	],
 
 	// Wikibase
