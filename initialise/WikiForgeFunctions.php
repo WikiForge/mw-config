@@ -37,7 +37,7 @@ class WikiForgeFunctions {
 	private const CACHE_DIRECTORY = '/srv/mediawiki/cache';
 
 	private const DEFAULT_SERVER = [
-		'wikiforge' => 'wikiforge.net',
+		'wikiforge' => 'your.wf',
 	];
 
 	private const MEDIAWIKI_DIRECTORY = '/srv/mediawiki/';
@@ -68,7 +68,7 @@ class WikiForgeFunctions {
 	];
 
 	public const SUFFIXES = [
-		'wiki' => 'wikiforge.net',
+		'wiki' => 'your.wf',
 	];
 
 	public function __construct() {
@@ -402,7 +402,7 @@ class WikiForgeFunctions {
 	 * @return string
 	 */
 	public static function getDefaultMediaWikiVersion(): string {
-		return ( php_uname( 'n' ) === 'test11.wikiforge.net' && isset( self::MEDIAWIKI_VERSIONS['beta'] ) ) ? 'beta' : 'stable';
+		return ( php_uname( 'n' ) === 'test1.inside.wf' && isset( self::MEDIAWIKI_VERSIONS['beta'] ) ) ? 'beta' : 'stable';
 	}
 
 	/**
