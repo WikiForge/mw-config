@@ -1177,10 +1177,10 @@ class WikiForgeFunctions {
 			];
 		}
 
-		$wikiPlan = $mwSettings->list()['wgWikiForgePlan'] ?? 'basic';
+		$remoteWiki = new RemoteWiki( $dbName );
+		$wikiPlan = $remoteWiki->wikiRow->wiki_plan ?? 'basic';
 		if ( $formData['plan'] !== $wikiPlan ) {
-			$mwSettings->modify( [ 'wgWikiForgePlan' => $formData['plan'] ] );
-			$mwSettings->commit();
+			$wiki->newRows['wiki_plan'] = $formData['plan'];
 			$wiki->changes['plan'] = [
 				'old' => $wikiPlan,
 				'new' => $formData['plan']
