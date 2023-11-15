@@ -1102,7 +1102,7 @@ class WikiForgeFunctions {
 					'wikiforge-label-managewiki-plan-enterprise' => 'enterprise',
 
 				],
-				'default' => $setList['wgWikiForgePlan'] ?? 'standard',
+				'default' => $wiki->wikiRow->wiki_inactive_exempt_reason,
 				'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
 				'cssclass' => 'managewiki-infuse',
 				'section' => 'main',
@@ -1177,10 +1177,9 @@ class WikiForgeFunctions {
 			];
 		}
 
-		$wikiPlan = $mwSettings->list()['wgWikiForgePlan'] ?? 'basic';
+		$wikiPlan = $wiki->wikiRow->wiki_plan ?? 'basic';
 		if ( $formData['plan'] !== $wikiPlan ) {
-			$mwSettings->modify( [ 'wgWikiForgePlan' => $formData['plan'] ] );
-			$mwSettings->commit();
+			$wiki->newRows['wiki_plan'] = $formData['plan'];
 			$wiki->changes['plan'] = [
 				'old' => $wikiPlan,
 				'new' => $formData['plan']
