@@ -1091,6 +1091,8 @@ class WikiForgeFunctions {
 			'section' => 'main',
 		];
 
+		$wiki = new RemoteWiki( $dbName );
+
 		if ( $permissionManager->userHasRight( $context->getUser(), 'managewiki-core' ) ) {
 			$formDescriptor['plan'] = [
 				'label-message' => 'wikiforge-label-managewiki-plan',
@@ -1109,7 +1111,6 @@ class WikiForgeFunctions {
 			];
 		}
 
-		$wiki = new RemoteWiki( $dbName );
 		if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
 			unset( $formDescriptor['category'], $formDescriptor['description'] );
 		}
