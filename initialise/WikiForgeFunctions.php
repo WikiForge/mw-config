@@ -1102,7 +1102,7 @@ class WikiForgeFunctions {
 					'wikiforge-label-managewiki-plan-enterprise' => 'enterprise',
 
 				],
-				'default' => $wiki->wikiRow->wiki_plan,
+				'default' => (string)$wiki->wikiRow->wiki_plan,
 				'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
 				'cssclass' => 'managewiki-infuse',
 				'section' => 'main',
