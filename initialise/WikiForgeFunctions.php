@@ -214,8 +214,7 @@ class WikiForgeFunctions {
 	public static function getWikiFarm(): string {
 		self::$currentDatabase ??= self::getCurrentDatabase();
 
-		return ( substr( self::$currentDatabase, -4 ) === 'wiki' ) ?
-			self::TAGS['wikiforge'] : self::TAGS['wikitide'];
+		return self::TAGS['wikiforge'];
 	}
 
 	/**
@@ -1047,41 +1046,39 @@ class WikiForgeFunctions {
 
 		asort( $versions );
 
-		if ( $wikiFarm !== 'wikitide' ) {
-			$mwSettings = new ManageWikiSettings( $dbName );
-			$setList = $mwSettings->list();
-			$formDescriptor['article-path'] = [
-				'label-message' => 'wikiforge-label-managewiki-article-path',
-				'type' => 'select',
-				'options-messages' => [
-					'wikiforge-label-managewiki-article-path-wiki' => '/wiki/$1',
-					'wikiforge-label-managewiki-article-path-root' => '/$1',
-				],
-				'default' => $setList['wgArticlePath'] ?? '/wiki/$1',
-				'disabled' => !$ceMW,
-				'cssclass' => 'managewiki-infuse',
-				'section' => 'main',
-			];
+		$mwSettings = new ManageWikiSettings( $dbName );
+		$setList = $mwSettings->list();
+		$formDescriptor['article-path'] = [
+			'label-message' => 'wikiforge-label-managewiki-article-path',
+			'type' => 'select',
+			'options-messages' => [
+				'wikiforge-label-managewiki-article-path-wiki' => '/wiki/$1',
+				'wikiforge-label-managewiki-article-path-root' => '/$1',
+			],
+			'default' => $setList['wgArticlePath'] ?? '/wiki/$1',
+			'disabled' => !$ceMW,
+			'cssclass' => 'managewiki-infuse',
+			'section' => 'main',
+		];
 
-			$formDescriptor['mainpage-is-domain-root'] = [
-				'label-message' => 'wikiforge-label-managewiki-mainpage-is-domain-root',
+		$formDescriptor['mainpage-is-domain-root'] = [
+			'label-message' => 'wikiforge-label-managewiki-mainpage-is-domain-root',
+			'type' => 'check',
+			'default' => $setList['wgMainPageIsDomainRoot'] ?? false,
+			'disabled' => !$ceMW,
+			'cssclass' => 'managewiki-infuse',
+			'section' => 'main',
+		];
+
+		if ( $permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ) ) {
+			$formDescriptor['checkuser'] = [
+				'label-message' => 'wikiforge-label-managewiki-checkuser',
 				'type' => 'check',
-				'default' => $setList['wgMainPageIsDomainRoot'] ?? false,
-				'disabled' => !$ceMW,
+				'default' => $setList['wgWikiForgeEnableCheckUser'] ?? false,
+				'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
 				'cssclass' => 'managewiki-infuse',
 				'section' => 'main',
 			];
-
-			if ( $permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ) ) {
-				$formDescriptor['checkuser'] = [
-					'label-message' => 'wikiforge-label-managewiki-checkuser',
-					'type' => 'check',
-					'default' => $setList['wgWikiForgeEnableCheckUser'] ?? false,
-					'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
-					'cssclass' => 'managewiki-infuse',
-					'section' => 'main',
-				];
-			}
 		}
 
 		$formDescriptor['mediawiki-version'] = [
@@ -1094,11 +1091,27 @@ class WikiForgeFunctions {
 			'section' => 'main',
 		];
 
-		if ( $wikiFarm !== 'wikitide' ) {
-			$wiki = new RemoteWiki( $dbName );
-			if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
-				unset( $formDescriptor['category'], $formDescriptor['description'] );
-			}
+		if ( $permissionManager->userHasRight( $context->getUser(), 'managewiki-core' ) ) {
+			$formDescriptor['plan'] = [
+				'label-message' => 'wikiforge-label-managewiki-plan',
+				'type' => 'select',
+				'options-messages' => [
+					'wikiforge-label-managewiki-plan-standard' => 'standard',
+					'wikiforge-label-managewiki-plan-pro' => 'pro',
+					'wikiforge-label-managewiki-plan-dedicated' => 'dedicated',
+					'wikiforge-label-managewiki-plan-enterprise' => 'enterprise',
+
+				],
+				'default' => $setList['wgWikiForgePlan'] ?? 'standard',
+				'disabled' => !$permissionManager->userHasRight( $context->getUser(), 'managewiki-restricted' ),
+				'cssclass' => 'managewiki-infuse',
+				'section' => 'main',
+			];
+		}
+
+		$wiki = new RemoteWiki( $dbName );
+		if ( ( $setList['wgWikiDiscoverExclude'] ?? false ) || $wiki->isPrivate() ) {
+			unset( $formDescriptor['category'], $formDescriptor['description'] );
 		}
 	}
 
@@ -1161,6 +1174,16 @@ class WikiForgeFunctions {
 			$wiki->changes['checkuser'] = [
 				'old' => $wikiForgeEnableCheckUser,
 				'new' => $formData['checkuser']
+			];
+		}
+
+		$wikiPlan = $mwSettings->list()['wgWikiForgePlan'] ?? 'basic';
+		if ( $formData['plan'] !== $wikiPlan ) {
+			$mwSettings->modify( [ 'wgWikiForgePlan' => $formData['plan'] ] );
+			$mwSettings->commit();
+			$wiki->changes['plan'] = [
+				'old' => $wikiPlan,
+				'new' => $formData['plan']
 			];
 		}
 	}
