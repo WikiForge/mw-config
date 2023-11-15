@@ -212,8 +212,6 @@ class WikiForgeFunctions {
 	 * @return string
 	 */
 	public static function getWikiFarm(): string {
-		self::$currentDatabase ??= self::getCurrentDatabase();
-
 		return self::TAGS['wikiforge'];
 	}
 
@@ -993,12 +991,6 @@ class WikiForgeFunctions {
 					self::GLOBAL_DATABASE['wikiforge']
 				),
 			],
-		];
-
-		$databaseLists['databases-all'] = [
-			'combi' => array_merge(
-				$databaseLists['databases-wikiforge']['combi']
-			)
 		];
 
 		foreach ( self::MEDIAWIKI_VERSIONS as $name => $version ) {
