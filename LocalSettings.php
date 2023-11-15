@@ -989,7 +989,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgCreateWikiSubdomain' => [
-		'wikiforge' => 'inside.wf',
+		'wikiforge' => 'your.wf',
 	],
 	'wgCreateWikiUseClosedWikis' => [
 		'wikitide' => true,
