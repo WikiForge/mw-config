@@ -4725,7 +4725,7 @@ $wgConf->settings += [
 				'pricing' => 'Starting from $14.99/month',
 				'info' => 'Unlock more features for your wiki for power-users and professionals.',
 				'features' => [
-					'All the features in Standard, plus...'
+					'All the features in Standard, plus...',
 					'50 GB file storage (+$1/month for every 10 GB after that)',
 					'Analytics support (Matomo)',
 					'Cargo and SemanticMediaWiki support',
