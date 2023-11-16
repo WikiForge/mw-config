@@ -4715,7 +4715,7 @@ $wgConf->settings += [
 					'10 GB file storage (+$1/month for every 10 GB after that)',
 					'Custom domain support',
 					'CirrusSearch/ElasticSearch support',
-					'Latest or LTS version of MediaWiki—your choice'
+					'Latest or LTS version of MediaWiki—your choice',
 					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
 					'VisualEditor integration and related extensions (such as DiscussionTools)',
 					'Add an additional wiki for $5/mo.',
