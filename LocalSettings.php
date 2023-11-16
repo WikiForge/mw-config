@@ -4708,36 +4708,62 @@ $wgConf->settings += [
 	],
 	'wgWikiForgeMagicRequestPremiumWikiPlans' => [
 		'wikiforge' => [
-			'basic' => [
+			'standard' => [
 				'pricing' => 'Starting from $9.99/month',
 				'info' => 'Get started with our basic plan that offers essential features for your premium wiki.',
 				'features' => [
-					'10 GB file storage (+$2/month for every 10 GB after that)',
+					'10 GB file storage (+$1/month for every 10 GB after that)',
 					'Custom domain support',
 					'CirrusSearch/ElasticSearch support',
-					'SSO (Single Sign-On) integration (optional)',
+					'Latest or LTS version of MediaWiki—your choice'
 					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
+					'VisualEditor integration and related extensions (such as DiscussionTools)',
+					'Add an additional wiki for $5/mo.',
+				],
+			],
+			'pro' => [
+				'pricing' => 'Starting from $14.99/month',
+				'info' => 'Unlock more features for your wiki for power-users and professionals.',
+				'features' => [
+					'All the features in Standard, plus...'
+					'50 GB file storage (+$1/month for every 10 GB after that)',
+					'Analytics support (Matomo)',
+					'Cargo and SemanticMediaWiki support',
+					'Add an additional wiki for $5/mo.',
+				],
+			],
+			'ultimate' => [
+				'pricing' => 'Starting from $19.99/month',
+				'info' => 'The ultimate MediaWiki experience.',
+				'features' => [
+					'All the features in Pro, plus...',
+					'SSO (Single Sign-on) integration (LDAP, OIDC, SAML, and more)',
+					'Wider assortment of SemanticMediaWiki extensions',
+					'Add an additional wiki for $5/mo.',
 				],
 			],
 			'dedicated' => [
-				'pricing' => 'Starting from $28.99/month',
+				'pricing' => 'Starting from $29.99/month',
 				'info' => 'Upgrade to our dedicated plan for advanced capabilities and dedicated resources. Host your wiki on dedicated MediaWiki servers.',
 				'features' => [
-					'50 GB file storage (+$2/month for every 10 GB after that)',
-					'Custom domain support',
-					'CirrusSearch/ElasticSearch support',
-					'SSO (Single Sign-On) integration (optional)',
-					'ManageWiki extension: Effortlessly manage popular settings, group rights, namespaces, and hundreds of extensions and skins directly on your wiki.',
-					'Dedicated MediaWiki servers (2vCPU / 2GB RAM) (or extra servers in a load-balanced cluster for an extra $10/month/server)',
+					'All the features in Ultimate, plus...',
+					'100 GB file storage (+$1/month for every 10 GB after that)',
+					'Access to more feature intensive features (such as increasing Loops)',
+					'Dedicated MediaWiki servers (4vCPU / 4GB RAM) (or extra servers in a load-balanced cluster for an extra $10/month/server)',
+					'Access to dedicated databases and caching (for an extra $10/mo and $5/mo, respectively)',
+					'Higher resillency',
+					'Add an additional wiki for $5/mo.',
 				],
 			],
 			'enterprise' => [
 				'pricing' => 'Contact us for pricing',
 				'info' => 'Tailored solutions for enterprise customers with specific requirements and scalability needs.',
 				'features' => [
-					'All features from the dedicated plan',
-					'Customize resources to your needs',
+					'All the features in the Dedicated plan, plus...',
+					'Customize and dedicated resources to your needs',
 					'Custom extensions (if technically feasible)',
+					'Faster support',
+					'Add an additional wiki for $5/mo.',
 				],
 			],
 		],
