@@ -55,7 +55,7 @@
  * permissions: an array. Set to an array of permissions required for the setting to be visible.
  */
 
-$wikiFarmName = $wi->wikifarm === 'wikitide' ? 'WikiTide' : 'WikiForge';
+$wikiFarmName = 'WikiForge';
 
 $wgManageWikiSettings = [
 	// Anti-Spam
@@ -1250,16 +1250,6 @@ $wgManageWikiSettings = [
 		'overridedefault' => true,
 		'section' => 'media',
 		'help' => 'This option allows you to use the WikiForge Commons file database on your wiki.',
-		'requires' => [],
-	],
-	'wgWikiTideCommons' => [
-		'name' => 'Enable WikiTide Commons (linking to commons.wikitide.com)',
-		'from' => 'mediawiki',
-		'global' => true,
-		'type' => 'check',
-		'overridedefault' => true,
-		'section' => 'media',
-		'help' => 'This option allows you to use the WikiTide Commons file database on your wiki.',
 		'requires' => [],
 	],
 	'wgShowArchiveThumbnails' => [
@@ -4377,32 +4367,20 @@ $wgManageWikiSettings = [
 	],
 ];
 
-if ( $wi->wikifarm === 'wikitide' ) {
-	unset(
-		$wgManageWikiSettings['wgWikiForgeCommons'],
-		$wgManageWikiSettings['wgEchoCrossWikiNotifications']
-	);
-} else {
-	$wgManageWikiSettings['wgSVGMetadataCutoff']['requires'] = [];
-	$wgManageWikiSettings['wgSVGMetadataCutoff']['section'] = 'advanced';
+$wgManageWikiSettings['wgSVGMetadataCutoff']['requires'] = [];
+$wgManageWikiSettings['wgSVGMetadataCutoff']['section'] = 'advanced';
 
-	$wgManageWikiSettings['wgMaxArticleSize']['requires'] = [];
-	$wgManageWikiSettings['wgMaxArticleSize']['section'] = 'advanced';
+$wgManageWikiSettings['wgMaxArticleSize']['requires'] = [];
+$wgManageWikiSettings['wgMaxArticleSize']['section'] = 'advanced';
 
-	$wgManageWikiSettings['wgMaxCredits']['requires'] = [];
-	$wgManageWikiSettings['wgMaxCredits']['section'] = 'advanced';
+$wgManageWikiSettings['wgMaxCredits']['requires'] = [];
+$wgManageWikiSettings['wgMaxCredits']['section'] = 'advanced';
 
-	$wgManageWikiSettings['wgHAWelcomeWelcomeUsername']['requires'] = [];
-	$wgManageWikiSettings['wgHAWelcomeWelcomeUsername']['section'] = 'advanced';
+$wgManageWikiSettings['wgHAWelcomeWelcomeUsername']['requires'] = [];
+$wgManageWikiSettings['wgHAWelcomeWelcomeUsername']['section'] = 'advanced';
 
-	$wgManageWikiSettings['wgExpensiveParserFunctionLimit']['requires'] = [];
-	$wgManageWikiSettings['wgExpensiveParserFunctionLimit']['section'] = 'advanced';
-
-	unset(
-		$wgManageWikiSettings['wgCompressRevisions'],
-		$wgManageWikiSettings['wgWikiTideCommons']
-	);
-}
+$wgManageWikiSettings['wgExpensiveParserFunctionLimit']['requires'] = [];
+$wgManageWikiSettings['wgExpensiveParserFunctionLimit']['section'] = 'advanced';
 
 // Don't need a global here
 unset( $wikiFarmName );
