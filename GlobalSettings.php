@@ -366,7 +366,7 @@ if ( $wi->isExtensionActive( 'ContactPage' ) ) {
 		'default' => [
 			'RecipientUser' => $wmgContactPageRecipientUser ?? null,
 			'SenderEmail' => $wgPasswordSender,
-			'SenderName' =>  'ContactPage extension via' . $wgDBname . 'on WikiForge',
+			'SenderName' => 'ContactPage extension via' . $wgDBname . 'on WikiForge',
 			'RequireDetails' => true,
 			// Should never be set to true
 			'IncludeIP' => false,
