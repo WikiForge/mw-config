@@ -4367,7 +4367,6 @@ $wgManageWikiSettings = [
 	],
 ];
 
-
 $wgManageWikiSettings['wgSVGMetadataCutoff']['requires'] = [];
 $wgManageWikiSettings['wgSVGMetadataCutoff']['section'] = 'advanced';
 
