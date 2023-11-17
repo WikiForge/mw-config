@@ -306,7 +306,7 @@ $wgDataDump = [
 		'useBackendTempStore' => true,
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => '$IP/extensions/WikiForgeMagic/maintenance/generateS3Backup.php',
+			'script' => "$IP/extensions/WikiForgeMagic/maintenance/generateS3Backup.php",
 			'options' => [
 				'--filename',
 				'${filename}'
@@ -323,7 +323,7 @@ $wgDataDump = [
 		'file_ending' => '.json',
 		'generate' => [
 			'type' => 'mwscript',
-			'script' => '$IP/extensions/WikiForgeMagic/maintenance/generateManageWikiBackup.php',
+			'script' => "$IP/extensions/WikiForgeMagic/maintenance/generateManageWikiBackup.php",
 			'options' => [
 				'--filename',
 				'${filename}'

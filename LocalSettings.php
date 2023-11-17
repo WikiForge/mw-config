@@ -344,32 +344,6 @@ $wgConf->settings += [
 		'default' => [ 10 => 1, 20 => 1, 0 => 2 ],
 	],
 
-	// CentralNotice
-	'wgNoticeInfrastructure' => [
-		'metawikitide' => true,
-	],
-	'wgCentralSelectedBannerDispatcher' => [
-		'wikitide' => 'https://meta.wikitide.org/wiki/Special:BannerLoader',
-	],
-	'wgCentralBannerRecorder' => [
-		'wikitide' => 'https://meta.wikitide.org/wiki/Special:RecordImpression',
-	],
-	'wgCentralDBname' => [
-		'wikitide' => 'metawikitide',
-	],
-	'wgCentralHost' => [
-		'wikitide' => 'https://meta.wikitide.org',
-	],
-	'wgNoticeProjects' => [
-		'wikitide' => [
-			'all',
-			'optout',
-		],
-	],
-	'wgNoticeUseTranslateExtension' => [
-		'wikitide' => true,
-	],
-
 	// Chameleon
 	'egChameleonLayoutFile' => [
 		'default' => '/srv/mediawiki/' . $wi->version . '/skins/chameleon/layouts/standard.xml',
@@ -455,6 +429,9 @@ $wgConf->settings += [
 	],
 	'wgCommentsSortDescending' => [
 		'default' => false,
+	],
+	'wgCommentTempTableSchemaMigrationStage' => [
+		'default' => SCHEMA_COMPAT_WRITE_BOTH | SCHEMA_COMPAT_READ_OLD,
 	],
 
 	// CommentStreams
@@ -1758,7 +1735,9 @@ $wgConf->settings += [
 	'+wgUrlProtocols' => [
 		'default' => [],
 	],
-
+	'wgExternalLinksSchemaMigrationStage' => [
+		'default' => SCHEMA_COMPAT_WRITE_BOTH | SCHEMA_COMPAT_READ_OLD,
+	],
 	// LinkTarget
 	'wgLinkTargetParentClasses' => [
 		'default' => [],
@@ -4137,7 +4116,6 @@ $wgConf->settings += [
 			'CentralAuth' => 'info',
 			'CentralAuthRename' => false,
 			'CentralAuthVerbose' => false,
-			'CentralNotice' => false,
 			'cite' => false,
 			'ContentHandler' => false,
 			'CookieWarning' => false,
