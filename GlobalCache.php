@@ -3,9 +3,7 @@
 $wgMemCachedServers = [];
 $wgMemCachedPersistent = false;
 
-// $beta = preg_match( '/^(.*)\.nexttide\.org$/', $wi->server );
-
-// mem11
+// mem1
 $wgObjectCaches['memcached'] = [
 	'class'                => MemcachedPeclBagOStuff::class,
 	'serializer'           => 'php',
@@ -60,22 +58,10 @@ $wgObjectCaches['mysql-multiwrite'] = [
 	'reportDupes' => false
 ];
 
-if ( $wi->wikifarm === 'wikitide' ) {
-	$wgObjectCaches['redis-session'] = [
-		'class' => RedisBagOStuff::class,
-		'servers' => [ $wmgRedisHostname ],
-		'password' => $wmgRedisPassword,
-		'loggroup' => 'redis',
-		'reportDupes' => false,
-	];
+$wgSessionCacheType = 'memcached';
 
-	$wgSessionCacheType = 'redis-session';
-} else {
-	$wgSessionCacheType = 'memcached';
-
-	// Same as $wgMainStash
-	$wgMWOAuthSessionCacheType = 'db-replicated';
-}
+// Same as $wgMainStash
+$wgMWOAuthSessionCacheType = 'db-replicated';
 
 $wgMainCacheType = 'memcached';
 $wgMessageCacheType = 'memcached';
