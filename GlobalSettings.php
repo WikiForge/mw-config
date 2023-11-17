@@ -156,7 +156,7 @@ $wgHooks['MimeMagicInit'][] = static function ( MimeAnalyzer $mime ) {
 	$mime->addExtraTypes( 'font/woff2 woff2' );
 };
 
-// Expose $wgDBname to page HTML for WikiForgeDebugJS
+// Expose $wgDBname to page HTML for the MediaWikiDebugJS extension for Chrome
 $wgHooks['MakeGlobalVariablesScript'][] = static function ( &$vars, $out ): void {
 	$vars['wgDBname'] = $out->getConfig()->get( 'DBname' );
 };
