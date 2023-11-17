@@ -4383,8 +4383,6 @@ $wgManageWikiSettings['wgHAWelcomeWelcomeUsername']['section'] = 'advanced';
 $wgManageWikiSettings['wgExpensiveParserFunctionLimit']['requires'] = [];
 $wgManageWikiSettings['wgExpensiveParserFunctionLimit']['section'] = 'advanced';
 
-}
-
 // Don't need a global here
 unset( $wikiFarmName );
 
