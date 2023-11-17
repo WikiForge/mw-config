@@ -254,7 +254,7 @@ $wgManageWikiExtensions = [
 		],
 		'install' => [
 			'mwscript' => [
-				"$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/createCargoDB.php' => [],
+				'$IP/extensions/WikiForgeMagic/maintenance/createCargoDB.php' => [],
 			],
 			'sql' => [
 				'cargo_tables' => "$IP/extensions/Cargo/sql/Cargo.sql",
@@ -2353,13 +2353,6 @@ $wgManageWikiExtensions = [
 		],
 		'section' => 'other',
 	],
-	'globaluserpage' => [
-		'name' => 'GlobalUserPage',
-		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GlobalUserPage',
-		'conflicts' => false,
-		'requires' => [],
-		'section' => 'other',
-	],
 	'guidedtour' => [
 		'name' => 'GuidedTour',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GuidedTour',
@@ -3311,7 +3304,7 @@ $wgManageWikiExtensions = [
 				'wb_property_info' => "$IP/extensions/Wikibase/repo/sql/mysql/wb_property_info.sql"
 			],
 			'mwscript' => [
-				"$IP/extensions/" . ( $wi->wikifarm === 'wikitide' ? 'WikiTideMagic' : 'WikiForgeMagic' ) . '/maintenance/populateWikibaseSitesTable.php' => [],
+				'$IP/extensions/WikiForgeMagic/maintenance/populateWikibaseSitesTable.php' => [],
 			],
 		],
 		'section' => 'other',
@@ -3723,25 +3716,3 @@ $wgManageWikiExtensions = [
 		'section' => 'skins',
 	],
 ];
-
-if ( $wi->wikifarm === 'wikitide' ) {
-	// Only SRE/Stewards can enable, for now
-	$wgManageWikiExtensions['advancedsearch']['requires']['permissions'] = [ 'managewiki-restricted' ];
-	$wgManageWikiExtensions['cirrussearch']['requires']['permissions'] = [ 'managewiki-restricted' ];
-	$wgManageWikiExtensions['relatedarticles']['requires']['permissions'] = [ 'managewiki-restricted' ];
-
-	// No Score or services on WikiTide (yet at least)
-	unset(
-		$wgManageWikiExtensions['citoid'],
-		$wgManageWikiExtensions['collection'],
-		// Incompatible with CentralAuth
-		$wgManageWikiExtensions['confirmaccount'],
-		$wgManageWikiExtensions['electronpdfservice'],
-		$wgManageWikiExtensions['score'],
-		// Incompatible with CentralAuth
-		$wgManageWikiExtensions['usermerge']
-	);
-} elseif ( $wi->wikifarm === 'wikiforge' ) {
-	// WikiForge is not global so we don't use GlobalUserPage
-	unset( $wgManageWikiExtensions['globaluserpage'] );
-}
