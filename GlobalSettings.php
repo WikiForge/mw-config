@@ -8,7 +8,7 @@ $wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialReques
 $wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
 
 // Extensions
-if ( $wi->wikifarm === 'wikiforge' && ( $wgWikiForgeEnableCheckUser ?? false ) ) {
+if ( $wgWikiForgeEnableCheckUser ?? false ) {
 	wfLoadExtensions( [
 		'CheckUser',
 		'IPInfo',
@@ -489,7 +489,7 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 }
 
 // WikiForge Commons
-if ( $wi->wikifarm === 'wikiforge' && ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ?? false ) ) {
+if ( $wgDBname !== 'commonswiki' && $wgWikiForgeCommons ?? false ) {
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => 'wikiforgecommons',
@@ -580,7 +580,7 @@ if ( $wi->isExtensionActive( 'JsonConfig' ) ) {
 		],
 	];
 
-	if ( $wi->wikifarm === 'wikiforge' && $wgDBname !== 'commonswiki' ) {
+	if ( $wgDBname !== 'commonswiki' ) {
 		$wgJsonConfigs['Map.JsonConfig']['remote'] = [
 			'url' => 'https://commons.wikiforge.net/w/api.php'
 		];
