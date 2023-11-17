@@ -37,7 +37,7 @@ $wgWBRepoSettings['federatedPropertiesEnabled'] = $wmgFederatedPropertiesEnabled
 $wgWBRepoSettings['formatterUrlProperty'] = $wmgFormatterUrlProperty ?: null;
 $wgWBRepoSettings['canonicalUriProperty'] = $wmgCanonicalUriProperty ?: null;
 
-$siteGroup = $wi->wikifarm === 'wikitide' ? 'wikitide' : 'wikiforge';
+$siteGroup = 'wikiforge';
 
 $wgWBRepoSettings['siteLinkGroups'] = [
 	$siteGroup
