@@ -4129,7 +4129,6 @@ $wgConf->settings += [
 			'error' => 'debug',
 			'error-json' => false,
 			'EventLogging' => false,
-			'EventStreamConfig' => false,
 			'exception' => 'debug',
 			'exception-json' => false,
 			'exec' => 'debug',
