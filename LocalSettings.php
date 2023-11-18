@@ -1,7 +1,7 @@
 <?php
 
 /**
- * LocalSettings.php for WikiForge and WikiTide.
+ * LocalSettings.php for WikiForge.
  * Authors of initial version: Universal Omega, Miraheze contributors
  */
 
