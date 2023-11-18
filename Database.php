@@ -38,7 +38,7 @@ $wgLBFactoryConf = [
 	],
 	'externalLoads' => [
 		'echo' => [
-			/** where the metawiki and metawikitide databases are located */
+			/** where the metawiki database is located */
 			'db1' => 1,
 		],
 	],
