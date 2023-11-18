@@ -261,7 +261,6 @@ if ( !$cwPrivate ) {
 if ( preg_match( '/your\.wf$/', $wi->server ) ) {
 	$wgMFStopRedirectCookieHost = '.your.wf';
 } else {
-	$wgCentralAuthCookieDomain = $wi->hostname;
 	$wgMFStopRedirectCookieHost = $wi->hostname;
 }
 

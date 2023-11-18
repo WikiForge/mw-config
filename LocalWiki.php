@@ -19,13 +19,9 @@ switch ( $wi->dbname ) {
 		];
 
 		break;
-	case 'betatestwiki':
-		$wgDplSettings['functionalRichness'] = 4;
-		break;
 	case 'hubwiki':
 		wfLoadExtensions( [
 			'FileStorageMonitor',
-			'GlobalWatchlist',
 			'ImportDump',
 			'IncidentReporting',
 			'SecurePoll',
