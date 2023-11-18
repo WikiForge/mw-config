@@ -1282,14 +1282,6 @@ $wgConf->settings += [
 		'default' => [],
 	],
 
-	// GlobalBlocking
-	'wgApplyGlobalBlocks' => [
-		'default' => false,
-	],
-	'wgGlobalBlockingDatabase' => [
-		'default' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
-	],
-
 	// GlobalUsage
 	'wgGlobalUsageDatabase' => [
 		'default' => 'commonswiki',
