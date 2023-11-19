@@ -1282,17 +1282,6 @@ $wgConf->settings += [
 		'default' => [],
 	],
 
-	// GlobalUsage
-	'wgGlobalUsageDatabase' => [
-		'default' => 'commonswiki',
-	],
-	'wgGlobalUsageSharedRepoWiki' => [
-		'default' => false,
-	],
-	'wgGlobalUsagePurgeBacklinks' => [
-		'default' => false,
-	],
-
 	// Grant Permissions for BotPasswords and OAuth
 	'+wgGrantPermissions' => [
 		'default' => [
@@ -1485,10 +1474,6 @@ $wgConf->settings += [
 	// JsonConfig
 	'wgJsonConfigEnableLuaSupport' => [
 		'default' => true,
-	],
-	'wgJsonConfigInterwikiPrefix' => [
-		'default' => 'commons',
-		'commonswiki' => 'meta',
 	],
 	'wgJsonConfigModels' => [
 		'default' => [
@@ -3136,7 +3121,7 @@ $wgConf->settings += [
 		'default' => '/favicon.ico',
 	],
 	'wgLogo' => [
-		'default' => "https://$wmgUploadHostname/commonswikitide/8/80/WikiForge_logo_135px.png",
+		'default' => "https://$wmgUploadHostname/hubwiki/8/80/WikiForge_logo_135px.png",
 	],
 	'wgIcon' => [
 		'default' => false,
