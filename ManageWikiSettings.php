@@ -1240,16 +1240,6 @@ $wgManageWikiSettings = [
 		'help' => 'This option allows you to use the Wikimedia Commons file database on your wiki. This is a performance optimised version of the core <code>$wgUseInstantCommons</code>.',
 		'requires' => [],
 	],
-	'wgWikiForgeCommons' => [
-		'name' => 'Enable WikiForge Commons (linking to commons.wikiforge.net)',
-		'from' => 'mediawiki',
-		'global' => true,
-		'type' => 'check',
-		'overridedefault' => true,
-		'section' => 'media',
-		'help' => 'This option allows you to use the WikiForge Commons file database on your wiki.',
-		'requires' => [],
-	],
 	'wgShowArchiveThumbnails' => [
 		'name' => 'Show Old Thumbnails On Description Page',
 		'from' => 'mediawiki',
