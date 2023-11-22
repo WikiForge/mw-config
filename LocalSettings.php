@@ -1200,9 +1200,6 @@ $wgConf->settings += [
 	'wgMaxAnimatedGifArea' => [
 		'default' => '1.25e7',
 	],
-	'wgWikiForgeCommons' => [
-		'wikiforge' => true,
-	],
 	'wgEnableImageWhitelist' => [
 		'default' => false,
 	],
