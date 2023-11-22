@@ -1200,9 +1200,6 @@ $wgConf->settings += [
 	'wgMaxAnimatedGifArea' => [
 		'default' => '1.25e7',
 	],
-	'wgWikiForgeCommons' => [
-		'wikiforge' => true,
-	],
 	'wgEnableImageWhitelist' => [
 		'default' => false,
 	],
@@ -1280,17 +1277,6 @@ $wgConf->settings += [
 	// GeoData
 	'wgGlobes' => [
 		'default' => [],
-	],
-
-	// GlobalUsage
-	'wgGlobalUsageDatabase' => [
-		'default' => 'commonswiki',
-	],
-	'wgGlobalUsageSharedRepoWiki' => [
-		'default' => false,
-	],
-	'wgGlobalUsagePurgeBacklinks' => [
-		'default' => false,
 	],
 
 	// Grant Permissions for BotPasswords and OAuth
@@ -1485,10 +1471,6 @@ $wgConf->settings += [
 	// JsonConfig
 	'wgJsonConfigEnableLuaSupport' => [
 		'default' => true,
-	],
-	'wgJsonConfigInterwikiPrefix' => [
-		'default' => 'commons',
-		'commonswiki' => 'meta',
 	],
 	'wgJsonConfigModels' => [
 		'default' => [
@@ -3136,7 +3118,7 @@ $wgConf->settings += [
 		'default' => '/favicon.ico',
 	],
 	'wgLogo' => [
-		'default' => "https://$wmgUploadHostname/commonswikitide/8/80/WikiForge_logo_135px.png",
+		'default' => "https://$wmgUploadHostname/hubwiki/8/80/WikiForge_logo_135px.png",
 	],
 	'wgIcon' => [
 		'default' => false,
