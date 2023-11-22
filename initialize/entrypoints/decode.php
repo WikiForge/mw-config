@@ -1,6 +1,6 @@
 <?php
 
-require_once '/srv/mediawiki/config/initialise/WikiForgeFunctions.php';
+require_once '/srv/mediawiki/config/initialize/WikiForgeFunctions.php';
 require WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
 
 use MediaWiki\MediaWikiServices;

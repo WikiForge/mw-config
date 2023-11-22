@@ -2,7 +2,7 @@
 
 define( 'MW_ENTRY_POINT', 'index' );
 
-require_once '/srv/mediawiki/config/initialise/WikiForgeFunctions.php';
+require_once '/srv/mediawiki/config/initialize/WikiForgeFunctions.php';
 require WikiForgeFunctions::getMediaWiki( 'includes/WebStart.php' );
 
 if ( $wgArticlePath === '/$1' && str_contains( strtoupper( $_SERVER['REQUEST_URI'] ), strtoupper( '/wiki/' ) ) ) {

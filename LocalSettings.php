@@ -43,7 +43,7 @@ if ( ( $forceprofile == 1 || PHP_SAPI === 'cli' ) && extension_loaded( 'tideways
 // Show custom database maintenance error page on these clusters.
 $wgDatabaseClustersMaintenance = [];
 
-require_once '/srv/mediawiki/config/initialise/WikiForgeFunctions.php';
+require_once '/srv/mediawiki/config/initialize/WikiForgeFunctions.php';
 $wi = new WikiForgeFunctions();
 
 // Load PrivateSettings (e.g. $wgDBpassword)
