@@ -669,4 +669,4 @@ $wgScribuntoEngineConf['luasandbox']['memoryLimit'] = 50 * 1024 * 1024;
 $wgScribuntoEngineConf['luasandbox']['cpuLimit'] = 10;
 
 // Mathoid
-$wgMathMathMLUrl = 'http://74.208.104.183:10044/';
+$wgMathMathMLUrl = 'http://10.0.0.115:10044/';
