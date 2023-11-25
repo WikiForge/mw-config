@@ -432,7 +432,7 @@ $wgConf->settings += [
 	],
 	'wgCommentTempTableSchemaMigrationStage' => [
 		'default' => [
-			'rev_comment' => SCHEMA_COMPAT_WRITE_BOTH | SCHEMA_COMPAT_READ_OLD,
+			'rev_comment' => SCHEMA_COMPAT_NEW,
 		],
 	],
 
