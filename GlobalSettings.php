@@ -247,9 +247,6 @@ $wgAWSBucketTopSubdirectory = '/' . $wgDBname;
 
 // Public Wikis
 if ( !$cwPrivate ) {
-	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
-	$wgDiscordExperimentalWebhook = $wmgDiscordExperimentalWebhook;
-
 	$wgDataDumpDownloadUrl = "https://{$wmgUploadHostname}/{$wi->dbname}/dumps/\${filename}";
 }
 
