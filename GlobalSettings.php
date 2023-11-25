@@ -706,3 +706,5 @@ $wgPoolCountClientConf = [
 	'servers' => [ '10.0.0.105' ],
 	'timeout' => 0.5,
 ];
+
+$wgMathMathMLUrl = 'http://10.0.0.115:10044/';
