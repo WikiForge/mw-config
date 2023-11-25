@@ -247,9 +247,6 @@ $wgAWSBucketTopSubdirectory = '/' . $wgDBname;
 
 // Public Wikis
 if ( !$cwPrivate ) {
-	$wgDiscordIncomingWebhookUrl = $wmgGlobalDiscordWebhookUrl;
-	$wgDiscordExperimentalWebhook = $wmgDiscordExperimentalWebhook;
-
 	$wgDataDumpDownloadUrl = "https://{$wmgUploadHostname}/{$wi->dbname}/dumps/\${filename}";
 }
 
@@ -668,5 +665,46 @@ $wgSVGConverters['inkscape'] = '$path/inkscape -w $width -o $output $input';
 $wgScribuntoEngineConf['luasandbox']['memoryLimit'] = 50 * 1024 * 1024;
 $wgScribuntoEngineConf['luasandbox']['cpuLimit'] = 10;
 
-// Mathoid
+$wgPoolCounterConf = [
+	'ArticleView' => [
+		'class' => 'PoolCounter_Client',
+		'timeout' => 15,
+		'workers' => 2,
+		'maxqueue' => 100,
+		'fastStale' => true,
+	],
+	'FileRender' => [
+		'class' => 'PoolCounter_Client',
+		'timeout' => 8,
+		'workers' => 2,
+		'maxqueue' => 100,
+	],
+	'FileRenderExpensive' => [
+		'class' => 'PoolCounter_Client',
+		'timeout' => 8,
+		'workers' => 2,
+		'slots' => 8,
+		'maxqueue' => 100,
+	],
+	'SpecialContributions' => [
+		'class' => 'PoolCounter_Client',
+		'timeout' => 15,
+		'workers' => 2,
+		'maxqueue' => 25,
+	],
+	'TranslateFetchTranslators' => [
+		'class' => 'PoolCounter_Client',
+		'timeout' => 8,
+		'workers' => 1,
+		'slots' => 16,
+		'maxqueue' => 20,
+	],
+];
+
+$wgPoolCountClientConf = [
+	// jobchron1
+	'servers' => [ '10.0.0.105' ],
+	'timeout' => 0.5,
+];
+
 $wgMathMathMLUrl = 'http://10.0.0.115:10044/';
