@@ -991,11 +991,31 @@ class WikiForgeFunctions {
 					self::GLOBAL_DATABASE['wikiforge']
 				),
 			],
+			'databases' => [
+				'combi' => self::getCombiList(
+					self::GLOBAL_DATABASE['wikiforge']
+				),
+			],
+			'deleted' => [
+				'deleted' => 'databases',
+				'databases' => self::getDeletedList(
+					self::GLOBAL_DATABASE['wikiforge']
+				),
+			],
 		];
 
 		foreach ( self::MEDIAWIKI_VERSIONS as $name => $version ) {
 			$databaseLists += [
 				$name . '-wikis-wikiforge' => [
+					'combi' => self::getCombiList(
+						self::GLOBAL_DATABASE['wikiforge'],
+						$version
+					),
+				],
+			];
+
+			$databaseLists += [
+				$name . '-wikis' => [
 					'combi' => self::getCombiList(
 						self::GLOBAL_DATABASE['wikiforge'],
 						$version
