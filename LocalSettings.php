@@ -275,11 +275,6 @@ $wgConf->settings += [
 		'default' => true,
 	],
 
-	// Bot passwords
-	'wgBotPasswordsDatabase' => [
-		'wikitide' => $wi::GLOBAL_DATABASE[$wi->wikifarm],
-	],
-
 	// Cache
 	'wgCacheDirectory' => [
 		'default' => '/srv/mediawiki/cache',
@@ -3339,33 +3334,13 @@ $wgConf->settings += [
 		'ext-UserPageEditProtection' => true,
 	],
 
-	// Varnish
+	// CloudFlare
 	'wgUseCdn' => [
 		'default' => true,
 	],
-	'wgCdnServers' => [
-		/** ONLY WIKITIDE USES VARNISH! */
-		/** WikiForge uses CloudFlare */
-		'default' => [
-			/** cp1 (US) */
-			'[2604:4300:A:37:0:0:0:118]:81',
-			/** cp2 (CAN) */
-			'[2607:5300:205:200::2aa8]:81',
-			/** cp3 (UK) */
-			'[2001:41d0:801:2000::4089]:81',
-			/** cp4 (PL) */
-			'[2001:41d0:601:1100::4062]:81',
-			/** cp5 (SGP) */
-			'[2402:1f00:8000:800::1b3d]:81',
-			/** cp6 (AU) */
-			'[2402:1f00:8100:400::1d23]:81',
-
-		],
-	],
 	'wgCdnServersNoPurge' => [
 		/** KEEP REGULARLY UPDATED, CloudFlare IP ranges */
-		/** Only WikiForge uses CloudFlare, */
-		'wikiforge' => [
+		'default' => [
 			'103.21.244.0/22',
 			'103.22.200.0/22',
 			'103.31.4.0/22',
@@ -4019,18 +3994,6 @@ $wgConf->settings += [
 	],
 
 	// CreateWiki Defined Special Variables
-	'cwClosed' => [
-		'wikitide' => false,
-	],
-	'cwExperimental' => [
-		'wikitide' => false,
-	],
-	'cwInactive' => [
-		'wikitide' => false,
-	],
-	'cwLocked' => [
-		'wikitide' => false,
-	],
 	'cwPrivate' => [
 		'default' => false,
 	],
