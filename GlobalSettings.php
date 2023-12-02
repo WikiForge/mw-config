@@ -703,8 +703,9 @@ $wgPoolCounterConf = [
 
 $wgPoolCountClientConf = [
 	// jobchron1
-	'servers' => [ '10.0.0.105' ],
+	'servers' => [ '10.0.0.105:7531' ],
 	'timeout' => 0.5,
+	'connect_timeout' => 0.01,
 ];
 
 $wgMathMathMLUrl = 'http://10.0.0.115:10044/';
