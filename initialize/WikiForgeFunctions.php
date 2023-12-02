@@ -72,7 +72,6 @@ class WikiForgeFunctions {
 	];
 
 	public function __construct() {
-		self::setupHooks();
 		self::setupSiteConfiguration();
 
 		$this->dbname = self::getCurrentDatabase();
@@ -186,17 +185,6 @@ class WikiForgeFunctions {
 		}
 
 		return $databases;
-	}
-
-	public static function setupHooks() {
-		global $wgHooks, $wgExtensionFunctions;
-
-		$wgHooks['CreateWikiJsonGenerateDatabaseList'][] = 'WikiForgeFunctions::onGenerateDatabaseLists';
-		$wgHooks['ManageWikiCoreAddFormFields'][] = 'WikiForgeFunctions::onManageWikiCoreAddFormFields';
-		$wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
-		$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
-
-		$wgExtensionFunctions[] = 'WikiForgeFunctions::onExtensionFunctions';
 	}
 
 	public static function setupSiteConfiguration() {
