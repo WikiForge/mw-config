@@ -37,18 +37,7 @@ $wgObjectCaches['mysql-multiwrite'] = [
 					'dbname'    => 'parsercache',
 					'user'      => $wgDBuser,
 					'password'  => $wgDBpassword,
-					'ssl'       => true,
 					'flags'     => 0,
-					/**
-					 * MediaWiki checks if the certificate presented by MariaDB is signed
-					 * by the certificate authority listed in 'sslCAFile'. In emergencies
-					 * this could be set to /etc/ssl/certs/ca-certificates.crt (all trusted
-					 * CAs), but setting this to one CA reduces attack vector and CAs
-					 * to dig through when checking the certificate provided by MariaDB.
-					 *
-					 * TEMPORARY: use ca-certificates.crt, as this doesn't seem to like LetsEncrypt.crt
-					 */
-					'sslCAFile' => '/etc/ssl/certs/ca-certificates.crt',
 				],
 			],
 			'purgePeriod' => 0,
