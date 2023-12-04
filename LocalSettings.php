@@ -1687,8 +1687,12 @@ $wgConf->settings += [
 	'wgRightsPage' => [
 		'default' => '',
 	],
-	'wgRightsText' => [],
-	'wgRightsUrl' => [],
+	'wgRightsText' => [
+		'harrypotterwiki' => 'Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)',
+	],
+	'wgRightsUrl' => [
+		'harrypotterwiki' => 'https://creativecommons.org/licenses/by-sa/3.0',
+	],
 	'wmgWikiLicense' => [
 		'default' => 'cc-by-sa',
 	],
