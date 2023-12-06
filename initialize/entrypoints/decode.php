@@ -26,6 +26,14 @@ if ( $decodedUri && !str_contains( $queryString, 'title' ) ) {
 	$queryParameters['title'] = $title;
 }
 
+if ( $wgArticlePath === '/wiki/$1' && isset( $_GET['diff'] ) ) {
+	if ( !$decodedUri ) {
+		$redirectUrl .= '/';
+	}
+	$queryParameters ??= [];
+	$queryParameters['diff'] = $_GET['diff'];
+}
+
 if ( $queryString || isset( $queryParameters ) ) {
 	if ( !isset( $queryParameters ) ) {
 		// We don't want to decode %26 into & or it breaks things such as search functionality
