@@ -1775,7 +1775,7 @@ $wgConf->settings += [
 	],
 	'wgSMTP' => [
 		'default' => [
-			'host' => 'mail.wikiforge.net',
+			'host' => 'tuesday.mxrouting.net',
 			'port' => 587,
 			'IDHost' => 'wikiforge.net',
 			'auth' => true,
