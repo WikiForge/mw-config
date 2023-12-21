@@ -3337,9 +3337,23 @@ $wgConf->settings += [
 		'ext-UserPageEditProtection' => true,
 	],
 
-	// CloudFlare
+	// CloudFlare & Varnish
 	'wgUseCdn' => [
 		'default' => true,
+	],
+	'wgCdnServers' => [
+		'default' => [
+			/** cp2 (CA) **/
+			'2607:5300:201:3100::175d',
+			/** cp3 (UK) **/
+			'2001:41d0:801:2000::2200',
+			/** cp4 (PL) **/
+			'2001:41d0:601:1100::2d57',
+			/** cp5 (SG) **/
+			'2402:1f00:8000:800::184e',
+			/** cp6 (AU) **/
+			'2402:1f00:8100:400::1e70',
+		],
 	],
 	'wgCdnServersNoPurge' => [
 		/** KEEP REGULARLY UPDATED, CloudFlare IP ranges */
