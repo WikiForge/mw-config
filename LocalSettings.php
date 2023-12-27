@@ -1778,7 +1778,7 @@ $wgConf->settings += [
 			'host' => 'tuesday.mxrouting.net',
 			'port' => 587,
 			'auth' => true,
-			'username' => 'noreply@mail.wikiforge.net',
+			'username' => 'noreply@wikiforge.net',
 			'password' => $wmgSMTPPassword,
 		],
 	],
