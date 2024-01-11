@@ -100,7 +100,7 @@ if ( $wi->isExtensionActive( 'SemanticMediaWiki' ) ) {
 if ( $wi->isExtensionActive( 'SocialProfile' ) ) {
 	require_once "$IP/extensions/SocialProfile/SocialProfile.php";
 
-	$wgSocialProfileFileBackend = 'AmazonS3';
+	$wgSocialProfileFileBackend = 'wikiforge-swift';
 }
 
 if ( $wi->isExtensionActive( 'VisualEditor' ) ) {
@@ -230,28 +230,6 @@ unset( $actions, $articlePath );
 
 $wgAllowedCorsHeaders[] = 'X-WikiForge-Debug';
 
-// AWS
-$wgAWSCredentials = [
-	'key' => $wmgAWSAccessKey,
-	'secret' => $wmgAWSAccessSecretKey,
-	'token' => false,
-];
-
-// Without this, AWS SDK tries to direct requests to amazonaws.com
-$wgFileBackends['s3']['endpoint'] = 'https://506ef7707567ae07d19f7be565c8515d.r2.cloudflarestorage.com';
-
-// Without this, AWS SDK appends wgBucketName
-$wgFileBackends['s3']['use_path_style_endpoint'] = true;
-
-$wgAWSRegion = 'us-east-1';
-$wgAWSBucketName = 'wikiforgestatic';
-$wgAWSBucketDomain = 'static.wikiforge.net';
-
-$wgAWSRepoHashLevels = 2;
-$wgAWSRepoDeletedHashLevels = 3;
-
-$wgAWSBucketTopSubdirectory = '/' . $wgDBname;
-
 // Public Wikis
 if ( !$cwPrivate ) {
 	$wgDataDumpDownloadUrl = "https://{$wmgUploadHostname}/{$wi->dbname}/dumps/\${filename}";
@@ -265,7 +243,7 @@ if ( preg_match( '/your\.wf$/', $wi->server ) ) {
 }
 
 // DataDump
-$wgDataDumpFileBackend = 'AmazonS3';
+$wgDataDumpFileBackend = 'wikiforge-swift';
 
 $wgDataDump = [
 	'xml' => [
@@ -394,11 +372,11 @@ if ( $wi->isExtensionActive( 'UploadWizard' ) ) {
 }
 
 if ( $wi->isExtensionActive( 'Score' ) ) {
-	$wgScoreFileBackend = 'AmazonS3';
+	$wgScoreFileBackend = 'wikiforge-swift';
 }
 
 if ( $wi->isExtensionActive( 'EasyTimeline' ) ) {
-	$wgTimelineFileBackend = 'AmazonS3';
+	$wgTimelineFileBackend = 'wikiforge-swift';
 }
 
 // $wgFooterIcons
@@ -424,28 +402,6 @@ if ( $cwPrivate ) {
 	$wgUploadPath = '/w/img_auth.php';
 }
 
-$wgLocalFileRepo = [
-	'class' => LocalRepo::class,
-	'name' => 'local',
-	'backend' => 'AmazonS3',
-	'url' => $wgUploadBaseUrl ? $wgUploadBaseUrl . $wgUploadPath : $wgUploadPath,
-	'scriptDirUrl' => $wgScriptPath,
-	'hashLevels' => 2,
-	'thumbScriptUrl' => '/w/thumb.php',
-	'thumbProxyUrl' => 'https://thumb-lb.wikiforge.net/',
-	'transformVia404' => true,
-	'disableLocalTransform' => true,
-	'useJsonMetadata'   => true,
-	'useSplitMetadata'  => true,
-	'deletedHashLevels' => 3,
-	'abbrvThreshold' => 160,
-	'isPrivate' => $cwPrivate,
-	'zones' => $cwPrivate
-		? [
-			'thumb' => [ 'url' => '/w/thumb_handler.php' ] ]
-		: [],
-];
-
 // $wgForeignFileRepos
 if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUploadDBname, $wgLocalDatabases ) ) {
 	if ( !$wmgSharedUploadBaseUrl || $wmgSharedUploadBaseUrl === $wmgSharedUploadDBname ) {
@@ -457,7 +413,7 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 	$wgForeignFileRepos[] = [
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => "shared-{$wmgSharedUploadDBname}",
-		'backend' => 'AmazonS3',
+		'backend' => 'wikiforge-swift',
 		'url' => "https://static.wikiforge.net/{$wmgSharedUploadDBname}",
 		'hashLevels' => 2,
 		'thumbScriptUrl' => false,
