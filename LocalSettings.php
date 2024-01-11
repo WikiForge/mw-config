@@ -809,6 +809,7 @@ $wgConf->settings += [
 			'dumps-backup' => 'public-private',
 			'timeline-render' => 'public-private'
 		],
+	],
 
 	// CookieWarning
 	'wgCookieWarningMoreUrl' => [
