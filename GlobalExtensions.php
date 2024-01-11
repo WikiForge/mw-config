@@ -3,7 +3,6 @@
 wfLoadSkin( 'Vector' );
 
 wfLoadExtensions( [
-	'AWS',
 	'AbuseFilter',
 	'AntiSpoof',
 	'BetaFeatures',
