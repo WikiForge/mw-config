@@ -542,7 +542,7 @@ class WikiForgeFunctions {
 			), $wikiTags
 		);
 
-		list( $site, $lang ) = $wgConf->siteFromDB( $wgDBname );
+		[ $site, $lang ] = $wgConf->siteFromDB( $wgDBname );
 		$dbSuffix = self::getCurrentSuffix();
 
 		$confParams = [
