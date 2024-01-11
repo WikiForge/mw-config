@@ -6,8 +6,7 @@ $wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialR
 $wgHooks['CreateWikiJsonGenerateDatabaseList'][] = 'WikiForgeFunctions::onGenerateDatabaseLists';
 $wgHooks['ManageWikiCoreAddFormFields'][] = 'WikiForgeFunctions::onManageWikiCoreAddFormFields';
 $wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
-
-$wgExtensionFunctions[] = 'WikiForgeFunctions::onExtensionFunctions';
+$wgHooks['MediaWikiServices'][] = 'WikiForgeFunctions::onMediaWikiServices';
 
 // Extensions
 if ( $wgWikiForgeEnableCheckUser ?? false ) {
