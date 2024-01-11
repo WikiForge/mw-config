@@ -792,6 +792,23 @@ $wgConf->settings += [
 	'wgCreateWikiUsePrivateWikis' => [
 		'default' => true,
 	],
+	'wgCreateWikiUseSecureContainers' => [
+		'default' => true,
+	],
+	'wgCreateWikiContainers' => [
+		'default' => [
+			'dumps-backup',
+			'timeline-render',
+			'avatars' => 'public-private',
+			'awards' => 'public-private',
+			'local-public' => 'public-private',
+			'local-thumb' => 'public-private',
+			'local-transcoded' => 'public-private',
+			'local-temp' => 'private',
+			'local-deleted' => 'private',
+			'dumps-backup' => 'public-private',
+			'timeline-render' => 'public-private'
+		],
 
 	// CookieWarning
 	'wgCookieWarningMoreUrl' => [
@@ -1415,18 +1432,18 @@ $wgConf->settings += [
 
 	// ImportDump
 	'wgImportDumpCentralWiki' => [
-		'default' => $wi::CENTRAL_WIKI[$wi->wikifarm],
+		'default' => 'hubwiki',
 	],
 	'wgImportDumpInterwikiMap' => [
 		'default' => [
 			'fandom.com' => 'fandom',
-			'miraheze.org' => 'wikiforge',
+			'miraheze.org' => 'miraheze',
 			'your.wf' => 'wf',
 			'wikitide.org' => 'wt',
 		],
 	],
 	'wgImportDumpScriptCommand' => [
-		'default' => 'screen -d -m bash -c ". /etc/s3-env.sh; aws s3 cp s3://static.wikiforge.net/' . $wi::CENTRAL_WIKI[$wi->wikifarm] . '/{file-path} /home/$USER/{file-name}; mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /home/$USER/{file-name}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y; rm /home/$USER/{file-name}"',
+		'default' => 'screen -d -m bash -c ". /etc/swift-env.sh; swift download wikiforge-hubwiki-local-public {file} -o /home/$USER/{file}; mwscript importDump.php {wiki} -y --no-updates --username-prefix={username-prefix} /home/$USER/{file}; mwscript rebuildall.php {wiki} -y; mwscript initSiteStats.php {wiki} --active --update -y; rm /home/$USER/{file}"',
 	],
 	'wgImportDumpUsersNotifiedOnAllRequests' => [
 		'default' => [
