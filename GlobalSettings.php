@@ -672,5 +672,5 @@ $wgPoolCountClientConf = [
 $wgMathMathMLUrl = 'http://10.0.0.115:10044/';
 
 // Disable file uploads
-$wgUploadMaintenance = true;
-$wgEnableUploads = false;
+// $wgUploadMaintenance = true;
+// $wgEnableUploads = false;
