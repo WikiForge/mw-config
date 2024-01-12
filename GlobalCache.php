@@ -88,9 +88,11 @@ $wgEnableSidebarCache = true;
 $wgUseLocalMessageCache = true;
 $wgInvalidateCacheOnLocalSettingsChange = false;
 
+$wgCdnMatchParameterOrder = false;
+
 /** if ( $beta ) {
- * // test11 - No production traffic may use test11
- * $wgObjectCaches['memcached-test11'] = [
+ * // test11 - No production traffic may use test1
+ * $wgObjectCaches['memcached-test1'] = [
  * 'class'                => MemcachedPeclBagOStuff::class,
  * 'serializer'           => 'php',
  * 'persistent'           => false,
@@ -106,11 +108,11 @@ $wgInvalidateCacheOnLocalSettingsChange = false;
  *
  * $redisServerIP = '127.0.0.1:6379';
  *
- * $wgMainCacheType = 'memcached-test11';
- * $wgMessageCacheType = 'memcached-test11';
+ * $wgMainCacheType = 'memcached-test1';
+ * $wgMessageCacheType = 'memcached-test1';
  *
- * $wgSessionCacheType = 'memcached-test11';
- * $wgMWOAuthSessionCacheType = 'memcached-test11';
+ * $wgSessionCacheType = 'memcached-test1';
+ * $wgMWOAuthSessionCacheType = 'memcached-test1';
  * }
  */
 
