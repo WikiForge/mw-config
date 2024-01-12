@@ -3380,6 +3380,8 @@ $wgConf->settings += [
 	'wgCdnServersNoPurge' => [
 		/** KEEP REGULARLY UPDATED, CloudFlare IP ranges */
 		'default' => [
+			/** Not CloudFlare, just localhost */
+			'127.0.0.1',
 			'103.21.244.0/22',
 			'103.22.200.0/22',
 			'103.31.4.0/22',
