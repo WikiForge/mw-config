@@ -60,11 +60,11 @@ class WikiForgeFunctions {
 
 	public const MEDIAWIKI_VERSIONS = [
 		'alpha' => '1.42',
-		'beta' => '1.41',
+		'beta' => '1.42',
 		// 'legacy' => '',
 		// 'legacy-lts' => '',
 		'lts' => '1.39',
-		'stable' => '1.40',
+		'stable' => '1.41',
 	];
 
 	public const SUFFIXES = [
@@ -107,12 +107,8 @@ class WikiForgeFunctions {
 
 		$wikiFarm ??= self::getWikiFarm();
 
-		// We need the CLI to be able to access 'deleted' wikis
-		if ( PHP_SAPI === 'cli' ) {
-			$databases ??= array_merge( self::readDbListFile( 'databases-' . $wikiFarm ), self::readDbListFile( 'deleted-' . $wikiFarm ) );
-		}
-
-		$databases ??= self::readDbListFile( 'databases-' . $wikiFarm );
+		// We need the CLI *and* web to be able to access 'deleted' wikis
+		$databases ??= array_merge( self::readDbListFile( 'databases-' . $wikiFarm ), self::readDbListFile( 'deleted-' . $wikiFarm ) );
 
 		$wgLocalDatabases = $databases;
 		return $databases;
@@ -629,6 +625,7 @@ class WikiForgeFunctions {
 
 		// Assign states
 		$settings['cwPrivate']['default'] = (bool)$cacheArray['states']['private'];
+		$settings['cwDeleted']['default'] = (bool)$cacheArray['states']['deleted'] ?? false;
 
 		// Assign settings
 		if ( isset( $cacheArray['settings'] ) ) {
