@@ -1018,11 +1018,15 @@ class WikiForgeFunctions {
 	public static function onCreateWikiJsonBuilder( string $wiki, DBConnRef $dbr, array &$jsonArray ) {
 		$row = $dbr->newSelectQueryBuilder()
 			->table( 'cw_wikis' )
-			->fields( [ 'wiki_locked' ] )
+			->fields( [
+				 'wiki_deleted',
+				 'wiki_locked',
+			] )
 			->where( [ 'wiki_dbname' => $wiki ] )
 			->caller( __METHOD__ )
 			->fetchRow();
 
+		$jsonArray['states']['deleted'] = (bool)$row->wiki_deleted;
 		$jsonArray['states']['locked'] = (bool)$row->wiki_locked;
 	}
 
