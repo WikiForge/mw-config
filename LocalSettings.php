@@ -4297,6 +4297,10 @@ if ( $wi->missing ) {
 	require_once '/srv/mediawiki/ErrorPages/MissingWiki.php';
 }
 
+if ( $cwDeleted ) {
+	require_once '/srv/mediawiki/ErrorPages/DeletedWiki.php';
+}
+
 // Define last to avoid all dependencies
 require_once '/srv/mediawiki/config/GlobalSettings.php';
 require_once '/srv/mediawiki/config/LocalWiki.php';
