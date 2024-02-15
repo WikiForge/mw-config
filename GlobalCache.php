@@ -19,7 +19,7 @@ $wgObjectCaches['memcached'] = [
 ];
 
 // Used by WikiForgeMagic for clearing keys when a wiki is deleted or renamed
-$wgWikiForgeMagicMemcachedServer = '10.0.0.106:11211';
+$wgWikiForgeMagicMemcachedServer = '10.0.2.9:11211';
 
 $wgObjectCaches['mysql-multiwrite'] = [
 	'class' => MultiWriteBagOStuff::class,
