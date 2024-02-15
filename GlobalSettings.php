@@ -3,6 +3,7 @@
 $wgSpecialPages['RequestWiki'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWiki::class;
 $wgSpecialPages['RequestWikiQueue'] = WikiForge\WikiForgeMagic\Specials\SpecialRequestPremiumWikiQueue::class;
 
+$wgHooks['CreateWikiJsonBuilder'][] = 'WikiForgeFunctions::onCreateWikiJsonBuilder';
 $wgHooks['CreateWikiJsonGenerateDatabaseList'][] = 'WikiForgeFunctions::onGenerateDatabaseLists';
 $wgHooks['ManageWikiCoreAddFormFields'][] = 'WikiForgeFunctions::onManageWikiCoreAddFormFields';
 $wgHooks['ManageWikiCoreFormSubmission'][] = 'WikiForgeFunctions::onManageWikiCoreFormSubmission';
