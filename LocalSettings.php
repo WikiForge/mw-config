@@ -13,7 +13,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 // Configure PHP request timeouts.
 if ( PHP_SAPI === 'cli' ) {
 	$wgRequestTimeLimit = 0;
-} elseif ( in_array( $_SERVER['HTTP_HOST'] ?? '', [ 'jobrunner21.inside.wf' ] ) ) {
+} elseif ( in_array( $_SERVER['HTTP_HOST'] ?? '', [ 'mwtask21.inside.wf' ] ) ) {
 	$wgRequestTimeLimit = 1200;
 } elseif ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$wgRequestTimeLimit = 200;
