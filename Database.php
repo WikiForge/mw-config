@@ -5,10 +5,10 @@ $wgLBFactoryConf = [
 	'sectionsByDB' => $wi->wikiDBClusters,
 	'sectionLoads' => [
 		'DEFAULT' => [
-			'db1' => 1,
+			'db21' => 1,
 		],
 		'c1' => [
-			'db1' => 1,
+			'db21' => 1,
 		],
 	],
 	'serverTemplate' => [
@@ -23,12 +23,12 @@ $wgLBFactoryConf = [
 		],
 	],
 	'hostsByName' => [
-		'db1' => $wmgDBHostname,
+		'db21' => $wmgDBHostname,
 	],
 	'externalLoads' => [
 		'echo' => [
 			/** where the metawiki database is located */
-			'db1' => 1,
+			'db21' => 1,
 		],
 	],
 	'readOnlyBySection' => [
