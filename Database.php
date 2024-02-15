@@ -23,7 +23,7 @@ $wgLBFactoryConf = [
 		],
 	],
 	'hostsByName' => [
-		'db21' => $wmgDBHostname,
+		'db21' => '10.0.2.6',
 	],
 	'externalLoads' => [
 		'echo' => [
