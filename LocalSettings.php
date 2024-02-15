@@ -53,8 +53,8 @@ require_once '/srv/mediawiki/config/PrivateSettings.php';
 require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
 $wmgUploadHostname = 'static.wikiforge.net';
-$wmgDBHostname = 'db21.inside.wf';
-$wmgRedisHostname = 'jobchron21.inside.wf';
+$wmgDBHostname = 'db1.inside.wf';
+$wmgRedisHostname = 'jobchron1.inside.wf';
 
 $wgConf->settings += [
 	// invalidates user sessions - do not change unless it is an emergency.
