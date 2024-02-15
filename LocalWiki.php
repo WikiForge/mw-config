@@ -21,15 +21,9 @@ switch ( $wi->dbname ) {
 		break;
 	case 'hubwiki':
 		wfLoadExtensions( [
-			'FileStorageMonitor',
 			'ImportDump',
 			'IncidentReporting',
 			'SecurePoll',
 		] );
-
-		$wgFileStorageMonitorAWSBucketName = $wgAWSBucketName;
-		$wgFileStorageMonitorAWSRegion = $wgAWSRegion;
-		$wgFileStorageMonitorAWSAccessKey = $wmgAWSAccessKey;
-		$wgFileStorageMonitorAWSSecretKey = $wmgAWSAccessSecretKey;
 		break;
 }
