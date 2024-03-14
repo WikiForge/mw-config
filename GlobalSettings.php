@@ -52,7 +52,7 @@ if ( $wi->isExtensionActive( 'CirrusSearch' ) ) {
 		'default' => [
 			[
 				'host' => 'opensearch.inside.wf',
-				'port' => 9200,
+				'port' => 443,
 				'transport' => 'Elastica\Transport\Https',
 			],
 		],
