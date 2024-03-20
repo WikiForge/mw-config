@@ -188,14 +188,6 @@ $wgManageWikiExtensions = [
 	],
 
 	// Parser hooks
-	'htmlmetaadntitle' => [
-		'name' => 'AddHTMLMetaAndTitle',
-		'displayname' => 'Add HTML Meta and Title',
-		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Add_HTML_Meta_and_Title',
-		'conflicts' => false,
-		'requires' => [],
-		'section' => 'parserhooks',
-	],
 	'ajaxpoll' => [
 		'name' => 'AJAX Poll',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:AJAXPoll',
@@ -844,6 +836,13 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'section' => 'parserhooks',
 	],
+	'sanecase' => [
+		'name' => 'SaneCase',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:SaneCase',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'parserhooks',
+	],
 	'score' => [
 		'name' => 'Score',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Score',
@@ -857,6 +856,13 @@ $wgManageWikiExtensions = [
 		'conflicts' => false,
 		'requires' => [],
 		'section' => 'parserhooks',
+	],
+	'screenplay' => [
+		'name' => 'Screenplay',
+		'linkPage' => 'https://mediawiki.org/wiki/Extension:Screenplay',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'parserhooks'
 	],
 	'simpletooltip' => [
 		'name' => 'SimpleTooltip',
@@ -2453,13 +2459,6 @@ $wgManageWikiExtensions = [
 		'requires' => [],
 		'section' => 'other',
 	],
-	'mixednamespacesearchsuggestions' => [
-		'name' => 'MixedNamespaceSearchSuggestions',
-		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:MixedNamespaceSearchSuggestions',
-		'conflicts' => false,
-		'requires' => [],
-		'section' => 'other',
-	],
 	'mobilefrontend' => [
 		'name' => 'MobileFrontend',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:MobileFrontend',
@@ -3232,6 +3231,13 @@ $wgManageWikiExtensions = [
 	'universallanguageselector' => [
 		'name' => 'UniversalLanguageSelector',
 		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:UniversalLanguageSelector',
+		'conflicts' => false,
+		'requires' => [],
+		'section' => 'other',
+	],
+	'unlinkedwikibase' => [
+		'name' => 'UnlinkedWikibase',
+		'linkPage' => 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:UnlinkedWikibase',
 		'conflicts' => false,
 		'requires' => [],
 		'section' => 'other',
