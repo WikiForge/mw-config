@@ -126,6 +126,14 @@ class WikiForgeFunctions {
 			return $database;
 		}
 
+		if ( $dblist === 'production' ) {
+			$dblist = 'databases';
+		}
+
+		if ( $dblist === 'deleted-production' ) {
+			$dblist = 'deleted';
+		}
+
 		if ( !file_exists( self::CACHE_DIRECTORY . "/{$dblist}.json" ) ) {
 			$databases = [];
 
@@ -139,7 +147,7 @@ class WikiForgeFunctions {
 			if ( $fromServer ) {
 				$server = $database;
 				$database = '';
-				foreach ( $databasesArray['combi'] ?? $databasesArray['databases'] as $key => $data ) {
+				foreach ( $databasesArray['combi'] as $key => $data ) {
 					if ( isset( $data['u'] ) && $data['u'] === $server ) {
 						$database = $key;
 						break;
@@ -151,22 +159,22 @@ class WikiForgeFunctions {
 				}
 			}
 
-			if ( isset( $databasesArray['combi'][$database] ) || isset( $databasesArray['databases'][$database] ) ) {
-				return $databasesArray['combi'][$database] ?? $databasesArray['databases'][$database];
+			if ( isset( $databasesArray['combi'][$database] ) ) {
+				return $databasesArray['combi'][$database];
 			} else {
 				return '';
 			}
 		} else {
 			global $wgDatabaseClustersMaintenance;
 
-			$databases = $databasesArray['combi'] ?? $databasesArray['databases'] ?? [];
+			$databases = $databasesArray['combi'] ?? [];
 
 			if ( $wgDatabaseClustersMaintenance ) {
 				$databases = array_filter( $databases, static function ( $data, $key ) {
-					global $wgDBname, $wgCommandLineMode, $wgDatabaseClustersMaintenance;
+					global $wgDBname, $wgDatabaseClustersMaintenance;
 
 					if ( $wgDBname && $key === $wgDBname ) {
-						if ( !$wgCommandLineMode && in_array( $data['c'], $wgDatabaseClustersMaintenance ) ) {
+						if ( MW_ENTRY_POINT !== 'cli' && in_array( $data['c'], $wgDatabaseClustersMaintenance ) ) {
 							require_once '/srv/mediawiki/ErrorPages/databaseMaintenance.php';
 						}
 					}
