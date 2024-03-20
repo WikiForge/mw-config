@@ -23,6 +23,7 @@ switch ( $wi->dbname ) {
 		wfLoadExtensions( [
 			'ImportDump',
 			'IncidentReporting',
+			'RequestSSL',
 			'SecurePoll',
 		] );
 		break;
