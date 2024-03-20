@@ -627,6 +627,35 @@ $wgSVGConverters['inkscape'] = '$path/inkscape -w $width -o $output $input';
 $wgScribuntoEngineConf['luasandbox']['memoryLimit'] = 50 * 1024 * 1024;
 $wgScribuntoEngineConf['luasandbox']['cpuLimit'] = 10;
 
+// For Scribunto / wgCodeEditorEnableCore
+$wgULSNoImeSelectors[] = '.ace_editor textarea';
+
+$wgMaxMsgCacheEntrySize = 1024;
+
+$mcpMessageCachePerformanceMsgPrefixes = [
+	'specialpages-specialpagegroup-',
+	'apioutput-view-',
+	'fallback-view-',
+	'anisa-action-',
+	'anisa-view-',
+	'bluesky-action-',
+	'bluesky-view-',
+	'citizen-action-',
+	'citizen-view-',
+	'cologneblue-action-',
+	'cologneblue-view-',
+	'metrolook-action-',
+	'metrolook-view-',
+	'timeless-action-',
+	'timeless-view-',
+	'vector-action-',
+	'vector-view-',
+	'conversion-ns',
+	'tooltip-',
+	'accesskey-',
+	'nstab-'
+];
+
 $wgPoolCounterConf = [
 	'ArticleView' => [
 		'class' => 'PoolCounter_Client',
