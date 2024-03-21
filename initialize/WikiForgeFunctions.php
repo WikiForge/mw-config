@@ -1096,7 +1096,7 @@ class WikiForgeFunctions {
 			'section' => 'main',
 		];
 
-		$wiki = new RemoteWiki( $dbName, $this->getServiceContainer()->get( 'CreateWikiHookRunner' ) );
+		$wiki = new RemoteWiki( $dbName, MediaWikiServices::getInstance()->get( 'CreateWikiHookRunner' ) );
 
 		if ( $permissionManager->userHasRight( $context->getUser(), 'managewiki-core' ) ) {
 			$formDescriptor['plan'] = [
