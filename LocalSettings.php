@@ -1807,8 +1807,8 @@ $wgConf->settings += [
 	],
 	'wgSMTP' => [
 		'default' => [
-			'host' => 'tuesday.mxrouting.net',
-			'port' => 587,
+			'host' => 'smtp.purelymail.com',
+			'port' => 465,
 			'auth' => true,
 			'username' => 'noreply@wikiforge.net',
 			'password' => $wmgSMTPPassword,
