@@ -1459,8 +1459,6 @@ $wgConf->settings += [
 	'wgImportDumpUsersNotifiedOnAllRequests' => [
 		'default' => [
 			'Agent Isai',
-			'Reception123',
-			'Universal Omega',
 		],
 	],
 
@@ -3908,8 +3906,6 @@ $wgConf->settings += [
 	'wgWikiForgeMagicUsersNotifiedOnAllPremiumWikiRequests' => [
 		'wikiforge' => [
 			'Agent Isai',
-			'Reception123',
-			'Universal Omega'
 		],
 	],
 
