@@ -724,7 +724,6 @@ $wgConf->settings += [
 			"$IP/extensions/DataDump/sql/data_dump.sql",
 			"$IP/extensions/Echo/sql/mysql/tables-generated.sql",
 			"$IP/extensions/OAuth/schema/mysql/tables-generated.sql",
-			"$IP/extensions/OATHAuth/sql/mysql/tables-generated.sql",
 		],
 	],
 	'wgCreateWikiStateDays' => [
