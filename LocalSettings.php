@@ -1457,7 +1457,7 @@ $wgConf->settings += [
 	],
 	'wgImportDumpUsersNotifiedOnAllRequests' => [
 		'default' => [
-			'Agent Isai',
+			'Agent',
 		],
 	],
 
@@ -1804,7 +1804,7 @@ $wgConf->settings += [
 	],
 	'wgSMTP' => [
 		'default' => [
-			'host' => 'smtp.purelymail.com',
+			'host' => 'tuesday.mxrouting.net',
 			'port' => 587,
 			'auth' => true,
 			'username' => 'noreply@wikiforge.net',
