@@ -2501,13 +2501,16 @@ $wgConf->settings += [
 		],
 	],
 	'wgOATHRequiredForGroups' => [
-		'hubwiki' => [
+		'default' => [
 			'checkuser',
+		],  
+		'+hubwiki' => [
 			'staff',
 			'suppress',
 		],
-		'wikiforge' => [
-			'checkuser',
+		// #3110739
+		'+1pxlwiki' => [
+			'user',
 		],
 	],
 	// OAuth
