@@ -20,6 +20,7 @@ wfLoadExtensions( [
 	'LoginNotify',
 	'ManageWiki',
 	'MessageCachePerformance',
+	'MultiPurge',
 	'NativeSvgHandler',
 	'Nuke',
 	'OATHAuth',
