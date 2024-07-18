@@ -2430,6 +2430,20 @@ $wgConf->settings += [
 		'default' => false,
 	],
 
+	// MultiPurge
+	'wgMultiPurgeEnabledServices' => [
+		'default' => [
+			'Cloudflare',
+			// 'Varnish',
+		],
+	],
+	'wgMultiPurgeServiceOrder' => [
+		'default' => [
+			'Cloudflare',
+			// 'Varnish',
+		],
+	],
+
 	// MultimediaViewer (not beta)
 	'wgMediaViewerEnableByDefault' => [
 		'default' => true,
