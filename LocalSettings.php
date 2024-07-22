@@ -1804,10 +1804,10 @@ $wgConf->settings += [
 	],
 	'wgSMTP' => [
 		'default' => [
-			'host' => 'tuesday.mxrouting.net',
+			'host' => 'mail21.inside.wf',
 			'port' => 587,
 			'auth' => true,
-			'username' => 'noreply@wikiforge.net',
+			'username' => 'noreply@wikiforge.xyz',
 			'password' => $wmgSMTPPassword,
 		],
 	],
@@ -1821,7 +1821,7 @@ $wgConf->settings += [
 		'default' => false,
 	],
 	'wgEmergencyContact' => [
-		'default' => 'noreply@wikiforge.net',
+		'default' => 'noreply@your.wf',
 	],
 	'wgEnableSpecialMute' => [
 		'default' => true,
@@ -1830,7 +1830,7 @@ $wgConf->settings += [
 		'default' => true,
 	],
 	'wgPasswordSender' => [
-		'default' => 'noreply@wikiforge.net',
+		'default' => 'noreply@your.wf',
 	],
 
 	// ManageWiki
