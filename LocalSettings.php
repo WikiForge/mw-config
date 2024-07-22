@@ -1804,8 +1804,8 @@ $wgConf->settings += [
 	],
 	'wgSMTP' => [
 		'default' => [
-			'host' => 'mail21.inside.wf',
-			'port' => 25,
+			'host' => 'mail.wikiforge.xyz',
+			'port' => 587,
 			'auth' => true,
 			'username' => 'noreply@wikiforge.xyz',
 			'password' => $wmgSMTPPassword,
