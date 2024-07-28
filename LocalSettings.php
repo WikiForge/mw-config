@@ -52,7 +52,7 @@ require_once '/srv/mediawiki/config/PrivateSettings.php';
 // Load global extensions
 require_once '/srv/mediawiki/config/GlobalExtensions.php';
 
-$wmgUploadHostname = 'static.wikiforge.net';
+$wmgUploadHostname = 'user-content.static.wf';
 $wmgDBHostname = 'db21.inside.wf';
 $wmgRedisHostname = 'jobchron21.inside.wf';
 

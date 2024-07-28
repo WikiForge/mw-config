@@ -39,7 +39,7 @@ $wgLockManagers[] = [
 
 $wgGenerateThumbnailOnParse = false;
 $wgUploadThumbnailRenderMethod = 'http';
-$wgUploadThumbnailRenderHttpCustomHost = 'static.wikiforge.net';
+$wgUploadThumbnailRenderHttpCustomHost = 'user-content.static.wf';
 $wgUploadThumbnailRenderHttpCustomDomain = 'swift-lb.wikiforge.net';
 
 $wgThumbnailBuckets = [ 1920 ];

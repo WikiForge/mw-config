@@ -381,7 +381,7 @@ if ( $wi->isExtensionActive( 'EasyTimeline' ) ) {
 // $wgFooterIcons
 if ( (bool)$wmgWikiapiaryFooterPageName ) {
 	$wgFooterIcons['poweredby']['wikiapiary'] = [
-		'src' => 'https://static.wikiforge.net/hubwiki/b/b4/Monitored_by_WikiApiary.png',
+		'src' => 'https://user-content.static.wf/hubwiki/b/b4/Monitored_by_WikiApiary.png',
 		'url' => 'https://wikiapiary.com/wiki/' . str_replace( ' ', '_', $wmgWikiapiaryFooterPageName ),
 		'alt' => 'Monitored by WikiApiary'
 	];
@@ -413,7 +413,7 @@ if ( $wmgEnableSharedUploads && $wmgSharedUploadDBname && in_array( $wmgSharedUp
 		'class' => ForeignDBViaLBRepo::class,
 		'name' => "shared-{$wmgSharedUploadDBname}",
 		'backend' => 'wikiforge-swift',
-		'url' => "https://static.wikiforge.net/{$wmgSharedUploadDBname}",
+		'url' => "https://user-content.static.wf/{$wmgSharedUploadDBname}",
 		'hashLevels' => 2,
 		'thumbScriptUrl' => false,
 		'transformVia404' => true,
